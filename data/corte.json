@@ -1,0 +1,699 @@
+{
+  "corte": "2026-10-30",
+  "regla": "virtual-metrics-v1",
+  "meses": [
+    {
+      "id": "2026-09",
+      "lbl": "Septiembre 2026",
+      "corto": "septiembre",
+      "cert": 1756,
+      "personas": 1709,
+      "ingreso": 34340000,
+      "canal": {
+        "emp": 1103,
+        "par": 653
+      },
+      "activas": 53,
+      "registradas": 203
+    },
+    {
+      "id": "2026-10",
+      "lbl": "Octubre 2026",
+      "corto": "octubre",
+      "cert": 1805,
+      "personas": 1763,
+      "ingreso": 33060000,
+      "canal": {
+        "emp": 1047,
+        "par": 758
+      },
+      "activas": 59,
+      "registradas": 203
+    }
+  ],
+  "precioLista": 20000,
+  "salud": {
+    "total": 67,
+    "comp": [
+      {
+        "n": "Producción",
+        "v": 94,
+        "d": "Octubre 2026 contra octubre 2025: 1.805 contra 1.537, +17,4 %. Se mapea 0–20 % de crecimiento a 50–100 puntos."
+      },
+      {
+        "n": "Reposición",
+        "v": 61,
+        "d": "Certificaciones del mes sobre vencimientos de los próximos 30 días: 1.805 / 1.489 = 1,21. Paridad (1,00) vale 50 puntos."
+      },
+      {
+        "n": "Calidad del dato",
+        "v": 80,
+        "d": "Cinco verificaciones sobre los 157.541 registros, compuestas multiplicativamente. El detalle está más abajo."
+      },
+      {
+        "n": "Diversificación",
+        "v": 33,
+        "d": "Un solo cliente concentra el 33,4 % del canal empresa. Cada punto de concentración descuenta dos puntos del componente."
+      }
+    ]
+  },
+  "yoy": {
+    "acum": {
+      "lbl": "Enero – octubre",
+      "a2026": 16759,
+      "a2025": 15757
+    },
+    "mes": {
+      "lbl": "Octubre",
+      "a2026": 1805,
+      "a2025": 1537
+    }
+  },
+  "venc": {
+    "total": 1489,
+    "emp": 741,
+    "par": 748,
+    "arcos": 313,
+    "arcosActivo": 57,
+    "arcosAntiguo": 256
+  },
+  "calidad": [
+    {
+      "n": "Fechas de certificación mal formadas",
+      "d": "Una fecha que no se puede comparar rompe todo conteo por periodo.",
+      "r": "0 de 157.541 · 0,00 %",
+      "p": 0,
+      "peso": "crítica"
+    },
+    {
+      "n": "Certificaciones sin usuario existente",
+      "d": "Rompe la atribución a empresa y el conteo de personas.",
+      "r": "2 de 157.541 · 0,00 %",
+      "p": 0,
+      "peso": "alta"
+    },
+    {
+      "n": "Empresas duplicadas con actividad",
+      "d": "Agrupar por nombre subcuenta al cliente partido en dos códigos.",
+      "r": "2 grupos de 70 · 2,9 %",
+      "p": 4.7,
+      "peso": "alta"
+    },
+    {
+      "n": "Cursos con precio en cero",
+      "d": "El ingreso del tablero queda por debajo del servicio realmente prestado.",
+      "r": "152 de 1.805 certificaciones · 8,4 %",
+      "p": 12,
+      "peso": "crítica"
+    },
+    {
+      "n": "Cobertura de atribución de origen",
+      "d": "Sin UTM no hay forma de sostener ninguna lectura sobre por dónde llegan los clientes.",
+      "r": "114 de 156.066 usuarios · 0,07 %",
+      "p": 5,
+      "peso": "media"
+    }
+  ],
+  "prioridades": [
+    {
+      "t": "Unificar los dos códigos de Arcos Dorados",
+      "m": "$6.260.000",
+      "b": "313 certificados de Arcos vencen en los próximos 30 días. 256 están en un código antiguo llamado «ARCOS (Disabled) DORADOS (Disabled)» que ningún reporte agrupado por nombre alcanza a ver. Es el 42 % de todos los vencimientos corporativos, invisible.",
+      "f": "Plataforma de formación · requiere decisión de la Dirección sobre cuál código queda"
+    },
+    {
+      "t": "Contactar la cola completa de vencimientos",
+      "m": "$29.780.000",
+      "b": "1.489 certificados vencen antes del 29 de noviembre: 741 con empresa detrás y 748 particulares. El valor a precio de lista es casi el equivalente a un mes entero de operación.",
+      "f": "Comercial · la lista nominal sale del endpoint E2 con la Entrega 1"
+    },
+    {
+      "t": "Fijar el precio del curso de Dislicores",
+      "m": "$3.820.000",
+      "b": "191 certificaciones en dos meses con el curso configurado en cero pesos, y el volumen pasó de 39 a 152 en un mes. Cada mes que sigue así, el ingreso reportado se separa más del servicio prestado.",
+      "f": "Dirección · es una decisión de tarifa, no un defecto técnico"
+    }
+  ],
+  "empresas": [
+    {
+      "codigo": "8ac087",
+      "nombre": "ARCOS DORADOS COLOMBIA S.A.S.",
+      "meses": {
+        "2026-09": 349,
+        "2026-10": 347
+      }
+    },
+    {
+      "codigo": "dad4ef",
+      "nombre": "DISTRIBUIDORA DE VINOS Y LICORES S.A.S.",
+      "meses": {
+        "2026-09": 46,
+        "2026-10": 150
+      }
+    },
+    {
+      "codigo": "603a8e",
+      "nombre": "ROYAL FILMS S.A.S",
+      "meses": {
+        "2026-09": 94,
+        "2026-10": 89
+      }
+    },
+    {
+      "codigo": "cc43d6",
+      "nombre": "Integrativa Agropecuaria S.A.S.",
+      "meses": {
+        "2026-09": 99,
+        "2026-10": 13
+      }
+    },
+    {
+      "codigo": "1f2ad1",
+      "nombre": "Centro Aseo",
+      "meses": {
+        "2026-09": 27,
+        "2026-10": 39
+      }
+    },
+    {
+      "codigo": "444ba5",
+      "nombre": "PRICESMART EL POBLADO",
+      "meses": {
+        "2026-09": 48,
+        "2026-10": 8
+      }
+    },
+    {
+      "codigo": "7016fa",
+      "nombre": "SUCROAL S.A",
+      "meses": {
+        "2026-09": 29,
+        "2026-10": 25
+      }
+    },
+    {
+      "codigo": "2b5b45",
+      "nombre": "Cinépolis",
+      "meses": {
+        "2026-09": 39,
+        "2026-10": 7
+      }
+    },
+    {
+      "codigo": "1ba628",
+      "nombre": "RECISERVICIOS LA COSTA S.A.S",
+      "meses": {
+        "2026-09": 27,
+        "2026-10": 14
+      }
+    },
+    {
+      "codigo": "66accf",
+      "nombre": "FARMACIAS DE SIMILARES COLOMBIA SAS",
+      "meses": {
+        "2026-09": 11,
+        "2026-10": 29
+      }
+    },
+    {
+      "codigo": "23375f",
+      "nombre": "OSYA OCUPACIONAL IPS S.A.S",
+      "meses": {
+        "2026-09": 19,
+        "2026-10": 19
+      }
+    },
+    {
+      "codigo": "1689a7",
+      "nombre": "ECO VIDA INTEGRAL",
+      "meses": {
+        "2026-09": 27,
+        "2026-10": 7
+      }
+    },
+    {
+      "codigo": "99b3d6",
+      "nombre": "SURTIALIADOS SAS",
+      "meses": {
+        "2026-09": 22,
+        "2026-10": 12
+      }
+    },
+    {
+      "codigo": "d4d8c7",
+      "nombre": "OSTI EST SAS",
+      "meses": {
+        "2026-09": 11,
+        "2026-10": 22
+      }
+    },
+    {
+      "codigo": "044787",
+      "nombre": "COMPAÑIA LECHERA DE EL MORTIÑO S.A.S",
+      "meses": {
+        "2026-09": 12,
+        "2026-10": 21
+      }
+    },
+    {
+      "codigo": "564a3b",
+      "nombre": "PUNTO EMPLEO S.A.S.",
+      "meses": {
+        "2026-09": 17,
+        "2026-10": 12
+      }
+    },
+    {
+      "codigo": "4a1320",
+      "nombre": "EMPRESA POWER SERVICES LTDA",
+      "meses": {
+        "2026-09": 19,
+        "2026-10": 9
+      }
+    },
+    {
+      "codigo": "14f27a",
+      "nombre": "GESA Gestiones Administrativas y Talento Humano SAS",
+      "meses": {
+        "2026-09": 13,
+        "2026-10": 14
+      }
+    },
+    {
+      "codigo": "9fec23",
+      "nombre": "SECURICOL SEGURIDAD PRIVADA LIMITADA",
+      "meses": {
+        "2026-09": 25,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "d85ce6",
+      "nombre": "FASALACT SAS",
+      "meses": {
+        "2026-09": 6,
+        "2026-10": 17
+      }
+    },
+    {
+      "codigo": "e1529e",
+      "nombre": "OUTSOURCING SEASIN LIMITADA",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 22
+      }
+    },
+    {
+      "codigo": "d53a9f",
+      "nombre": "DECAMERON CINCO HERRADURAS S.A.S.",
+      "meses": {
+        "2026-09": 5,
+        "2026-10": 16
+      }
+    },
+    {
+      "codigo": "e7c194",
+      "nombre": "VIVE CAFÉ S.A. BIC",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 18
+      }
+    },
+    {
+      "codigo": "9b149c",
+      "nombre": "Produempak EFC",
+      "meses": {
+        "2026-09": 11,
+        "2026-10": 6
+      }
+    },
+    {
+      "codigo": "a6824d",
+      "nombre": "GRUPO EMPRESARIAL PUERTO DE BARRANQUILLA S.A",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 17
+      }
+    },
+    {
+      "codigo": "c57e9b",
+      "nombre": "INVERSIONES RCP SAS",
+      "meses": {
+        "2026-09": 10,
+        "2026-10": 7
+      }
+    },
+    {
+      "codigo": "9a107d",
+      "nombre": "MANEL FOODS S.A.S.",
+      "meses": {
+        "2026-09": 11,
+        "2026-10": 6
+      }
+    },
+    {
+      "codigo": "5a73a4",
+      "nombre": "Bioservicios S.A.S",
+      "meses": {
+        "2026-09": 12,
+        "2026-10": 3
+      }
+    },
+    {
+      "codigo": "ba0a51",
+      "nombre": "SANILAB IPS SAS",
+      "meses": {
+        "2026-09": 9,
+        "2026-10": 4
+      }
+    },
+    {
+      "codigo": "692cd9",
+      "nombre": "DISTRIMARCAS AGENTE COMERCIAL SAS",
+      "meses": {
+        "2026-09": 8,
+        "2026-10": 4
+      }
+    },
+    {
+      "codigo": "2e62ce",
+      "nombre": "PRO-SER COLOMBIA SAS",
+      "meses": {
+        "2026-09": 10,
+        "2026-10": 2
+      }
+    },
+    {
+      "codigo": "4a81fb",
+      "nombre": "Grupo Éxito",
+      "meses": {
+        "2026-09": 7,
+        "2026-10": 4
+      }
+    },
+    {
+      "codigo": "bd17d3",
+      "nombre": "PAPELES Y NEGOCIOS",
+      "meses": {
+        "2026-09": 9,
+        "2026-10": 1
+      }
+    },
+    {
+      "codigo": "04379a",
+      "nombre": "E&D cafés S.A.S.",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 10
+      }
+    },
+    {
+      "codigo": "c4d643",
+      "nombre": "AXDA COLOMBIA SAS",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 10
+      }
+    },
+    {
+      "codigo": "c19b6a",
+      "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
+      "meses": {
+        "2026-09": 4,
+        "2026-10": 5
+      }
+    },
+    {
+      "codigo": "eb8357",
+      "nombre": "LOGISTICA CIRCULAR S.A.S",
+      "meses": {
+        "2026-09": 3,
+        "2026-10": 5
+      }
+    },
+    {
+      "codigo": "7d089c",
+      "nombre": "MERCADOS UNO A",
+      "meses": {
+        "2026-09": 6,
+        "2026-10": 2
+      }
+    },
+    {
+      "codigo": "701bc2",
+      "nombre": "ALMACAFÉ ARMENIA",
+      "meses": {
+        "2026-09": 7,
+        "2026-10": 1
+      }
+    },
+    {
+      "codigo": "b459c8",
+      "nombre": "EMBOTELLADORA CAPRI LTDA",
+      "meses": {
+        "2026-09": 3,
+        "2026-10": 4
+      }
+    },
+    {
+      "codigo": "e76e26",
+      "nombre": "ASTEMPRO LTDA",
+      "meses": {
+        "2026-09": 6,
+        "2026-10": 1
+      }
+    },
+    {
+      "codigo": "be428a",
+      "nombre": "CAMARON PAISA",
+      "meses": {
+        "2026-09": 4,
+        "2026-10": 2
+      }
+    },
+    {
+      "codigo": "c7d780",
+      "nombre": "HARISSA FOODS",
+      "meses": {
+        "2026-09": 1,
+        "2026-10": 5
+      }
+    },
+    {
+      "codigo": "f767b5",
+      "nombre": "COMERCIALIZADORA MALTA SAS",
+      "meses": {
+        "2026-09": 6,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "8340e0",
+      "nombre": "ALADINO SALAS DE JUEGOS",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 5
+      }
+    },
+    {
+      "codigo": "e14b95",
+      "nombre": "COLOMBIA HELADOS SAS",
+      "meses": {
+        "2026-09": 3,
+        "2026-10": 2
+      }
+    },
+    {
+      "codigo": "39a3fe",
+      "nombre": "VICTORIA C SAS",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 5
+      }
+    },
+    {
+      "codigo": "2c6b61",
+      "nombre": "CONSORCIO 1A",
+      "meses": {
+        "2026-09": 5,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "7f6fc3",
+      "nombre": "AMERICAN CHEESE CAKES",
+      "meses": {
+        "2026-09": 1,
+        "2026-10": 3
+      }
+    },
+    {
+      "codigo": "dadd5b",
+      "nombre": "SERVICIOS TEMPORALES DE COLOMBIA — TEMPOCOLBA",
+      "meses": {
+        "2026-09": 2,
+        "2026-10": 2
+      }
+    },
+    {
+      "codigo": "637b9c",
+      "nombre": "ARCOS DORADOS · código antiguo",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 3
+      }
+    },
+    {
+      "codigo": "7b14f4",
+      "nombre": "Dr. Leonardo Palacios",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 3
+      }
+    },
+    {
+      "codigo": "c2779c",
+      "nombre": "ÜMAN TEMPORAL SERVICES SAS",
+      "meses": {
+        "2026-09": 3,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "72a1cc",
+      "nombre": "AGROINDUSTRIAL SAN JOSE S.A. (AGRINSA)",
+      "meses": {
+        "2026-09": 3,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "f3bad2",
+      "nombre": "ALMACAFE — Almacenes Generales de Depósito de Café",
+      "meses": {
+        "2026-09": 3,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "af291e",
+      "nombre": "ASEOS COLOMBIANOS ASEOCOLBA SA",
+      "meses": {
+        "2026-09": 1,
+        "2026-10": 2
+      }
+    },
+    {
+      "codigo": "3e129c",
+      "nombre": "HELADERIA LAS MAS FRESAS",
+      "meses": {
+        "2026-09": 3,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "f6a145",
+      "nombre": "COMERCIALIZADORA DE FRUTAS Y VERDURAS ROMERO Y ROMERO S.A.S.",
+      "meses": {
+        "2026-09": 3,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "0d090b",
+      "nombre": "Integrativa Agropecuaria S.A.S. · código duplicado",
+      "meses": {
+        "2026-09": 1,
+        "2026-10": 1
+      }
+    },
+    {
+      "codigo": "adafe6",
+      "nombre": "CERCAFE Cooperativa de Porcicultores del Eje Cafetero",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 2
+      }
+    },
+    {
+      "codigo": "2ca4f9",
+      "nombre": "R & A FOOD SAS BRAZZEIRO",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 2
+      }
+    },
+    {
+      "codigo": "721afa",
+      "nombre": "U T ZZZ ZOE",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 2
+      }
+    },
+    {
+      "codigo": "63b7c5",
+      "nombre": "FLORIUS S.A.S.",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 2
+      }
+    },
+    {
+      "codigo": "4w32sa",
+      "nombre": "Waytic S.A.S (cuenta interna)",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 1
+      }
+    },
+    {
+      "codigo": "e5a3fc",
+      "nombre": "Mallplaza",
+      "meses": {
+        "2026-09": 1,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "7415b1",
+      "nombre": "RECUPERAR REGIONAL CENTRO",
+      "meses": {
+        "2026-09": 1,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "c777a6",
+      "nombre": "BPM S.A.S (cuenta interna)",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 1
+      }
+    },
+    {
+      "codigo": "ac3f36",
+      "nombre": "HOTEL HILTON GARDEN INN",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 1
+      }
+    },
+    {
+      "codigo": "9626c1",
+      "nombre": "CELEMA CENTRAL LECHERA DE MANIZALES",
+      "meses": {
+        "2026-09": 1,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "af42d4",
+      "nombre": "INVERSIONES PAYSANDU S.A.S",
+      "meses": {
+        "2026-09": 0,
+        "2026-10": 1
+      }
+    }
+  ]
+}

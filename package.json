@@ -1,0 +1,10 @@
+{
+  "name": "tablero-bpm",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Tablero gerencial de BPM Consulting SAS BIC",
+  "scripts": {
+    "start": "npx --yes serve . -l 4321",
+    "validar": "node scripts/validar-corte.mjs"
+  }
+}
