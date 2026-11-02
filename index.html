@@ -85,6 +85,10 @@ h2{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
 .kd{font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums}
 .kd span{color:var(--ink3);font-weight:500}
 .up{color:var(--good)}.dn{color:var(--bad)}.flat{color:var(--ink3)}
+.kp{font-size:11px;color:var(--ink3);margin-top:7px;padding-top:7px;border-top:1px solid var(--border)}
+.kpi.aus{background:var(--card2);border-style:dashed;border-color:var(--border2)}
+.kv.av{color:var(--ink3);font-size:19px;font-weight:600;letter-spacing:0}
+.ps{font-size:11px;color:var(--ink3);border-top:1px dashed var(--border);padding-top:8px;margin-top:2px}
 
 /* ---------- prioridades ---------- */
 .prio{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
@@ -212,6 +216,19 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
       <span class="note" id="kpiNote">Octubre 2026 · variación contra septiembre</span>
     </div>
     <div class="grid kpis" id="kpis"></div>
+    <div class="ausente" style="margin-top:14px">
+      <b>Canal Ingenieros: fuera de estas cifras, a propósito.</b>
+      Todo lo de arriba sale de la plataforma de formación y solo de ella. El canal de
+      trámites de ingenieros entra con la Entrega 1, cuando llegue el acceso de lectura
+      a esa plataforma, y entrará con octubre completo — no con el parcial al 14.
+      <div style="margin-top:9px">
+        Antes de sumarlo hay que resolver una pregunta que levantó la Dirección: si las
+        personas del canal Ingenieros ya están contadas dentro del canal empresa.
+        Si lo están, sumar los dos canales cuenta dos veces a la misma gente —
+        es lo que explicaba la diferencia entre 1.915 y 1.805 en el borrador anterior.
+        <b>Hasta que eso se verifique contra las dos bases, el canal va aparte y no se suma.</b>
+      </div>
+    </div>
   </section>
 
   <!-- ============ 3 · PRIORIDADES ============ -->
@@ -297,8 +314,9 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
         </div>
         <div class="kpi">
           <div class="kl">Empresas con actividad en el mes</div>
-          <div class="kv" id="activas">59</div>
-          <div class="kd"><span>de 203 registradas en la plataforma</span></div>
+          <div class="kv" id="activas">—</div>
+          <div class="kd"><span id="activasD"></span></div>
+          <div class="kp" id="activasP"></div>
         </div>
         <div class="kpi">
           <div class="kl">Empresas que dejaron de certificar</div>
@@ -317,19 +335,18 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
   <!-- ============ 7 · PRECIO ============ -->
   <section>
     <div class="shead"><h2>Servicio prestado sin valor asociado</h2></div>
-    <div class="alert b">
-      <div class="ai">!</div>
+    <div class="alert w">
+      <div class="ai">i</div>
       <div>
-        <b>Hay un curso corporativo configurado en cero pesos, y está creciendo.</b>
-        «Manipulación de alimentos — Bebidas alcohólicas (Dislicores)» registró 39 certificaciones
-        en septiembre y <b style="display:inline">152 en octubre</b>. Son 191 en dos meses:
-        del orden de <b style="display:inline">$3.820.000</b> de servicio prestado que no entra
-        por ninguna parte en el reporte de ingreso. No es un error antiguo que quedó ahí;
-        el volumen se multiplicó por cuatro en un mes.
-        <div style="margin-top:9px;font-size:12.5px;color:var(--ink2)">
-          Decisión que corresponde a la Dirección: fijar la tarifa del curso, o declararlo
-          explícitamente como cortesía comercial para que el tablero lo descuente del ingreso
-          esperado en vez de reportarlo como faltante.
+        <b>191 certificaciones prestadas sin cobro, en dos meses.</b>
+        «Manipulación de alimentos — Bebidas alcohólicas (Dislicores)» quedó configurado
+        en cero pesos por error: 39 certificaciones en septiembre y
+        <b style="display:inline">152 en octubre</b>. La Dirección confirmó que fue un error
+        y que se le asigna tarifa en la plataforma.
+        <div style="margin-top:10px;font-size:12.5px;color:var(--ink2)">
+          Mientras tanto, el tablero las cuenta como <b style="display:inline;color:var(--ink)">servicio prestado sin cobro</b> y las deja fuera del valor del servicio del mes. No aparecen como ingreso
+          en ninguna vista. Una vez asignada la tarifa, los meses anteriores quedan como están:
+          el servicio ya se prestó y no se facturó.
         </div>
       </div>
     </div>
@@ -344,7 +361,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
   <section>
     <div class="shead">
       <h2>Calidad del dato</h2>
-      <span class="note">Cinco verificaciones sobre 157.541 registros de certificación</span>
+      <span class="note">Cinco verificaciones sobre las 157.541 inscripciones de la plataforma</span>
     </div>
     <div class="card">
       <div id="qlist"></div>
@@ -362,7 +379,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
       <div class="ai">i</div>
       <div>
         <b>La plataforma está limpia; el desorden está en las hojas de cálculo.</b>
-        De 157.541 registros de certificación, ninguno tiene la fecha mal formada y solo dos
+        De 157.541 inscripciones, ninguna tiene la fecha de certificación mal formada y solo dos
         apuntan a un usuario que ya no existe. El problema que describió la revisión interna
         del 25 de octubre está en los archivos que se llenan a mano, no en los sistemas.
         Esto cambia dónde conviene invertir el esfuerzo de limpieza.
@@ -470,24 +487,44 @@ function renderSalud(){
 
 /* ------------------------------------------------------ kpi */
 function renderKpis(){
-  const m=CORTE.meses[MES], p=CORTE.meses[MES-1];
-  const tk=x=>x.ingreso/x.personas;
+  const m=CORTE.meses[MES], p=MES>0?CORTE.meses[MES-1]:null;
+  const vpp=x=>x.ingreso/x.personas;
+  const ant=fn=>p?fn(p)+' el mes anterior':'';
+
   const filas=[
-    ['Certificaciones del mes', nf(m.cert), p&&m.cert/p.cert-1, p&&nf(p.cert)+' el mes anterior'],
-    ['Personas distintas certificadas', nf(m.personas), p&&m.personas/p.personas-1, p&&nf(p.personas)+' el mes anterior'],
-    ['Ingreso a precio de lista', cop(m.ingreso), p&&m.ingreso/p.ingreso-1, p&&cop(p.ingreso)+' el mes anterior'],
-    ['Ticket promedio por persona', cop(tk(m)), p&&tk(m)/tk(p)-1, p&&cop(tk(p))+' el mes anterior'],
-    ['Canal empresa', nf(m.canal.emp), p&&m.canal.emp/p.canal.emp-1, pc(m.canal.emp/m.cert*100)+' del mes'],
-    ['Canal particular', nf(m.canal.par), p&&m.canal.par/p.canal.par-1, pc(m.canal.par/m.cert*100)+' del mes']
+    {l:'Certificaciones del mes', v:nf(m.cert),
+     d:p&&m.cert/p.cert-1, s:ant(x=>nf(x.cert))},
+    {l:'Personas distintas certificadas', v:nf(m.personas),
+     d:p&&m.personas/p.personas-1, s:ant(x=>nf(x.personas))},
+    {l:'Ingreso del mes · ventas pagadas', ausente:true,
+     s:'Lo produce BPM. El tablero lo lee, no lo calcula. Pendiente del cruce con Siigo.'},
+    {l:'Valor del servicio prestado', v:cop(m.ingreso),
+     d:p&&m.ingreso/p.ingreso-1, s:ant(x=>cop(x.ingreso)),
+     pie:'A tarifa de la plataforma. No es facturación.'},
+    {l:'Valor promedio por persona', v:cop(vpp(m)),
+     d:p&&vpp(m)/vpp(p)-1, s:ant(x=>cop(vpp(x))),
+     pie:'Sobre el valor del servicio, no sobre ventas pagadas.'},
+    {l:'Canal empresa', v:nf(m.canal.emp),
+     d:p&&m.canal.emp/p.canal.emp-1, s:pc(m.canal.emp/m.cert*100)+' del mes'},
+    {l:'Canal particular', v:nf(m.canal.par),
+     d:p&&m.canal.par/p.canal.par-1, s:pc(m.canal.par/m.cert*100)+' del mes'}
   ];
-  $('kpis').innerHTML=filas.map(([l,v,d,sub])=>{
-    let dh='<span>sin mes anterior en este corte</span>';
-    if(d!==false&&d!==null&&d!==undefined&&isFinite(d)){
-      const q=d*100, cl=Math.abs(q)<0.05?'flat':(q>0?'up':'dn'), sg=q>0?'+':'';
-      dh=`<span class="${cl}">${sg}${pc(q)}</span> &nbsp;<span>${esc(sub||'')}</span>`;
+
+  $('kpis').innerHTML=filas.map(f=>{
+    if(f.ausente){
+      return `<div class="kpi aus"><div class="kl">${esc(f.l)}</div>
+        <div class="kv av">sin dato</div><div class="kd"><span>${esc(f.s)}</span></div></div>`;
     }
-    return `<div class="kpi"><div class="kl">${esc(l)}</div><div class="kv">${v}</div><div class="kd">${dh}</div></div>`;
+    let dh='<span>sin mes anterior en este corte</span>';
+    if(f.d!==false&&f.d!==null&&f.d!==undefined&&isFinite(f.d)){
+      const q=f.d*100, cl=Math.abs(q)<0.05?'flat':(q>0?'up':'dn'), sg=q>0?'+':'';
+      dh=`<span class="${cl}">${sg}${pc(q)}</span> &nbsp;<span>${esc(f.s||'')}</span>`;
+    }
+    const pie=f.pie?`<div class="kp">${esc(f.pie)}</div>`:'';
+    return `<div class="kpi"><div class="kl">${esc(f.l)}</div>
+      <div class="kv">${f.v}</div><div class="kd">${dh}</div>${pie}</div>`;
   }).join('');
+
   $('kpiNote').textContent=m.lbl+(p?' · variación contra '+p.corto:' · primer mes del corte');
 }
 
@@ -498,6 +535,7 @@ function renderPrio(){
       <div class="pn">Prioridad ${i+1}</div>
       <div class="pt">${esc(p.t)}</div>
       <div class="pm">${esc(p.m)}</div>
+      ${p.supuesto?`<div class="ps">${esc(p.supuesto)}</div>`:''}
       <div class="pb">${esc(p.b)}</div>
       <div class="pf">${esc(p.f)}</div>
     </div>`).join('');
@@ -571,11 +609,13 @@ function renderEmp(){
   const g=mk(s,'g',{});
   top.forEach((e,i)=>{
     const v=cnt(e,id), y=i*rowH+3, h=16, w=Math.max(3,v/max*bwMax);
-    const nom=e.nombre.length>36?e.nombre.slice(0,34)+'…':e.nombre;
+    let nom=e.nombre.length>36?e.nombre.slice(0,34)+'…':e.nombre;
+    if(e.codigos) nom='▣ '+nom;
     mk(g,'text',{x:lw-10,y:y+h-3.5,'text-anchor':'end',class:'ax'}).textContent=nom;
     const bar=barH(g,lw,y,w,h,i<3?'var(--r3)':'var(--r2)');
+    const cods=e.codigos?e.codigos.join(' + ')+' (unificados)':e.codigo;
     bindTip(bar,`<b>${esc(e.nombre)}</b>${nf(v)} certificaciones en ${esc(m.corto)}<br>`+
-      `código ${esc(e.codigo)} · ${pc(v/m.canal.emp*100)} del canal empresa`,g);
+      `código ${esc(cods)} · ${pc(v/m.canal.emp*100)} del canal empresa`,g);
     mk(g,'text',{x:lw+w+8,y:y+h-3.5,class:'vl'}).textContent=nf(v);
   });
 
@@ -584,6 +624,10 @@ function renderEmp(){
     pc(top.reduce((a,e)=>a+cnt(e,id),0)/m.canal.emp*100)+' del canal empresa.';
   $('conc').textContent=pc(arcos/m.canal.emp*100);
   $('activas').textContent=nf(m.activas);
+  $('activasD').textContent=`de ${nf(m.registradas)} registradas en la plataforma`;
+  $('activasP').textContent=(m.activasCodigos&&m.activasCodigos!==m.activas)
+    ? `La plataforma reporta ${nf(m.activasCodigos)}: cuenta códigos, no empresas. `+
+      `Aquí los códigos duplicados ya están unificados.` : '';
   $('empNote').textContent=m.lbl;
 
   if(!prev){
@@ -613,7 +657,9 @@ function renderEmp(){
         if(a>0){ const d=(b/a-1)*100; dh=(d>0?'+':'')+pc(d,0); cl=d>0?'up':(d<0?'dn':'flat'); }
         else if(b>0){ dh='nueva'; }
       }
-      return `<tr><td>${esc(e.nombre)}</td><td style="color:var(--ink3)">${esc(e.codigo)}</td>`+
+      const cods=e.codigos?e.codigos.join(' + '):e.codigo;
+      const marca=e.codigos?' <span style="color:var(--s2)">·unificada</span>':'';
+      return `<tr><td>${esc(e.nombre)}${marca}</td><td style="color:var(--ink3)">${esc(cods)}</td>`+
              `${celdas}<td class="n ${cl}">${dh}</td></tr>`;
     }).join('')}</tbody></table>`;
 }

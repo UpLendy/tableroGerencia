@@ -13,8 +13,11 @@
         "emp": 1103,
         "par": 653
       },
-      "activas": 53,
-      "registradas": 203
+      "activas": 52,
+      "registradas": 203,
+      "ingresoBPM": null,
+      "servicioSinCobro": 39,
+      "activasCodigos": 53
     },
     {
       "id": "2026-10",
@@ -27,8 +30,11 @@
         "emp": 1047,
         "par": 758
       },
-      "activas": 59,
-      "registradas": 203
+      "activas": 57,
+      "registradas": 203,
+      "ingresoBPM": null,
+      "servicioSinCobro": 152,
+      "activasCodigos": 59
     }
   ],
   "precioLista": 20000,
@@ -48,7 +54,7 @@
       {
         "n": "Calidad del dato",
         "v": 80,
-        "d": "Cinco verificaciones sobre los 157.541 registros, compuestas multiplicativamente. El detalle está más abajo."
+        "d": "Cinco verificaciones sobre las 157.541 inscripciones de la plataforma, compuestas multiplicativamente. El detalle está más abajo."
       },
       {
         "n": "Diversificación",
@@ -81,14 +87,14 @@
     {
       "n": "Fechas de certificación mal formadas",
       "d": "Una fecha que no se puede comparar rompe todo conteo por periodo.",
-      "r": "0 de 157.541 · 0,00 %",
+      "r": "0 de 157.541 inscripciones · 0,00 %",
       "p": 0,
       "peso": "crítica"
     },
     {
       "n": "Certificaciones sin usuario existente",
       "d": "Rompe la atribución a empresa y el conteo de personas.",
-      "r": "2 de 157.541 · 0,00 %",
+      "r": "2 de 157.541 inscripciones · 0,00 %",
       "p": 0,
       "peso": "alta"
     },
@@ -116,31 +122,39 @@
   ],
   "prioridades": [
     {
-      "t": "Unificar los dos códigos de Arcos Dorados",
-      "m": "$6.260.000",
-      "b": "313 certificados de Arcos vencen en los próximos 30 días. 256 están en un código antiguo llamado «ARCOS (Disabled) DORADOS (Disabled)» que ningún reporte agrupado por nombre alcanza a ver. Es el 42 % de todos los vencimientos corporativos, invisible.",
-      "f": "Plataforma de formación · requiere decisión de la Dirección sobre cuál código queda"
+      "t": "Unificar los dos códigos de Arcos en la plataforma",
+      "m": "$5.732.842",
+      "b": "313 certificados de Arcos vencen en los próximos 30 días. 256 están en un código antiguo llamado «ARCOS (Disabled) DORADOS (Disabled)». Este tablero ya los muestra unificados, pero la plataforma sigue partiéndolos: cualquier otro reporte agrupado por nombre subcuenta la cuenta más grande del negocio por un factor de cinco.",
+      "f": "Plataforma de formación · la Dirección ya pidió unificarlos; falta hacerlo en el origen",
+      "supuesto": "Valorado a $18.316, el precio medio observado en octubre ($33.060.000 entre 1.805 certificaciones). La mezcla real de cursos de esta cola la entrega el endpoint E2."
     },
     {
       "t": "Contactar la cola completa de vencimientos",
-      "m": "$29.780.000",
-      "b": "1.489 certificados vencen antes del 29 de noviembre: 741 con empresa detrás y 748 particulares. El valor a precio de lista es casi el equivalente a un mes entero de operación.",
-      "f": "Comercial · la lista nominal sale del endpoint E2 con la Entrega 1"
+      "m": "$27.272.211",
+      "b": "1.489 certificados vencen antes del 29 de noviembre: 741 con empresa detrás y 748 particulares. Es del orden de lo que vale un mes completo de servicio prestado.",
+      "f": "Comercial · la lista nominal y la mezcla de cursos salen del endpoint E2, con la Entrega 1",
+      "supuesto": "Valorado a $18.316, el precio medio observado en octubre ($33.060.000 entre 1.805 certificaciones). La mezcla real de cursos de esta cola la entrega el endpoint E2."
     },
     {
-      "t": "Fijar el precio del curso de Dislicores",
-      "m": "$3.820.000",
-      "b": "191 certificaciones en dos meses con el curso configurado en cero pesos, y el volumen pasó de 39 a 152 en un mes. Cada mes que sigue así, el ingreso reportado se separa más del servicio prestado.",
-      "f": "Dirección · es una decisión de tarifa, no un defecto técnico"
+      "t": "Asignar la tarifa de Dislicores en la plataforma",
+      "m": "$3.498.316",
+      "b": "191 certificaciones en dos meses con el curso en cero pesos, y el volumen pasó de 39 a 152 en un mes. La Dirección confirmó que fue un error, no una cortesía. Mientras no tenga tarifa, cada mes se presta más servicio que no entra por ninguna parte.",
+      "f": "Plataforma de formación · decisión ya tomada por la Dirección; falta ejecutarla",
+      "supuesto": "Valorado a la tarifa media observada, porque la tarifa propia del curso todavía no existe: se configuró en cero por error. La cifra real depende de la tarifa que se le asigne."
     }
   ],
   "empresas": [
     {
       "codigo": "8ac087",
+      "codigos": [
+        "8ac087",
+        "637b9c"
+      ],
+      "unificada": true,
       "nombre": "ARCOS DORADOS COLOMBIA S.A.S.",
       "meses": {
         "2026-09": 349,
-        "2026-10": 347
+        "2026-10": 350
       }
     },
     {
@@ -161,10 +175,15 @@
     },
     {
       "codigo": "cc43d6",
+      "codigos": [
+        "cc43d6",
+        "0d090b"
+      ],
+      "unificada": true,
       "nombre": "Integrativa Agropecuaria S.A.S.",
       "meses": {
-        "2026-09": 99,
-        "2026-10": 13
+        "2026-09": 100,
+        "2026-10": 14
       }
     },
     {
@@ -536,14 +555,6 @@
       }
     },
     {
-      "codigo": "637b9c",
-      "nombre": "ARCOS DORADOS · código antiguo",
-      "meses": {
-        "2026-09": 0,
-        "2026-10": 3
-      }
-    },
-    {
       "codigo": "7b14f4",
       "nombre": "Dr. Leonardo Palacios",
       "meses": {
@@ -597,14 +608,6 @@
       "meses": {
         "2026-09": 3,
         "2026-10": 0
-      }
-    },
-    {
-      "codigo": "0d090b",
-      "nombre": "Integrativa Agropecuaria S.A.S. · código duplicado",
-      "meses": {
-        "2026-09": 1,
-        "2026-10": 1
       }
     },
     {
@@ -695,5 +698,10 @@
         "2026-10": 1
       }
     }
-  ]
+  ],
+  "precioMedioObservado": 18316,
+  "universo": {
+    "inscripciones": 157541,
+    "nota": "Registros de inscripción a un curso. Las certificaciones son el subconjunto con avance completo y pago confirmado."
+  }
 }
