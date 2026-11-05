@@ -40,7 +40,7 @@ function armarMes(cert, emp) {
     canal: { emp: d.por_canal.empresa, par: d.por_canal.particular },
     activasCodigos: e ? e.activas : null,   // lo que reporta la plataforma
     activas: null,                          // se completa tras unificar
-    registradas: null,
+    registradas: null,                      // se completa desde calidad-dato
     nuevas: e ? e.nuevas : null,
     retomadas: e ? e.retomadas : null,
   };
@@ -188,6 +188,15 @@ export function armarCorte(m, narrativa = {}) {
   for (const mes of meses) {
     mes.activas = empresas.filter((e) => Number(e.meses[mes.id] || 0) > 0).length;
   }
+
+  /* Cuántas empresas hay registradas en total. La API no lo expone como tal,
+     pero es el universo de las verificaciones de empresa del endpoint de
+     calidad. Si cambian esas claves, queda en null y el tablero lo declara
+     ausente en vez de inventar un denominador. */
+  const vEmpresa = (m['calidad-dato'].datos.verificaciones || [])
+    .find((v) => v.clave === 'codigo_empresa_duplicado' || v.clave === 'empresa_duplicada_por_nombre');
+  const registradas = vEmpresa ? Number(vEmpresa.universo) : null;
+  for (const mes of meses) mes.registradas = registradas;
 
   const ult = meses[meses.length - 1];
   const totalEmp = ult.canal.emp || 1;

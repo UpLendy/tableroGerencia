@@ -87,6 +87,16 @@ h2{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
 .up{color:var(--good)}.dn{color:var(--bad)}.flat{color:var(--ink3)}
 .kp{font-size:11px;color:var(--ink3);margin-top:7px;padding-top:7px;border-top:1px solid var(--border)}
 .kpi.aus{background:var(--card2);border-style:dashed;border-color:var(--border2)}
+.fnt{font-size:11.5px;padding:6px 11px;border-radius:8px;max-width:420px;line-height:1.4}
+.fnt.warn{background:var(--warnbg);border:1px solid var(--warn);color:var(--ink)}
+.fnt.bad{background:var(--badbg);border:1px solid var(--bad);color:var(--ink)}
+.seg button .pz{display:block;font-size:8.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;opacity:.75;margin-top:1px}
+body.cargandoPeriodo #contenido{opacity:.45;pointer-events:none;transition:opacity .15s}
+.parcial{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--warn);background:var(--warnbg);
+  border:1px solid var(--warn);border-radius:5px;padding:1px 7px;vertical-align:2px;margin-left:7px}
+.hoy{display:inline-block;font-size:10.5px;font-weight:600;color:var(--ink3);margin-left:7px}
 .kv.av{color:var(--ink3);font-size:19px;font-weight:600;letter-spacing:0}
 .ps{font-size:11px;color:var(--ink3);border-top:1px dashed var(--border);padding-top:8px;margin-top:2px}
 
@@ -178,6 +188,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     </div>
     <div class="ctrl">
       <div class="seg" id="selMes" role="group" aria-label="Periodo"></div>
+      <div id="fuenteAviso" class="fnt" hidden></div>
       <button class="ghost" onclick="toggleTema()">Tema</button>
     </div>
   </div>
@@ -256,17 +267,8 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
       <div class="chartcard">
         <div class="ct">Dónde están concentrados</div>
         <div class="cs">Un solo cliente concentra el 42 % de los vencimientos corporativos</div>
-        <div class="ausente" style="margin-bottom:0">
-          <b>Apertura semana por semana: pendiente.</b>
-          El desglose por ventana de siete días lo produce el endpoint <code>E2 · vencimientos</code>,
-          que entra con la Entrega 1 del 6 de noviembre. No se muestra en cero porque el dato
-          no es cero: todavía no está consultado.
-        </div>
-        <div style="margin-top:13px;font-size:12.5px;color:var(--ink2)">
-          Lo que sí está verificado: <b style="color:var(--ink)">313</b> de esos vencimientos
-          son de Arcos Dorados, repartidos entre dos códigos de empresa
-          (<b style="color:var(--ink)">57</b> en el activo y <b style="color:var(--ink)">256</b> en uno antiguo).
-        </div>
+        <svg id="svgSemanas" viewBox="0 0 440 170" aria-label="Vencimientos por semana"></svg>
+        <div id="vencNota" style="margin-top:13px;font-size:12.5px;color:var(--ink2)"></div>
       </div>
     </div>
   </section>
@@ -275,21 +277,44 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
   <section>
     <div class="shead"><h2>Comparativo contra el año pasado</h2></div>
     <div class="chartcard">
-      <div class="ct">El negocio crece, y crece más rápido en el último mes</div>
+      <div class="ct" id="yoyT">Comparativo contra el año anterior</div>
       <div class="cs">Certificaciones pagadas y completadas · regla histórica, sin filtro de vigencia ·
         <b style="color:var(--ink2)">cada panel tiene su propia escala</b>, porque un acumulado de diez meses
         y un mes suelto no se pueden poner en el mismo eje</div>
-      <div class="legend">
-        <span><i style="background:var(--s1)"></i>2026</span>
-        <span><i style="background:var(--s2)"></i>2025</span>
+      <div class="legend" id="yoyLeyenda">
+        <span><i style="background:var(--s1)"></i>Este año</span>
+        <span><i style="background:var(--s2)"></i>Año anterior</span>
       </div>
-      <svg id="svgYoy" style="max-width:760px;margin:0 auto" viewBox="0 0 634 215" aria-label="Comparativo 2026 contra 2025"></svg>
-      <div class="ausente" style="margin-top:16px">
-        <b>Serie mes a mes: pendiente.</b>
-        Las doce barras mensuales las produce el endpoint <code>E1 · serie</code>, de la Entrega 1.
-        Hoy el tablero tiene el acumulado y el último mes, que es lo que se consultó.
+      <div id="yoyCaja"><svg id="svgYoy" style="max-width:760px;margin:0 auto" viewBox="0 0 634 215" aria-label="Comparativo contra el año anterior"></svg></div>
+      <div id="yoyAusente" class="ausente" style="margin-top:16px" hidden>
+        <b>Comparativo contra el año anterior: sin base suficiente.</b>
+        Para comparar hace falta que la serie cubra los mismos meses de los dos años.
+        Si no, el año anterior sale truncado y el crecimiento aparenta ser enorme.
       </div>
     </div>
+  </section>
+
+  <!-- ============ 5b · SERIE ============ -->
+  <section>
+    <div class="shead">
+      <h2>Cómo viene el año</h2>
+      <span class="note">Certificaciones por mes · regla histórica, sin filtro de vigencia</span>
+    </div>
+    <div class="chartcard">
+      <div class="ct" id="serieT"></div>
+      <div class="cs" id="serieS"></div>
+      <svg id="svgSerie" viewBox="0 0 900 260" aria-label="Certificaciones por mes"></svg>
+    </div>
+  </section>
+
+  <!-- ============ 5c · RECOMPRA ============ -->
+  <section>
+    <div class="shead">
+      <h2>Recompra</h2>
+      <span class="note" id="recNote"></span>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))" id="recKpis"></div>
+    <div id="recAviso" style="margin-top:14px"></div>
   </section>
 
   <!-- ============ 6 · EMPRESAS ============ -->
@@ -418,14 +443,19 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
 <script>
 /* ======================================================================
    FUENTE DE DATOS
-   Hoy  : data/corte.json · un archivo del repositorio, una línea por cifra.
-   Mañana: la respuesta de /api/v1/metrics — se cambia esta sola constante
-           y el resto del tablero no se entera.
+
+   Primero /api/corte, que consulta la plataforma en vivo del lado del
+   servidor. Si no responde, se cae al último corte publicado en el
+   repositorio y el tablero lo dice en pantalla: vale más un dato con
+   fecha que una pantalla en blanco.
    ====================================================================== */
-const FUENTE = 'data/corte.json';
+const API      = '/api/corte';
+const RESPALDO = 'data/corte.json';
 
 let CORTE = null;
 let EMPRESAS = [];
+let PERIODO = null;          // YYYY-MM que se está mirando
+const CACHE = new Map();     // periodo -> corte ya traído
 
 /* ------------------------------------------------------ utilidades */
 const $=id=>document.getElementById(id);
@@ -489,18 +519,34 @@ function renderSalud(){
 function renderKpis(){
   const m=CORTE.meses[MES], p=MES>0?CORTE.meses[MES-1]:null;
   const vpp=x=>x.ingreso/x.personas;
+  const par=parcialidad(m.id);
   const ant=fn=>p?fn(p)+' el mes anterior':'';
+
+  /* Un mes a medias no se compara contra uno completo: se vería como un
+     desplome que no existe. Se compara el ritmo diario, que sí es comparable. */
+  const porDia=(x,id)=>{
+    const pr=parcialidad(id);
+    const dias=pr?pr.dias:new Date(Date.UTC(+id.slice(0,4), +id.slice(5,7), 0)).getUTCDate();
+    return x/dias;
+  };
+  const cmp=(campo)=>{
+    if(!p) return null;
+    return par ? porDia(m[campo],m.id)/porDia(p[campo],p.id)-1
+               : m[campo]/p[campo]-1;
+  };
+  const pie=(txt)=>par?('Ritmo diario comparado, no el total: '+m.corto+' va por '+
+      par.dias+' de '+par.total+' días.'):txt;
 
   const filas=[
     {l:'Certificaciones del mes', v:nf(m.cert),
-     d:p&&m.cert/p.cert-1, s:ant(x=>nf(x.cert))},
+     d:cmp('cert'), s:ant(x=>nf(x.cert)), pie:pie()},
     {l:'Personas distintas certificadas', v:nf(m.personas),
-     d:p&&m.personas/p.personas-1, s:ant(x=>nf(x.personas))},
+     d:cmp('personas'), s:ant(x=>nf(x.personas)), pie:pie()},
     {l:'Ingreso del mes · ventas pagadas', ausente:true,
      s:'Lo produce BPM. El tablero lo lee, no lo calcula. Pendiente del cruce con Siigo.'},
     {l:'Valor del servicio prestado', v:cop(m.ingreso),
-     d:p&&m.ingreso/p.ingreso-1, s:ant(x=>cop(x.ingreso)),
-     pie:'A tarifa de la plataforma. No es facturación.'},
+     d:cmp('ingreso'), s:ant(x=>cop(x.ingreso)),
+     pie:pie('A tarifa vigente de la plataforma. No es facturación.')},
     {l:'Valor promedio por persona', v:cop(vpp(m)),
      d:p&&vpp(m)/vpp(p)-1, s:ant(x=>cop(vpp(x))),
      pie:'Sobre el valor del servicio, no sobre ventas pagadas.'},
@@ -525,12 +571,23 @@ function renderKpis(){
       <div class="kv">${f.v}</div><div class="kd">${dh}</div>${pie}</div>`;
   }).join('');
 
-  $('kpiNote').textContent=m.lbl+(p?' · variación contra '+p.corto:' · primer mes del corte');
+  $('kpiNote').innerHTML = esc(m.lbl) +
+    (par ? `<span class="parcial">parcial · ${par.dias} de ${par.total} días</span>` : '') +
+    (p ? ` · ${par?'ritmo diario':'variación'} contra ${esc(p.corto)}` : ' · primer mes del corte');
 }
 
 /* ------------------------------------------------------ prioridades */
 function renderPrio(){
-  $('prio').innerHTML=CORTE.prioridades.map((p,i)=>`
+  const lista=Array.isArray(CORTE.prioridades)?CORTE.prioridades:[];
+  if(!lista.length){
+    $('prio').innerHTML='<div class="ausente" style="grid-column:1/-1">'+
+      '<b>Las decisiones de la semana las escribe una persona.</b> '+
+      'El tablero trae los hechos; cuáles son las tres cosas que hay que hacer con ellos '+
+      'es un juicio, y se redacta en <code>data/narrativa.json</code>. '+
+      'No se generan solas para que nadie firme una prioridad que nadie leyó.</div>';
+    return;
+  }
+  $('prio').innerHTML=lista.map((p,i)=>`
     <div class="pc">
       <div class="pn">Prioridad ${i+1}</div>
       <div class="pt">${esc(p.t)}</div>
@@ -552,28 +609,42 @@ function renderVenc(){
   datos.forEach((d,i)=>{
     const h=Math.max(3,d[1]/max*alto), x=x0+i*(bw+gap);
     const b=barV(g,x,base-h,bw,h,d[2]);
-    bindTip(b,`<b>${esc(d[0])}</b>${nf(d[1])} certificados · ${pc(d[1]/v.total*100)} del total<br>${cop(d[1]*CORTE.precioLista)} a precio de lista`,g);
+    bindTip(b,`<b>${esc(d[0])}</b>${nf(d[1])} certificados · ${pc(d[1]/v.total*100)} del total<br>${cop(d[1]*CORTE.precioMedioObservado)} a la tarifa media observada`,g);
     mk(g,'text',{x:x+bw/2,y:base-h-9,'text-anchor':'middle',class:'vl'}).textContent=nf(d[1]);
     mk(g,'text',{x:x+bw/2,y:base+17,'text-anchor':'middle',class:'ax'}).textContent=i?'Particulares':'Con empresa';
     mk(g,'text',{x:x+bw/2,y:base+32,'text-anchor':'middle',class:'ax'}).textContent=pc(d[1]/v.total*100);
   });
   mk(s,'line',{x1:x0-14,y1:base,x2:x0+bw*2+gap+14,y2:base,class:'gl'});
+  renderVencSemanas();
 }
 
 /* ------------------------------------------------------ comparativo */
 function renderYoy(){
   const s=$('svgYoy'); s.innerHTML='';
-  const y=CORTE.yoy, base=150, alto=104;
-  const grupos=[
-    {lbl:y.acum.lbl, sub:'acumulado del año', a:y.acum.a2026, b:y.acum.a2025},
-    {lbl:y.mes.lbl,  sub:'último mes cerrado', a:y.mes.a2026,  b:y.mes.a2025}
-  ];
+  const y=CORTE.yoy||{}, base=150, alto=104;
+  const grupos=[];
+  if(y.acum) grupos.push({lbl:y.acum.lbl, sub:'acumulado del año', a:y.acum.a2026, b:y.acum.a2025});
+  if(y.mes)  grupos.push({lbl:y.mes.lbl,  sub:'mismo mes del año anterior', a:y.mes.a2026, b:y.mes.a2025});
+  const hay = grupos.length>0;
+  $('yoyAusente').hidden = hay;
+  $('yoyCaja').hidden    = !hay;
+  $('yoyLeyenda').hidden = !hay;
+  if(hay){
+    const a=CORTE.meses[MES].cert, b=(y.mes&&y.mes.a2025)||0;
+    $('yoyT').textContent = b
+      ? (a>b ? 'El negocio crece contra el año pasado' : 'El negocio cede contra el año pasado')
+      : 'Comparativo contra el año anterior';
+  } else {
+    $('yoyT').textContent = 'Comparativo contra el año anterior';
+  }
+  if(!hay) return;
+  const anioAct=Number(CORTE.meses[MES].id.slice(0,4));
   const bw=96, gapIn=12, panW=300, x0=32;
   const g=mk(s,'g',{});
   grupos.forEach((gr,i)=>{
     const cx=x0+i*(panW+56);
     const mx=Math.max(gr.a,gr.b);
-    [['2026',gr.a,'var(--s1)'],['2025',gr.b,'var(--s2)']].forEach((d,j)=>{
+    [[String(anioAct),gr.a,'var(--s1)'],[String(anioAct-1),gr.b,'var(--s2)']].forEach((d,j)=>{
       const h=Math.max(3,d[1]/mx*alto);
       const x=cx+j*(bw+gapIn);
       const bar=barV(g,x,base-h,bw,h,d[2]);
@@ -669,6 +740,120 @@ function verTabla(b){
   b.textContent=t.hidden?`Ver las ${EMPRESAS.length} como tabla`:'Ocultar la tabla';
 }
 
+/* ------------------------------------------------------ semanas */
+function renderVencSemanas(){
+  const sv=$('svgSemanas'); sv.innerHTML='';
+  const sem=(CORTE.venc.por_semana)||[];
+  if(!sem.length){ $('vencNota').textContent=''; return; }
+
+  const W=440, base=124, alto=92, max=Math.max(...sem.map(x=>x.vencen));
+  const bw=Math.min(62, (W-40)/sem.length-10), gap=10;
+  const x0=(W-(bw*sem.length+gap*(sem.length-1)))/2;
+  const g=mk(sv,'g',{});
+
+  sem.forEach((x,i)=>{
+    const h=Math.max(3,x.vencen/max*alto), px=x0+i*(bw+gap);
+    const esPico = x.vencen===max;
+    const b=barV(g,px,base-h,bw,h,esPico?'var(--s2)':'var(--r3)');
+    bindTip(b,`<b>Semana ${esc(x.semana)}</b>${nf(x.vencen)} certificados vencen<br>`+
+      `${pc(x.vencen/CORTE.venc.total*100)} de la cola · ${cop(x.vencen*CORTE.precioMedioObservado)}`,g);
+    mk(g,'text',{x:px+bw/2,y:base-h-8,'text-anchor':'middle',class:'vl'}).textContent=nf(x.vencen);
+    const t=mk(g,'text',{x:px+bw/2,y:base+16,'text-anchor':'middle',class:'ax'});
+    t.textContent=x.semana.replace(/^\d{4}-W/,'sem ');
+  });
+  mk(sv,'line',{x1:x0-10,y1:base,x2:x0+bw*sem.length+gap*(sem.length-1)+10,y2:base,class:'gl'});
+
+  const pico=sem.reduce((a,b)=>b.vencen>a.vencen?b:a);
+  const arcos=(CORTE.venc.por_empresa||[]).filter(e=>/^ARCOS/i.test(e.nombre||''));
+  const nArcos=arcos.reduce((a,e)=>a+e.vencen,0);
+  $('vencNota').innerHTML =
+    `La semana más cargada es <b style="color:var(--ink)">${esc(pico.semana.replace(/^\d{4}-W/,'la '))}</b> `+
+    `con <b style="color:var(--ink)">${nf(pico.vencen)}</b>, el ${pc(pico.vencen/CORTE.venc.total*100)} de la cola.`+
+    (nArcos?` Arcos Dorados concentra <b style="color:var(--ink)">${nf(nArcos)}</b> del total, `+
+      `repartidos entre ${arcos.length} códigos de empresa.`:'');
+}
+
+/* ------------------------------------------------------ serie */
+function renderSerie(){
+  const sv=$('svgSerie'); sv.innerHTML='';
+  const serie=(CORTE.serie||[]);
+  if(!serie.length){ $('serieT').textContent='Sin serie en este corte.'; return; }
+
+  const W=900, H=260, pad={l:46,r:16,t:22,b:46};
+  const ancho=W-pad.l-pad.r, alto=H-pad.t-pad.b;
+  const max=Math.max(...serie.map(m=>m.certificados))*1.12;
+  const bw=Math.min(40, ancho/serie.length-6), gap=(ancho-bw*serie.length)/(serie.length-1||1);
+  const g=mk(sv,'g',{});
+
+  /* rejilla discreta */
+  for(let i=0;i<=4;i++){
+    const y=pad.t+alto-(alto*i/4);
+    mk(g,'line',{x1:pad.l,y1:y,x2:W-pad.r,y2:y,class:'gl'});
+    mk(g,'text',{x:pad.l-8,y:y+4,'text-anchor':'end',class:'ax'})
+      .textContent=nf(Math.round(max*i/4));
+  }
+
+  serie.forEach((m,i)=>{
+    const h=Math.max(2,m.certificados/max*alto);
+    const x=pad.l+i*(bw+gap), y=pad.t+alto-h;
+    const esActual = m.periodo===CORTE.meses[MES].id;
+    const par=parcialidad(m.periodo);
+    const b=barV(g,x,y,bw,h,esActual?'var(--s1)':'var(--r2)');
+    if(par) b.setAttribute('opacity','.55');
+    bindTip(b,`<b>${esc(m.periodo)}</b>${nf(m.certificados)} certificaciones<br>`+
+      `${nf(m.personas)} personas · ${nf(m.empresas_activas)} empresas`+
+      (par?`<br><i>mes en curso: ${par.dias} de ${par.total} días</i>`:''),g);
+    if(i%2===0 || serie.length<=14){
+      const t=mk(g,'text',{x:x+bw/2,y:H-pad.b+18,'text-anchor':'middle',class:'ax'});
+      t.textContent=m.periodo.slice(5)+'/'+m.periodo.slice(2,4);
+    }
+  });
+
+  const prim=serie[0], ult=serie[serie.length-1];
+  $('serieT').textContent=`${serie.length} meses, de ${prim.periodo} a ${ult.periodo}`;
+  const prom=Math.round(serie.reduce((a,m)=>a+m.certificados,0)/serie.length);
+  const mejor=serie.reduce((a,b)=>b.certificados>a.certificados?b:a);
+  $('serieS').textContent=
+    `Promedio de ${nf(prom)} certificaciones al mes. El mejor fue ${mejor.periodo} con ${nf(mejor.certificados)}.`;
+}
+
+/* ------------------------------------------------------ recompra */
+function renderRecompra(){
+  const r=CORTE.recompra;
+  if(!r){ $('recKpis').innerHTML=''; return; }
+  const tasa=Number(r.tasa_recompra||0)*100;
+
+  $('recNote').textContent=
+    `Certificados que cumplieron un año en ${esc(r.periodo)} · ventana de gracia de ${r.dias_gracia_tarde} días`;
+
+  const tarjeta=(l,v,sub,cl)=>`<div class="kpi"><div class="kl">${esc(l)}</div>`+
+    `<div class="kv"${cl?` style="color:${cl}"`:''}>${v}</div>`+
+    `<div class="kd"><span>${esc(sub)}</span></div></div>`;
+
+  $('recKpis').innerHTML=
+    tarjeta('Tasa de recompra', pc(tasa),
+      `${nf(r.renovaron_a_tiempo+r.renovaron_tarde)} de ${nf(r.elegibles)} elegibles`,
+      tasa<20?'var(--bad)':(tasa<50?'var(--warn)':'var(--good)')) +
+    tarjeta('No renovaron', nf(r.no_renovaron),
+      `${cop(r.no_renovaron*CORTE.precioMedioObservado)} que no volvieron`) +
+    tarjeta('Renovaron a tiempo', nf(r.renovaron_a_tiempo), 'antes de que venciera') +
+    tarjeta('Renovaron tarde', nf(r.renovaron_tarde),
+      `con ${nf(r.dias_promedio_de_atraso)} días de atraso en promedio`);
+
+  /* Cero renovaciones a tiempo con renovaciones tardías es un patrón que
+     casi siempre significa un criterio mal definido, no una verdad del
+     negocio. Se muestra, pero advertido. */
+  $('recAviso').innerHTML = (r.renovaron_a_tiempo===0 && r.renovaron_tarde>0)
+    ? '<div class="alert w"><div class="ai">i</div><div>'+
+      '<b>Esta cifra está pendiente de verificación.</b> '+
+      `El cálculo dice que nadie renovó a tiempo y que ${nf(r.renovaron_tarde)} renovaron con `+
+      `${nf(r.dias_promedio_de_atraso)} días de atraso. Que el número exacto sea cero, habiendo `+
+      'renovaciones tardías, apunta a un criterio mal definido en el cálculo más que a un '+
+      'comportamiento real. No conviene tomar decisiones sobre esta cifra hasta revisarla.'+
+      '</div></div>'
+    : '';
+}
+
 /* ------------------------------------------------------ calidad */
 function renderCalidad(){
   $('qlist').innerHTML=CORTE.calidad.map(q=>`
@@ -680,13 +865,6 @@ function renderCalidad(){
 }
 
 /* ------------------------------------------------------ control */
-function setMes(i){
-  if(!CORTE||!CORTE.meses[i]) return;
-  MES=i;
-  $('selMes').querySelectorAll('button').forEach(b=>
-    b.setAttribute('aria-pressed',String(+b.dataset.mes===i)));
-  renderKpis(); renderEmp();
-}
 function toggleTema(){
   const r=document.documentElement;
   const osDark=matchMedia('(prefers-color-scheme: dark)').matches;
@@ -702,36 +880,136 @@ function fechaLarga(iso){
   if(!m) return iso||'—';
   return `${+m[3]} de ${MESESES[+m[2]-1]} de ${m[1]}`;
 }
+const hoyISO = () => new Date().toISOString().slice(0,10);
+const mesDeHoy = () => hoyISO().slice(0,7);
+
+/** Un periodo es parcial si es el mes en curso: todavía le faltan días. */
+function parcialidad(id){
+  if(id !== mesDeHoy()) return null;
+  const h=new Date();
+  const dias=h.getUTCDate();
+  const total=new Date(Date.UTC(h.getUTCFullYear(), h.getUTCMonth()+1, 0)).getUTCDate();
+  return { dias, total, fraccion: dias/total };
+}
+
+function avisoFuente(texto, tono){
+  const b=$('fuenteAviso');
+  if(!texto){ b.hidden=true; return; }
+  b.hidden=false; b.textContent=texto;
+  b.className = 'fnt ' + (tono||'');
+}
+
+/** Trae un periodo: primero en vivo, si no, del archivo publicado. */
+async function traerPeriodo(periodo){
+  if(CACHE.has(periodo)) return CACHE.get(periodo);
+
+  try{
+    const r=await fetch(`${API}?periodo=${encodeURIComponent(periodo)}`,{cache:'no-store'});
+    if(r.ok){
+      const d=await r.json();
+      if(d && Array.isArray(d.meses) && d.meses.length){
+        d.origen='vivo';
+        CACHE.set(periodo,d);
+        return d;
+      }
+    }
+  }catch(e){ /* se intenta el respaldo */ }
+
+  const r2=await fetch(RESPALDO,{cache:'no-store'});
+  if(!r2.ok) throw new Error(`ni la plataforma ni el corte publicado respondieron (${r2.status})`);
+  const d2=await r2.json();
+  if(!d2 || !Array.isArray(d2.meses) || !d2.meses.length) throw new Error('el corte publicado no trae periodos');
+  d2.origen='archivo';
+  /* El archivo trae solo los dos meses de su propio corte. Si se pidió otro,
+     no sirve como respuesta para ese periodo. */
+  if(!d2.meses.some(m=>m.id===periodo)) { d2.periodoNoDisponible = periodo; }
+  CACHE.set(periodo,d2);
+  return d2;
+}
+
 function fallo(e){
   $('cargando').innerHTML=
     '<div class="alert b" style="max-width:720px;margin:40px auto">'+
     '<div class="ai">!</div><div><b>No se pudo cargar el corte.</b>'+
-    'El tablero pide <code>'+esc(FUENTE)+'</code> y no lo obtuvo: '+esc(e.message)+'.'+
+    'El tablero pidió los datos a la plataforma y al corte publicado, y no obtuvo ninguno: '+
+    esc(e.message)+'.'+
     '<div style="margin-top:9px;font-size:12.5px;color:var(--ink2)">'+
-    'Si estás abriendo el archivo con doble clic, el navegador bloquea la lectura del JSON. '+
-    'Levanta el sitio con <code>npm start</code> desde la carpeta del proyecto.</div></div></div>';
+    'Si estás abriendo el archivo con doble clic, el navegador bloquea la lectura. '+
+    'Levanta el sitio con <code>npm start</code>.</div></div></div>';
   $('cargando').hidden=false;
   $('contenido').hidden=true;
 }
-async function iniciar(){
-  try{
-    const r=await fetch(FUENTE,{cache:'no-store'});
-    if(!r.ok) throw new Error('respuesta '+r.status);
-    const d=await r.json();
-    if(!d||!Array.isArray(d.meses)||!d.meses.length) throw new Error('el corte no trae meses');
-    CORTE=d; EMPRESAS=Array.isArray(d.empresas)?d.empresas:[];
-    MES=CORTE.meses.length-1;
-  }catch(e){ return fallo(e); }
+
+/** Pinta todo para el periodo ya cargado. */
+function pintar(){
+  const ms=CORTE.meses;
+  MES = Math.max(0, ms.findIndex(m=>m.id===PERIODO));
+  if(MES<0) MES=ms.length-1;
 
   $('corteLbl').textContent=fechaLarga(CORTE.corte);
-  $('selMes').innerHTML=CORTE.meses.map((m,i)=>
-    `<button data-mes="${i}" aria-pressed="${i===MES}">${esc(m.lbl.split(' ')[0])}</button>`).join('');
-  $('selMes').querySelectorAll('button').forEach(b=>
-    b.addEventListener('click',()=>setMes(+b.dataset.mes)));
+  construirSelector();
 
-  renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy(); renderEmp(); renderCalidad();
+  if(CORTE.origen==='archivo'){
+    avisoFuente(CORTE.periodoNoDisponible
+      ? `La plataforma no respondió y el corte publicado no incluye ${CORTE.periodoNoDisponible}. Se muestra ${ms[MES].lbl}.`
+      : `La plataforma no respondió. Se muestra el último corte publicado, del ${fechaLarga(CORTE.corte)}.`,
+      'warn');
+  } else {
+    avisoFuente('');
+  }
+
+  renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy();
+  renderEmp(); renderCalidad(); renderSerie(); renderRecompra();
+
   $('cargando').hidden=true;
   $('contenido').hidden=false;
+}
+
+/** El selector sale de la serie: todos los meses con datos, no dos fijos. */
+function construirSelector(){
+  const serie=(CORTE.serie||[]).map(x=>x.periodo);
+  const hoy=mesDeHoy();
+  if(!serie.includes(hoy)) serie.push(hoy);
+  const meses=[...new Set(serie)].sort().slice(-14).reverse();
+
+  $('selMes').innerHTML=meses.map(id=>{
+    const [a,m]=id.split('-').map(Number);
+    const n=MESESES[m-1];
+    const corto=n.slice(0,3);
+    const p=parcialidad(id);
+    return `<button data-mes="${id}" aria-pressed="${id===PERIODO}" title="${esc(n)} ${a}">`+
+           `${corto[0].toUpperCase()+corto.slice(1)}&nbsp;${String(a).slice(2)}`+
+           `${p?'<span class="pz">parcial</span>':''}</button>`;
+  }).join('');
+
+  $('selMes').querySelectorAll('button').forEach(b=>
+    b.addEventListener('click',()=>irA(b.dataset.mes)));
+}
+
+async function irA(periodo){
+  if(periodo===PERIODO) return;
+  $('selMes').querySelectorAll('button').forEach(b=>
+    b.setAttribute('aria-pressed', String(b.dataset.mes===periodo)));
+  document.body.classList.add('cargandoPeriodo');
+  try{
+    const d=await traerPeriodo(periodo);
+    CORTE=d; EMPRESAS=Array.isArray(d.empresas)?d.empresas:[]; PERIODO=periodo;
+    pintar();
+  }catch(e){
+    avisoFuente(`No se pudo traer ${periodo}: ${e.message}`,'bad');
+  }finally{
+    document.body.classList.remove('cargandoPeriodo');
+  }
+}
+
+async function iniciar(){
+  PERIODO = mesDeHoy();
+  try{
+    const d=await traerPeriodo(PERIODO);
+    CORTE=d; EMPRESAS=Array.isArray(d.empresas)?d.empresas:[];
+    if(!d.meses.some(m=>m.id===PERIODO)) PERIODO = d.meses[d.meses.length-1].id;
+  }catch(e){ return fallo(e); }
+  pintar();
 }
 iniciar();
 </script>

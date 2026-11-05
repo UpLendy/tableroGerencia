@@ -20,7 +20,8 @@ const d = JSON.parse(await readFile(RUTA, 'utf8'));
 /* ---------------------------------------------------------- estructura */
 ok(/^\d{4}-\d{2}-\d{2}$/.test(d.corte || ''), `corte: fecha inválida (${d.corte})`);
 ok(typeof d.regla === 'string' && d.regla, 'regla: falta el identificador de la regla de cálculo');
-ok(Number(d.precioLista) > 0, 'precioLista: debe ser un número positivo');
+ok(Number(d.precioMedioObservado) > 0,
+   'precioMedioObservado: debe ser positivo (sale del valor del mes entre sus certificaciones)');
 ok(Array.isArray(d.meses) && d.meses.length > 0, 'meses: debe haber al menos un periodo');
 ok(Array.isArray(d.empresas), 'empresas: debe ser una lista');
 
@@ -46,8 +47,12 @@ for (const m of d.meses || []) {
   ok(activas === Number(m.activas),
      `${p}: ${activas} empresas con movimiento, pero activas dice ${nf(m.activas)}`);
 
-  ok(Number(m.activas) <= Number(m.registradas),
-     `${p}: activas (${nf(m.activas)}) supera registradas (${nf(m.registradas)})`);
+  if (m.registradas === null || m.registradas === undefined) {
+    avisos.push(`${p}: no se conoce cuántas empresas hay registradas`);
+  } else {
+    ok(Number(m.activas) <= Number(m.registradas),
+       `${p}: activas (${nf(m.activas)}) supera registradas (${nf(m.registradas)})`);
+  }
 
   if (!(Number(m.ingreso) > 0)) avisos.push(`${p}: ingreso en cero o ausente`);
 }
@@ -65,13 +70,23 @@ if (d.venc) {
 
 /* ---------------------------------------------------------- índice */
 for (const c of d.salud?.comp || []) {
-  ok(Number.isFinite(c.v) && c.v >= 0 && c.v <= 100, `salud · ${c.n}: valor fuera de 0–100`);
-  ok((c.d || '').length > 20, `salud · ${c.n}: falta la fórmula en lenguaje llano`);
+  if (c.v === null) {
+    avisos.push(`salud · ${c.n}: sin valor en este corte (falta el insumo)`);
+  } else {
+    ok(Number.isFinite(c.v) && c.v >= 0 && c.v <= 100, `salud · ${c.n}: valor fuera de 0–100`);
+  }
+  ok((c.d || '').length > 20, `salud · ${c.n}: falta la explicación en lenguaje llano`);
 }
-if (d.salud?.comp?.length) {
-  const prom = Math.round(d.salud.comp.reduce((a, c) => a + c.v, 0) / d.salud.comp.length);
-  ok(prom === Number(d.salud.total),
-     `salud: el promedio de los componentes da ${prom}, pero total dice ${d.salud.total}`);
+{
+  /* El total promedia solo los componentes que tienen valor. Un componente
+     ausente no debe arrastrar el índice hacia abajo como si valiera cero. */
+  const conValor = (d.salud?.comp || []).filter((c) => c.v !== null);
+  if (conValor.length) {
+    const prom = Math.round(conValor.reduce((a, c) => a + c.v, 0) / conValor.length);
+    ok(prom === Number(d.salud.total),
+       `salud: el promedio de los ${conValor.length} componentes con valor da ${prom}, ` +
+       `pero total dice ${d.salud.total}`);
+  }
 }
 
 /* ---------------------------------------------------------- códigos */
