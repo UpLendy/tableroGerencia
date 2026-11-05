@@ -98,10 +98,28 @@ function armarCalidad(cal) {
   };
 }
 
+/** Días transcurridos de un mes, si es el mes en curso. */
+function parcial(id, hoyISO) {
+  const hoy = hoyISO || new Date().toISOString().slice(0, 10);
+  if (id !== hoy.slice(0, 7)) return null;
+  const dias = Number(hoy.slice(8, 10));
+  const total = new Date(Date.UTC(+id.slice(0, 4), +id.slice(5, 7), 0)).getUTCDate();
+  return { dias, total };
+}
+
 /** Índice de salud. Cada componente trae su fórmula en lenguaje llano. */
-function armarSalud({ mes, serie, venc, calidad, concentracion }) {
+function armarSalud({ mes, serie, venc, calidad, concentracion, hoy }) {
   const comp = [];
   const nf = (n) => Number(n).toLocaleString('es-CO');
+
+  /* Un mes en curso no se compara en bruto contra periodos completos: daría
+     un derrumbe inventado. Se proyecta al ritmo que lleva y se dice. */
+  const par = parcial(mes.id, hoy);
+  const base = par ? Math.round(mes.cert / par.dias * par.total) : mes.cert;
+  const nota = par
+    ? ` ${mes.lbl} lleva ${par.dias} de ${par.total} días: se proyecta a ${nf(base)} ` +
+      `al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso.`
+    : '';
 
   // Producción: el mes contra el mismo mes del año anterior.
   const anterior = (serie || []).find((m) => {
@@ -109,12 +127,12 @@ function armarSalud({ mes, serie, venc, calidad, concentracion }) {
     return m.periodo === `${a - 1}-${String(mm).padStart(2, '0')}`;
   });
   if (anterior && anterior.certificados > 0) {
-    const crec = (mes.cert / anterior.certificados - 1) * 100;
+    const crec = (base / anterior.certificados - 1) * 100;
     comp.push({
       n: 'Producción', v: Math.round(Math.min(100, Math.max(0, 50 + (crec / 20) * 50))),
-      d: `${mes.lbl} contra el mismo mes del año anterior: ${nf(mes.cert)} contra ` +
-         `${nf(anterior.certificados)}, ${crec > 0 ? '+' : ''}${crec.toFixed(1)} %. ` +
-         `Se mapea 0–20 % de crecimiento a 50–100 puntos.`,
+      d: `${mes.lbl} contra el mismo mes del año anterior: ${nf(base)} contra ` +
+         `${nf(anterior.certificados)}, ${crec > 0 ? '+' : ''}${crec.toLocaleString('es-CO',{minimumFractionDigits:1,maximumFractionDigits:1})} %. ` +
+         `Se mapea 0–20 % de crecimiento a 50–100 puntos.` + nota,
     });
   } else {
     comp.push({ n: 'Producción', v: null,
@@ -124,10 +142,10 @@ function armarSalud({ mes, serie, venc, calidad, concentracion }) {
   // Reposición: ambas cifras medidas en el mismo instante del corte.
   const vt = venc.total;
   comp.push({
-    n: 'Reposición', v: Math.round(Math.min(100, (mes.cert / vt) * 50)),
+    n: 'Reposición', v: Math.round(Math.min(100, (base / vt) * 50)),
     d: `Certificaciones del mes sobre vencimientos de los próximos ${venc.ventana_dias} días, ` +
-       `medidos el ${venc.corte}: ${nf(mes.cert)} / ${nf(vt)} = ${(mes.cert / vt).toFixed(2)}. ` +
-       `Paridad (1,00) vale 50 puntos.`,
+       `medidos el ${venc.corte}: ${nf(base)} / ${nf(vt)} = ${(base / vt).toLocaleString('es-CO',{minimumFractionDigits:2,maximumFractionDigits:2})}. ` +
+       `Paridad (1,00) vale 50 puntos.` + nota,
   });
 
   // Calidad del dato: la calcula la plataforma. El tablero la lee.
@@ -140,7 +158,7 @@ function armarSalud({ mes, serie, venc, calidad, concentracion }) {
   // Diversificación: cuánto pesa el cliente mayor en el canal empresa.
   comp.push({
     n: 'Diversificación', v: Math.round(Math.max(0, 100 - concentracion * 2)),
-    d: `Un solo cliente concentra el ${concentracion.toFixed(1)} % del canal empresa. ` +
+    d: `Un solo cliente concentra el ${concentracion.toLocaleString('es-CO',{minimumFractionDigits:1,maximumFractionDigits:1})} % del canal empresa. ` +
        `Cada punto de concentración descuenta dos puntos del componente.`,
   });
 
@@ -234,7 +252,8 @@ export function armarCorte(m, narrativa = {}) {
       regla: calidad.regla, como_se_calcula: calidad.como_se_calcula,
     },
     universo: calidad.totales,
-    salud: armarSalud({ mes: ult, serie, venc, calidad, concentracion }),
+    salud: armarSalud({ mes: ult, serie, venc, calidad, concentracion,
+                       hoy: m.health.datos.ultima_certificacion }),
     precioMedioObservado: Math.round(ult.ingreso / ult.cert),
     ...narrativa,
   };

@@ -461,14 +461,22 @@ const RESPALDO = 'data/corte.json';
 
 let CORTE = null;
 let EMPRESAS = [];
-let PERIODO = null;          // YYYY-MM que se está mirando
+let PERIODO = null;          // YYYY-MM que se está mostrando
+let DESEADO = null;          // YYYY-MM que se quiere mostrar
 const CACHE = new Map();     // periodo -> corte ya traído
 
 /* ------------------------------------------------------ utilidades */
+const emdash='—';
 const $=id=>document.getElementById(id);
-const nf=n=>n.toLocaleString('es-CO');
-const cop=n=>'$'+Math.round(n).toLocaleString('es-CO');
-const pc=(n,d)=>n.toLocaleString('es-CO',{minimumFractionDigits:d??1,maximumFractionDigits:d??1})+' %';
+/* Los tres formateadores toleran nulos. La API devuelve null en campos que
+   todavía no tienen valor —un mes sin renovaciones tardías no tiene promedio
+   de atraso— y un null partía la página entera en vez de dejar un guion. */
+const hayNum=v=>v!==null&&v!==undefined&&Number.isFinite(Number(v));
+const nf=n=>hayNum(n)?Number(n).toLocaleString('es-CO'):emdash;
+const cop=n=>hayNum(n)?'$'+Math.round(Number(n)).toLocaleString('es-CO'):emdash;
+const pc=(n,d)=>hayNum(n)
+  ?Number(n).toLocaleString('es-CO',{minimumFractionDigits:d??1,maximumFractionDigits:d??1})+' %'
+  :emdash;
 const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const RAMP=['var(--r5)','var(--r4)','var(--r3)','var(--r2)','var(--r1)'];
 let MES=1;
@@ -541,6 +549,11 @@ function renderKpis(){
     return par ? porDia(m[campo],m.id)/porDia(p[campo],p.id)-1
                : m[campo]/p[campo]-1;
   };
+  const cmpCanal=(k)=>{
+    if(!p) return null;
+    return par ? (m.canal[k]/par.dias)/(p.canal[k]/new Date(Date.UTC(+p.id.slice(0,4),+p.id.slice(5,7),0)).getUTCDate())-1
+               : m.canal[k]/p.canal[k]-1;
+  };
   const pie=(txt)=>par?('Ritmo diario comparado, no el total: '+m.corto+' va por '+
       par.dias+' de '+par.total+' días.'):txt;
 
@@ -558,9 +571,9 @@ function renderKpis(){
      d:p&&vpp(m)/vpp(p)-1, s:ant(x=>cop(vpp(x))),
      pie:'Sobre el valor del servicio, no sobre ventas pagadas.'},
     {l:'Canal empresa', v:nf(m.canal.emp),
-     d:p&&m.canal.emp/p.canal.emp-1, s:pc(m.canal.emp/m.cert*100)+' del mes'},
+     d:cmpCanal('emp'), s:pc(m.canal.emp/m.cert*100)+' del mes', pie:pie()},
     {l:'Canal particular', v:nf(m.canal.par),
-     d:p&&m.canal.par/p.canal.par-1, s:pc(m.canal.par/m.cert*100)+' del mes'}
+     d:cmpCanal('par'), s:pc(m.canal.par/m.cert*100)+' del mes', pie:pie()}
   ];
 
   $('kpis').innerHTML=filas.map(f=>{
@@ -828,7 +841,7 @@ function renderSerie(){
 function renderRecompra(){
   const r=CORTE.recompra;
   if(!r){ $('recKpis').innerHTML=''; return; }
-  const tasa=Number(r.tasa_recompra||0)*100;
+  const tasa=hayNum(r.tasa_recompra)?Number(r.tasa_recompra)*100:null;
 
   $('recNote').textContent=
     `Certificados que cumplieron un año en ${esc(r.periodo)} · ventana de gracia de ${r.dias_gracia_tarde} días`;
@@ -839,10 +852,14 @@ function renderRecompra(){
 
   $('recKpis').innerHTML=
     tarjeta('Tasa de recompra', pc(tasa),
-      `${nf(r.renovaron_a_tiempo+r.renovaron_tarde)} de ${nf(r.elegibles)} elegibles`,
-      tasa<20?'var(--bad)':(tasa<50?'var(--warn)':'var(--good)')) +
+      hayNum(r.elegibles)&&r.elegibles>0
+        ? `${nf((r.renovaron_a_tiempo||0)+(r.renovaron_tarde||0))} de ${nf(r.elegibles)} elegibles`
+        : 'ningún certificado cumple un año en este periodo todavía',
+      tasa===null?'var(--ink3)':(tasa<20?'var(--bad)':(tasa<50?'var(--warn)':'var(--good)'))) +
     tarjeta('No renovaron', nf(r.no_renovaron),
-      `${cop(r.no_renovaron*CORTE.precioMedioObservado)} que no volvieron`) +
+      hayNum(r.no_renovaron)
+        ? `${cop(r.no_renovaron*CORTE.precioMedioObservado)} que no volvieron`
+        : 'sin dato en este periodo') +
     tarjeta('Renovaron a tiempo', nf(r.renovaron_a_tiempo), 'antes de que venciera') +
     tarjeta('Renovaron tarde', nf(r.renovaron_tarde),
       `con ${nf(r.dias_promedio_de_atraso)} días de atraso en promedio`);
@@ -937,13 +954,20 @@ async function traerVivo(periodo){
 
 /** Refresca en segundo plano y repinta cuando llega, sin bloquear nada. */
 function refrescarEnVivo(periodo){
+  DESEADO = periodo;
   marcarFuente('actualizando');
   traerVivo(periodo).then(d=>{
-    if(PERIODO!==periodo) return;          // el usuario ya cambió de mes
-    CORTE=d; EMPRESAS=Array.isArray(d.empresas)?d.empresas:[];
-    pintar({conservarScroll:true});
+    if(DESEADO!==periodo) return;          // el usuario ya cambió de mes
+    PERIODO = periodo;                     // puede no ser el que se pintó del archivo
+    try{
+      CORTE=d; EMPRESAS=Array.isArray(d.empresas)?d.empresas:[];
+      pintar({conservarScroll:true});
+    }catch(e){
+      console.error('fallo al pintar', e);
+      marcarFuente('bad','los datos llegaron pero el tablero no pudo dibujarlos: '+e.message);
+    }
   }).catch(e=>{
-    if(PERIODO!==periodo) return;
+    if(DESEADO!==periodo) return;
     marcarFuente('archivo', e.message);
   });
 }
@@ -957,6 +981,9 @@ function marcarFuente(estado, detalle){
   } else if(estado==='vivo'){
     b.className='fnt vivo';
     b.innerHTML='<span class="punto ok"></span>En vivo, consultado hace un momento';
+  } else if(estado==='bad'){
+    b.className='fnt bad';
+    b.textContent=detalle||'Hubo un problema al mostrar los datos.';
   } else {
     b.className='fnt warn';
     b.textContent='La plataforma no respondió'+(detalle?` (${detalle})`:'')+
@@ -1018,8 +1045,8 @@ function construirSelector(){
 }
 
 async function irA(periodo){
-  if(periodo===PERIODO) return;
-  PERIODO=periodo;
+  if(periodo===PERIODO && periodo===DESEADO) return;
+  PERIODO=periodo; DESEADO=periodo;
   $('selMes').querySelectorAll('button').forEach(b=>
     b.setAttribute('aria-pressed', String(b.dataset.mes===periodo)));
 
@@ -1040,26 +1067,38 @@ async function irA(periodo){
 
   document.body.classList.add('cargandoPeriodo');
   marcarFuente('actualizando');
+  let d;
   try{
-    const d=await traerVivo(periodo);
-    if(PERIODO!==periodo) return;
+    d=await traerVivo(periodo);
+  }catch(e){
+    if(DESEADO===periodo) marcarFuente('archivo', e.message);
+    document.body.classList.remove('cargandoPeriodo');
+    return;
+  }
+  try{
+    if(DESEADO!==periodo) return;
     CORTE=d; EMPRESAS=d.empresas||[]; pintar({conservarScroll:true});
   }catch(e){
-    if(PERIODO!==periodo) return;
-    marcarFuente('archivo', e.message);
+    /* Los datos llegaron bien; lo que falló fue dibujarlos. Decirlo como un
+       fallo de la plataforma manda a buscar el problema donde no está. */
+    console.error('fallo al pintar', e);
+    marcarFuente('bad', 'los datos llegaron pero el tablero no pudo dibujarlos: '+e.message);
   }finally{
     document.body.classList.remove('cargandoPeriodo');
   }
 }
 
 async function iniciar(){
-  PERIODO = mesDeHoy();
+  PERIODO = DESEADO = mesDeHoy();
 
   /* Primero lo publicado: llega en milisegundos y la pantalla deja de estar
      vacía. La consulta en vivo tarda segundos y entra después, sola. */
   try{
     const a=await traerArchivo();
     CORTE=a; EMPRESAS=Array.isArray(a.empresas)?a.empresas:[];
+    /* El archivo publicado puede no traer el mes en curso. Se pinta con el
+       último que sí trae, pero se sigue pidiendo en vivo el mes de hoy: si
+       no, el tablero se quedaría anclado en el mes del último corte. */
     if(!a.meses.some(m=>m.id===PERIODO)) PERIODO=a.meses[a.meses.length-1].id;
     pintar();
   }catch(e){
@@ -1072,7 +1111,8 @@ async function iniciar(){
     return;
   }
 
-  refrescarEnVivo(PERIODO);
+  /* En vivo se pide el mes de hoy, no el que alcanzó a pintarse del archivo. */
+  refrescarEnVivo(DESEADO);
 }
 iniciar();
 </script>
