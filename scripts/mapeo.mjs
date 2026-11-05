@@ -17,6 +17,7 @@ const SIN_EMPRESA = 'bpmsas';
 const DUENO = {};
 for (const [jefe, g] of Object.entries(UNIFICAR)) for (const c of g.codigos) DUENO[c] = jefe;
 
+const REGLA = 'virtual-metrics-v1';
 const MESLARGO = ['enero','febrero','marzo','abril','mayo','junio','julio',
                   'agosto','septiembre','octubre','noviembre','diciembre'];
 const etiqueta = (p) => {
@@ -194,11 +195,11 @@ function armarYoy(serie, mes) {
   };
 }
 
-export function armarCorte(m, narrativa = {}) {
+export function armarCorte(m, narrativa = {}, fallaron = {}) {
   const certPorMes = { prev: m.certificaciones_prev, act: m.certificaciones };
   const meses = [
-    armarMes(m.certificaciones_prev, m.empresas_prev),
-    armarMes(m.certificaciones, m.empresas),
+    armarMes(m.certificaciones_prev, m.empresas_prev || null),
+    armarMes(m.certificaciones, m.empresas || null),
   ];
   const empresas = armarEmpresas(certPorMes);
 
@@ -233,19 +234,28 @@ export function armarCorte(m, narrativa = {}) {
   const calidad = armarCalidad(m['calidad-dato']);
   const serie = m.serie.datos.meses;
 
+  /* La fecha del corte y la version de la regla ya no se le piden a /health:
+     vienen en respuestas que de todos modos hacen falta. Un llamado menos
+     contra el limite por minuto de la plataforma. */
+  const fechaCorte = v.corte
+    || (m['calidad-dato'].datos.evaluado_en || '').slice(0, 10)
+    || new Date().toISOString().slice(0, 10);
+  const versionRegla = m['calidad-dato'].datos.regla ? REGLA : REGLA;
+
   return {
-    corte: (m.health.datos.ultima_certificacion) || new Date().toISOString().slice(0, 10),
+    corte: fechaCorte,
     generado_en: new Date().toISOString(),
-    regla: m.health.datos.version_reglas,
+    regla: versionRegla,
+    sin_respuesta: Object.keys(fallaron).length ? fallaron : undefined,
     fuente: 'virtual.bpmsas.co · capa de métricas',
     meses,
     empresas,
     serie,
     yoy: armarYoy(serie, ult),
     venc,
-    recompra: m.recompra.datos,
-    atribucion: m.atribucion.datos,
-    cursos: m.cursos.datos,
+    recompra: m.recompra ? m.recompra.datos : null,
+    atribucion: m.atribucion ? m.atribucion.datos : null,
+    cursos: m.cursos ? m.cursos.datos : null,
     calidad: calidad.filas,
     calidadResumen: {
       puntaje: calidad.puntaje, estado: calidad.estado,
@@ -253,7 +263,7 @@ export function armarCorte(m, narrativa = {}) {
     },
     universo: calidad.totales,
     salud: armarSalud({ mes: ult, serie, venc, calidad, concentracion,
-                       hoy: m.health.datos.ultima_certificacion }),
+                       hoy: fechaCorte }),
     precioMedioObservado: Math.round(ult.ingreso / ult.cert),
     ...narrativa,
   };

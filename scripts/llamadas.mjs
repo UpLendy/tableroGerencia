@@ -33,13 +33,38 @@ export function llamadasDe(periodo) {
     { nombre: 'vencimientos',         ruta: 'vencimientos',    params: { dias: 30 } },
     { nombre: 'atribucion',           ruta: 'atribucion',      params: { desde: fDesde, hasta: fHasta } },
     { nombre: 'cursos',               ruta: 'cursos',          params: {} },
-    { nombre: 'health',               ruta: 'health',          params: {} },
     { nombre: 'calidad-dato',         ruta: 'calidad-dato',    params: {} },
   ];
 }
 
+/* Sin estos cinco no hay tablero. Los demas enriquecen, y si fallan el
+   corte sale igual con esa parte declarada ausente. Importa porque la
+   plataforma limita a 60 peticiones por minuto y por IP: toda la carga
+   viene de una sola IP de Vercel, asi que conviene no depender de once. */
+export const ESENCIALES = new Set([
+  'certificaciones', 'certificaciones_prev', 'serie', 'vencimientos', 'calidad-dato',
+]);
+
 /** Una llamada, con el sobre validado. Lanza con un mensaje legible. */
-export async function pedir({ base, token, ruta, params, timeoutMs = 90000 }) {
+const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
+
+export async function pedir({ base, token, ruta, params, timeoutMs = 90000, intentos = 2 }) {
+  let ultimo;
+  for (let i = 0; i < intentos; i++) {
+    try {
+      return await pedirUnaVez({ base, token, ruta, params, timeoutMs });
+    } catch (e) {
+      ultimo = e;
+      /* 429 es el limite por minuto de la plataforma. Esperar y repetir una
+         vez resuelve el caso comun de varias cargas seguidas. */
+      if (!/\b429\b/.test(String(e.message)) || i === intentos - 1) throw e;
+      await dormir(1200 + i * 1800);
+    }
+  }
+  throw ultimo;
+}
+
+async function pedirUnaVez({ base, token, ruta, params, timeoutMs }) {
   const url = new URL(`${base}/${ruta}`);
   for (const [k, v] of Object.entries(params || {})) {
     if (v !== undefined && v !== null && v !== '') url.searchParams.set(k, String(v));
@@ -73,13 +98,30 @@ export async function pedir({ base, token, ruta, params, timeoutMs = 90000 }) {
 export async function traerTodo({ base, token, periodo }) {
   const lista = llamadasDe(periodo);
   const t0 = Date.now();
-  const resultados = await Promise.all(lista.map(async (l) => {
+
+  const resultados = await Promise.allSettled(lista.map(async (l) => {
     const t = Date.now();
     const json = await pedir({ base, token, ruta: l.ruta, params: l.params });
-    return { nombre: l.nombre, json, ms: Date.now() - t, desde_cache: !!json.desde_cache };
+    return { nombre: l.nombre, json, ms: Date.now() - t };
   }));
-  const muestras = {};
-  const tiempos = {};
-  for (const r of resultados) { muestras[r.nombre] = r.json; tiempos[r.nombre] = r.ms; }
-  return { muestras, tiempos, total_ms: Date.now() - t0 };
+
+  const muestras = {}, tiempos = {}, fallaron = {};
+  resultados.forEach((r, i) => {
+    const nombre = lista[i].nombre;
+    if (r.status === 'fulfilled') {
+      muestras[nombre] = r.value.json;
+      tiempos[nombre] = r.value.ms;
+    } else {
+      fallaron[nombre] = String(r.reason && r.reason.message || r.reason);
+    }
+  });
+
+  /* Solo se cae si falta algo sin lo cual no hay tablero. Que no responda
+     el catalogo de cursos no justifica dejar a nadie sin cifras. */
+  const faltan = [...ESENCIALES].filter((n) => !muestras[n]);
+  if (faltan.length) {
+    throw new Error(faltan.map((n) => `${n}: ${fallaron[n] || 'sin respuesta'}`).join(' · '));
+  }
+
+  return { muestras, tiempos, fallaron, total_ms: Date.now() - t0 };
 }

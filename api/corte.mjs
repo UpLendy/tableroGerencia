@@ -32,13 +32,13 @@ export default async function handler(req, res) {
 
   const t0 = Date.now();
   try {
-    const { muestras, tiempos, total_ms } = await traerTodo({
+    const { muestras, tiempos, fallaron, total_ms } = await traerTodo({
       base: process.env.TABLERO_API_BASE || BASE_POR_DEFECTO,
       token,
       periodo,
     });
 
-    const corte = armarCorte(muestras);
+    const corte = armarCorte(muestras, {}, fallaron);
     corte.origen = 'vivo';
     corte.tiempos_ms = { ...tiempos, total: total_ms };
 

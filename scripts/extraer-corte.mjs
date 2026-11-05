@@ -48,8 +48,9 @@ if (!anio || !mes || mes < 1 || mes > 12) {
 const prevD = new Date(Date.UTC(anio, mes - 2, 1));
 const periodoPrev = prevD.toISOString().slice(0, 7);
 
-/* ventana de la serie: doce meses hacia atrás, terminando en el periodo */
-const desdeSerie = new Date(Date.UTC(anio, mes - 12, 1)).toISOString().slice(0, 7);
+/* Ventana de la serie: 24 meses. Hacen falta los doce anteriores para poder
+   comparar el mes contra el mismo mes del año pasado; con doce no alcanza. */
+const desdeSerie = new Date(Date.UTC(anio, mes - 24, 1)).toISOString().slice(0, 7);
 
 const ultimoDia = new Date(Date.UTC(anio, mes, 0)).getUTCDate();
 const fDesde = `${periodo}-01`;
@@ -71,7 +72,6 @@ const LLAMADAS = [
   ['vencimientos',         { dias: 30 }],
   ['atribucion',           { desde: fDesde, hasta: fHasta }],
   ['cursos',               {}],
-  ['health',               {}],
   ['calidad-dato',         {}],
 ];
 
