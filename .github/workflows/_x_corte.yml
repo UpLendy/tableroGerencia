@@ -1,0 +1,51 @@
+name: Corte automático
+
+# Por ahora solo manual. La programación queda comentada y se activa cuando el
+# armado de data/corte.json esté probado contra producción: no conviene que un
+# cron empiece a fallar solo y nadie se entere.
+on:
+  workflow_dispatch:
+    inputs:
+      periodo:
+        description: "Periodo a extraer, en formato YYYY-MM"
+        required: false
+        default: ""
+  # schedule:
+  #   - cron: "37 9 * * *"   # 09:37 UTC = 04:37 en Bogotá
+
+permissions:
+  contents: write
+
+jobs:
+  extraer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4.1.0
+        with:
+          node-version: "22"
+
+      - name: Extraer el corte desde la plataforma
+        env:
+          TABLERO_API_TOKEN: ${{ secrets.TABLERO_API_TOKEN }}
+        run: |
+          PERIODO="${{ github.event.inputs.periodo }}"
+          if [ -z "$PERIODO" ]; then PERIODO=$(date -u +%Y-%m); fi
+          echo "Periodo: $PERIODO"
+          node scripts/extraer-corte.mjs --periodo "$PERIODO"
+
+      - name: Validar la coherencia del corte
+        run: node scripts/validar-corte.mjs
+
+      - name: Publicar si cambió
+        run: |
+          if git diff --quiet -- data/corte.json; then
+            echo "El corte no cambió. No se publica nada."
+            exit 0
+          fi
+          git config user.name  "corte-automatico"
+          git config user.email "corte-automatico@users.noreply.github.com"
+          git add data/corte.json
+          git commit -m "Corte automático $(date -u +%Y-%m-%d)"
+          git push
