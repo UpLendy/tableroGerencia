@@ -151,6 +151,31 @@ function armarSalud({ mes, serie, venc, calidad, concentracion }) {
   };
 }
 
+/** Comparativo contra el año anterior, derivado de la serie. */
+function armarYoy(serie, mes) {
+  const [a, mm] = mes.id.split('-').map(Number);
+  const mismoMesAnterior = serie.find((x) => x.periodo === `${a - 1}-${String(mm).padStart(2, '0')}`);
+  const sumaAnio = (anio) => serie
+    .filter((x) => x.periodo.startsWith(String(anio)) && Number(x.periodo.slice(5)) <= mm)
+    .reduce((s, x) => s + Number(x.certificados || 0), 0);
+
+  const acum2 = sumaAnio(a), acum1 = sumaAnio(a - 1);
+  const mesesCubiertos = serie.filter((x) => x.periodo.startsWith(String(a - 1))).length;
+
+  return {
+    /* El acumulado solo es comparable si la serie cubre los mismos meses de
+       los dos años. Con una ventana corta, el del año anterior sale truncado
+       y el crecimiento aparenta ser enorme. */
+    acum: (acum1 > 0 && mesesCubiertos >= mm)
+      ? { lbl: `Enero – ${mes.corto}`, a2026: acum2, a2025: acum1 }
+      : null,
+    mes: mismoMesAnterior
+      ? { lbl: mes.corto[0].toUpperCase() + mes.corto.slice(1),
+          a2026: mes.cert, a2025: mismoMesAnterior.certificados }
+      : null,
+  };
+}
+
 export function armarCorte(m, narrativa = {}) {
   const certPorMes = { prev: m.certificaciones_prev, act: m.certificaciones };
   const meses = [
@@ -189,6 +214,7 @@ export function armarCorte(m, narrativa = {}) {
     meses,
     empresas,
     serie,
+    yoy: armarYoy(serie, ult),
     venc,
     recompra: m.recompra.datos,
     atribucion: m.atribucion.datos,
