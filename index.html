@@ -90,6 +90,13 @@ h2{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
 .fnt{font-size:11.5px;padding:6px 11px;border-radius:8px;max-width:420px;line-height:1.4}
 .fnt.warn{background:var(--warnbg);border:1px solid var(--warn);color:var(--ink)}
 .fnt.bad{background:var(--badbg);border:1px solid var(--bad);color:var(--ink)}
+.fnt.cargando{background:var(--card2);border:1px solid var(--border2);color:var(--ink2)}
+.fnt.vivo{background:var(--goodbg);border:1px solid var(--good);color:var(--ink2)}
+.punto{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink3);
+  margin-right:7px;vertical-align:1px;animation:late 1.2s ease-in-out infinite}
+.punto.ok{background:var(--good);animation:none}
+@keyframes late{0%,100%{opacity:.3}50%{opacity:1}}
+@media (prefers-reduced-motion: reduce){.punto{animation:none}}
 .seg button .pz{display:block;font-size:8.5px;font-weight:700;letter-spacing:.06em;
   text-transform:uppercase;opacity:.75;margin-top:1px}
 body.cargandoPeriodo #contenido{opacity:.45;pointer-events:none;transition:opacity .15s}
@@ -899,32 +906,62 @@ function avisoFuente(texto, tono){
   b.className = 'fnt ' + (tono||'');
 }
 
-/** Trae un periodo: primero en vivo, si no, del archivo publicado. */
-async function traerPeriodo(periodo){
+/** El archivo publicado: 27 KB desde la CDN, llega en milisegundos. */
+let ARCHIVO = null;
+async function traerArchivo(){
+  if(ARCHIVO) return ARCHIVO;
+  const r=await fetch(RESPALDO,{cache:'no-store'});
+  if(!r.ok) throw new Error(`el corte publicado no respondió (${r.status})`);
+  const d=await r.json();
+  if(!d || !Array.isArray(d.meses) || !d.meses.length) throw new Error('el corte publicado no trae periodos');
+  d.origen='archivo';
+  ARCHIVO=d;
+  return d;
+}
+
+/** La consulta en vivo. Tarda segundos: nunca se espera para pintar. */
+async function traerVivo(periodo){
   if(CACHE.has(periodo)) return CACHE.get(periodo);
+  const r=await fetch(`${API}?periodo=${encodeURIComponent(periodo)}`,{cache:'no-store'});
+  if(!r.ok){
+    let detalle=`HTTP ${r.status}`;
+    try{ const j=await r.json(); if(j && j.mensaje) detalle=j.mensaje; }catch(e){}
+    throw new Error(detalle);
+  }
+  const d=await r.json();
+  if(!d || !Array.isArray(d.meses) || !d.meses.length) throw new Error('la respuesta no trae periodos');
+  d.origen='vivo'; d.traido_en=Date.now();
+  CACHE.set(periodo,d);
+  return d;
+}
 
-  try{
-    const r=await fetch(`${API}?periodo=${encodeURIComponent(periodo)}`,{cache:'no-store'});
-    if(r.ok){
-      const d=await r.json();
-      if(d && Array.isArray(d.meses) && d.meses.length){
-        d.origen='vivo';
-        CACHE.set(periodo,d);
-        return d;
-      }
-    }
-  }catch(e){ /* se intenta el respaldo */ }
+/** Refresca en segundo plano y repinta cuando llega, sin bloquear nada. */
+function refrescarEnVivo(periodo){
+  marcarFuente('actualizando');
+  traerVivo(periodo).then(d=>{
+    if(PERIODO!==periodo) return;          // el usuario ya cambió de mes
+    CORTE=d; EMPRESAS=Array.isArray(d.empresas)?d.empresas:[];
+    pintar({conservarScroll:true});
+  }).catch(e=>{
+    if(PERIODO!==periodo) return;
+    marcarFuente('archivo', e.message);
+  });
+}
 
-  const r2=await fetch(RESPALDO,{cache:'no-store'});
-  if(!r2.ok) throw new Error(`ni la plataforma ni el corte publicado respondieron (${r2.status})`);
-  const d2=await r2.json();
-  if(!d2 || !Array.isArray(d2.meses) || !d2.meses.length) throw new Error('el corte publicado no trae periodos');
-  d2.origen='archivo';
-  /* El archivo trae solo los dos meses de su propio corte. Si se pidió otro,
-     no sirve como respuesta para ese periodo. */
-  if(!d2.meses.some(m=>m.id===periodo)) { d2.periodoNoDisponible = periodo; }
-  CACHE.set(periodo,d2);
-  return d2;
+function marcarFuente(estado, detalle){
+  const b=$('fuenteAviso');
+  b.hidden=false;
+  if(estado==='actualizando'){
+    b.className='fnt cargando';
+    b.innerHTML='<span class="punto"></span>Mostrando el último corte publicado · consultando la plataforma…';
+  } else if(estado==='vivo'){
+    b.className='fnt vivo';
+    b.innerHTML='<span class="punto ok"></span>En vivo, consultado hace un momento';
+  } else {
+    b.className='fnt warn';
+    b.textContent='La plataforma no respondió'+(detalle?` (${detalle})`:'')+
+      `. Se muestra el corte publicado del ${fechaLarga(CORTE.corte)}.`;
+  }
 }
 
 function fallo(e){
@@ -941,7 +978,8 @@ function fallo(e){
 }
 
 /** Pinta todo para el periodo ya cargado. */
-function pintar(){
+function pintar(opts){
+  const y = (opts&&opts.conservarScroll) ? window.scrollY : null;
   const ms=CORTE.meses;
   MES = Math.max(0, ms.findIndex(m=>m.id===PERIODO));
   if(MES<0) MES=ms.length-1;
@@ -949,20 +987,13 @@ function pintar(){
   $('corteLbl').textContent=fechaLarga(CORTE.corte);
   construirSelector();
 
-  if(CORTE.origen==='archivo'){
-    avisoFuente(CORTE.periodoNoDisponible
-      ? `La plataforma no respondió y el corte publicado no incluye ${CORTE.periodoNoDisponible}. Se muestra ${ms[MES].lbl}.`
-      : `La plataforma no respondió. Se muestra el último corte publicado, del ${fechaLarga(CORTE.corte)}.`,
-      'warn');
-  } else {
-    avisoFuente('');
-  }
-
   renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy();
   renderEmp(); renderCalidad(); renderSerie(); renderRecompra();
 
   $('cargando').hidden=true;
   $('contenido').hidden=false;
+  if(CORTE.origen==='vivo') marcarFuente('vivo');
+  if(y!==null) window.scrollTo(0,y);
 }
 
 /** El selector sale de la serie: todos los meses con datos, no dos fijos. */
@@ -988,15 +1019,34 @@ function construirSelector(){
 
 async function irA(periodo){
   if(periodo===PERIODO) return;
+  PERIODO=periodo;
   $('selMes').querySelectorAll('button').forEach(b=>
     b.setAttribute('aria-pressed', String(b.dataset.mes===periodo)));
+
+  /* Si el corte publicado trae ese mes, se pinta al instante y se refresca
+     por detrás. Si no, toca esperar a la plataforma: se avisa y no se deja
+     la pantalla congelada sin explicación. */
+  const delArchivo = ARCHIVO && ARCHIVO.meses.some(m=>m.id===periodo);
+  if(CACHE.has(periodo)){
+    const d=CACHE.get(periodo);
+    CORTE=d; EMPRESAS=d.empresas||[]; pintar({conservarScroll:true});
+    return;
+  }
+  if(delArchivo){
+    CORTE=ARCHIVO; EMPRESAS=ARCHIVO.empresas||[]; pintar({conservarScroll:true});
+    refrescarEnVivo(periodo);
+    return;
+  }
+
   document.body.classList.add('cargandoPeriodo');
+  marcarFuente('actualizando');
   try{
-    const d=await traerPeriodo(periodo);
-    CORTE=d; EMPRESAS=Array.isArray(d.empresas)?d.empresas:[]; PERIODO=periodo;
-    pintar();
+    const d=await traerVivo(periodo);
+    if(PERIODO!==periodo) return;
+    CORTE=d; EMPRESAS=d.empresas||[]; pintar({conservarScroll:true});
   }catch(e){
-    avisoFuente(`No se pudo traer ${periodo}: ${e.message}`,'bad');
+    if(PERIODO!==periodo) return;
+    marcarFuente('archivo', e.message);
   }finally{
     document.body.classList.remove('cargandoPeriodo');
   }
@@ -1004,12 +1054,25 @@ async function irA(periodo){
 
 async function iniciar(){
   PERIODO = mesDeHoy();
+
+  /* Primero lo publicado: llega en milisegundos y la pantalla deja de estar
+     vacía. La consulta en vivo tarda segundos y entra después, sola. */
   try{
-    const d=await traerPeriodo(PERIODO);
-    CORTE=d; EMPRESAS=Array.isArray(d.empresas)?d.empresas:[];
-    if(!d.meses.some(m=>m.id===PERIODO)) PERIODO = d.meses[d.meses.length-1].id;
-  }catch(e){ return fallo(e); }
-  pintar();
+    const a=await traerArchivo();
+    CORTE=a; EMPRESAS=Array.isArray(a.empresas)?a.empresas:[];
+    if(!a.meses.some(m=>m.id===PERIODO)) PERIODO=a.meses[a.meses.length-1].id;
+    pintar();
+  }catch(e){
+    /* Sin archivo no hay pintado instantáneo: se espera a la plataforma. */
+    marcarFuente('actualizando');
+    try{
+      const d=await traerVivo(PERIODO);
+      CORTE=d; EMPRESAS=d.empresas||[]; pintar();
+    }catch(e2){ return fallo(e2); }
+    return;
+  }
+
+  refrescarEnVivo(PERIODO);
 }
 iniciar();
 </script>
