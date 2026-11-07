@@ -23,7 +23,11 @@ export function armarTramites(m) {
       sin_carga: carga.ingenieros_sin_carga ?? null,
       carga_mediana: carga.carga_mediana,
       criterio_sobrecarga: carga.criterio_sobrecarga,
-      sobrecargados: carga.sobrecargados || [],
+      /* La versión anterior del endpoint devolvía una lista de nombres; la
+         actual, objetos con el número de trámites. El tablero no puede
+         asumir cuál está desplegada, así que normaliza las dos. */
+      sobrecargados: (carga.sobrecargados || []).map((x) =>
+        typeof x === 'string' ? { nombre: x, solicitudes_abiertas: null } : x),
       /* Nueve de catorce en cero mientras otros se saturan es un problema de
          reparto, no de volumen, y no se ve en ningún promedio. */
       reparto_desigual: carga.reparto_desigual ?? null,

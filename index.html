@@ -943,20 +943,30 @@ function renderTramites(){
   $('trPeriodo').textContent = t.periodo || '—';
 
   const ing=t.ingenieros, et=t.etapas, re=t.retrabajo, du=t.duracion;
+  /* El corte puede venir de la función en vivo o del archivo publicado, y el
+     archivo puede haberse escrito con una versión anterior del endpoint, que
+     devolvía los sobrecargados como nombres sueltos en vez de objetos. Se
+     normaliza aquí también: no basta con hacerlo del lado del servidor. */
+  if(ing) ing.sobrecargados=(ing.sobrecargados||[]).map(x=>
+    typeof x==='string' ? {nombre:x, solicitudes_abiertas:null} : x);
   const tar=(l,v,sub,cl)=>`<div class="kpi"><div class="kl">${esc(l)}</div>`+
     `<div class="kv"${cl?` style="color:${cl}"`:''}>${v}</div>`+
     `<div class="kd"><span>${esc(sub)}</span></div></div>`;
 
   let k='';
   if(ing){
-    k+=tar('Ingenieros con carga', `${nf(ing.con_carga)} de ${nf(ing.activos)}`,
-      ing.reparto_desigual
-        ? 'más de la mitad del equipo sin un solo trámite abierto'
-        : 'reparto sin concentración evidente',
+    k+=tar('Ingenieros',
+      hayNum(ing.con_carga) ? `${nf(ing.con_carga)} de ${nf(ing.activos)}` : nf(ing.activos),
+      hayNum(ing.con_carga)
+        ? (ing.reparto_desigual
+            ? 'más de la mitad del equipo sin un solo trámite abierto'
+            : 'con carga, de los activos')
+        : 'activos · el reparto llega con la versión nueva del endpoint',
       ing.reparto_desigual?'var(--warn)':'');
     k+=tar('Sobrecargados', nf(ing.sobrecargados.length),
       ing.sobrecargados.length
-        ? ing.sobrecargados.map(x=>`${x.nombre} (${x.solicitudes_abiertas})`).join(' · ')
+        ? ing.sobrecargados.map(x=>hayNum(x.solicitudes_abiertas)
+            ? `${x.nombre} (${x.solicitudes_abiertas})` : x.nombre).join(' · ')
         : 'ninguno supera el criterio',
       ing.sobrecargados.length?'var(--bad)':'var(--good)');
   }
@@ -988,10 +998,10 @@ function renderTramites(){
         (f.dias_mediana_cierre!==null?`<br>mediana de cierre: ${nf(f.dias_mediana_cierre)} días`:''),g);
       mk(g,'text',{x:lw+w+8,y:y+h-3.5,class:'vl'}).textContent=nf(f.solicitudes_abiertas);
     });
-    $('trCargaCs').textContent = ing.reparto_desigual
+    $('trCargaCs').textContent = (ing.reparto_desigual && hayNum(ing.sin_carga))
       ? `${nf(ing.sin_carga)} de ${nf(ing.activos)} ingenieros no tienen ningún trámite abierto. `+
         `La mediana de quienes sí tienen es ${nf(ing.carga_mediana)}.`
-      : `Mediana de ${nf(ing.carga_mediana)} trámites abiertos entre quienes tienen carga.`;
+      : `Mediana de ${nf(ing.carga_mediana)} trámites abiertos.`;
   } else {
     $('trCargaCs').textContent='Ningún ingeniero tiene trámites abiertos en este corte.';
   }
