@@ -8,7 +8,7 @@
  * Una sola petición desde la página en vez de once, y el mapeo queda en un
  * solo sitio, compartido con el proceso programado.
  * ------------------------------------------------------------------------- */
-import { traerTodo, BASE_POR_DEFECTO } from '../scripts/llamadas.mjs';
+import { traerTodasLasFuentes } from '../scripts/llamadas.mjs';
 import { armarCorte } from '../scripts/mapeo.mjs';
 
 export const config = { maxDuration: 120 };
@@ -16,8 +16,9 @@ export const config = { maxDuration: 120 };
 const PERIODO_VALIDO = /^\d{4}-(0[1-9]|1[0-2])$/;
 
 export default async function handler(req, res) {
-  const token = process.env.TABLERO_API_TOKEN;
-  if (!token) {
+  /* Solo formación es imprescindible. Sin su token no hay corte; sin los
+     otros dos, el corte sale y esas plataformas quedan declaradas ausentes. */
+  if (!process.env.TABLERO_API_TOKEN) {
     return res.status(500).json({
       ok: false,
       error: 'falta_token',
@@ -32,15 +33,11 @@ export default async function handler(req, res) {
 
   const t0 = Date.now();
   try {
-    const { muestras, tiempos, fallaron, total_ms } = await traerTodo({
-      base: process.env.TABLERO_API_BASE || BASE_POR_DEFECTO,
-      token,
-      periodo,
-    });
+    const { muestras, tiempos, fallaron } = await traerTodasLasFuentes(periodo);
 
     const corte = armarCorte(muestras, {}, fallaron);
     corte.origen = 'vivo';
-    corte.tiempos_ms = { ...tiempos, total: total_ms };
+    corte.tiempos_ms = { ...tiempos, total: Date.now() - t0 };
 
     /* Los endpoints de la plataforma ya cachean quince minutos el mes en curso.
        Replicarlo aquí evita que cada visita dispare once llamados. */

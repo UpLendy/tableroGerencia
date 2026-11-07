@@ -4,6 +4,8 @@
  * puedan desincronizarse.
  * ------------------------------------------------------------------------- */
 
+import { FUENTES, llamadasTramites, llamadasAlimentia } from './fuentes.mjs';
+
 export const BASE_POR_DEFECTO = 'https://virtual.bpmsas.co/api/v1/metrics';
 export const CABECERA = 'X-API-Token';
 export const REGLA_ESPERADA = 'virtual-metrics-v1';
@@ -124,4 +126,56 @@ export async function traerTodo({ base, token, periodo }) {
   }
 
   return { muestras, tiempos, fallaron, total_ms: Date.now() - t0 };
+}
+
+
+/**
+ * Las tres plataformas. Formación es la única imprescindible: sin ella no hay
+ * tablero. Trámites y Alimentia entran si responden, y si no, el corte sale
+ * igual diciendo cuál faltó y por qué.
+ */
+export async function traerTodasLasFuentes(periodo) {
+  const fallaron = {};
+  const tiempos = {};
+  const muestras = {};
+
+  /* Formación: imprescindible. Si revienta, revienta el corte. */
+  const base = await traerTodo({
+    base: FUENTES.formacion.base,
+    token: FUENTES.formacion.token(),
+    periodo,
+  });
+  Object.assign(muestras, base.muestras);
+  Object.assign(tiempos, base.tiempos);
+  Object.assign(fallaron, base.fallaron || {});
+
+  /* Las otras dos, en paralelo y toleradas. */
+  const extras = [
+    ['tramites', FUENTES.tramites, llamadasTramites(periodo)],
+    ['alimentia', FUENTES.alimentia, llamadasAlimentia(periodo)],
+  ];
+
+  await Promise.all(extras.map(async ([clave, fuente, lista]) => {
+    const token = fuente.token();
+    if (!token) {
+      fallaron[clave] = 'no hay token configurado para esta plataforma';
+      return;
+    }
+    const res = await Promise.allSettled(lista.map(async (l) => {
+      const t = Date.now();
+      const json = await pedir({ base: fuente.base, token, ruta: l.ruta, params: l.params });
+      return { nombre: l.nombre, json, ms: Date.now() - t };
+    }));
+    res.forEach((r, i) => {
+      const nombre = lista[i].nombre;
+      if (r.status === 'fulfilled') {
+        muestras[nombre] = r.value.json;
+        tiempos[nombre] = r.value.ms;
+      } else {
+        fallaron[nombre] = String((r.reason && r.reason.message) || r.reason);
+      }
+    });
+  }));
+
+  return { muestras, tiempos, fallaron };
 }

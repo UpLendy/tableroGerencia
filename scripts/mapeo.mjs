@@ -17,6 +17,8 @@ const SIN_EMPRESA = 'bpmsas';
 const DUENO = {};
 for (const [jefe, g] of Object.entries(UNIFICAR)) for (const c of g.codigos) DUENO[c] = jefe;
 
+import { armarTramites, armarAlimentia } from './mapeo-extra.mjs';
+
 const REGLA = 'virtual-metrics-v1';
 const MESLARGO = ['enero','febrero','marzo','abril','mayo','junio','julio',
                   'agosto','septiembre','octubre','noviembre','diciembre'];
@@ -262,6 +264,8 @@ export function armarCorte(m, narrativa = {}, fallaron = {}) {
       regla: calidad.regla, como_se_calcula: calidad.como_se_calcula,
     },
     universo: calidad.totales,
+    tramites: armarTramites(m),
+    alimentia: armarAlimentia(m),
     salud: armarSalud({ mes: ult, serie, venc, calidad, concentracion,
                        hoy: fechaCorte }),
     precioMedioObservado: Math.round(ult.ingreso / ult.cert),

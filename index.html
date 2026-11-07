@@ -364,6 +364,48 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     </div>
   </section>
 
+  <!-- ============ 6b · INGENIEROS ============ -->
+  <section>
+    <div class="shead">
+      <h2>Carga de los ingenieros</h2>
+      <span class="note">Plataforma de trámites · <span id="trPeriodo">—</span></span>
+    </div>
+    <div id="trAusente" class="ausente" hidden></div>
+    <div id="trCaja" hidden>
+      <div class="grid kpis" id="trKpis"></div>
+      <div class="grid" style="grid-template-columns:1.2fr 1fr;align-items:start;margin-top:14px">
+        <div class="chartcard">
+          <div class="ct">Quién tiene qué encima</div>
+          <div class="cs" id="trCargaCs"></div>
+          <svg id="svgCarga" viewBox="0 0 560 300" aria-label="Trámites abiertos por ingeniero"></svg>
+        </div>
+        <div class="chartcard">
+          <div class="ct">Dónde se pierde el tiempo</div>
+          <div class="cs" id="trEtapaCs"></div>
+          <div id="trEtapas"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6c · ALIMENTIA ============ -->
+  <section>
+    <div class="shead">
+      <h2>Uso diario de Alimentia</h2>
+      <span class="note">Diligenciamiento por empresa · <span id="alPeriodo">—</span></span>
+    </div>
+    <div id="alAusente" class="ausente" hidden></div>
+    <div id="alCaja" hidden>
+      <div class="grid kpis" id="alKpis"></div>
+      <div id="alAviso" style="margin-top:14px"></div>
+      <div class="chartcard" style="margin-top:14px">
+        <div class="ct">Cumplimiento por empresa</div>
+        <div class="cs" id="alCs"></div>
+        <div id="alTabla"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ 7 · PRECIO ============ -->
   <section>
     <div class="shead"><h2>Servicio prestado sin valor asociado</h2></div>
@@ -878,6 +920,158 @@ function renderRecompra(){
     : '';
 }
 
+/* ------------------------------------------------------ ingenieros */
+function ausente(cajaId, avisoId, titulo, motivo){
+  $(cajaId).hidden = true;
+  const a=$(avisoId); a.hidden=false;
+  a.innerHTML = `<b>${esc(titulo)}</b> ${esc(motivo)}`;
+}
+
+function renderTramites(){
+  const t = CORTE.tramites;
+  const falla = (CORTE.sin_respuesta && (CORTE.sin_respuesta.tramites ||
+    CORTE.sin_respuesta.tr_carga)) || null;
+
+  if(!t){
+    $('trPeriodo').textContent='—';
+    return ausente('trCaja','trAusente','La plataforma de trámites no respondió.',
+      (falla ? `Motivo: ${falla}. ` : '') +
+      'El tablero no muestra ceros en su lugar: no saber cuánta carga tiene un ' +
+      'ingeniero no es lo mismo que decir que no tiene ninguna.');
+  }
+  $('trAusente').hidden=true; $('trCaja').hidden=false;
+  $('trPeriodo').textContent = t.periodo || '—';
+
+  const ing=t.ingenieros, et=t.etapas, re=t.retrabajo, du=t.duracion;
+  const tar=(l,v,sub,cl)=>`<div class="kpi"><div class="kl">${esc(l)}</div>`+
+    `<div class="kv"${cl?` style="color:${cl}"`:''}>${v}</div>`+
+    `<div class="kd"><span>${esc(sub)}</span></div></div>`;
+
+  let k='';
+  if(ing){
+    k+=tar('Ingenieros con carga', `${nf(ing.con_carga)} de ${nf(ing.activos)}`,
+      ing.reparto_desigual
+        ? 'más de la mitad del equipo sin un solo trámite abierto'
+        : 'reparto sin concentración evidente',
+      ing.reparto_desigual?'var(--warn)':'');
+    k+=tar('Sobrecargados', nf(ing.sobrecargados.length),
+      ing.sobrecargados.length
+        ? ing.sobrecargados.map(x=>`${x.nombre} (${x.solicitudes_abiertas})`).join(' · ')
+        : 'ninguno supera el criterio',
+      ing.sobrecargados.length?'var(--bad)':'var(--good)');
+  }
+  if(du){
+    k+=tar('Procesos abiertos hoy', nf(du.abiertos), `${nf(du.cerrados)} se cerraron en el periodo`);
+    k+=tar('Días hasta cerrar', nf(du.dias_mediana),
+      du.dias_p90!==null?`mediana · el 10 % más lento pasa de ${nf(du.dias_p90)}`:'mediana');
+  }
+  if(re) k+=tar('Retrabajo', re.tasa!==null?pc(re.tasa*100):emdash,
+    `${nf(re.eliminadas)} etapas deshechas de ${nf(re.iniciadas)} iniciadas`);
+  $('trKpis').innerHTML=k;
+
+  /* carga por ingeniero */
+  const sv=$('svgCarga'); sv.innerHTML='';
+  const filas=(ing&&ing.detalle||[]).filter(f=>f.solicitudes_abiertas>0).slice(0,12);
+  if(filas.length){
+    const W=560, lw=190, bwMax=280, rowH=24, max=filas[0].solicitudes_abiertas;
+    sv.setAttribute('viewBox',`0 0 ${W} ${filas.length*rowH+12}`);
+    const g=mk(sv,'g',{});
+    const nombresAlerta=new Set((ing.sobrecargados||[]).map(x=>x.nombre));
+    filas.forEach((f,i)=>{
+      const y=i*rowH+3, h=15, w=Math.max(3,f.solicitudes_abiertas/max*bwMax);
+      const alerta=nombresAlerta.has(f.nombre);
+      mk(g,'text',{x:lw-10,y:y+h-3.5,'text-anchor':'end',class:'ax'})
+        .textContent=f.nombre.length>26?f.nombre.slice(0,24)+'…':f.nombre;
+      const b=barH(g,lw,y,w,h,alerta?'var(--s2)':'var(--r2)');
+      bindTip(b,`<b>${esc(f.nombre)}</b>${nf(f.solicitudes_abiertas)} trámites abiertos<br>`+
+        `${nf(f.solicitudes_cerradas_periodo)} cerrados y ${nf(f.citas_periodo)} citas en el periodo`+
+        (f.dias_mediana_cierre!==null?`<br>mediana de cierre: ${nf(f.dias_mediana_cierre)} días`:''),g);
+      mk(g,'text',{x:lw+w+8,y:y+h-3.5,class:'vl'}).textContent=nf(f.solicitudes_abiertas);
+    });
+    $('trCargaCs').textContent = ing.reparto_desigual
+      ? `${nf(ing.sin_carga)} de ${nf(ing.activos)} ingenieros no tienen ningún trámite abierto. `+
+        `La mediana de quienes sí tienen es ${nf(ing.carga_mediana)}.`
+      : `Mediana de ${nf(ing.carga_mediana)} trámites abiertos entre quienes tienen carga.`;
+  } else {
+    $('trCargaCs').textContent='Ningún ingeniero tiene trámites abiertos en este corte.';
+  }
+
+  /* etapas */
+  if(et && (et.detalle||[]).length){
+    $('trEtapaCs').textContent = et.cuello_de_botella
+      ? `La etapa más lenta es ${et.cuello_de_botella}.` : '';
+    $('trEtapas').innerHTML=`<table><thead><tr><th>Etapa</th>`+
+      `<th class="n">Mediana</th><th class="n">Máximo</th><th class="n">Completadas</th>`+
+      `</tr></thead><tbody>${et.detalle.slice(0,8).map(e=>
+        `<tr><td>${esc(e.nombre)}</td><td class="n">${nf(e.dias_mediana)} d</td>`+
+        `<td class="n">${nf(e.dias_max)} d</td><td class="n">${nf(e.completadas)}</td></tr>`).join('')}`+
+      `</tbody></table>`+
+      ((et.atascadas||[]).length
+        ? `<div class="kp">${et.atascadas.length===1
+              ? 'Una etapa abierta ya pasó'
+              : nf(et.atascadas.length)+' etapas abiertas ya pasaron'} la mediana de su propia etapa. `+
+          `La más vieja lleva ${nf(et.atascadas[0].dias_abierta)} días.</div>` : '');
+  } else {
+    $('trEtapaCs').textContent='';
+    $('trEtapas').innerHTML='<div class="ausente">No hubo etapas completadas en el periodo, '+
+      'así que no hay tiempos que medir todavía.</div>';
+  }
+}
+
+/* ------------------------------------------------------ alimentia */
+function renderAlimentia(){
+  const a = CORTE.alimentia;
+  const falla = (CORTE.sin_respuesta && (CORTE.sin_respuesta.alimentia ||
+    CORTE.sin_respuesta.al_diligenciamiento)) || null;
+
+  if(!a){
+    $('alPeriodo').textContent='—';
+    return ausente('alCaja','alAusente','Alimentia no respondió.',
+      (falla ? `Motivo: ${falla}. ` : '') +
+      'Sin esta fuente no se puede decir qué empresas dejaron de diligenciar.');
+  }
+  $('alAusente').hidden=true; $('alCaja').hidden=false;
+  $('alPeriodo').textContent=a.periodo||'—';
+
+  const tar=(l,v,sub,cl)=>`<div class="kpi"><div class="kl">${esc(l)}</div>`+
+    `<div class="kv"${cl?` style="color:${cl}"`:''}>${v}</div>`+
+    `<div class="kd"><span>${esc(sub)}</span></div></div>`;
+  const c=a.cumplimiento;
+
+  $('alKpis').innerHTML =
+    tar('Cumplimiento global', c!==null?pc(c*100):emdash,
+      `${nf(a.entregados)} de ${nf(a.esperados)} registros esperados`,
+      c===null?'':(c<0.5?'var(--bad)':(c<0.8?'var(--warn)':'var(--good)'))) +
+    tar('Empresas medidas', nf(a.empresas),
+      `${nf(a.demo_excluidas)} de demostración excluidas`) +
+    tar('Sin un solo registro', nf(a.sin_un_solo_registro),
+      'teniendo formatos habilitados',
+      a.sin_un_solo_registro?'var(--bad)':'var(--good)') +
+    tar('Detenidas', nf((a.detenidas||[]).length),
+      'siete días o más sin diligenciar',
+      (a.detenidas||[]).length?'var(--warn)':'var(--good)');
+
+  $('alAviso').innerHTML = a.advertencia_definicion
+    ? `<div class="alert w"><div class="ai">i</div><div><b>Falta definir qué días son exigibles.</b> ${esc(a.advertencia_definicion)}</div></div>`
+    : '';
+
+  const d=a.detalle||[];
+  $('alCs').textContent = d.length
+    ? `Ordenadas de menor a mayor cumplimiento. El esperado sale de los formatos habilitados de cada empresa.`
+    : 'No hay empresas con formatos habilitados en este corte.';
+  $('alTabla').innerHTML = d.length
+    ? `<table><thead><tr><th>Empresa</th><th class="n">Sedes</th><th class="n">Formatos</th>`+
+      `<th class="n">Esperado</th><th class="n">Entregado</th><th class="n">Cumple</th>`+
+      `<th>Último registro</th></tr></thead><tbody>${d.map(e=>{
+        const cl=e.cumplimiento===null?'flat':(e.cumplimiento<0.5?'dn':(e.cumplimiento<0.8?'flat':'up'));
+        return `<tr><td>${esc(e.nombre||'(sin nombre)')}</td><td class="n">${nf(e.sedes)}</td>`+
+          `<td class="n">${nf(e.formatos_habilitados)}</td><td class="n">${nf(e.esperados)}</td>`+
+          `<td class="n">${nf(e.entregados)}</td>`+
+          `<td class="n ${cl}">${e.cumplimiento!==null?pc(e.cumplimiento*100):emdash}</td>`+
+          `<td style="color:var(--ink3)">${esc(e.ultimo_diligenciamiento||'nunca')}</td></tr>`;
+      }).join('')}</tbody></table>` : '';
+}
+
 /* ------------------------------------------------------ calidad */
 function renderCalidad(){
   $('qlist').innerHTML=CORTE.calidad.map(q=>`
@@ -1016,6 +1210,7 @@ function pintar(opts){
 
   renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy();
   renderEmp(); renderCalidad(); renderSerie(); renderRecompra();
+  renderTramites(); renderAlimentia();
 
   $('cargando').hidden=true;
   $('contenido').hidden=false;
