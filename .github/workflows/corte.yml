@@ -1,17 +1,16 @@
 name: Corte automático
 
-# Por ahora solo manual. La programación queda comentada y se activa cuando el
-# armado de data/corte.json esté probado contra producción: no conviene que un
-# cron empiece a fallar solo y nadie se entere.
+# Se corre cada noche a las 04:37 hora de Bogotá (09:37 UTC).
+# También se puede lanzar a mano desde Actions indicando el periodo.
 on:
+  schedule:
+    - cron: "37 9 * * *"
   workflow_dispatch:
     inputs:
       periodo:
-        description: "Periodo a extraer, en formato YYYY-MM"
+        description: "Periodo a extraer, en formato YYYY-MM (vacío = mes en curso)"
         required: false
         default: ""
-  # schedule:
-  #   - cron: "37 9 * * *"   # 09:37 UTC = 04:37 en Bogotá
 
 permissions:
   contents: write
@@ -28,7 +27,9 @@ jobs:
 
       - name: Extraer el corte desde la plataforma
         env:
-          TABLERO_API_TOKEN: ${{ secrets.TABLERO_API_TOKEN }}
+          TABLERO_API_TOKEN:   ${{ secrets.TABLERO_API_TOKEN }}
+          TRAMITES_API_TOKEN:  ${{ secrets.TRAMITES_API_TOKEN }}
+          ALIMENTIA_API_TOKEN: ${{ secrets.ALIMENTIA_API_TOKEN }}
         run: |
           PERIODO="${{ github.event.inputs.periodo }}"
           if [ -z "$PERIODO" ]; then PERIODO=$(date -u +%Y-%m); fi
