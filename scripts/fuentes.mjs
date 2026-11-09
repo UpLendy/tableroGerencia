@@ -23,7 +23,7 @@ export const FUENTES = {
     nombre: 'Alimentia',
     base: process.env.ALIMENTIA_API_BASE || 'https://3-19-160-203.sslip.io/api/metrics',
     token: () => process.env.ALIMENTIA_API_TOKEN,
-    regla: 'alimentia-metrics-v1',
+    regla: 'alimentia-metrics-v2',
   },
 };
 

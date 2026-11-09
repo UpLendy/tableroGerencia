@@ -50,11 +50,11 @@ export const ESENCIALES = new Set([
 /** Una llamada, con el sobre validado. Lanza con un mensaje legible. */
 const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
 
-export async function pedir({ base, token, ruta, params, timeoutMs = 90000, intentos = 2 }) {
+export async function pedir({ base, token, ruta, params, timeoutMs = 90000, intentos = 2, reglaEsperada }) {
   let ultimo;
   for (let i = 0; i < intentos; i++) {
     try {
-      return await pedirUnaVez({ base, token, ruta, params, timeoutMs });
+      return await pedirUnaVez({ base, token, ruta, params, timeoutMs, reglaEsperada });
     } catch (e) {
       ultimo = e;
       /* 429 es el limite por minuto de la plataforma. Esperar y repetir una
@@ -66,7 +66,7 @@ export async function pedir({ base, token, ruta, params, timeoutMs = 90000, inte
   throw ultimo;
 }
 
-async function pedirUnaVez({ base, token, ruta, params, timeoutMs }) {
+async function pedirUnaVez({ base, token, ruta, params, timeoutMs, reglaEsperada }) {
   const url = new URL(`${base}/${ruta}`);
   for (const [k, v] of Object.entries(params || {})) {
     if (v !== undefined && v !== null && v !== '') url.searchParams.set(k, String(v));
@@ -90,20 +90,23 @@ async function pedirUnaVez({ base, token, ruta, params, timeoutMs }) {
   catch { throw new Error(`${ruta}: la respuesta no es JSON`); }
 
   if (json.ok !== true) throw new Error(`${ruta}: la respuesta trae ok=${JSON.stringify(json.ok)}`);
-  if (json.regla && json.regla !== REGLA_ESPERADA) {
-    throw new Error(`${ruta}: regla "${json.regla}", se esperaba "${REGLA_ESPERADA}"`);
+  /* Cada plataforma tiene su propia regla. Si se pasa reglaEsperada, se
+     valida; si no, se acepta cualquier regla (modo permisivo para endpoints
+     que no informan versión). */
+  if (reglaEsperada && json.regla && json.regla !== reglaEsperada) {
+    throw new Error(`${ruta}: regla "${json.regla}", se esperaba "${reglaEsperada}"`);
   }
   return json;
 }
 
 /** Los once en paralelo. Devuelve { muestras, tiempos }. */
-export async function traerTodo({ base, token, periodo }) {
+export async function traerTodo({ base, token, periodo, reglaEsperada = REGLA_ESPERADA }) {
   const lista = llamadasDe(periodo);
   const t0 = Date.now();
 
   const resultados = await Promise.allSettled(lista.map(async (l) => {
     const t = Date.now();
-    const json = await pedir({ base, token, ruta: l.ruta, params: l.params });
+    const json = await pedir({ base, token, ruta: l.ruta, params: l.params, reglaEsperada });
     return { nombre: l.nombre, json, ms: Date.now() - t };
   }));
 
@@ -144,6 +147,7 @@ export async function traerTodasLasFuentes(periodo) {
     base: FUENTES.formacion.base,
     token: FUENTES.formacion.token(),
     periodo,
+    reglaEsperada: FUENTES.formacion.regla,
   });
   Object.assign(muestras, base.muestras);
   Object.assign(tiempos, base.tiempos);
@@ -163,7 +167,7 @@ export async function traerTodasLasFuentes(periodo) {
     }
     const res = await Promise.allSettled(lista.map(async (l) => {
       const t = Date.now();
-      const json = await pedir({ base: fuente.base, token, ruta: l.ruta, params: l.params });
+      const json = await pedir({ base: fuente.base, token, ruta: l.ruta, params: l.params, reglaEsperada: fuente.regla });
       return { nombre: l.nombre, json, ms: Date.now() - t };
     }));
     res.forEach((r, i) => {
