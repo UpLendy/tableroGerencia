@@ -1,44 +1,44 @@
 {
-  "corte": "2026-11-05",
-  "generado_en": "2026-11-05T17:24:46.247Z",
+  "corte": "2026-11-10",
+  "generado_en": "2026-11-10T22:16:40.785Z",
   "regla": "virtual-metrics-v1",
   "fuente": "virtual.bpmsas.co · capa de métricas",
   "meses": [
     {
-      "id": "2026-09",
-      "lbl": "Septiembre 2026",
-      "corto": "septiembre",
-      "cert": 1756,
-      "personas": 1709,
-      "ingreso": 34886000,
-      "ingresoBPM": null,
-      "canal": {
-        "emp": 1103,
-        "par": 653
-      },
-      "activasCodigos": 53,
-      "activas": 52,
-      "registradas": 204,
-      "nuevas": 4,
-      "retomadas": 2
-    },
-    {
       "id": "2026-10",
       "lbl": "Octubre 2026",
       "corto": "octubre",
-      "cert": 1848,
-      "personas": 1806,
-      "ingreso": 35976000,
+      "cert": 1847,
+      "personas": 1805,
+      "ingreso": 35956000,
       "ingresoBPM": null,
       "canal": {
-        "emp": 1071,
+        "emp": 1070,
         "par": 777
       },
       "activasCodigos": 59,
       "activas": 57,
-      "registradas": 204,
+      "registradas": 206,
       "nuevas": 3,
       "retomadas": 1
+    },
+    {
+      "id": "2026-11",
+      "lbl": "Noviembre 2026",
+      "corto": "noviembre",
+      "cert": 621,
+      "personas": 607,
+      "ingreso": 11784000,
+      "ingresoBPM": null,
+      "canal": {
+        "emp": 427,
+        "par": 194
+      },
+      "activasCodigos": 43,
+      "activas": 41,
+      "registradas": 206,
+      "nuevas": 4,
+      "retomadas": 0
     }
   ],
   "empresas": [
@@ -51,8 +51,112 @@
       ],
       "unificada": true,
       "meses": {
-        "2026-09": 349,
-        "2026-10": 353
+        "2026-10": 353,
+        "2026-11": 101
+      }
+    },
+    {
+      "codigo": "dad4ef",
+      "nombre": "DISTRIBUIDORA DE VINOS Y LICORES S.A.S.",
+      "meses": {
+        "2026-10": 162,
+        "2026-11": 106
+      }
+    },
+    {
+      "codigo": "603a8e",
+      "nombre": "ROYAL FILMS S.A.S",
+      "meses": {
+        "2026-10": 90,
+        "2026-11": 40
+      }
+    },
+    {
+      "codigo": "1f2ad1",
+      "nombre": "Centro Aseo",
+      "meses": {
+        "2026-10": 39,
+        "2026-11": 1
+      }
+    },
+    {
+      "codigo": "66accf",
+      "nombre": "FARMACIAS DE SIMILARES COLOMBIA SAS",
+      "meses": {
+        "2026-10": 29,
+        "2026-11": 4
+      }
+    },
+    {
+      "codigo": "7016fa",
+      "nombre": "SUCROAL S.A",
+      "meses": {
+        "2026-10": 25,
+        "2026-11": 5
+      }
+    },
+    {
+      "codigo": "d4d8c7",
+      "nombre": "OSTI EST SAS",
+      "meses": {
+        "2026-10": 23,
+        "2026-11": 5
+      }
+    },
+    {
+      "codigo": "e1529e",
+      "nombre": "OUTSOURCING SEASIN LIMITADA",
+      "meses": {
+        "2026-10": 22,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "044787",
+      "nombre": "COMPAÑIA LECHERA DE EL MORTIÑO  S.A.S",
+      "meses": {
+        "2026-10": 21,
+        "2026-11": 3
+      }
+    },
+    {
+      "codigo": "23375f",
+      "nombre": "OSYA OCUPACIONAL IPS S.A.S",
+      "meses": {
+        "2026-10": 19,
+        "2026-11": 4
+      }
+    },
+    {
+      "codigo": "e7c194",
+      "nombre": "VIVE CAFÉ S.A. BIC",
+      "meses": {
+        "2026-10": 18,
+        "2026-11": 1
+      }
+    },
+    {
+      "codigo": "d85ce6",
+      "nombre": "FASALACT SAS",
+      "meses": {
+        "2026-10": 17,
+        "2026-11": 1
+      }
+    },
+    {
+      "codigo": "a6824d",
+      "nombre": "GRUPO EMPRESARIAL PUERTO DE BARRANQUILLA S.A",
+      "meses": {
+        "2026-10": 17,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "d53a9f",
+      "nombre": "DECAMERON CINCO HERRADURAS S.A.S.",
+      "meses": {
+        "2026-10": 16,
+        "2026-11": 6
       }
     },
     {
@@ -64,432 +168,48 @@
       ],
       "unificada": true,
       "meses": {
-        "2026-09": 100,
-        "2026-10": 16
-      }
-    },
-    {
-      "codigo": "603a8e",
-      "nombre": "ROYAL FILMS S.A.S",
-      "meses": {
-        "2026-09": 94,
-        "2026-10": 91
-      }
-    },
-    {
-      "codigo": "444ba5",
-      "nombre": "PRICESMART EL POBLADO",
-      "meses": {
-        "2026-09": 48,
-        "2026-10": 8
-      }
-    },
-    {
-      "codigo": "dad4ef",
-      "nombre": "DISTRIBUIDORA DE VINOS Y LICORES S.A.S.",
-      "meses": {
-        "2026-09": 46,
-        "2026-10": 162
-      }
-    },
-    {
-      "codigo": "2b5b45",
-      "nombre": "Cinépolis .",
-      "meses": {
-        "2026-09": 39,
-        "2026-10": 9
-      }
-    },
-    {
-      "codigo": "7016fa",
-      "nombre": "SUCROAL S.A",
-      "meses": {
-        "2026-09": 29,
-        "2026-10": 25
-      }
-    },
-    {
-      "codigo": "1689a7",
-      "nombre": "ECO VIDA INTEGRAL",
-      "meses": {
-        "2026-09": 27,
-        "2026-10": 7
-      }
-    },
-    {
-      "codigo": "1f2ad1",
-      "nombre": "Centro Aseo",
-      "meses": {
-        "2026-09": 27,
-        "2026-10": 39
-      }
-    },
-    {
-      "codigo": "1ba628",
-      "nombre": "RECISERVICIOS LA COSTA S.A.S",
-      "meses": {
-        "2026-09": 27,
-        "2026-10": 14
-      }
-    },
-    {
-      "codigo": "9fec23",
-      "nombre": "SECURICOL SEGURIDAD PRIVADA LIMITADA",
-      "meses": {
-        "2026-09": 25,
-        "2026-10": 0
-      }
-    },
-    {
-      "codigo": "99b3d6",
-      "nombre": "SURTIALIADOS SAS",
-      "meses": {
-        "2026-09": 22,
-        "2026-10": 12
-      }
-    },
-    {
-      "codigo": "4a1320",
-      "nombre": "EMPRESA POWER SERVICES LTDA",
-      "meses": {
-        "2026-09": 19,
-        "2026-10": 10
-      }
-    },
-    {
-      "codigo": "23375f",
-      "nombre": "OSYA OCUPACIONAL IPS S.A.S",
-      "meses": {
-        "2026-09": 19,
-        "2026-10": 19
-      }
-    },
-    {
-      "codigo": "564a3b",
-      "nombre": "PUNTO EMPLEO S.A.S.",
-      "meses": {
-        "2026-09": 17,
-        "2026-10": 12
+        "2026-10": 16,
+        "2026-11": 24
       }
     },
     {
       "codigo": "14f27a",
       "nombre": "GESA  GESTIONES ADMINISTRATIVAS & TALENTO HUMANO SAS",
       "meses": {
-        "2026-09": 13,
-        "2026-10": 15
+        "2026-10": 15,
+        "2026-11": 9
       }
     },
     {
-      "codigo": "044787",
-      "nombre": "COMPAÑIA LECHERA DE EL MORTIÑO  S.A.S",
+      "codigo": "1ba628",
+      "nombre": "RECISERVICIOS LA COSTA S.A.S",
       "meses": {
-        "2026-09": 12,
-        "2026-10": 21
+        "2026-10": 14,
+        "2026-11": 14
       }
     },
     {
-      "codigo": "5a73a4",
-      "nombre": "Bioservicios S.A.S",
+      "codigo": "99b3d6",
+      "nombre": "SURTIALIADOS SAS",
       "meses": {
-        "2026-09": 12,
-        "2026-10": 3
+        "2026-10": 12,
+        "2026-11": 6
       }
     },
     {
-      "codigo": "9b149c",
-      "nombre": "Produempak EFC",
+      "codigo": "564a3b",
+      "nombre": "PUNTO EMPLEO S.A.S.",
       "meses": {
-        "2026-09": 11,
-        "2026-10": 6
+        "2026-10": 12,
+        "2026-11": 3
       }
     },
     {
-      "codigo": "66accf",
-      "nombre": "FARMACIAS DE SIMILARES COLOMBIA SAS",
+      "codigo": "4a1320",
+      "nombre": "EMPRESA POWER SERVICES LTDA",
       "meses": {
-        "2026-09": 11,
-        "2026-10": 29
-      }
-    },
-    {
-      "codigo": "d4d8c7",
-      "nombre": "OSTI EST SAS",
-      "meses": {
-        "2026-09": 11,
-        "2026-10": 23
-      }
-    },
-    {
-      "codigo": "9a107d",
-      "nombre": "MANEL FOODS S.A.S.",
-      "meses": {
-        "2026-09": 11,
-        "2026-10": 6
-      }
-    },
-    {
-      "codigo": "2e62ce",
-      "nombre": "PRO-SER COLOMBIA  SAS",
-      "meses": {
-        "2026-09": 10,
-        "2026-10": 2
-      }
-    },
-    {
-      "codigo": "c57e9b",
-      "nombre": "INVERSIONES RCP SAS",
-      "meses": {
-        "2026-09": 10,
-        "2026-10": 7
-      }
-    },
-    {
-      "codigo": "bd17d3",
-      "nombre": "PAPELES Y NEGOCIOS",
-      "meses": {
-        "2026-09": 9,
-        "2026-10": 1
-      }
-    },
-    {
-      "codigo": "ba0a51",
-      "nombre": "SANILAB IPS SAS",
-      "meses": {
-        "2026-09": 9,
-        "2026-10": 4
-      }
-    },
-    {
-      "codigo": "692cd9",
-      "nombre": "DISTRIMARCAS AGENTE COMERCIAL SAS",
-      "meses": {
-        "2026-09": 8,
-        "2026-10": 4
-      }
-    },
-    {
-      "codigo": "701bc2",
-      "nombre": "ALMACAFÉ ARMENIA",
-      "meses": {
-        "2026-09": 7,
-        "2026-10": 1
-      }
-    },
-    {
-      "codigo": "4a81fb",
-      "nombre": "Grupo Éxito",
-      "meses": {
-        "2026-09": 7,
-        "2026-10": 4
-      }
-    },
-    {
-      "codigo": "7d089c",
-      "nombre": "MERCADOS  UNO A",
-      "meses": {
-        "2026-09": 6,
-        "2026-10": 2
-      }
-    },
-    {
-      "codigo": "e76e26",
-      "nombre": "ASTEMPRO LTDA",
-      "meses": {
-        "2026-09": 6,
-        "2026-10": 1
-      }
-    },
-    {
-      "codigo": "d85ce6",
-      "nombre": "FASALACT SAS",
-      "meses": {
-        "2026-09": 6,
-        "2026-10": 17
-      }
-    },
-    {
-      "codigo": "f767b5",
-      "nombre": "COMERCIALIZADORA MALTA  SAS",
-      "meses": {
-        "2026-09": 6,
-        "2026-10": 0
-      }
-    },
-    {
-      "codigo": "2c6b61",
-      "nombre": "CONSORCIO 1A",
-      "meses": {
-        "2026-09": 5,
-        "2026-10": 0
-      }
-    },
-    {
-      "codigo": "d53a9f",
-      "nombre": "DECAMERON CINCO HERRADURAS S.A.S.",
-      "meses": {
-        "2026-09": 5,
-        "2026-10": 16
-      }
-    },
-    {
-      "codigo": "be428a",
-      "nombre": "CAMARON PAISA",
-      "meses": {
-        "2026-09": 4,
-        "2026-10": 2
-      }
-    },
-    {
-      "codigo": "c19b6a",
-      "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
-      "meses": {
-        "2026-09": 4,
-        "2026-10": 5
-      }
-    },
-    {
-      "codigo": "eb8357",
-      "nombre": "LOGISTICA CIRCULAR S.A.S",
-      "meses": {
-        "2026-09": 3,
-        "2026-10": 5
-      }
-    },
-    {
-      "codigo": "72a1cc",
-      "nombre": "AGROINDUSTRIAL SAN JOSE S.A \"AGRINSA\"",
-      "meses": {
-        "2026-09": 3,
-        "2026-10": 0
-      }
-    },
-    {
-      "codigo": "3e129c",
-      "nombre": "HELADERIA LAS MAS FRESAS",
-      "meses": {
-        "2026-09": 3,
-        "2026-10": 0
-      }
-    },
-    {
-      "codigo": "f3bad2",
-      "nombre": "ALMACENES GENERALES DE DEPOSITO DE CAFE S A ALMACAFE",
-      "meses": {
-        "2026-09": 3,
-        "2026-10": 0
-      }
-    },
-    {
-      "codigo": "b459c8",
-      "nombre": "EMBOTELLADORA CAPRI LTDA",
-      "meses": {
-        "2026-09": 3,
-        "2026-10": 4
-      }
-    },
-    {
-      "codigo": "c2779c",
-      "nombre": "ÜMAN TEMPORAL SERVICES SAS",
-      "meses": {
-        "2026-09": 3,
-        "2026-10": 0
-      }
-    },
-    {
-      "codigo": "f6a145",
-      "nombre": "COMERCIALIZADORA DE FRUTAS Y VERDURAS  ROMERO Y ROMERO S A S",
-      "meses": {
-        "2026-09": 3,
-        "2026-10": 0
-      }
-    },
-    {
-      "codigo": "e14b95",
-      "nombre": "COLOMBIA HELADOS SAS",
-      "meses": {
-        "2026-09": 3,
-        "2026-10": 2
-      }
-    },
-    {
-      "codigo": "dadd5b",
-      "nombre": "SERVICIOS TEMPORALES DE COLOMBIA  - TEMPOCOLBA",
-      "meses": {
-        "2026-09": 2,
-        "2026-10": 2
-      }
-    },
-    {
-      "codigo": "af291e",
-      "nombre": "ASEOS COLOMBIANOS ASEOCOLBA SA",
-      "meses": {
-        "2026-09": 1,
-        "2026-10": 2
-      }
-    },
-    {
-      "codigo": "e5a3fc",
-      "nombre": "Mallplaza cc",
-      "meses": {
-        "2026-09": 1,
-        "2026-10": 0
-      }
-    },
-    {
-      "codigo": "c7d780",
-      "nombre": "HARISSA FOODS",
-      "meses": {
-        "2026-09": 1,
-        "2026-10": 5
-      }
-    },
-    {
-      "codigo": "7415b1",
-      "nombre": "RECUPERAR REGIONAL CENTRO",
-      "meses": {
-        "2026-09": 1,
-        "2026-10": 0
-      }
-    },
-    {
-      "codigo": "7f6fc3",
-      "nombre": "AMERICAN CHEESE CAKES",
-      "meses": {
-        "2026-09": 1,
-        "2026-10": 3
-      }
-    },
-    {
-      "codigo": "9626c1",
-      "nombre": "CELEMA CENTRAL LECHERA DE MANIZALES",
-      "meses": {
-        "2026-09": 1,
-        "2026-10": 0
-      }
-    },
-    {
-      "codigo": "e1529e",
-      "nombre": "OUTSOURCING SEASIN LIMITADA",
-      "meses": {
-        "2026-10": 22,
-        "2026-09": 0
-      }
-    },
-    {
-      "codigo": "e7c194",
-      "nombre": "VIVE CAFÉ S.A. BIC",
-      "meses": {
-        "2026-10": 18,
-        "2026-09": 0
-      }
-    },
-    {
-      "codigo": "a6824d",
-      "nombre": "GRUPO EMPRESARIAL PUERTO DE BARRANQUILLA S.A",
-      "meses": {
-        "2026-10": 17,
-        "2026-09": 0
+        "2026-10": 10,
+        "2026-11": 5
       }
     },
     {
@@ -497,7 +217,7 @@
       "nombre": "⁠E&D cafés  S.A.S.",
       "meses": {
         "2026-10": 10,
-        "2026-09": 0
+        "2026-11": 0
       }
     },
     {
@@ -505,7 +225,71 @@
       "nombre": "AXDA COLOMBIA SAS",
       "meses": {
         "2026-10": 10,
-        "2026-09": 0
+        "2026-11": 1
+      }
+    },
+    {
+      "codigo": "2b5b45",
+      "nombre": "Cinépolis .",
+      "meses": {
+        "2026-10": 9,
+        "2026-11": 6
+      }
+    },
+    {
+      "codigo": "444ba5",
+      "nombre": "PRICESMART EL POBLADO",
+      "meses": {
+        "2026-10": 8,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "c57e9b",
+      "nombre": "INVERSIONES RCP SAS",
+      "meses": {
+        "2026-10": 7,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "1689a7",
+      "nombre": "ECO VIDA INTEGRAL",
+      "meses": {
+        "2026-10": 7,
+        "2026-11": 3
+      }
+    },
+    {
+      "codigo": "9a107d",
+      "nombre": "MANEL FOODS S.A.S.",
+      "meses": {
+        "2026-10": 6,
+        "2026-11": 4
+      }
+    },
+    {
+      "codigo": "9b149c",
+      "nombre": "Produempak EFC",
+      "meses": {
+        "2026-10": 6,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "c19b6a",
+      "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
+      "meses": {
+        "2026-10": 5,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "c7d780",
+      "nombre": "HARISSA FOODS",
+      "meses": {
+        "2026-10": 5,
+        "2026-11": 1
       }
     },
     {
@@ -513,7 +297,15 @@
       "nombre": "ALADINO SALAS DE JUEGOS",
       "meses": {
         "2026-10": 5,
-        "2026-09": 0
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "eb8357",
+      "nombre": "LOGISTICA CIRCULAR S.A.S",
+      "meses": {
+        "2026-10": 5,
+        "2026-11": 1
       }
     },
     {
@@ -521,7 +313,55 @@
       "nombre": "VICTORIA C SAS",
       "meses": {
         "2026-10": 5,
-        "2026-09": 0
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "4a81fb",
+      "nombre": "Grupo Éxito",
+      "meses": {
+        "2026-10": 4,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "ba0a51",
+      "nombre": "SANILAB IPS SAS",
+      "meses": {
+        "2026-10": 4,
+        "2026-11": 1
+      }
+    },
+    {
+      "codigo": "b459c8",
+      "nombre": "EMBOTELLADORA CAPRI LTDA",
+      "meses": {
+        "2026-10": 4,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "692cd9",
+      "nombre": "DISTRIMARCAS AGENTE COMERCIAL SAS",
+      "meses": {
+        "2026-10": 4,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "7f6fc3",
+      "nombre": "AMERICAN CHEESE CAKES",
+      "meses": {
+        "2026-10": 3,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "5a73a4",
+      "nombre": "Bioservicios S.A.S",
+      "meses": {
+        "2026-10": 3,
+        "2026-11": 0
       }
     },
     {
@@ -529,7 +369,15 @@
       "nombre": "Dr. Leonardo Palacios",
       "meses": {
         "2026-10": 3,
-        "2026-09": 0
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "7d089c",
+      "nombre": "MERCADOS  UNO A",
+      "meses": {
+        "2026-10": 2,
+        "2026-11": 1
       }
     },
     {
@@ -537,7 +385,7 @@
       "nombre": "FLORIUS  S.A.S.",
       "meses": {
         "2026-10": 2,
-        "2026-09": 0
+        "2026-11": 3
       }
     },
     {
@@ -545,7 +393,15 @@
       "nombre": "U T ZZZ ZOE",
       "meses": {
         "2026-10": 2,
-        "2026-09": 0
+        "2026-11": 1
+      }
+    },
+    {
+      "codigo": "be428a",
+      "nombre": "CAMARON PAISA",
+      "meses": {
+        "2026-10": 2,
+        "2026-11": 0
       }
     },
     {
@@ -553,7 +409,15 @@
       "nombre": "CERCAFE COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
       "meses": {
         "2026-10": 2,
-        "2026-09": 0
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "dadd5b",
+      "nombre": "SERVICIOS TEMPORALES DE COLOMBIA  - TEMPOCOLBA",
+      "meses": {
+        "2026-10": 2,
+        "2026-11": 0
       }
     },
     {
@@ -561,7 +425,39 @@
       "nombre": "R & A FOOD SAS BRAZZEIRO",
       "meses": {
         "2026-10": 2,
-        "2026-09": 0
+        "2026-11": 1
+      }
+    },
+    {
+      "codigo": "e14b95",
+      "nombre": "COLOMBIA HELADOS SAS",
+      "meses": {
+        "2026-10": 2,
+        "2026-11": 2
+      }
+    },
+    {
+      "codigo": "af291e",
+      "nombre": "ASEOS COLOMBIANOS ASEOCOLBA SA",
+      "meses": {
+        "2026-10": 2,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "2e62ce",
+      "nombre": "PRO-SER COLOMBIA  SAS",
+      "meses": {
+        "2026-10": 2,
+        "2026-11": 1
+      }
+    },
+    {
+      "codigo": "701bc2",
+      "nombre": "ALMACAFÉ ARMENIA",
+      "meses": {
+        "2026-10": 1,
+        "2026-11": 0
       }
     },
     {
@@ -569,7 +465,7 @@
       "nombre": "Waytic S.A.S",
       "meses": {
         "2026-10": 1,
-        "2026-09": 0
+        "2026-11": 0
       }
     },
     {
@@ -577,7 +473,23 @@
       "nombre": "INVERSIONES PAYSANDU  S.A.S",
       "meses": {
         "2026-10": 1,
-        "2026-09": 0
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "bd17d3",
+      "nombre": "PAPELES Y NEGOCIOS",
+      "meses": {
+        "2026-10": 1,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "e76e26",
+      "nombre": "ASTEMPRO LTDA",
+      "meses": {
+        "2026-10": 1,
+        "2026-11": 2
       }
     },
     {
@@ -585,7 +497,7 @@
       "nombre": "HOTEL HILTON GARDEN INN",
       "meses": {
         "2026-10": 1,
-        "2026-09": 0
+        "2026-11": 0
       }
     },
     {
@@ -593,15 +505,153 @@
       "nombre": "Super Admini Andrés",
       "meses": {
         "2026-10": 1,
-        "2026-09": 0
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "c404e8",
+      "nombre": "J&D DISTRIBUCIONES DEL OCCIDENTE",
+      "meses": {
+        "2026-11": 30,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "d489a4",
+      "nombre": "DISPROLACTEOS .",
+      "meses": {
+        "2026-11": 13,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "9fec23",
+      "nombre": "SECURICOL SEGURIDAD PRIVADA LIMITADA",
+      "meses": {
+        "2026-11": 9,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "c2779c",
+      "nombre": "ÜMAN TEMPORAL SERVICES SAS",
+      "meses": {
+        "2026-11": 2,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "b92576",
+      "nombre": "SERVICIOS AUXILIARES DE MANTENIMIENTO Y LIMPIEZA-SAMYL COLOMBIA SAS",
+      "meses": {
+        "2026-11": 2,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "21d93a",
+      "nombre": "RANCHERO RUSTICO PAISA S.A.S.",
+      "meses": {
+        "2026-11": 2,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "e1ba56",
+      "nombre": "CARIBE THIEL  S.A.S",
+      "meses": {
+        "2026-11": 1,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "3b0e79",
+      "nombre": "EL GURU NUTRICIONAL SAS",
+      "meses": {
+        "2026-11": 1,
+        "2026-10": 0
+      }
+    },
+    {
+      "codigo": "15daa2",
+      "nombre": "MULTIGRASAS DE COLOMBIA SAS",
+      "meses": {
+        "2026-11": 1,
+        "2026-10": 0
       }
     }
   ],
   "serie": [
     {
+      "periodo": "2024-12",
+      "certificados": 988,
+      "personas": 976,
+      "empresas_activas": 25
+    },
+    {
+      "periodo": "2025-01",
+      "certificados": 1467,
+      "personas": 1457,
+      "empresas_activas": 23
+    },
+    {
+      "periodo": "2025-02",
+      "certificados": 1627,
+      "personas": 1608,
+      "empresas_activas": 25
+    },
+    {
+      "periodo": "2025-03",
+      "certificados": 1795,
+      "personas": 1774,
+      "empresas_activas": 33
+    },
+    {
+      "periodo": "2025-04",
+      "certificados": 1563,
+      "personas": 1545,
+      "empresas_activas": 43
+    },
+    {
+      "periodo": "2025-05",
+      "certificados": 1812,
+      "personas": 1780,
+      "empresas_activas": 42
+    },
+    {
+      "periodo": "2025-06",
+      "certificados": 1379,
+      "personas": 1368,
+      "empresas_activas": 40
+    },
+    {
+      "periodo": "2025-07",
+      "certificados": 1879,
+      "personas": 1871,
+      "empresas_activas": 47
+    },
+    {
+      "periodo": "2025-08",
+      "certificados": 1147,
+      "personas": 1142,
+      "empresas_activas": 38
+    },
+    {
+      "periodo": "2025-09",
+      "certificados": 1536,
+      "personas": 1521,
+      "empresas_activas": 41
+    },
+    {
+      "periodo": "2025-10",
+      "certificados": 1520,
+      "personas": 1496,
+      "empresas_activas": 42
+    },
+    {
       "periodo": "2025-11",
-      "certificados": 1396,
-      "personas": 1370,
+      "certificados": 1351,
+      "personas": 1325,
       "empresas_activas": 37
     },
     {
@@ -612,8 +662,8 @@
     },
     {
       "periodo": "2026-01",
-      "certificados": 1805,
-      "personas": 1785,
+      "certificados": 1803,
+      "personas": 1783,
       "empresas_activas": 47
     },
     {
@@ -648,8 +698,8 @@
     },
     {
       "periodo": "2026-07",
-      "certificados": 1637,
-      "personas": 1553,
+      "certificados": 1631,
+      "personas": 1547,
       "empresas_activas": 45
     },
     {
@@ -660,69 +710,90 @@
     },
     {
       "periodo": "2026-09",
-      "certificados": 1756,
-      "personas": 1709,
+      "certificados": 1755,
+      "personas": 1708,
       "empresas_activas": 53
     },
     {
       "periodo": "2026-10",
-      "certificados": 1848,
-      "personas": 1806,
+      "certificados": 1847,
+      "personas": 1805,
       "empresas_activas": 59
+    },
+    {
+      "periodo": "2026-11",
+      "certificados": 621,
+      "personas": 607,
+      "empresas_activas": 43
+    }
+  ],
+  "serie_realineada": [
+    {
+      "periodo": "2026-11",
+      "serie": 616,
+      "resumen": 621
     }
   ],
   "yoy": {
-    "acum": null,
-    "mes": null
+    "acum": {
+      "lbl": "Enero – noviembre",
+      "a2026": 17411,
+      "a2025": 17076
+    },
+    "mes": {
+      "lbl": "Noviembre",
+      "a2026": 621,
+      "a2025": 1351
+    }
   },
   "venc": {
-    "corte": "2026-11-05",
+    "corte": "2026-11-10",
     "ventana_dias": 30,
-    "total": 1555,
-    "emp": 806,
-    "par": 749,
+    "total": 1412,
+    "emp": 761,
+    "par": 651,
     "por_semana": [
       {
-        "semana": "2026-W45",
-        "vencen": 219
-      },
-      {
         "semana": "2026-W46",
-        "vencen": 477
+        "vencen": 426
       },
       {
         "semana": "2026-W47",
-        "vencen": 235
+        "vencen": 231
       },
       {
         "semana": "2026-W48",
-        "vencen": 361
+        "vencen": 350
       },
       {
         "semana": "2026-W49",
-        "vencen": 263
+        "vencen": 283
+      },
+      {
+        "semana": "2026-W50",
+        "vencen": 122
       }
     ],
     "por_empresa": [
       {
         "codigo": "637b9c",
         "nombre": "ARCOS (Disabled) DORADOS (Disabled)",
-        "vencen": 266
+        "vencen": 220
       },
       {
         "codigo": "2b5b45",
         "nombre": "Cinépolis .",
-        "vencen": 71
+        "vencen": 68
       },
       {
         "codigo": "603a8e",
         "nombre": "ROYAL FILMS S.A.S",
-        "vencen": 66
+        "vencen": 65
       },
       {
         "codigo": "8ac087",
         "nombre": "ARCOS DORADOS COLOMBIA  S.A.S.",
-        "vencen": 56
+        "vencen": 64
       },
       {
         "codigo": "2ca4f9",
@@ -730,13 +801,13 @@
         "vencen": 34
       },
       {
-        "codigo": "6ac898",
-        "nombre": "MERCADOS BM SAS",
-        "vencen": 32
-      },
-      {
         "codigo": "ea6e74",
         "nombre": "C.I. INTEGRAL DE SERVICIOS S.A.S B.I.C.",
+        "vencen": 28
+      },
+      {
+        "codigo": "6ac898",
+        "nombre": "MERCADOS BM SAS",
         "vencen": 28
       },
       {
@@ -747,7 +818,7 @@
       {
         "codigo": "d4d8c7",
         "nombre": "OSTI EST SAS",
-        "vencen": 26
+        "vencen": 27
       },
       {
         "codigo": "a849aa",
@@ -757,49 +828,49 @@
     ]
   },
   "recompra": {
-    "periodo": "2026-10",
+    "periodo": "2026-11",
     "dias_gracia_tarde": 90,
-    "elegibles": 1528,
+    "elegibles": 1351,
     "renovaron_a_tiempo": 0,
-    "renovaron_tarde": 67,
-    "no_renovaron": 1461,
-    "tasa_recompra": 0.0438,
-    "dias_promedio_de_atraso": 7
+    "renovaron_tarde": 4,
+    "no_renovaron": 1347,
+    "tasa_recompra": 0.003,
+    "dias_promedio_de_atraso": 3
   },
   "atribucion": {
-    "desde": "2026-10-01",
-    "hasta": "2026-10-31",
-    "registros_periodo": 2018,
-    "con_atribucion": 84,
-    "sin_atribucion": 1934,
-    "cobertura": 0.0416,
+    "desde": "2026-11-01",
+    "hasta": "2026-11-30",
+    "registros_periodo": 584,
+    "con_atribucion": 6,
+    "sin_atribucion": 578,
+    "cobertura": 0.0103,
     "por_fuente": [
       {
         "fuente": "adwords",
-        "registros": 78
+        "registros": 5
       },
       {
         "fuente": "chatgpt.com",
-        "registros": 6
+        "registros": 1
       }
     ],
     "por_campana": [
       {
-        "campana": "Google Ads — Manipulación",
-        "registros": 45
+        "campana": 20852239193,
+        "registros": 4
       },
       {
-        "campana": 23889032873,
-        "registros": 33
+        "campana": "Google Ads — Manipulación",
+        "registros": 1
       },
       {
         "campana": "(sin campaña)",
-        "registros": 6
+        "registros": 1
       }
     ]
   },
   "cursos": {
-    "desde": "2025-11-05",
+    "desde": "2025-11-10",
     "total_cursos": 23,
     "cursos_con_certificaciones_sin_precio": 1,
     "cursos": [
@@ -810,7 +881,7 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 16632,
+        "certificados_ultimos_12m": 16672,
         "alerta_sin_precio": false
       },
       {
@@ -820,7 +891,7 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 1521,
+        "certificados_ultimos_12m": 1570,
         "alerta_sin_precio": false
       },
       {
@@ -830,7 +901,7 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 357,
+        "certificados_ultimos_12m": 356,
         "alerta_sin_precio": false
       },
       {
@@ -840,17 +911,7 @@
         "tipo": "slideshow",
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 245,
-        "alerta_sin_precio": false
-      },
-      {
-        "course_id": "5f639daf5ca6f4512b166e22",
-        "nombre": "Manipulación de alimentos con enfoque en lácteos",
-        "precio": 20000,
-        "tipo": null,
-        "privado": false,
-        "activo": true,
-        "certificados_ultimos_12m": 156,
+        "certificados_ultimos_12m": 309,
         "alerta_sin_precio": false
       },
       {
@@ -864,13 +925,23 @@
         "alerta_sin_precio": false
       },
       {
+        "course_id": "5f639daf5ca6f4512b166e22",
+        "nombre": "Manipulación de alimentos con enfoque en lácteos",
+        "precio": 20000,
+        "tipo": null,
+        "privado": false,
+        "activo": true,
+        "certificados_ultimos_12m": 154,
+        "alerta_sin_precio": false
+      },
+      {
         "course_id": "5fabfbdab2b79336e906b002",
         "nombre": "Manipulación de alimentos con enfoque en Cárnicos - Basado en el Decreto 1500",
         "precio": 20000,
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 114,
+        "certificados_ultimos_12m": 113,
         "alerta_sin_precio": false
       },
       {
@@ -890,7 +961,7 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 74,
+        "certificados_ultimos_12m": 75,
         "alerta_sin_precio": false
       },
       {
@@ -900,7 +971,7 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 69,
+        "certificados_ultimos_12m": 70,
         "alerta_sin_precio": false
       },
       {
@@ -910,7 +981,7 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 62,
+        "certificados_ultimos_12m": 64,
         "alerta_sin_precio": false
       },
       {
@@ -920,7 +991,7 @@
         "tipo": null,
         "privado": true,
         "activo": true,
-        "certificados_ultimos_12m": 17,
+        "certificados_ultimos_12m": 18,
         "alerta_sin_precio": false
       },
       {
@@ -1046,21 +1117,21 @@
     {
       "n": "Registros de curso cuyo course_id no existe en courses",
       "d": "No tienen precio asociado, de modo que no entran en el ingreso estimado ni en el cruce contra Siigo.",
-      "r": "4.999 de 157.765 · 3.17 %",
+      "r": "4.999 de 158.233 · 3.16 %",
       "p": 7.6,
       "peso": "alta"
     },
     {
       "n": "Misma razón social registrada con códigos distintos",
       "d": "La empresa aparece partida en dos filas del tablero. Su volumen real es la suma y nadie la ve completa.",
-      "r": "6 de 204 · 2.94 %",
-      "p": 7.1,
+      "r": "6 de 206 · 2.91 %",
+      "p": 7,
       "peso": "alta"
     },
     {
       "n": "Un mismo user_enter_code en más de un documento",
       "d": "La búsqueda de razón social devuelve el primero que encuentre. Dos empresas distintas pueden aparecer con el mismo nombre, o una con el nombre de la otra.",
-      "r": "1 de 204 · 0.49 %",
+      "r": "1 de 206 · 0.49 %",
       "p": 6.1,
       "peso": "critica"
     },
@@ -1074,35 +1145,35 @@
     {
       "n": "Registros de curso cuyo user_id no existe en users",
       "d": "Se cuentan en el total pero no se pueden atribuir a una empresa ni a un canal. Descuadran el total contra la suma por empresa.",
-      "r": "10 de 157.765 · 0.01 %",
+      "r": "10 de 158.233 · 0.01 %",
       "p": 0.1,
       "peso": "critica"
     },
     {
       "n": "Certificaciones completas y pagadas sin cert_date",
       "d": "No caen en ningún periodo. Desaparecen del corte mensual, de la serie histórica y del cruce contable, sin aparecer como error en ninguna parte.",
-      "r": "0 de 115.933 · 0.00 %",
+      "r": "0 de 116.299 · 0.00 %",
       "p": 0,
       "peso": "critica"
     },
     {
       "n": "cert_date que no es una fecha Y-m-d válida",
       "d": "Los rangos de MongoDB respetan el tipo: un valor que no es texto con formato Y-m-d queda fuera de todas las consultas de periodo en silencio.",
-      "r": "0 de 115.933 · 0.00 %",
+      "r": "0 de 116.299 · 0.00 %",
       "p": 0,
       "peso": "critica"
     },
     {
       "n": "Usuarios sin created_at",
       "d": "No entran en el conteo de registros del periodo, de modo que la cobertura de atribución sale inflada.",
-      "r": "0 de 156.213 · 0.00 %",
+      "r": "0 de 156.602 · 0.00 %",
       "p": 0,
       "peso": "media"
     },
     {
       "n": "Usuarios con created_at guardado como texto",
       "d": "Los rangos de fecha no los alcanzan. La atribución de origen los ignora en silencio y puede devolver cero sin fallar.",
-      "r": "0 de 156.213 · 0.00 %",
+      "r": "0 de 156.602 · 0.00 %",
       "p": 0,
       "peso": "alta"
     },
@@ -1121,22 +1192,485 @@
     "como_se_calcula": "El puntaje parte de 100 y cada verificación lo multiplica por (1 - peso/100 × min(1, tasa / umbral)). Peso y umbral van explícitos en cada verificación para que el cálculo sea auditable y reproducible."
   },
   "universo": {
-    "user_course": 157765,
-    "users": 156213,
+    "user_course": 158233,
+    "users": 156602,
     "courses": 23
   },
+  "tramites": {
+    "regla": "tramites-metrics-v1",
+    "generado_en": "2026-11-10T22:16:40.641Z",
+    "periodo": "2026-11",
+    "ingenieros": {
+      "activos": 14,
+      "con_carga": null,
+      "sin_carga": null,
+      "carga_mediana": 0,
+      "criterio_sobrecarga": "más del doble de la carga mediana",
+      "sobrecargados": [],
+      "reparto_desigual": null,
+      "detalle": [
+        {
+          "ingeniero_id": "cmqkhnqj700vz01s7p6hayl8n",
+          "nombre": "Luisa Garcia",
+          "solicitudes_abiertas": 18,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 7,
+          "citas_periodo": 0,
+          "avance_promedio": 64,
+          "dias_mediana_cierre": 51.9
+        },
+        {
+          "ingeniero_id": "cml5phiko000301pd65vbgncy",
+          "nombre": "Jannis Quijano",
+          "solicitudes_abiertas": 15,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 5,
+          "avance_promedio": 39,
+          "dias_mediana_cierre": null
+        },
+        {
+          "ingeniero_id": "cml5d5hj6000601t8es9hynaq",
+          "nombre": "Anny Hieraldyn Guapacha Castro",
+          "solicitudes_abiertas": 3,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 4,
+          "avance_promedio": 73,
+          "dias_mediana_cierre": null
+        },
+        {
+          "ingeniero_id": "cmph7c07f000801s8ibua3ajq",
+          "nombre": "Ingrid Moscoso",
+          "solicitudes_abiertas": 2,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 0,
+          "avance_promedio": 0,
+          "dias_mediana_cierre": null
+        },
+        {
+          "ingeniero_id": "cmqi6rfmp00sf01s7y2j2hp1k",
+          "nombre": "Maria Juliana Ramirez Lemus",
+          "solicitudes_abiertas": 2,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 0,
+          "avance_promedio": 5,
+          "dias_mediana_cierre": null
+        },
+        {
+          "ingeniero_id": "cml44spib000301t8d1cyd4c7",
+          "nombre": "Angie Yuliana  García Soto",
+          "solicitudes_abiertas": 0,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 0,
+          "avance_promedio": null,
+          "dias_mediana_cierre": null
+        },
+        {
+          "ingeniero_id": "cml5pm0hl000401pdkg28ij1p",
+          "nombre": "Laura Vanessa Bedoya Cataño",
+          "solicitudes_abiertas": 0,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 2,
+          "avance_promedio": null,
+          "dias_mediana_cierre": null
+        },
+        {
+          "ingeniero_id": "cml6zonn8000e01mqyx135wat",
+          "nombre": "Valeria Cárdenas Loaiza",
+          "solicitudes_abiertas": 0,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 3,
+          "avance_promedio": null,
+          "dias_mediana_cierre": null
+        },
+        {
+          "ingeniero_id": "cml6zwil5000l01mqf8m3tfh8",
+          "nombre": "Mariana Lopez",
+          "solicitudes_abiertas": 0,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 9,
+          "avance_promedio": null,
+          "dias_mediana_cierre": null
+        },
+        {
+          "ingeniero_id": "cmlfb138v000i01k3h7yn2txu",
+          "nombre": "Zuleima Colorado Garrido",
+          "solicitudes_abiertas": 0,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 0,
+          "avance_promedio": null,
+          "dias_mediana_cierre": null
+        },
+        {
+          "ingeniero_id": "cmlzqxfel00a501p260x096yc",
+          "nombre": "María Isabel  López Huertas ",
+          "solicitudes_abiertas": 0,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 0,
+          "avance_promedio": null,
+          "dias_mediana_cierre": null
+        },
+        {
+          "ingeniero_id": "cmnq46x9h004a01phsgfigkzs",
+          "nombre": "BPM BARRANQUILLA",
+          "solicitudes_abiertas": 0,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 0,
+          "avance_promedio": null,
+          "dias_mediana_cierre": null
+        },
+        {
+          "ingeniero_id": "cmu4he1lk00s001p6810125um",
+          "nombre": "Eva Llerena Aguilar  2026",
+          "solicitudes_abiertas": 0,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 0,
+          "avance_promedio": null,
+          "dias_mediana_cierre": null
+        },
+        {
+          "ingeniero_id": "cmv13anjd024i01p6b8prxgbp",
+          "nombre": "Maria Fernanda  Díaz pardo",
+          "solicitudes_abiertas": 0,
+          "solicitudes_recibidas_periodo": 0,
+          "solicitudes_cerradas_periodo": 0,
+          "citas_periodo": 0,
+          "avance_promedio": null,
+          "dias_mediana_cierre": null
+        }
+      ]
+    },
+    "etapas": {
+      "medidas": 10,
+      "cuello_de_botella": "TIEMPO DE RESPUESTA RESOLUCIÓN INVMAGIL",
+      "detalle": [
+        {
+          "etapa_id": "cmoj9o88f000dogh7c5acm6kb",
+          "nombre": "TIEMPO DE RESPUESTA RESOLUCIÓN INVMAGIL",
+          "completadas": 11,
+          "dias_mediana": 14.7,
+          "dias_promedio": 16.6,
+          "dias_max": 52.7
+        },
+        {
+          "etapa_id": "cmoj9htni0005ogh7z2h401vg",
+          "nombre": "SOLICITUD INICIO DE TRÁMITE",
+          "completadas": 6,
+          "dias_mediana": 0,
+          "dias_promedio": 0,
+          "dias_max": 0
+        },
+        {
+          "etapa_id": "cmoj9ixh40009ogh750s718v6",
+          "nombre": "ELABORACIÓN ANTICIPO",
+          "completadas": 9,
+          "dias_mediana": 0,
+          "dias_promedio": 17.6,
+          "dias_max": 117.6
+        },
+        {
+          "etapa_id": "cmoj9jdwh000bogh7mehhogw8",
+          "nombre": "PAGO ANTICIPO",
+          "completadas": 10,
+          "dias_mediana": 0,
+          "dias_promedio": 13.5,
+          "dias_max": 124.8
+        },
+        {
+          "etapa_id": "cmoj9oh8o000eogh7j4cec04w",
+          "nombre": "ENVÍO INFORME RESOLUCIÓN",
+          "completadas": 6,
+          "dias_mediana": 0,
+          "dias_promedio": 5.5,
+          "dias_max": 32.9
+        },
+        {
+          "etapa_id": "cmoj9ia760006ogh7rjnudr8m",
+          "nombre": "INICIO DE TRÁMITE PROVEEDOR",
+          "completadas": 7,
+          "dias_mediana": 0,
+          "dias_promedio": 0,
+          "dias_max": 0
+        },
+        {
+          "etapa_id": "cmoj9jk0z000cogh7wg0852fi",
+          "nombre": "RADICADO INVIMA",
+          "completadas": 7,
+          "dias_mediana": 0,
+          "dias_promedio": 0,
+          "dias_max": 0
+        },
+        {
+          "etapa_id": "cmoj9iom20008ogh7by6m8ry7",
+          "nombre": "ELABORACIÓN DE FORMULARIOS",
+          "completadas": 9,
+          "dias_mediana": 0,
+          "dias_promedio": 0,
+          "dias_max": 0
+        },
+        {
+          "etapa_id": "cmoj9j4vk000aogh7gh2iamkq",
+          "nombre": "REVISIÓN / APROBACIÓN FORMULARIOS",
+          "completadas": 8,
+          "dias_mediana": 0,
+          "dias_promedio": 0,
+          "dias_max": 0
+        },
+        {
+          "etapa_id": "cmoj9ihmu0007ogh7d0hyazzp",
+          "nombre": "VERIFICACIÓN DOCUMENTAL",
+          "completadas": 9,
+          "dias_mediana": 0,
+          "dias_promedio": 13.2,
+          "dias_max": 52.7
+        }
+      ],
+      "atascadas": [
+        {
+          "proceso": "546545",
+          "etapa": "SOLICITUD INICIO DE TRÁMITE",
+          "dias_abierta": 168.3,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "546545",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 168.3,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "INICIO DE TRÁMITE PROVEEDOR",
+          "dias_abierta": 152.1,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 152.1,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "ELABORACIÓN DE FORMULARIOS",
+          "dias_abierta": 152.1,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "ELABORACIÓN ANTICIPO",
+          "dias_abierta": 152.1,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "REVISIÓN / APROBACIÓN FORMULARIOS",
+          "dias_abierta": 152.1,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "PAGO ANTICIPO",
+          "dias_abierta": 152.1,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "RADICADO INVIMA",
+          "dias_abierta": 152.1,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "ENVÍO INFORME RESOLUCIÓN",
+          "dias_abierta": 152.1,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780606741235-C",
+          "etapa": "TIEMPO DE RESPUESTA RESOLUCIÓN INVMAGIL",
+          "dias_abierta": 151.3,
+          "mediana_de_la_etapa": 14.7,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780606741235-C",
+          "etapa": "ENVÍO INFORME RESOLUCIÓN",
+          "dias_abierta": 151.3,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780606741235-C",
+          "etapa": "RADICADO INVIMA",
+          "dias_abierta": 151.3,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782493622227-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.2,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782242832311-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.2,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782495656404-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.2,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782495737392-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.2,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782495670128-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.2,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782495726560-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.2,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782241508525-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.2,
+          "mediana_de_la_etapa": 0,
+          "excede": true
+        }
+      ]
+    },
+    "retrabajo": {
+      "eliminadas": 0,
+      "iniciadas": 72,
+      "tasa": 0,
+      "por_etapa": [],
+      "por_ingeniero": [],
+      "nota": "Se cuenta una etapa eliminada como trabajo deshecho. Las reaperturas no quedan registradas en el esquema, así que no entran en esta cifra."
+    },
+    "duracion": {
+      "cerrados": 7,
+      "abiertos": 51,
+      "dias_mediana": 45.7,
+      "dias_p75": 53.7,
+      "dias_p90": 128.9,
+      "cumplimiento": null,
+      "nota_cumplimiento": "El esquema no almacena un plazo por trámite. El cumplimiento se calcula solo si la Dirección fija una meta en días y se pasa como dias_meta."
+    }
+  },
+  "alimentia": {
+    "regla": "alimentia-metrics-v2",
+    "generado_en": "2026-11-10T22:16:40.722Z",
+    "periodo": "2026-11",
+    "dias_del_periodo": 10,
+    "empresas": 2,
+    "con_obligacion": 2,
+    "esperados": 170,
+    "entregados": 4,
+    "cumplimiento": 0.0235,
+    "sin_un_solo_registro": 1,
+    "detalle": [
+      {
+        "company_id": "c6edd6c7-f25f-4f44-916a-9ae7f9a7b589",
+        "nombre": "CÁRNICOS EL HATO S.A.S.",
+        "nit": "90053376",
+        "estado": "prueba",
+        "plan": "plus",
+        "fecha_alta": "2026-11-03",
+        "sedes": 1,
+        "formatos_habilitados": 10,
+        "dias_contados": 8,
+        "esperados": 80,
+        "entregados": 0,
+        "cumplimiento": 0,
+        "ultimo_diligenciamiento": null
+      },
+      {
+        "company_id": "a5897837-e91f-49f7-b20e-8b1b4f143649",
+        "nombre": "Café Kumanday sas",
+        "nit": "901868260-2",
+        "estado": "prueba",
+        "plan": "plus",
+        "fecha_alta": "2026-09-11",
+        "sedes": 1,
+        "formatos_habilitados": 9,
+        "dias_contados": 10,
+        "esperados": 90,
+        "entregados": 4,
+        "cumplimiento": 0.0444,
+        "ultimo_diligenciamiento": "2026-11-05"
+      }
+    ],
+    "cayendo": [],
+    "detenidas": [
+      {
+        "company_id": "c6edd6c7-f25f-4f44-916a-9ae7f9a7b589",
+        "nombre": "CÁRNICOS EL HATO S.A.S.",
+        "nit": "90053376",
+        "cumplimiento": 0,
+        "entregados": 0,
+        "ultimo_diligenciamiento": null,
+        "dias_sin_diligenciar": null,
+        "nunca_empezo": true
+      }
+    ],
+    "detenidas_endpoint": 0,
+    "nunca_han_diligenciado": 1,
+    "comparado_contra": "2026-10",
+    "advertencia_definicion": "Lo esperado cuenta los siete días de la semana, incluidos domingos y festivos. Una empresa que no opera a diario aparecerá con cumplimiento bajo sin estarlo. Falta que la Dirección defina qué días son exigibles.",
+    "demo_excluidas": 3
+  },
   "salud": {
-    "total": 53,
+    "total": 71,
     "comp": [
       {
         "n": "Producción",
-        "v": null,
-        "d": "Falta el mismo mes del año anterior en la serie para poder comparar."
+        "v": 100,
+        "d": "Noviembre 2026 contra el mismo mes del año anterior: 1.863 proyectadas contra 1.351, +37,9 %. Se mapea 0–20 % de crecimiento a 50–100 puntos. Noviembre 2026 lleva 10 de 30 días y va en 621 certificaciones observadas; el índice proyecta a 1.863 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
       },
       {
         "n": "Reposición",
-        "v": 59,
-        "d": "Certificaciones del mes sobre vencimientos de los próximos 30 días, medidos el 2026-11-05: 1.848 / 1.555 = 1.19. Paridad (1,00) vale 50 puntos."
+        "v": 66,
+        "d": "Certificaciones del mes sobre vencimientos de los próximos 30 días, medidos el 2026-11-10: 1.863 proyectadas / 1.412 = 1,32. Paridad (1,00) vale 50 puntos. Noviembre 2026 lleva 10 de 30 días y va en 621 certificaciones observadas; el índice proyecta a 1.863 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
       },
       {
         "n": "Calidad del dato",
@@ -1145,11 +1679,29 @@
       },
       {
         "n": "Diversificación",
-        "v": 34,
-        "d": "Un solo cliente concentra el 33.0 % del canal empresa. Cada punto de concentración descuenta dos puntos del componente."
+        "v": 50,
+        "d": "Un solo cliente concentra el 24,8 % del canal empresa. Cada punto de concentración descuenta dos puntos del componente."
       }
     ]
   },
-  "precioMedioObservado": 19468,
-  "origen": "archivo"
+  "precioMedioObservado": 18976,
+  "tiempos_ms": {
+    "certificaciones": 621,
+    "certificaciones_prev": 640,
+    "empresas": 798,
+    "empresas_prev": 744,
+    "recompra": 879,
+    "serie": 811,
+    "vencimientos": 877,
+    "atribucion": 814,
+    "cursos": 933,
+    "calidad-dato": 702,
+    "tr_carga": 365,
+    "tr_tiempos": 357,
+    "tr_retrabajo": 345,
+    "tr_duracion": 364,
+    "al_diligenciamiento": 439,
+    "al_caida": 465,
+    "total": 1487
+  }
 }
