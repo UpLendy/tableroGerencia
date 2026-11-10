@@ -406,28 +406,17 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     </div>
   </section>
 
-  <!-- ============ 7 · PRECIO ============ -->
+  <!-- ============ 7 · PRECIO Y CATÁLOGO ============ -->
   <section>
-    <div class="shead"><h2>Servicio prestado sin valor asociado</h2></div>
-    <div class="alert w">
-      <div class="ai">i</div>
-      <div>
-        <b>191 certificaciones prestadas sin cobro, en dos meses.</b>
-        «Manipulación de alimentos — Bebidas alcohólicas (Dislicores)» quedó configurado
-        en cero pesos por error: 39 certificaciones en septiembre y
-        <b style="display:inline">152 en octubre</b>. La Dirección confirmó que fue un error
-        y que se le asigna tarifa en la plataforma.
-        <div style="margin-top:10px;font-size:12.5px;color:var(--ink2)">
-          Mientras tanto, el tablero las cuenta como <b style="display:inline;color:var(--ink)">servicio prestado sin cobro</b> y las deja fuera del valor del servicio del mes. No aparecen como ingreso
-          en ninguna vista. Una vez asignada la tarifa, los meses anteriores quedan como están:
-          el servicio ya se prestó y no se facturó.
-        </div>
-      </div>
+    <div class="shead">
+      <h2>Precio y catálogo de cursos</h2>
+      <span class="note" id="curEnc">—</span>
     </div>
-    <div class="ausente" style="margin-top:14px">
-      <b>Catálogo completo de cursos: pendiente.</b>
-      El movimiento por curso con su precio de lista lo produce el endpoint
-      <code>E4 · cursos</code>, de la Entrega 1. Hoy está verificado el caso que importaba.
+    <div id="curAvisos"></div>
+    <div class="chartcard" style="margin-top:14px">
+      <div class="ct">Movimiento por curso</div>
+      <div class="cs" id="curCs">—</div>
+      <div id="curTabla" style="margin-top:12px"></div>
     </div>
   </section>
 
@@ -1107,6 +1096,88 @@ function renderAlimentia(){
       }).join('')}</tbody></table>` : '';
 }
 
+/* ------------------------------------------------------ cursos */
+/**
+ * Esta sección era prosa fija: afirmaba que el curso de Dislicores seguía en
+ * cero pesos y que el catálogo estaba pendiente. Las dos cosas dejaron de ser
+ * ciertas —la Dirección le asignó tarifa y el endpoint de cursos ya viene en
+ * el corte—, así que ahora sale del dato y los problemas se detectan solos.
+ */
+function renderCursos(){
+  const c = CORTE.cursos;
+  if(!c || !Array.isArray(c.cursos)){
+    $('curEnc').textContent='';
+    $('curAvisos').innerHTML='<div class="ausente"><b>Catálogo de cursos: ausente en este corte.</b> '+
+      'Lo produce el endpoint <code>E4 · cursos</code>.</div>';
+    $('curTabla').innerHTML=''; $('curCs').textContent='';
+    return;
+  }
+
+  const conMov = c.cursos.filter(x=>Number(x.certificados_ultimos_12m)>0)
+    .sort((a,b)=>b.certificados_ultimos_12m-a.certificados_ultimos_12m);
+
+  $('curEnc').textContent =
+    `${nf(c.total_cursos)} cursos en el catálogo · ${nf(conMov.length)} con certificaciones `+
+    `desde el ${c.desde}`;
+
+  /* Dos problemas distintos. Precio en cero es servicio prestado sin cobro.
+     Un precio por debajo de mil pesos con certificaciones casi siempre es un
+     dígito que falta, y descuadra el cruce contable sin avisar. */
+  const enCero = conMov.filter(x=>Number(x.precio)===0);
+  const irrisorio = conMov.filter(x=>Number(x.precio)>0 && Number(x.precio)<1000);
+  const av=[];
+
+  if(enCero.length){
+    const t=enCero.reduce((a,x)=>a+Number(x.certificados_ultimos_12m),0);
+    av.push(`<div class="alert w"><div class="ai">i</div><div>`+
+      `<b>${nf(t)} certificación${t===1?'':'es'} prestada${t===1?'':'s'} sin cobro en los últimos doce meses.</b> `+
+      enCero.map(x=>`«${esc(x.nombre)}»${x.activo?'':' (curso inactivo)'}, ${nf(x.certificados_ultimos_12m)}`).join('; ')+
+      `. Un curso con certificaciones y precio en cero no aparece en el valor del servicio, `+
+      `y es la causa más común de diferencia contra lo facturado.</div></div>`);
+  }
+
+  if(irrisorio.length){
+    av.push(`<div class="alert w"><div class="ai">i</div><div>`+
+      `<b>Precio implausible en ${nf(irrisorio.length)} curso${irrisorio.length===1?'':'s'}.</b> `+
+      irrisorio.map(x=>`«${esc(x.nombre)}» a ${cop(x.precio)} con ${nf(x.certificados_ultimos_12m)} `+
+        `certificación${x.certificados_ultimos_12m===1?'':'es'}`).join('; ')+
+      `. Parece un dígito faltante más que una tarifa real. No se corrige desde aquí: `+
+      `el precio lo fija la plataforma de formación.</div></div>`);
+  }
+
+  if(!enCero.length && !irrisorio.length)
+    av.push(`<div class="alert" style="border-color:var(--good)"><div class="ai">✓</div><div>`+
+      `<b>Todos los cursos con movimiento tienen precio asignado.</b></div></div>`);
+
+  /* El valor del servicio usa el precio vigente, no el del momento de la venta.
+     Cambiar una tarifa mueve meses ya cerrados, y eso hay que decidirlo. */
+  av.push(`<div class="alert w" style="margin-top:10px"><div class="ai">i</div><div>`+
+    `<b>El valor del servicio usa el precio vigente, no el del día de la venta.</b> `+
+    `Asignarle tarifa a un curso sube el valor de meses ya cerrados: el servicio de `+
+    `Dislicores pasó de aparecer sin cobro a valorarse a ${(()=>{const d=conMov.find(x=>/Dislicores/i.test(x.nombre));
+      return d?cop(d.precio):'su tarifa actual';})()}. Si la Dirección prefiere que los meses `+
+    `cerrados queden congelados al precio del momento, hace falta guardar el histórico de `+
+    `tarifas, que hoy la plataforma no almacena.</div></div>`);
+
+  $('curAvisos').innerHTML=av.join('');
+
+  $('curCs').textContent =
+    `Certificaciones de los últimos doce meses, con el precio vigente de cada curso. `+
+    `Ordenados de mayor a menor movimiento.`;
+
+  $('curTabla').innerHTML = conMov.length
+    ? `<table><thead><tr><th>Curso</th><th class="n">Precio</th>`+
+      `<th class="n">Certificaciones 12m</th><th>Estado</th></tr></thead><tbody>`+
+      conMov.map(x=>{
+        const malo=Number(x.precio)===0||Number(x.precio)<1000;
+        return `<tr><td>${esc(x.nombre)}${x.privado?' <span style="color:var(--ink3)">· privado</span>':''}</td>`+
+          `<td class="n ${malo?'dn':''}">${cop(x.precio)}</td>`+
+          `<td class="n">${nf(x.certificados_ultimos_12m)}</td>`+
+          `<td style="color:var(--ink3)">${x.activo?'activo':'inactivo'}</td></tr>`;
+      }).join('')+`</tbody></table>`
+    : '<div class="ausente">Ningún curso registra certificaciones en la ventana.</div>';
+}
+
 /** «0 de 116.299 · 0.00 %» -> «ninguna tiene». Para leerlo en prosa, con el verbo concordado. */
 function esTexto(r, verbo){
   const n=Number(String(r||'').split(' de ')[0].replace(/[^\d]/g,''));
@@ -1280,7 +1351,7 @@ function pintar(opts){
   construirSelector();
 
   renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy();
-  renderEmp(); renderCalidad(); renderSerie(); renderRecompra();
+  renderEmp(); renderCursos(); renderCalidad(); renderSerie(); renderRecompra();
   renderTramites(); renderAlimentia();
 
   $('cargando').hidden=true;

@@ -165,6 +165,23 @@ if (d.alimentia) {
   }
 }
 
+/* ------------------------------------------------------------ cursos */
+/* Un curso con certificaciones y sin precio es servicio prestado sin cobro;
+   uno por debajo de mil pesos es casi siempre un dígito que falta. Ninguno de
+   los dos debe pasar en silencio: descuadran el cruce contra Siigo. */
+if (d.cursos && Array.isArray(d.cursos.cursos)) {
+  for (const c of d.cursos.cursos) {
+    const n = Number(c.certificados_ultimos_12m || 0);
+    if (n <= 0) continue;
+    const p = Number(c.precio);
+    if (p === 0)
+      avisos.push(`cursos · ${c.nombre}: ${nf(n)} certificación(es) con precio en cero`);
+    else if (p < 1000)
+      avisos.push(`cursos · ${c.nombre}: precio de ${nf(p)} con ${nf(n)} certificación(es) · ` +
+                  `parece un dígito faltante`);
+  }
+}
+
 /* ---------------------------------------------------------- códigos */
 const vistos = new Set();
 for (const e of d.empresas || []) {
