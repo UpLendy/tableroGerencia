@@ -35,12 +35,60 @@ export function armarTramites(m) {
       reparto_desigual: carga.reparto_desigual ?? null,
       detalle: (carga.detalle || []).slice().sort(
         (a, b) => b.solicitudes_abiertas - a.solicitudes_abiertas),
+
+      /* La carga cuenta solicitudes INVIMA y nada más, pero los ingenieros
+         hacen dos trabajos: trámites y visitas en sitio. Mariana Lopez
+         aparece en cero trámites con nueve citas en el periodo, y Luisa
+         Garcia con 18 trámites y ninguna cita. Leer «0» como ocioso es
+         falso, así que el tablero declara qué mide y cuántos de los que
+         figuran sin carga sí tienen visitas. Quién cuenta como sobrecargado
+         lo decide la Dirección, no nosotros. */
+      que_mide_la_carga:
+        'Solicitudes INVIMA abiertas. No incluye visitas en sitio ' +
+        '—asesorías, auditorías, seguimientos, capacitaciones—, que la ' +
+        'plataforma registra como citas y no como carga.',
+      sin_carga_con_citas: (carga.detalle || [])
+        .filter((f) => Number(f.solicitudes_abiertas || 0) === 0 &&
+                       Number(f.citas_periodo || 0) > 0).length,
+      citas_periodo_total: (carga.detalle || [])
+        .reduce((a, f) => a + Number(f.citas_periodo || 0), 0),
     } : null,
     etapas: tiempos ? {
       medidas: tiempos.etapas_medidas,
       cuello_de_botella: tiempos.cuello_de_botella,
-      detalle: tiempos.detalle || [],
-      atascadas: tiempos.abiertas_por_encima_de_su_mediana || [],
+      atascadas: tiempos.atascadas || tiempos.abiertas_por_encima_de_su_mediana || [],
+      /* Un trámite sin ingeniero asignado y uno asignado que va lento no son
+         el mismo problema: reparto contra ejecución. El endpoint ya los
+         separa; el tablero los estaba volviendo a juntar al descartarlos. */
+      sin_asignar: tiempos.sin_asignar || [],
+      sin_asignar_total: tiempos.sin_asignar_total ?? null,
+      dias_del_mas_viejo_sin_asignar: tiempos.dias_del_mas_viejo_sin_asignar ?? null,
+      /* Hay etapas que se abren y se cierran en el mismo instante: su fecha
+         de cierre registra cuándo alguien marcó la casilla, no cuánto duró la
+         gestión. Mezclarlas con las demás en un ranking de lentitud compara
+         cosas que no son comparables.
+
+         Dos casos distintos. «No registra»: mediana, promedio y máximo en
+         cero, o sea que ningún trámite dejó rastro de duración. «Registro
+         mixto»: mediana en cero pero con máximos de meses, o sea que más de
+         la mitad se cerraron al instante y unos pocos sí se midieron; su
+         mediana no significa «rápido», significa «no anotado». */
+      detalle: (tiempos.detalle || []).map((e) => {
+        const med = Number(e.dias_mediana || 0);
+        const prom = Number(e.dias_promedio || 0);
+        const max = Number(e.dias_max || 0);
+        return {
+          ...e,
+          no_registra: med === 0 && prom === 0 && max === 0,
+          registro_mixto: med === 0 && max > 0,
+        };
+      }),
+      /* Cuántas de las medidas sirven de verdad para hablar de tiempos. */
+      etapas_sin_registro: (tiempos.detalle || []).filter((e) =>
+        Number(e.dias_mediana || 0) === 0 && Number(e.dias_promedio || 0) === 0 &&
+        Number(e.dias_max || 0) === 0).length,
+      etapas_con_duracion_real: (tiempos.detalle || []).filter((e) =>
+        Number(e.dias_mediana || 0) > 0).length,
     } : null,
     retrabajo: retrabajo ? {
       eliminadas: retrabajo.etapas_eliminadas,

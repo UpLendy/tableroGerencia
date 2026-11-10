@@ -373,6 +373,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     <div id="trAusente" class="ausente" hidden></div>
     <div id="trCaja" hidden>
       <div class="grid kpis" id="trKpis"></div>
+      <div id="trAvisoCarga" style="margin-top:14px"></div>
       <div class="grid" style="grid-template-columns:1.2fr 1fr;align-items:start;margin-top:14px">
         <div class="chartcard">
           <div class="ct">Quién tiene qué encima</div>
@@ -978,6 +979,22 @@ function renderTramites(){
     `${nf(re.eliminadas)} etapas deshechas de ${nf(re.iniciadas)} iniciadas`);
   $('trKpis').innerHTML=k;
 
+  /* Lo que la cifra de carga NO incluye, dicho antes de que alguien decida
+     sobre ella. El criterio de sobrecarga lo fija la Dirección; el tablero
+     se limita a declarar qué está midiendo. */
+  $('trAvisoCarga').innerHTML = (ing && ing.que_mide_la_carga)
+    ? `<div class="alert w"><div class="ai">i</div><div>`+
+      `<b>La carga mide solo trámites INVIMA.</b> ${esc(ing.que_mide_la_carga)}`+
+      (hayNum(ing.sin_carga_con_citas) && ing.sin_carga_con_citas
+        ? ` En este periodo, ${nf(ing.sin_carga_con_citas)} de los ingenieros que aparecen `+
+          `sin carga atendieron visitas`+
+          (hayNum(ing.citas_periodo_total)?` —${nf(ing.citas_periodo_total)} citas en total entre todos—`:'')+
+          `, así que una barra en cero no significa que esa persona esté desocupada.`
+        : '')+
+      ` Para que «sobrecargado» signifique algo hace falta que la Dirección decida si la `+
+      `carga se restringe a quienes llevan trámites INVIMA o si las visitas suman con algún peso.`+
+      `</div></div>` : '';
+
   /* carga por ingeniero */
   const sv=$('svgCarga'); sv.innerHTML='';
   const filas=(ing&&ing.detalle||[]).filter(f=>f.solicitudes_abiertas>0).slice(0,12);
@@ -997,29 +1014,71 @@ function renderTramites(){
         (f.dias_mediana_cierre!==null?`<br>mediana de cierre: ${nf(f.dias_mediana_cierre)} días`:''),g);
       mk(g,'text',{x:lw+w+8,y:y+h-3.5,class:'vl'}).textContent=nf(f.solicitudes_abiertas);
     });
-    $('trCargaCs').textContent = (ing.reparto_desigual && hayNum(ing.sin_carga))
-      ? `${nf(ing.sin_carga)} de ${nf(ing.activos)} ingenieros no tienen ningún trámite abierto. `+
-        `La mediana de quienes sí tienen es ${nf(ing.carga_mediana)}.`
-      : `Mediana de ${nf(ing.carga_mediana)} trámites abiertos.`;
+    /* «Cero trámites» no es «ocioso»: los ingenieros también hacen visitas en
+       sitio, que la plataforma registra como citas y esta métrica no cuenta.
+       Decirlo aquí evita que la Dirección lea la barra en cero como holgura. */
+    const conCitas = hayNum(ing.sin_carga_con_citas) ? ing.sin_carga_con_citas : null;
+    $('trCargaCs').textContent =
+      ((ing.reparto_desigual && hayNum(ing.sin_carga))
+        ? `${nf(ing.sin_carga)} de ${nf(ing.activos)} ingenieros no tienen ningún trámite abierto. `+
+          `La mediana de quienes sí tienen es ${nf(ing.carga_mediana)}. `
+        : `Mediana de ${nf(ing.carga_mediana)} trámites abiertos. `) +
+      (conCitas
+        ? `De los que figuran sin carga, ${nf(conCitas)} sí atendieron visitas en el periodo.`
+        : '');
   } else {
     $('trCargaCs').textContent='Ningún ingeniero tiene trámites abiertos en este corte.';
   }
 
   /* etapas */
   if(et && (et.detalle||[]).length){
+    const reales = hayNum(et.etapas_con_duracion_real) ? et.etapas_con_duracion_real
+                 : et.detalle.filter(e=>Number(e.dias_mediana||0)>0).length;
     $('trEtapaCs').textContent = et.cuello_de_botella
-      ? `La etapa más lenta es ${et.cuello_de_botella}.` : '';
+      ? (reales<=1
+          ? `${et.cuello_de_botella} es la única etapa con duración medible.`
+          : `La etapa más lenta de las ${nf(reales)} con duración medible es ${et.cuello_de_botella}.`)
+      : '';
+
     $('trEtapas').innerHTML=`<table><thead><tr><th>Etapa</th>`+
       `<th class="n">Mediana</th><th class="n">Máximo</th><th class="n">Completadas</th>`+
-      `</tr></thead><tbody>${et.detalle.slice(0,8).map(e=>
-        `<tr><td>${esc(e.nombre)}</td><td class="n">${nf(e.dias_mediana)} d</td>`+
-        `<td class="n">${nf(e.dias_max)} d</td><td class="n">${nf(e.completadas)}</td></tr>`).join('')}`+
+      `</tr></thead><tbody>${et.detalle.slice(0,10).map(e=>{
+        /* Una etapa que se abre y se cierra en el mismo instante no es rápida:
+           no está anotada. Mostrar «0 d» sin decirlo invita a leer como
+           eficiencia lo que es ausencia de registro. */
+        const marca = e.no_registra ? ' <span style="color:var(--ink3)">· no registra duración</span>'
+                    : (e.registro_mixto ? ' <span style="color:var(--ink3)">· registro mixto</span>' : '');
+        const gris = (e.no_registra||e.registro_mixto) ? ' style="color:var(--ink3)"' : '';
+        return `<tr><td>${esc(e.nombre)}${marca}</td>`+
+          `<td class="n"${gris}>${nf(e.dias_mediana)} d</td>`+
+          `<td class="n"${gris}>${nf(e.dias_max)} d</td>`+
+          `<td class="n">${nf(e.completadas)}</td></tr>`;
+      }).join('')}`+
       `</tbody></table>`+
+      (hayNum(et.etapas_sin_registro) && et.etapas_sin_registro
+        ? `<div class="alert w" style="margin-top:12px"><div class="ai">i</div><div>`+
+          `<b>${nf(et.etapas_sin_registro)} de ${nf(et.detalle.length)} etapas no registran duración.</b> `+
+          `Se abren y se cierran en el mismo instante, de modo que su fecha de cierre dice cuándo `+
+          `alguien marcó la casilla y no cuánto duró la gestión. Las marcadas como «registro mixto» `+
+          `tienen mediana en cero y máximos de meses: más de la mitad se cerraron al instante. `+
+          `Un cero en esta tabla no significa que la etapa sea rápida, significa que no está medida, `+
+          `y por eso estas cifras no son comparables con las de la etapa que sí lo está.`+
+          `</div></div>` : '')+
+
+      /* Sin asignar y asignadas-y-lentas son dos problemas distintos: reparto
+         contra ejecución. Juntos, los sin asignar tapan a los que tienen dueño. */
       ((et.atascadas||[]).length
         ? `<div class="kp">${et.atascadas.length===1
-              ? 'Una etapa abierta ya pasó'
-              : nf(et.atascadas.length)+' etapas abiertas ya pasaron'} la mediana de su propia etapa. `+
-          `La más vieja lleva ${nf(et.atascadas[0].dias_abierta)} días.</div>` : '');
+              ? 'Una etapa abierta con ingeniero asignado ya pasó'
+              : nf(et.atascadas.length)+' etapas abiertas con ingeniero asignado ya pasaron'} `+
+          `la mediana de su propia etapa. La más vieja lleva ${nf(et.atascadas[0].dias_abierta)} días.</div>` : '')+
+      (hayNum(et.sin_asignar_total) && et.sin_asignar_total
+        ? `<div class="kp" style="color:var(--bad)">`+
+          `${et.sin_asignar_total===1?'Un trámite abierto sigue':nf(et.sin_asignar_total)+' trámites abiertos siguen'} `+
+          `sin ingeniero asignado`+
+          (hayNum(et.dias_del_mas_viejo_sin_asignar)
+            ? `; el más viejo lleva ${nf(et.dias_del_mas_viejo_sin_asignar)} días`:'')+
+          `. Es un problema de reparto, no de ejecución, y va aparte a propósito.</div>` : '');
   } else {
     $('trEtapaCs').textContent='';
     $('trEtapas').innerHTML='<div class="ausente">No hubo etapas completadas en el periodo, '+
