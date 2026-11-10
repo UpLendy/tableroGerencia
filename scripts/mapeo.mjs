@@ -119,9 +119,15 @@ function armarSalud({ mes, serie, venc, calidad, concentracion, hoy }) {
      un derrumbe inventado. Se proyecta al ritmo que lleva y se dice. */
   const par = parcial(mes.id, hoy);
   const base = par ? Math.round(mes.cert / par.dias * par.total) : mes.cert;
+  /* El índice proyecta el mes en curso; el comparativo anual de la página no.
+     Son dos cifras distintas a propósito, y si no se dice cuál es cuál la
+     página parece contradecirse: 1.848 proyectado arriba contra 616 observado
+     abajo. La nota lo declara en los dos componentes que usan la proyección. */
   const nota = par
-    ? ` ${mes.lbl} lleva ${par.dias} de ${par.total} días: se proyecta a ${nf(base)} ` +
-      `al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso.`
+    ? ` ${mes.lbl} lleva ${par.dias} de ${par.total} días y va en ${nf(mes.cert)} ` +
+      `certificaciones observadas; el índice proyecta a ${nf(base)} al ritmo actual, porque ` +
+      `comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo ` +
+      `anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren.`
     : '';
 
   // Producción: el mes contra el mismo mes del año anterior.
@@ -133,7 +139,7 @@ function armarSalud({ mes, serie, venc, calidad, concentracion, hoy }) {
     const crec = (base / anterior.certificados - 1) * 100;
     comp.push({
       n: 'Producción', v: Math.round(Math.min(100, Math.max(0, 50 + (crec / 20) * 50))),
-      d: `${mes.lbl} contra el mismo mes del año anterior: ${nf(base)} contra ` +
+      d: `${mes.lbl} contra el mismo mes del año anterior: ${nf(base)}${par ? ' proyectadas' : ''} contra ` +
          `${nf(anterior.certificados)}, ${crec > 0 ? '+' : ''}${crec.toLocaleString('es-CO',{minimumFractionDigits:1,maximumFractionDigits:1})} %. ` +
          `Se mapea 0–20 % de crecimiento a 50–100 puntos.` + nota,
     });
@@ -147,7 +153,7 @@ function armarSalud({ mes, serie, venc, calidad, concentracion, hoy }) {
   comp.push({
     n: 'Reposición', v: Math.round(Math.min(100, (base / vt) * 50)),
     d: `Certificaciones del mes sobre vencimientos de los próximos ${venc.ventana_dias} días, ` +
-       `medidos el ${venc.corte}: ${nf(base)} / ${nf(vt)} = ${(base / vt).toLocaleString('es-CO',{minimumFractionDigits:2,maximumFractionDigits:2})}. ` +
+       `medidos el ${venc.corte}: ${nf(base)}${par ? ' proyectadas' : ''} / ${nf(vt)} = ${(base / vt).toLocaleString('es-CO',{minimumFractionDigits:2,maximumFractionDigits:2})}. ` +
        `Paridad (1,00) vale 50 puntos.` + nota,
   });
 

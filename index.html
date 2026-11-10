@@ -191,7 +191,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     <div>
       <div class="brand">BPM Consulting SAS BIC</div>
       <h1>Tablero gerencial</h1>
-      <div class="sub">Corte <b id="corteLbl">30 de octubre de 2026</b> · lectura directa de la plataforma de formación</div>
+      <div class="sub">Corte <b id="corteLbl">30 de octubre de 2026</b> · <span id="fuentesLbl">lectura directa de las plataformas de formación, trámites y Alimentia</span></div>
     </div>
     <div class="ctrl">
       <div class="seg" id="selMes" role="group" aria-label="Periodo"></div>
@@ -236,9 +236,9 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     <div class="grid kpis" id="kpis"></div>
     <div class="ausente" style="margin-top:14px">
       <b>Canal Ingenieros: fuera de estas cifras, a propósito.</b>
-      Todo lo de arriba sale de la plataforma de formación y solo de ella. El canal de
-      trámites de ingenieros entra con la Entrega 1, cuando llegue el acceso de lectura
-      a esa plataforma, y entrará con octubre completo — no con el parcial al 14.
+      Todo lo de arriba sale de la plataforma de formación y solo de ella. La plataforma de
+      trámites ya está conectada y se lee en vivo: su operación aparece en la sección
+      «Carga de los ingenieros», aparte y sin sumarse a estas cifras.
       <div style="margin-top:9px">
         Antes de sumarlo hay que resolver una pregunta que levantó la Dirección: si las
         personas del canal Ingenieros ya están contadas dentro del canal empresa.
@@ -263,8 +263,8 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     <div class="shead"><h2>Vencimientos · próximos 30 días</h2></div>
     <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr))">
       <div class="chartcard">
-        <div class="ct">1.489 certificados vencen antes del 29 de noviembre</div>
-        <div class="cs">Recompra potencial a precio de lista: $29.780.000</div>
+        <div class="ct" id="vencTit">—</div>
+        <div class="cs" id="vencSub">—</div>
         <div class="legend">
           <span><i style="background:var(--s1)"></i>Vinculados a empresa</span>
           <span><i style="background:var(--s2)"></i>Particulares</span>
@@ -435,14 +435,14 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
   <section>
     <div class="shead">
       <h2>Calidad del dato</h2>
-      <span class="note">Cinco verificaciones sobre las 157.541 inscripciones de la plataforma</span>
+      <span class="note" id="calEnc">—</span>
     </div>
     <div class="card">
       <div id="qlist"></div>
       <div style="display:flex;justify-content:space-between;align-items:baseline;
                   border-top:2px solid var(--border2);margin-top:6px;padding-top:13px">
         <div style="font-size:13px;font-weight:700">Puntaje resultante</div>
-        <div style="font-size:23px;font-weight:700;font-variant-numeric:tabular-nums">80 <span style="font-size:13px;color:var(--ink3);font-weight:500">/ 100</span></div>
+        <div style="font-size:23px;font-weight:700;font-variant-numeric:tabular-nums"><span id="calPunt">—</span> <span style="font-size:13px;color:var(--ink3);font-weight:500">/ 100</span></div>
       </div>
       <div style="font-size:11.5px;color:var(--ink3);margin-top:10px">
         El puntaje se compone multiplicando los descuentos, no sumándolos: así un problema
@@ -453,8 +453,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
       <div class="ai">i</div>
       <div>
         <b>La plataforma está limpia; el desorden está en las hojas de cálculo.</b>
-        De 157.541 inscripciones, ninguna tiene la fecha de certificación mal formada y solo dos
-        apuntan a un usuario que ya no existe. El problema que describió la revisión interna
+        <span id="calNota">—</span> El problema que describió la revisión interna
         del 25 de octubre está en los archivos que se llenan a mano, no en los sistemas.
         Esto cambia dónde conviene invertir el esfuerzo de limpieza.
       </div>
@@ -477,7 +476,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     <div class="defs">
       <div><b>No recalcula lo que BPM ya calcula.</b> Cada cifra se obtiene con la regla de la fuente que la produce. El tablero consolida y presenta; no reinterpreta.</div>
       <div><b>Un dato ausente no se muestra como cero.</b> Se muestra como ausente, diciendo qué endpoint lo trae y en qué entrega.</div>
-      <div><b>Las cifras de este corte se extrajeron por consulta directa de solo lectura</b> el 30 de octubre de 2026. A partir de la Entrega 1 el corte se actualiza solo.</div>
+      <div><b>Las cifras de este corte se extrajeron por consulta directa de solo lectura</b> <span id="procedencia">—</span></div>
     </div>
     <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:flex;
                 justify-content:space-between;gap:16px;flex-wrap:wrap">
@@ -1082,8 +1081,43 @@ function renderAlimentia(){
       }).join('')}</tbody></table>` : '';
 }
 
+/** «0 de 116.299 · 0.00 %» -> «ninguna tiene». Para leerlo en prosa, con el verbo concordado. */
+function esTexto(r, verbo){
+  const n=Number(String(r||'').split(' de ')[0].replace(/[^\d]/g,''));
+  const v=(sing)=>verbo?' '+(sing?verbo[0]:verbo[1]):'';
+  if(!Number.isFinite(n)) return String(r||'')+v(false);
+  if(n===0) return 'ninguna'+v(true);
+  if(n===1) return 'solo una'+v(true);
+  if(n===2) return 'solo dos'+v(false);
+  return nf(n)+v(false);
+}
+
 /* ------------------------------------------------------ calidad */
 function renderCalidad(){
+  const n=CORTE.calidad.length;
+  const insc=(CORTE.universo&&CORTE.universo.user_course)||null;
+  const res=CORTE.calidadResumen||{};
+
+  /* El encabezado, el puntaje y la nota salían escritos a mano en el HTML y
+     no se movían con los datos: decían «cinco verificaciones» habiendo once,
+     y un puntaje de 80 mientras la plataforma reportaba 67. Ahora los tres
+     se leen del corte, y el puntaje es el que produce la fuente. */
+  $('calEnc').textContent =
+    `${n} ${n===1?'verificación':'verificaciones'}` +
+    (insc ? ` sobre las ${nf(insc)} inscripciones de la plataforma` : '') +
+    (res.regla ? ` · regla ${res.regla}` : '');
+
+  $('calPunt').textContent = res.puntaje==null ? 'sin dato' : nf(res.puntaje);
+
+  const halla=(re)=>CORTE.calidad.find(q=>re.test(q.n||''));
+  const fecha=halla(/sin cert_date|no es una fecha/i);
+  const huer =halla(/user_id no existe/i);
+  $('calNota').textContent =
+    (insc ? `De ${nf(insc)} inscripciones, ` : '') +
+    (fecha ? `${esTexto(fecha.r, ['tiene','tienen'])} la fecha de certificación mal formada` : '') +
+    (fecha&&huer ? ' y ' : '') +
+    (huer ? `${esTexto(huer.r, ['apunta','apuntan'])} a un usuario que ya no existe.` : '.');
+
   $('qlist').innerHTML=CORTE.calidad.map(q=>`
     <div class="qrow">
       <div><div class="qn">${esc(q.n)}</div><div class="qd">${esc(q.d)}</div></div>
@@ -1216,6 +1250,7 @@ function pintar(opts){
   if(MES<0) MES=ms.length-1;
 
   $('corteLbl').textContent=fechaLarga(CORTE.corte);
+  pintarTextosDelCorte();
   construirSelector();
 
   renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy();
@@ -1226,6 +1261,38 @@ function pintar(opts){
   $('contenido').hidden=false;
   if(CORTE.origen==='vivo') marcarFuente('vivo');
   if(y!==null) window.scrollTo(0,y);
+}
+
+/**
+ * Los textos que antes estaban escritos a mano en el HTML y se quedaron viejos:
+ * el titular de vencimientos (decía 1.489 y $20.000 planos), la procedencia
+ * (decía «30 de octubre», consulta manual) y qué plataformas se leyeron.
+ */
+function pintarTextosDelCorte(){
+  const v=CORTE.venc||{};
+  if(v.total!=null){
+    const lim=new Date(Date.parse(v.corte+'T00:00:00Z')+ (v.ventana_dias||30)*864e5);
+    $('vencTit').innerHTML=
+      `<b>${nf(v.total)}</b> certificados vencen antes del ${fechaLarga(lim.toISOString().slice(0,10))}`;
+    /* A precio observado, no a $20.000 planos: la tarifa plana fue justo la
+       corrección que pidió la Dirección el 2 de noviembre. */
+    const pm=CORTE.precioMedioObservado;
+    $('vencSub').textContent = pm
+      ? `Recompra potencial: ${cop(v.total*pm)} · a precio observado de ${cop(pm)} por certificación`
+      : 'Recompra potencial: pendiente del precio observado';
+  }
+
+  const tres=[['formación',true],
+              ['trámites',!!CORTE.tramites],
+              ['Alimentia',!!CORTE.alimentia]].filter(x=>x[1]).map(x=>x[0]);
+  $('fuentesLbl').textContent = CORTE.origen==='vivo'
+    ? `lectura en vivo de ${tres.length===1?'la plataforma de '+tres[0]
+        :'las plataformas de '+tres.slice(0,-1).join(', ')+' y '+tres.slice(-1)}`
+    : `corte publicado · ${tres.join(', ')}`;
+
+  $('procedencia').textContent = CORTE.generado_en
+    ? `el ${fechaLarga(CORTE.generado_en.slice(0,10))}, de forma automática, sin intervención manual.`
+    : 'de forma automática.';
 }
 
 /** El selector sale de la serie: todos los meses con datos, no dos fijos. */

@@ -122,6 +122,27 @@ for (const c of d.salud?.comp || []) {
   }
 }
 
+/* ------------------------------------------------- semanas vs total */
+/* El titular de vencimientos daba 1.489 mientras el desglose por canal y el
+   de por semana daban los dos 1.412: la página se contradecía consigo misma
+   en la misma tarjeta. El titular ya sale del dato; esto vigila el dato. */
+if (d.venc && Array.isArray(d.venc.por_semana) && d.venc.por_semana.length) {
+  const ss = d.venc.por_semana.reduce((a, x) => a + Number(x.vencen || 0), 0);
+  ok(ss === Number(d.venc.total),
+     `vencimientos: las semanas suman ${nf(ss)}, pero total dice ${nf(d.venc.total)}`);
+}
+
+/* ---------------------------------------------------- puntaje de calidad */
+/* El HTML traía un 80 escrito a mano mientras la plataforma reportaba 67.
+   El puntaje que se muestra es el de la fuente; aquí se exige que exista. */
+if (Array.isArray(d.calidad) && d.calidad.length) {
+  const r = d.calidadResumen;
+  ok(r && Number.isFinite(Number(r.puntaje)),
+     'calidad: hay verificaciones pero calidadResumen.puntaje no viene, ' +
+     'y el tablero no debe inventar un puntaje propio');
+  if (r) ok(r.regla, 'calidad: calidadResumen no declara la regla que lo produjo');
+}
+
 /* ---------------------------------------------------------- códigos */
 const vistos = new Set();
 for (const e of d.empresas || []) {
