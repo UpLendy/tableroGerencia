@@ -234,7 +234,28 @@ export function armarCorte(m, narrativa = {}, fallaron = {}) {
   };
 
   const calidad = armarCalidad(m['calidad-dato']);
-  const serie = m.serie.datos.meses;
+  const serie = (m.serie.datos.meses || []).map((x) => ({ ...x }));
+
+  /* La serie y el resumen salen de endpoints distintos de la misma plataforma,
+     y los dos cachean. Si las llamadas caen a distinto lado de un vencimiento
+     de caché, el mes en curso llega con dos cifras: noviembre mostraba 403 en
+     la serie y 436 en el resumen. Para el lector son dos verdades sobre el
+     mismo mes, así que la serie se alinea con la cifra que alimentan los KPI
+     y se deja constancia de que se corrigió. */
+  const desalineados = [];
+  for (const mes of meses) {
+    const punto = serie.find((x) => x.periodo === mes.id);
+    if (!punto) continue;
+    if (Number(punto.certificados) !== Number(mes.cert)) {
+      desalineados.push({
+        periodo: mes.id,
+        serie: Number(punto.certificados),
+        resumen: Number(mes.cert),
+      });
+      punto.certificados = mes.cert;
+      punto.personas = mes.personas;
+    }
+  }
 
   /* La fecha del corte y la version de la regla ya no se le piden a /health:
      vienen en respuestas que de todos modos hacen falta. Un llamado menos
@@ -253,6 +274,7 @@ export function armarCorte(m, narrativa = {}, fallaron = {}) {
     meses,
     empresas,
     serie,
+    serie_realineada: desalineados.length ? desalineados : undefined,
     yoy: armarYoy(serie, ult),
     venc,
     recompra: m.recompra ? m.recompra.datos : null,

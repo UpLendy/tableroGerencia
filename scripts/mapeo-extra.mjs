@@ -16,6 +16,8 @@ export function armarTramites(m) {
   if (!carga && !tiempos && !retrabajo && !duracion) return null;
 
   return {
+    regla: (m.tr_carga || m.tr_tiempos || m.tr_retrabajo || m.tr_duracion).regla || null,
+    generado_en: (m.tr_carga || m.tr_tiempos || m.tr_retrabajo || m.tr_duracion).generado_en || null,
     periodo: (carga || tiempos || retrabajo || duracion).periodo,
     ingenieros: carga ? {
       activos: carga.ingenieros_activos,
@@ -80,6 +82,8 @@ export function armarAlimentia(m) {
   }
 
   return {
+    regla: (m.al_diligenciamiento || m.al_caida).regla || null,
+    generado_en: (m.al_diligenciamiento || m.al_caida).generado_en || null,
     periodo: (dil || caida).periodo,
     dias_del_periodo: dil ? dil.dias_del_periodo : null,
     empresas: empresas.length,

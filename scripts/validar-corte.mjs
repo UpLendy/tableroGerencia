@@ -57,6 +57,39 @@ for (const m of d.meses || []) {
   if (!(Number(m.ingreso) > 0)) avisos.push(`${p}: ingreso en cero o ausente`);
 }
 
+/* ---------------------------------------------------------- serie vs meses */
+/* La inconsistencia que la Dirección encontró el 9 de noviembre: noviembre
+   salía con 403 certificaciones en la serie y 436 en el resumen, y nada lo
+   detectaba. Dos cifras del mismo mes en la misma pantalla destruyen la
+   confianza en todas las demás. */
+for (const m of d.meses || []) {
+  const punto = (d.serie || []).find((x) => x.periodo === m.id);
+  if (!punto) {
+    avisos.push(`serie: no contiene el periodo ${m.id}, que sí está en el resumen`);
+    continue;
+  }
+  ok(Number(punto.certificados) === Number(m.cert),
+     `serie vs resumen · ${m.id}: la serie dice ${nf(punto.certificados)} ` +
+     `certificaciones y el resumen ${nf(m.cert)}`);
+  if (punto.personas !== undefined) {
+    ok(Number(punto.personas) === Number(m.personas),
+       `serie vs resumen · ${m.id}: la serie dice ${nf(punto.personas)} personas ` +
+       `y el resumen ${nf(m.personas)}`);
+  }
+}
+
+/* La serie debe ir en orden y sin huecos: un mes faltante se lee como caída. */
+{
+  const ps = (d.serie || []).map((x) => x.periodo);
+  const ordenada = [...ps].sort();
+  ok(JSON.stringify(ps) === JSON.stringify(ordenada), 'serie: los periodos no están en orden');
+  for (let i = 1; i < ps.length; i++) {
+    const [a, m1] = ps[i - 1].split('-').map(Number);
+    const esperado = new Date(Date.UTC(a, m1, 1)).toISOString().slice(0, 7);
+    ok(ps[i] === esperado, `serie: entre ${ps[i - 1]} y ${ps[i]} falta ${esperado}`);
+  }
+}
+
 /* ---------------------------------------------------------- vencimientos */
 if (d.venc) {
   const s = Number(d.venc.emp || 0) + Number(d.venc.par || 0);
