@@ -64,6 +64,37 @@ export function armarTramites(m) {
   };
 }
 
+/**
+ * Empresas detenidas, con el criterio de la plataforma pero solo sobre las
+ * empresas reales. Las que nunca empezaron van primero: no arrancar es un
+ * problema de puesta en marcha y dejar de hacerlo es de abandono.
+ */
+function derivarDetenidas(empresas, dil) {
+  const hasta = (dil && dil.hasta) || null;
+  const dias = (f) => {
+    if (!f || !hasta) return null;
+    const ms = Date.parse(`${hasta}T00:00:00Z`) - Date.parse(`${f}T00:00:00Z`);
+    return ms < 0 ? 0 : Math.round(ms / 86400000);
+  };
+  return empresas
+    .filter((e) => Number(e.esperados || 0) > 0)
+    .map((e) => ({
+      company_id: e.company_id,
+      nombre: e.nombre,
+      nit: e.nit,
+      cumplimiento: e.cumplimiento,
+      entregados: e.entregados,
+      ultimo_diligenciamiento: e.ultimo_diligenciamiento ?? null,
+      dias_sin_diligenciar: dias(e.ultimo_diligenciamiento),
+      nunca_empezo: e.ultimo_diligenciamiento == null,
+    }))
+    .filter((e) => e.nunca_empezo || (e.dias_sin_diligenciar ?? 0) >= 7)
+    .sort((a, b) => {
+      if (a.nunca_empezo !== b.nunca_empezo) return a.nunca_empezo ? -1 : 1;
+      return (b.dias_sin_diligenciar ?? 0) - (a.dias_sin_diligenciar ?? 0);
+    });
+}
+
 /** Alimentia: uso diario por empresa, sin las de demostración. */
 export function armarAlimentia(m) {
   const dil = m.al_diligenciamiento && m.al_diligenciamiento.datos;
@@ -94,7 +125,20 @@ export function armarAlimentia(m) {
     sin_un_solo_registro: empresas.filter((e) => e.esperados > 0 && e.entregados === 0).length,
     detalle: empresas.slice().sort((a, b) => (a.cumplimiento ?? 1) - (b.cumplimiento ?? 1)),
     cayendo: caida ? (caida.cayendo || []).filter(real) : [],
-    detenidas: caida ? (caida.detenidas || []).filter(real) : [],
+
+    /* Detenidas se deriva aquí, no se toma del endpoint, por la misma razón
+       por la que se recalculan los totales: la plataforma no sabe cuáles de
+       sus empresas son de demostración, así que su lista mezcla las tres de
+       prueba con las reales. El criterio es el de la plataforma —nunca
+       diligenció, o siete días o más sin hacerlo— aplicado solo a las reales.
+
+       Además hoy la lista del endpoint llega vacía teniendo CÁRNICOS EL HATO
+       en «nunca», que es justo el caso que la Dirección reportó. Derivarla
+       aquí hace que el tablero muestre el dato correcto, y la discrepancia
+       queda contada en detenidas_endpoint para que no se pierda de vista. */
+    detenidas: derivarDetenidas(empresas, dil),
+    detenidas_endpoint: caida ? (caida.detenidas || []).filter(real).length : null,
+    nunca_han_diligenciado: empresas.filter((e) => e.ultimo_diligenciamiento == null).length,
     comparado_contra: caida ? caida.comparado_contra : null,
     /* Definición abierta, heredada del endpoint: lo esperado cuenta los siete
        días de la semana, domingos y festivos incluidos. Eso hunde el

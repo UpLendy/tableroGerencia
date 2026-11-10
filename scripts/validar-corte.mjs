@@ -143,6 +143,28 @@ if (Array.isArray(d.calidad) && d.calidad.length) {
   if (r) ok(r.regla, 'calidad: calidadResumen no declara la regla que lo produjo');
 }
 
+/* ------------------------------------------------- detenidas Alimentia */
+/* La empresa que nunca diligenció es la más detenida de todas y era justo la
+   que no aparecía. Que vuelva a desaparecer tiene que romper el corte. */
+if (d.alimentia) {
+  const a = d.alimentia;
+  const det = a.detenidas || [];
+  const nunca = Number(a.nunca_han_diligenciado || 0);
+  const enLista = det.filter((e) => e.nunca_empezo).length;
+  ok(enLista === nunca,
+     `alimentia: ${nf(nunca)} empresa(s) nunca diligenciaron pero solo ${nf(enLista)} ` +
+     `figura(n) en detenidas; la que nunca empezó no puede faltar`);
+  for (const e of det) {
+    ok(e.nunca_empezo || Number(e.dias_sin_diligenciar || 0) >= 7,
+       `alimentia · ${e.nombre}: está en detenidas con ${e.dias_sin_diligenciar} día(s) ` +
+       `sin diligenciar y sin ser de las que nunca empezaron`);
+  }
+  if (a.detenidas_endpoint != null && a.detenidas_endpoint !== det.length) {
+    avisos.push(`alimentia: el endpoint reporta ${nf(a.detenidas_endpoint)} detenida(s) y ` +
+                `el tablero deriva ${nf(det.length)} · revisar del lado de Alimentia`);
+  }
+}
+
 /* ---------------------------------------------------------- códigos */
 const vistos = new Set();
 for (const e of d.empresas || []) {

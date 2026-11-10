@@ -1068,12 +1068,27 @@ function renderAlimentia(){
       'teniendo formatos habilitados',
       a.sin_un_solo_registro?'var(--bad)':'var(--good)') +
     tar('Detenidas', nf((a.detenidas||[]).length),
-      'siete días o más sin diligenciar',
+      (()=>{const n=(a.detenidas||[]).filter(e=>e.nunca_empezo).length;
+        return n?`${nf(n)} nunca empezó${n>1?'ron':''}; el resto, siete días o más sin diligenciar`
+                :'siete días o más sin diligenciar';})(),
       (a.detenidas||[]).length?'var(--warn)':'var(--good)');
 
-  $('alAviso').innerHTML = a.advertencia_definicion
-    ? `<div class="alert w"><div class="ai">i</div><div><b>Falta definir qué días son exigibles.</b> ${esc(a.advertencia_definicion)}</div></div>`
-    : '';
+  const avisos=[];
+  if(a.advertencia_definicion)
+    avisos.push(`<div class="alert w"><div class="ai">i</div><div><b>Falta definir qué días son exigibles.</b> ${esc(a.advertencia_definicion)}</div></div>`);
+
+  /* La lista de detenidas se deriva aquí, sobre empresas reales. Si la que
+     produce la plataforma no coincide, es una discrepancia que conviene ver,
+     no tapar: significa que el endpoint y el tablero no dicen lo mismo. */
+  const der=(a.detenidas||[]).length, ep=a.detenidas_endpoint;
+  if(ep!==null && ep!==undefined && ep!==der)
+    avisos.push(`<div class="alert w"><div class="ai">i</div><div>`+
+      `<b>El endpoint y el tablero no coinciden en las detenidas.</b> `+
+      `El tablero deriva ${nf(der)} aplicando el criterio de la plataforma solo a las `+
+      `empresas reales; el endpoint reporta ${nf(ep)}. La lista de arriba es la derivada. `+
+      `La diferencia está reportada para que se revise del lado de Alimentia.</div></div>`);
+
+  $('alAviso').innerHTML = avisos.join('');
 
   const d=a.detalle||[];
   $('alCs').textContent = d.length
