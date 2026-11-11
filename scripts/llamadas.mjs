@@ -21,6 +21,21 @@ export function llamadasDe(periodo) {
   /* 24 meses: hacen falta los doce anteriores para comparar contra el año pasado */
   const desdeSerie = new Date(Date.UTC(anio, mes - 24, 1)).toISOString().slice(0, 7);
 
+  /* Última cohorte con ventana cerrada: su mes tiene que haber terminado hace
+     más de los días de gracia. Con 90 días y corte en noviembre, es julio. */
+  const GRACIA_DIAS = 90;
+  const cerrada = (() => {
+    const hoy = new Date();
+    for (let atras = 1; atras <= 36; atras++) {
+      const d = new Date(Date.UTC(anio, mes - atras, 1));
+      const finMes = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 0));
+      if (finMes.getTime() + GRACIA_DIAS * 864e5 <= hoy.getTime()) {
+        return { year: d.getUTCFullYear(), month: d.getUTCMonth() + 1 };
+      }
+    }
+    return { year: anio, month: mes };
+  })();
+
   const ultimoDia = new Date(Date.UTC(anio, mes, 0)).getUTCDate();
   const fDesde = `${periodo}-01`;
   const fHasta = `${periodo}-${String(ultimoDia).padStart(2, '0')}`;
@@ -31,6 +46,11 @@ export function llamadasDe(periodo) {
     { nombre: 'empresas',             ruta: 'empresas',        params: { year: anio,  month: mes  } },
     { nombre: 'empresas_prev',        ruta: 'empresas',        params: { year: aPrev, month: mPrev } },
     { nombre: 'recompra',             ruta: 'recompra',        params: { year: anio,  month: mes  } },
+    /* La cohorte del mes en curso todavía está dentro de su ventana de gracia,
+       así que su tasa no es un resultado sino una foto a mitad de camino. Se
+       pide además la última cohorte cuya ventana ya cerró, que es la única
+       cifra de renovación que se puede afirmar. */
+    { nombre: 'recompra_cerrada',     ruta: 'recompra',        params: cerrada },
     { nombre: 'serie',                ruta: 'serie',           params: { desde: desdeSerie, hasta: periodo } },
     { nombre: 'vencimientos',         ruta: 'vencimientos',    params: { dias: 30 } },
     { nombre: 'atribucion',           ruta: 'atribucion',      params: { desde: fDesde, hasta: fHasta } },

@@ -110,6 +110,46 @@ function parcial(id, hoyISO) {
   return { dias, total };
 }
 
+/**
+ * Recompra, con el estado de su ventana.
+ *
+ * La cohorte de un periodo son los certificados emitidos doce meses antes, que
+ * vencen durante ese mes. Cada uno tiene además los días de gracia para
+ * renovar, de modo que la cohorte no termina de observarse hasta
+ * fin de mes + gracia.
+ *
+ * El tablero venía publicando la tasa del mes en curso como si fuera un
+ * resultado. No lo es: en noviembre, con diez de ciento diez días corridos, la
+ * tasa salía en 0,37 % y la misma métrica sobre la cohorte de julio —ya
+ * cerrada— da 18,21 %. No era un criterio mal definido, era una foto tomada al
+ * 9 % del recorrido. Aquí se declara el estado para que nadie la lea como
+ * definitiva.
+ */
+function armarRecompra(d, hoy) {
+  if (!d) return null;
+  const [a, mm] = String(d.periodo).split('-').map(Number);
+  if (!Number.isFinite(a) || !Number.isFinite(mm)) return d;
+
+  const gracia = Number(d.dias_gracia_tarde || 0);
+  const finMes = Date.UTC(a, mm, 0);
+  const cierra = finMes + gracia * 864e5;
+  const ahora = Date.parse(`${hoy}T00:00:00Z`);
+
+  /* La ventana arranca el primer día del mes: el primer certificado de la
+     cohorte puede vencer ese mismo día. */
+  const abre = Date.UTC(a, mm - 1, 1);
+  const total = Math.round((cierra - abre) / 864e5);
+  const corridos = Math.max(0, Math.min(total, Math.round((ahora - abre) / 864e5)));
+
+  return {
+    ...d,
+    ventana_abierta: ahora < cierra,
+    ventana_cierra: new Date(cierra).toISOString().slice(0, 10),
+    ventana_dias_totales: total,
+    ventana_dias_corridos: corridos,
+  };
+}
+
 /** Índice de salud. Cada componente trae su fórmula en lenguaje llano. */
 function armarSalud({ mes, serie, venc, calidad, concentracion, hoy }) {
   const comp = [];
@@ -283,7 +323,8 @@ export function armarCorte(m, narrativa = {}, fallaron = {}) {
     serie_realineada: desalineados.length ? desalineados : undefined,
     yoy: armarYoy(serie, ult),
     venc,
-    recompra: m.recompra ? m.recompra.datos : null,
+    recompra: armarRecompra(m.recompra && m.recompra.datos, fechaCorte),
+    recompra_cerrada: armarRecompra(m.recompra_cerrada && m.recompra_cerrada.datos, fechaCorte),
     atribucion: m.atribucion ? m.atribucion.datos : null,
     cursos: m.cursos ? m.cursos.datos : null,
     calidad: calidad.filas,

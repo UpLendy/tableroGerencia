@@ -182,6 +182,25 @@ if (d.cursos && Array.isArray(d.cursos.cursos)) {
   }
 }
 
+/* ---------------------------------------------------------- recompra */
+/* Publicar la tasa de una cohorte cuya ventana sigue abierta es publicar una
+   foto a mitad de camino como si fuera un resultado. Si la del periodo está
+   abierta, tiene que venir además la última cerrada, que es la afirmable. */
+if (d.recompra) {
+  const r = d.recompra;
+  ok(typeof r.ventana_abierta === 'boolean',
+     'recompra: no declara si su ventana de gracia sigue abierta');
+  if (r.ventana_abierta) {
+    ok(d.recompra_cerrada && !d.recompra_cerrada.ventana_abierta,
+       `recompra: la cohorte de ${r.periodo} cierra el ${r.ventana_cierra} y no viene ` +
+       'ninguna cohorte cerrada de referencia; sin ella el tablero no tiene tasa afirmable');
+  }
+  if (d.recompra_cerrada) {
+    ok(d.recompra_cerrada.ventana_abierta === false,
+       `recompra_cerrada: ${d.recompra_cerrada.periodo} todavía tiene la ventana abierta`);
+  }
+}
+
 /* ---------------------------------------------------------- códigos */
 const vistos = new Set();
 for (const e of d.empresas || []) {

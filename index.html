@@ -460,6 +460,8 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
       <div><b>Canal empresa / particular.</b> Empresa cuando el usuario tiene código de referido de una empresa; particular cuando no lo tiene o tiene el código genérico de BPM.</div>
       <div><b>Vencimiento.</b> Certificado activo cuya fecha cumple doce meses dentro de los próximos treinta días.</div>
       <div><b>Recompra potencial.</b> Vencimientos por el precio de lista. Es un techo, no un pronóstico: supone que todos renuevan.</div>
+      <div><b>Tasa de renovación.</b> De los certificados que cumplieron un año en un periodo, qué parte se renovó dentro de la vigencia o de los días de gracia. Mira hacia adelante, desde una cohorte que vence. Solo se puede afirmar cuando la ventana de esa cohorte ya cerró.</div>
+      <div><b>Recurrencia de clientes.</b> De los clientes que compraron en el periodo, qué parte ya había comprado antes. Mira hacia atrás, desde los que compran. Es la medida que usa el entorno de gestión del conocimiento y no es comparable con la anterior: responden preguntas distintas y dan números distintos sin contradecirse.</div>
       <div><b>Índice de salud.</b> Promedio simple de los cuatro componentes. Cada componente tiene su fórmula escrita en el tablero, al lado de su barra.</div>
     </div>
     <h3>Reglas de este tablero</h3>
@@ -880,44 +882,94 @@ function renderSerie(){
 }
 
 /* ------------------------------------------------------ recompra */
+/**
+ * La cohorte de un periodo son los certificados emitidos doce meses antes.
+ * No termina de observarse hasta fin de mes más los días de gracia, así que
+ * mientras la ventana siga abierta su tasa no es un resultado: es una foto a
+ * mitad de camino. El tablero mostraba ese parcial como cifra definitiva —en
+ * noviembre, 0,37 % con diez de ciento diez días corridos— y encima lo
+ * explicaba como un criterio mal definido. La cifra que se puede afirmar es
+ * la de la última cohorte cerrada.
+ */
 function renderRecompra(){
-  const r=CORTE.recompra;
-  if(!r){ $('recKpis').innerHTML=''; return; }
-  const tasa=hayNum(r.tasa_recompra)?Number(r.tasa_recompra)*100:null;
+  const r=CORTE.recompra, c=CORTE.recompra_cerrada;
+  if(!r){ $('recKpis').innerHTML=''; $('recAviso').innerHTML=''; $('recNote').textContent=''; return; }
 
-  $('recNote').textContent=
-    `Certificados que cumplieron un año en ${esc(r.periodo)} · ventana de gracia de ${r.dias_gracia_tarde} días`;
+  const pct = x => hayNum(x && x.tasa_recompra) ? Number(x.tasa_recompra)*100 : null;
+  const renov = x => (x.renovaron_a_tiempo||0)+(x.renovaron_tarde||0);
+  const abierta = r.ventana_abierta === true;
+  const color = t => t===null?'var(--ink3)':(t<20?'var(--bad)':(t<50?'var(--warn)':'var(--good)'));
+
+  $('recNote').textContent =
+    `Certificados que cumplieron un año en ${esc(r.periodo)} · ventana de gracia de `+
+    `${r.dias_gracia_tarde} días` +
+    (abierta && hayNum(r.ventana_dias_corridos)
+      ? ` · ventana abierta, ${nf(r.ventana_dias_corridos)} de ${nf(r.ventana_dias_totales)} días`
+      : ' · ventana cerrada');
 
   const tarjeta=(l,v,sub,cl)=>`<div class="kpi"><div class="kl">${esc(l)}</div>`+
     `<div class="kv"${cl?` style="color:${cl}"`:''}>${v}</div>`+
     `<div class="kd"><span>${esc(sub)}</span></div></div>`;
 
-  $('recKpis').innerHTML=
-    tarjeta('Tasa de recompra', pc(tasa),
-      hayNum(r.elegibles)&&r.elegibles>0
-        ? `${nf((r.renovaron_a_tiempo||0)+(r.renovaron_tarde||0))} de ${nf(r.elegibles)} elegibles`
-        : 'ningún certificado cumple un año en este periodo todavía',
-      tasa===null?'var(--ink3)':(tasa<20?'var(--bad)':(tasa<50?'var(--warn)':'var(--good)'))) +
-    tarjeta('No renovaron', nf(r.no_renovaron),
-      hayNum(r.no_renovaron)
-        ? `${cop(r.no_renovaron*CORTE.precioMedioObservado)} que no volvieron`
-        : 'sin dato en este periodo') +
-    tarjeta('Renovaron a tiempo', nf(r.renovaron_a_tiempo), 'antes de que venciera') +
-    tarjeta('Renovaron tarde', nf(r.renovaron_tarde),
-      `con ${nf(r.dias_promedio_de_atraso)} días de atraso en promedio`);
+  if(abierta){
+    /* La cifra de referencia es la de la cohorte cerrada. La del mes en curso
+       se muestra como avance, nunca como tasa. */
+    const tc = pct(c);
+    $('recKpis').innerHTML =
+      tarjeta('Tasa de renovación', c?pc(tc):emdash,
+        c ? `última cohorte cerrada · ${esc(c.periodo)} · ${nf(renov(c))} de ${nf(c.elegibles)}`
+          : 'no hay ninguna cohorte con ventana cerrada todavía',
+        color(tc)) +
+      tarjeta('Cohorte en curso', nf(r.elegibles),
+        `vencen en ${esc(r.periodo)} · se puede medir desde el ${esc(r.ventana_cierra)}`) +
+      tarjeta('Han renovado hasta hoy', nf(renov(r)),
+        `${nf(r.ventana_dias_corridos)} de ${nf(r.ventana_dias_totales)} días de ventana`) +
+      tarjeta('Recompra en juego', cop((r.elegibles||0)*CORTE.precioMedioObservado),
+        'si no renovara ninguno de los que faltan');
+  }else{
+    const t = pct(r);
+    $('recKpis').innerHTML =
+      tarjeta('Tasa de renovación', pc(t),
+        hayNum(r.elegibles)&&r.elegibles>0
+          ? `${nf(renov(r))} de ${nf(r.elegibles)} elegibles`
+          : 'ningún certificado cumple un año en este periodo',
+        color(t)) +
+      tarjeta('No renovaron', nf(r.no_renovaron),
+        hayNum(r.no_renovaron)
+          ? `${cop(r.no_renovaron*CORTE.precioMedioObservado)} que no volvieron`
+          : 'sin dato en este periodo') +
+      tarjeta('Renovaron a tiempo', nf(r.renovaron_a_tiempo), 'antes de que venciera') +
+      tarjeta('Renovaron tarde', nf(r.renovaron_tarde),
+        `con ${nf(r.dias_promedio_de_atraso)} días de atraso en promedio`);
+  }
 
-  /* Cero renovaciones a tiempo con renovaciones tardías es un patrón que
-     casi siempre significa un criterio mal definido, no una verdad del
-     negocio. Se muestra, pero advertido. */
-  $('recAviso').innerHTML = (r.renovaron_a_tiempo===0 && r.renovaron_tarde>0)
-    ? '<div class="alert w"><div class="ai">i</div><div>'+
-      '<b>Esta cifra está pendiente de verificación.</b> '+
-      `El cálculo dice que nadie renovó a tiempo y que ${nf(r.renovaron_tarde)} renovaron con `+
-      `${nf(r.dias_promedio_de_atraso)} días de atraso. Que el número exacto sea cero, habiendo `+
-      'renovaciones tardías, apunta a un criterio mal definido en el cálculo más que a un '+
-      'comportamiento real. No conviene tomar decisiones sobre esta cifra hasta revisarla.'+
-      '</div></div>'
-    : '';
+  const avisos=[];
+
+  if(abierta)
+    avisos.push('<div class="alert w"><div class="ai">i</div><div>'+
+      `<b>La cohorte de ${esc(r.periodo)} todavía está dentro de su ventana.</b> `+
+      `Lleva ${nf(r.ventana_dias_corridos)} de ${nf(r.ventana_dias_totales)} días y no se puede `+
+      `cerrar hasta el ${esc(r.ventana_cierra)}, así que su porcentaje de hoy no es una tasa de `+
+      `renovación sino un avance. La cifra de arriba es la de la última cohorte que sí terminó`+
+      (c?` —${esc(c.periodo)}—`:'')+`, que es la única que se puede afirmar.`+
+      '</div></div>');
+
+  /* Renovar exige volver a certificarse en el MISMO curso. Quien renueva
+     cambiando de curso —porque cambió de empleador, por ejemplo— no cuenta. */
+  avisos.push('<div class="alert w"><div class="ai">i</div><div>'+
+    '<b>Qué cuenta como renovación.</b> Se exige que la misma persona vuelva a certificarse '+
+    'en el mismo curso. Quien renueva cambiando de curso no se cuenta, de modo que esta tasa '+
+    'es un piso y no un valor exacto. Es una definición a confirmar con la Dirección.'+
+    '</div></div>');
+
+  if(c && c.renovaron_a_tiempo===0 && c.renovaron_tarde>0)
+    avisos.push('<div class="alert w"><div class="ai">i</div><div>'+
+      '<b>Nadie renovó antes de vencer en la cohorte cerrada.</b> '+
+      'La plataforma dispara el aviso de vencimiento cuando el certificado ya venció, no antes, '+
+      'de modo que la renovación anticipada no está apoyada por ningún recordatorio.'+
+      '</div></div>');
+
+  $('recAviso').innerHTML = avisos.join('');
 }
 
 /* ------------------------------------------------------ ingenieros */
