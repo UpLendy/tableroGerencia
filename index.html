@@ -1172,8 +1172,11 @@ function renderCursos(){
     return;
   }
 
-  const conMov = c.cursos.filter(x=>Number(x.certificados_ultimos_12m)>0)
-    .sort((a,b)=>b.certificados_ultimos_12m-a.certificados_ultimos_12m);
+  /* El endpoint emite «certificados» cuando se le pide un periodo y
+     «certificados_ultimos_12m» en la ventana por defecto. El tablero acepta
+     las dos para no depender de qué versión esté desplegada. */
+  const nCert = x => Number(x.certificados ?? x.certificados_ultimos_12m ?? 0);
+  const conMov = c.cursos.filter(x=>nCert(x)>0).sort((a,b)=>nCert(b)-nCert(a));
 
   $('curEnc').textContent =
     `${nf(c.total_cursos)} cursos en el catálogo · ${nf(conMov.length)} con certificaciones `+
@@ -1187,10 +1190,10 @@ function renderCursos(){
   const av=[];
 
   if(enCero.length){
-    const t=enCero.reduce((a,x)=>a+Number(x.certificados_ultimos_12m),0);
+    const t=enCero.reduce((a,x)=>a+nCert(x),0);
     av.push(`<div class="alert w"><div class="ai">i</div><div>`+
       `<b>${nf(t)} certificación${t===1?'':'es'} prestada${t===1?'':'s'} sin cobro en los últimos doce meses.</b> `+
-      enCero.map(x=>`«${esc(x.nombre)}»${x.activo?'':' (curso inactivo)'}, ${nf(x.certificados_ultimos_12m)}`).join('; ')+
+      enCero.map(x=>`«${esc(x.nombre)}»${x.activo?'':' (curso inactivo)'}, ${nf(nCert(x))}`).join('; ')+
       `. Un curso con certificaciones y precio en cero no aparece en el valor del servicio, `+
       `y es la causa más común de diferencia contra lo facturado.</div></div>`);
   }
@@ -1198,8 +1201,8 @@ function renderCursos(){
   if(irrisorio.length){
     av.push(`<div class="alert w"><div class="ai">i</div><div>`+
       `<b>Precio implausible en ${nf(irrisorio.length)} curso${irrisorio.length===1?'':'s'}.</b> `+
-      irrisorio.map(x=>`«${esc(x.nombre)}» a ${cop(x.precio)} con ${nf(x.certificados_ultimos_12m)} `+
-        `certificación${x.certificados_ultimos_12m===1?'':'es'}`).join('; ')+
+      irrisorio.map(x=>`«${esc(x.nombre)}» a ${cop(x.precio)} con ${nf(nCert(x))} `+
+        `certificación${nCert(x)===1?'':'es'}`).join('; ')+
       `. Parece un dígito faltante más que una tarifa real. No se corrige desde aquí: `+
       `el precio lo fija la plataforma de formación.</div></div>`);
   }
@@ -1231,7 +1234,7 @@ function renderCursos(){
         const malo=Number(x.precio)===0||Number(x.precio)<1000;
         return `<tr><td>${esc(x.nombre)}${x.privado?' <span style="color:var(--ink3)">· privado</span>':''}</td>`+
           `<td class="n ${malo?'dn':''}">${cop(x.precio)}</td>`+
-          `<td class="n">${nf(x.certificados_ultimos_12m)}</td>`+
+          `<td class="n">${nf(nCert(x))}</td>`+
           `<td style="color:var(--ink3)">${x.activo?'activo':'inactivo'}</td></tr>`;
       }).join('')+`</tbody></table>`
     : '<div class="ausente">Ningún curso registra certificaciones en la ventana.</div>';
