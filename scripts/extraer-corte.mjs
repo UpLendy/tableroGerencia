@@ -201,8 +201,28 @@ async function armarYGuardar() {
   const ruta = new URL('../data/corte.json', import.meta.url);
   await writeFile(ruta, JSON.stringify(corte, null, 2));
 
+  /* La vista de Equipo necesita su propio archivo publicado. Si usara el de
+     arriba y ocultara en pantalla, la primera pintada ya le habría entregado
+     al navegador el dinero y las cifras por persona, que es justo lo que el
+     bloque D prohíbe. */
+  const { despojarParaEquipo, fugasDeEquipo } = await import('./vista.mjs');
+  const corteEquipo = despojarParaEquipo(corte);
+
+  const fugas = fugasDeEquipo(corteEquipo);
+  if (fugas.length) {
+    console.error('\n✗ La vista de Equipo dejaría escapar datos que no debe:\n');
+    for (const f of fugas) console.error(`   ${f.ruta} · ${f.motivo}`);
+    console.error('\nNo se publica nada hasta corregirlo.\n');
+    process.exit(1);
+  }
+
+  await writeFile(new URL('../data/corte-equipo.json', import.meta.url),
+    JSON.stringify(corteEquipo, null, 2));
+
   const kb = (JSON.stringify(corte).length / 1024).toFixed(1);
-  console.log(`\n✓ data/corte.json actualizado · corte ${corte.corte} · ${kb} KB\n`);
+  const kbE = (JSON.stringify(corteEquipo).length / 1024).toFixed(1);
+  console.log(`\n✓ data/corte.json actualizado · corte ${corte.corte} · ${kb} KB`);
+  console.log(`✓ data/corte-equipo.json · sin dinero ni cifras por persona · ${kbE} KB\n`);
   if (nFallaron) {
     console.log('  El corte quedó guardado pero sin las fuentes indicadas arriba.\n');
   }

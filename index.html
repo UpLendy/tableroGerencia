@@ -34,6 +34,15 @@
   --good:#4ade80; --warn:#fbbf24; --bad:#f87171;
   --goodbg:#10241a; --warnbg:#2a2110; --badbg:#2a1517;
 }
+/* ========================================================== vistas ======= */
+/* El bloque D separa Gerencia de Equipo. Lo que de verdad protege el dato es
+   que el servidor no lo envíe —eso está en scripts/vista.mjs—; esto solo
+   evita que queden tarjetas vacías donde antes había cifras. */
+:root[data-vista="equipo"] [data-solo="gerencia"]{display:none !important}
+.vistaAviso{background:var(--card2);border:1px solid var(--border);border-radius:10px;
+  padding:9px 13px;font-size:11.5px;color:var(--ink2);margin-bottom:16px}
+.vistaAviso b{color:var(--ink)}
+
 /* ============================================================ chat ======= */
 /* Burbuja abajo a la derecha. En celular se puede empujar hacia el borde
    para quitarla de encima, y se recupera arrastrando desde ese mismo borde
@@ -287,6 +296,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     <div class="ctrl">
       <div class="seg" id="selMes" role="group" aria-label="Periodo"></div>
       <div id="fuenteAviso" class="fnt" hidden></div>
+      <div class="seg" id="selVista" role="group" aria-label="Vista"></div>
       <button class="ghost" onclick="toggleTema()">Tema</button>
     </div>
   </div>
@@ -324,7 +334,8 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
       <h2>Volumen y precio</h2>
       <span class="note" id="kpiNote">Octubre 2026 · variación contra septiembre</span>
     </div>
-    <div class="grid kpis" id="kpis"></div>
+    <div id="vistaAviso"></div>
+      <div class="grid kpis" id="kpis"></div>
     <div class="ausente" style="margin-top:14px">
       <b>Canal Ingenieros: fuera de estas cifras, a propósito.</b>
       Todo lo de arriba sale de la plataforma de formación y solo de ella. La plataforma de
@@ -466,7 +477,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
       <div class="grid kpis" id="trKpis"></div>
       <div id="trAvisoCarga" style="margin-top:14px"></div>
       <div class="grid" style="grid-template-columns:1.2fr 1fr;align-items:start;margin-top:14px">
-        <div class="chartcard">
+        <div class="chartcard" data-solo="gerencia">
           <div class="ct">Quién tiene qué encima</div>
           <div class="cs" id="trCargaCs"></div>
           <svg id="svgCarga" viewBox="0 0 560 300" aria-label="Trámites abiertos por ingeniero"></svg>
@@ -499,7 +510,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
   </section>
 
   <!-- ============ 7 · PRECIO Y CATÁLOGO ============ -->
-  <section>
+  <section data-solo="gerencia">
     <div class="shead">
       <h2>Precio y catálogo de cursos</h2>
       <span class="note" id="curEnc">—</span>
@@ -616,7 +627,16 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
    fecha que una pantalla en blanco.
    ====================================================================== */
 const API      = '/api/corte';
-const RESPALDO = 'data/corte.json';
+/* ---------------------------------------------------------------- vistas
+   Bloque D: Gerencia ve dinero y cifras por persona; Equipo solo semáforos.
+   La vista decide de dónde se leen los datos, no qué se tapa en pantalla:
+   cada una tiene su archivo publicado y su variante del endpoint, de modo
+   que a Equipo la cifra no le llega nunca. */
+const VISTA = (new URLSearchParams(location.search).get('vista') || 'gerencia')
+  .toLowerCase() === 'equipo' ? 'equipo' : 'gerencia';
+document.documentElement.dataset.vista = VISTA;
+
+const RESPALDO = VISTA === 'equipo' ? 'data/corte-equipo.json' : 'data/corte.json';
 
 let CORTE = null;
 let EMPRESAS = [];
@@ -721,12 +741,12 @@ function renderKpis(){
      d:cmp('cert'), s:ant(x=>nf(x.cert)), pie:pie()},
     {l:'Personas distintas certificadas', v:nf(m.personas),
      d:cmp('personas'), s:ant(x=>nf(x.personas)), pie:pie()},
-    {l:'Ingreso del mes · ventas pagadas', ausente:true,
+    {l:'Ingreso del mes · ventas pagadas', ausente:true, soloGerencia:true,
      s:'Lo produce BPM. El tablero lo lee, no lo calcula. Pendiente del cruce con Siigo.'},
-    {l:'Valor del servicio prestado', v:cop(m.ingreso),
+    {l:'Valor del servicio prestado', v:cop(m.ingreso), soloGerencia:true,
      d:cmp('ingreso'), s:ant(x=>cop(x.ingreso)),
      pie:pie('A tarifa vigente de la plataforma. No es facturación.')},
-    {l:'Valor promedio por persona', v:cop(vpp(m)),
+    {l:'Valor promedio por persona', v:cop(vpp(m)), soloGerencia:true,
      d:p&&vpp(m)/vpp(p)-1, s:ant(x=>cop(vpp(x))),
      pie:'Sobre el valor del servicio, no sobre ventas pagadas.'},
     {l:'Canal empresa', v:nf(m.canal.emp),
@@ -735,7 +755,7 @@ function renderKpis(){
      d:cmpCanal('par'), s:pc(m.canal.par/m.cert*100)+' del mes', pie:pie()}
   ];
 
-  $('kpis').innerHTML=filas.map(f=>{
+  $('kpis').innerHTML=filas.filter(f=>VISTA==='gerencia'||!f.soloGerencia).map(f=>{
     if(f.ausente){
       return `<div class="kpi aus"><div class="kl">${esc(f.l)}</div>
         <div class="kv av">sin dato</div><div class="kd"><span>${esc(f.s)}</span></div></div>`;
@@ -1125,8 +1145,12 @@ function renderTramites(){
      archivo puede haberse escrito con una versión anterior del endpoint, que
      devolvía los sobrecargados como nombres sueltos en vez de objetos. Se
      normaliza aquí también: no basta con hacerlo del lado del servidor. */
-  if(ing) ing.sobrecargados=(ing.sobrecargados||[]).map(x=>
-    typeof x==='string' ? {nombre:x, solicitudes_abiertas:null} : x);
+  /* Solo se normaliza si el servidor la mandó. Crearla vacía haría que la
+     vista de Equipo tuviera una clave que no le corresponde, aunque viniera
+     sin nombres: el criterio del bloque D se verifica sobre lo que llega. */
+  if(ing && Array.isArray(ing.sobrecargados))
+    ing.sobrecargados = ing.sobrecargados.map(x=>
+      typeof x==='string' ? {nombre:x, solicitudes_abiertas:null} : x);
   const tar=(l,v,sub,cl)=>`<div class="kpi"><div class="kl">${esc(l)}</div>`+
     `<div class="kv"${cl?` style="color:${cl}"`:''}>${v}</div>`+
     `<div class="kd"><span>${esc(sub)}</span></div></div>`;
@@ -1141,12 +1165,17 @@ function renderTramites(){
             : 'con carga, de los activos')
         : 'activos · el reparto llega con la versión nueva del endpoint',
       ing.reparto_desigual?'var(--warn)':'');
-    k+=tar('Sobrecargados', nf(ing.sobrecargados.length),
-      ing.sobrecargados.length
-        ? ing.sobrecargados.map(x=>hayNum(x.solicitudes_abiertas)
-            ? `${x.nombre} (${x.solicitudes_abiertas})` : x.nombre).join(' · ')
-        : 'ninguno supera el criterio',
-      ing.sobrecargados.length?'var(--bad)':'var(--good)');
+    /* Cuántos superan el criterio es del equipo; quiénes son, de Gerencia. */
+    const lista = Array.isArray(ing.sobrecargados) ? ing.sobrecargados : null;
+    const cuantos = lista ? lista.length
+                  : (hayNum(ing.sobrecargados_total) ? ing.sobrecargados_total : null);
+    if(cuantos!==null)
+      k+=tar('Sobrecargados', nf(cuantos),
+        cuantos===0 ? 'ninguno supera el criterio'
+        : lista ? lista.map(x=>hayNum(x.solicitudes_abiertas)
+                    ? `${x.nombre} (${x.solicitudes_abiertas})` : x.nombre).join(' · ')
+        : `${cuantos===1?'una persona supera':'personas que superan'} el criterio`,
+        cuantos?'var(--bad)':'var(--good)');
   }
   if(du){
     k+=tar('Procesos abiertos hoy', nf(du.abiertos), `${nf(du.cerrados)} se cerraron en el periodo`);
@@ -1514,7 +1543,7 @@ async function traerArchivo(){
 /** La consulta en vivo. Tarda segundos: nunca se espera para pintar. */
 async function traerVivo(periodo){
   if(CACHE.has(periodo)) return CACHE.get(periodo);
-  const r=await fetch(`${API}?periodo=${encodeURIComponent(periodo)}`,{cache:'no-store'});
+  const r=await fetch(`${API}?periodo=${encodeURIComponent(periodo)}&vista=${VISTA}`,{cache:'no-store'});
   if(!r.ok){
     let detalle=`HTTP ${r.status}`;
     try{ const j=await r.json(); if(j && j.mensaje) detalle=j.mensaje; }catch(e){}
@@ -1588,6 +1617,7 @@ function pintar(opts){
 
   $('corteLbl').textContent=fechaLarga(CORTE.corte);
   pintarTextosDelCorte();
+  construirSelectorVista();
   construirSelector();
 
   renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy();
@@ -1641,6 +1671,28 @@ function pintarTextosDelCorte(){
   $('procedencia').textContent = CORTE.generado_en
     ? `el ${fechaLarga(CORTE.generado_en.slice(0,10))}, de forma automática, sin intervención manual.`
     : 'de forma automática.';
+}
+
+/** Selector de vista. Cambiar de vista recarga: cambia el origen de datos. */
+function construirSelectorVista(){
+  const opciones = [['gerencia','Gerencia'], ['equipo','Equipo']];
+  $('selVista').innerHTML = opciones.map(([v,txt])=>
+    `<button type="button" aria-pressed="${v===VISTA}" data-vista="${v}">${txt}</button>`).join('');
+  [...$('selVista').querySelectorAll('button')].forEach(b=>{
+    b.onclick = () => {
+      if(b.dataset.vista === VISTA) return;
+      const u = new URL(location.href);
+      if(b.dataset.vista === 'equipo') u.searchParams.set('vista','equipo');
+      else u.searchParams.delete('vista');
+      location.href = u.toString();
+    };
+  });
+
+  $('vistaAviso').innerHTML = VISTA === 'equipo'
+    ? `<div class="vistaAviso"><b>Vista de Equipo.</b> Sin cifras de dinero ni datos por `+
+      `persona. No están ocultas: el servidor no las envía a esta vista, de modo que no `+
+      `llegan al navegador.</div>`
+    : '';
 }
 
 /** El selector sale de la serie: todos los meses con datos, no dos fijos. */

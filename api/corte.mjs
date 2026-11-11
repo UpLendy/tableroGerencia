@@ -10,6 +10,7 @@
  * ------------------------------------------------------------------------- */
 import { traerTodasLasFuentes } from '../scripts/llamadas.mjs';
 import { armarCorte } from '../scripts/mapeo.mjs';
+import { despojarParaEquipo } from '../scripts/vista.mjs';
 
 export const config = { maxDuration: 120 };
 
@@ -39,10 +40,18 @@ export default async function handler(req, res) {
     corte.origen = 'vivo';
     corte.tiempos_ms = { ...tiempos, total: Date.now() - t0 };
 
+    /* La vista de Equipo no recibe dinero ni cifras por persona. Se despoja
+       aquí, antes de salir del servidor: ocultarlo en pantalla no cumpliría
+       el criterio del bloque D, porque el dato igual habría viajado. */
+    const vista = String((req.query && req.query.vista) || 'gerencia').toLowerCase();
+    const salida = vista === 'equipo' ? despojarParaEquipo(corte) : corte;
+
     /* Los endpoints de la plataforma ya cachean quince minutos el mes en curso.
        Replicarlo aquí evita que cada visita dispare once llamados. */
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=900');
-    return res.status(200).json(corte);
+    /* Dos respuestas distintas en la misma ruta: la caché tiene que separarlas. */
+    res.setHeader('Vary', 'Accept-Encoding');
+    return res.status(200).json(salida);
   } catch (e) {
     /* Que el tablero pueda distinguir "la plataforma no respondió" de
        "el corte está mal", y caer al archivo publicado sin quedarse en blanco. */

@@ -209,6 +209,19 @@ for (const e of d.empresas || []) {
   vistos.add(e.codigo);
 }
 
+/* ------------------------------------------------------- vista de equipo */
+/* El criterio del bloque D no se verifica a ojo: se despoja el corte y se le
+   pregunta al mismo detector que usan las pruebas si queda algo que no debe.
+   Si manana aparece un campo nuevo con pesos, esto lo encuentra antes de que
+   lo vea el equipo. */
+{
+  const { despojarParaEquipo, fugasDeEquipo } = await import('./vista.mjs');
+  const fugas = fugasDeEquipo(despojarParaEquipo(d));
+  for (const f of fugas) {
+    ok(false, `vista de equipo: ${f.ruta} · ${f.motivo}`);
+  }
+}
+
 /* ---------------------------------------------------------- salida */
 for (const a of avisos) console.log(`  aviso   ${a}`);
 if (fallos.length) {
