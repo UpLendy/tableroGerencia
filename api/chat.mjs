@@ -19,8 +19,79 @@ import { armarCorte } from '../scripts/mapeo.mjs';
 
 export const config = { maxDuration: 60 };
 
-const MODELO = process.env.CHAT_MODELO || 'gpt-4o-mini';
 const PERIODO_VALIDO = /^\d{4}-(0[1-9]|1[0-2])$/;
+
+/* ------------------------------------------------------------- proveedores
+   Dos rutas nativas, no una capa de compatibilidad: la de Anthropic que imita
+   el formato de OpenAI existe, pero su propia documentación dice que es para
+   probar y comparar modelos y que no es una solución de producción. Esto se
+   entrega a un cliente, así que cada proveedor se llama como se debe llamar.
+
+   Cambiar de proveedor es cambiar CHAT_PROVEEDOR en Vercel. Si no está, se
+   usa la que tenga clave cargada. El modelo se puede fijar con CHAT_MODELO. */
+const PROVEEDORES = {
+  openai: {
+    clave: () => process.env.OPENAI_API_KEY,
+    nombreClave: 'OPENAI_API_KEY',
+    modeloPorDefecto: 'gpt-4o-mini',
+    url: 'https://api.openai.com/v1/chat/completions',
+    cabeceras: (k) => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${k}` }),
+    cuerpo: (modelo, sistema, turnos, tope) => ({
+      model: modelo,
+      max_tokens: tope,
+      temperature: 0.2,
+      messages: [{ role: 'system', content: sistema }, ...turnos],
+    }),
+    texto: (d) => d?.choices?.[0]?.message?.content?.trim(),
+    uso: (d) => d?.usage
+      ? { entrada: d.usage.prompt_tokens, salida: d.usage.completion_tokens }
+      : null,
+  },
+
+  anthropic: {
+    clave: () => process.env.ANTHROPIC_API_KEY,
+    nombreClave: 'ANTHROPIC_API_KEY',
+    modeloPorDefecto: 'claude-sonnet-4-6',
+    url: 'https://api.anthropic.com/v1/messages',
+    cabeceras: (k) => ({
+      'Content-Type': 'application/json',
+      'x-api-key': k,
+      'anthropic-version': '2023-06-01',
+    }),
+    /* Dos diferencias de fondo con OpenAI: las instrucciones van en un campo
+       propio y no como un mensaje más, y no se manda temperature, porque en
+       los modelos recientes cualquier valor por debajo de 1 devuelve 400. */
+    cuerpo: (modelo, sistema, turnos, tope) => ({
+      model: modelo,
+      max_tokens: tope,
+      system: sistema,
+      messages: turnos,
+    }),
+    texto: (d) => (d?.content || [])
+      .filter((b) => b.type === 'text')
+      .map((b) => b.text)
+      .join('')
+      .trim(),
+    uso: (d) => d?.usage
+      ? { entrada: d.usage.input_tokens, salida: d.usage.output_tokens }
+      : null,
+  },
+};
+
+/** El proveedor elegido, o el único que tenga clave cargada. */
+function elegirProveedor() {
+  const pedido = String(process.env.CHAT_PROVEEDOR || '').toLowerCase().trim();
+  if (pedido) {
+    const p = PROVEEDORES[pedido];
+    if (!p) return { error: `CHAT_PROVEEDOR dice "${pedido}" y solo existen: ${Object.keys(PROVEEDORES).join(', ')}.` };
+    if (!p.clave()) return { error: `CHAT_PROVEEDOR es "${pedido}" pero falta la variable ${p.nombreClave}.` };
+    return { nombre: pedido, p };
+  }
+  for (const [nombre, p] of Object.entries(PROVEEDORES)) {
+    if (p.clave()) return { nombre, p };
+  }
+  return { error: 'No hay ninguna clave configurada. Carga OPENAI_API_KEY o ANTHROPIC_API_KEY.' };
+}
 
 /* Límites. Son deliberadamente estrechos: el costo lo paga BPM y el endpoint
    está expuesto. Subirlos es una decisión, no un descuido. */
@@ -231,13 +302,17 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, error: 'metodo_no_permitido' });
   }
 
-  if (!process.env.OPENAI_API_KEY) {
+  const elegido = elegirProveedor();
+  if (elegido.error) {
+    console.error('[chat] configuración:', elegido.error);
     return res.status(500).json({
       ok: false,
       error: 'falta_clave',
-      mensaje: 'El proyecto no tiene configurada la variable OPENAI_API_KEY.',
+      mensaje: 'El chat no está configurado en el servidor.',
     });
   }
+  const { nombre: proveedor, p: prov } = elegido;
+  const modelo = process.env.CHAT_MODELO || prov.modeloPorDefecto;
 
   /* El origen no es una defensa seria —se falsifica— pero descarta el tráfico
      casual de quien encuentra la ruta y la llama desde otro sitio. */
@@ -277,31 +352,25 @@ export default async function handler(req, res) {
     const corte = armarCorte(muestras, {}, fallaron);
     const ficha = fichaDelCorte(corte);
 
-    const r = await fetch('https://api.openai.com/v1/chat/completions', {
+    /* Los turnos tienen la misma forma en los dos proveedores; lo que cambia
+       es dónde van las instrucciones y qué parámetros se aceptan. */
+    const conversacion = turnos.map((m) => ({
+      role: m.rol === 'asistente' ? 'assistant' : 'user',
+      content: String(m.texto || '').slice(0, LIM.preguntaMaxCaracteres),
+    }));
+    const sistema = `${INSTRUCCIONES}\n\n--- FICHA ---\n${ficha}`;
+
+    const r = await fetch(prov.url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: MODELO,
-        max_tokens: LIM.tokensRespuesta,
-        temperature: 0.2,
-        messages: [
-          { role: 'system', content: `${INSTRUCCIONES}\n\n--- FICHA ---\n${ficha}` },
-          ...turnos.map((m) => ({
-            role: m.rol === 'asistente' ? 'assistant' : 'user',
-            content: String(m.texto || '').slice(0, LIM.preguntaMaxCaracteres),
-          })),
-        ],
-      }),
+      headers: prov.cabeceras(prov.clave()),
+      body: JSON.stringify(prov.cuerpo(modelo, sistema, conversacion, LIM.tokensRespuesta)),
     });
 
     if (!r.ok) {
       const detalle = await r.text().catch(() => '');
       /* El detalle del proveedor puede traer datos de la cuenta: se registra
          en el servidor y al navegador solo va el código. */
-      console.error('[chat] OpenAI respondió', r.status, detalle.slice(0, 500));
+      console.error(`[chat] ${proveedor} respondió`, r.status, detalle.slice(0, 500));
       return res.status(502).json({
         ok: false,
         error: 'proveedor_no_responde',
@@ -312,7 +381,7 @@ export default async function handler(req, res) {
     }
 
     const datos = await r.json();
-    const texto = datos?.choices?.[0]?.message?.content?.trim();
+    const texto = prov.texto(datos);
     if (!texto) return res.status(502).json({ ok: false, error: 'respuesta_vacia' });
 
     return res.status(200).json({
@@ -320,7 +389,11 @@ export default async function handler(req, res) {
       texto,
       corte: corte.corte,
       periodo,
-      uso: datos.usage || null,
+      /* Se declara con qué se respondió: si mañana una cifra sale rara, lo
+         primero que hay que saber es qué modelo la produjo. */
+      proveedor,
+      modelo,
+      uso: prov.uso(datos),
     });
   } catch (e) {
     console.error('[chat] falló:', e);
