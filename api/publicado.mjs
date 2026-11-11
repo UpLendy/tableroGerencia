@@ -48,11 +48,12 @@ export default async function handler(req, res) {
       return res.status(200).json(c);
     }
 
-    let c;
-    try { c = await leer('corte-equipo.json'); }
-    catch { c = despojarParaEquipo(await leer('corte.json')); }
+    /* Un solo archivo publicado. La vista de Equipo se despoja aquí, en cada
+       petición, en vez de mantener un segundo archivo que pueda quedar
+       desfasado del primero. */
+    const c = despojarParaEquipo(await leer('corte.json'));
     c.origen = 'archivo';
-    return res.status(200).json(despojarParaEquipo(c));
+    return res.status(200).json(c);
   } catch (e) {
     console.error('[publicado] no se pudo leer el corte:', e);
     return res.status(503).json({
