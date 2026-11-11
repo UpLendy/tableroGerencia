@@ -120,6 +120,13 @@ export function despojarParaEquipo(corte) {
      una persona, y el equipo necesita ver qué cliente dejó de diligenciar.
      No hay dinero en este bloque. Se queda como está. */
 
+  /* -------------------------------------------------------------- alertas
+     Una alerta que nombra pesos o señala a una persona es de Gerencia. Se
+     filtran aquí y no en pantalla, por lo mismo que todo lo demás. */
+  if (Array.isArray(c.alertas)) {
+    c.alertas = c.alertas.filter((a) => a.para !== 'gerencia');
+  }
+
   /* ---------------------------------------------------------- prioridades
      Las redacta una persona y pueden nombrar cifras de dinero. Hasta que haya
      una versión para equipo, no se envían. */
@@ -160,6 +167,12 @@ export function fugasDeEquipo(corte) {
   };
 
   mirar(corte, '');
+
+  /* Una alerta marcada para gerencia no puede quedar en la vista de equipo. */
+  for (const [i, a] of (corte?.alertas || []).entries()) {
+    if (a && a.para === 'gerencia')
+      fugas.push({ ruta: `alertas[${i}]`, motivo: `alerta de gerencia: ${a.titulo}` });
+  }
 
   /* Personas con nombre y una cifra al lado. */
   const ing = corte?.tramites?.ingenieros;

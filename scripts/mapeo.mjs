@@ -18,6 +18,7 @@ const DUENO = {};
 for (const [jefe, g] of Object.entries(UNIFICAR)) for (const c of g.codigos) DUENO[c] = jefe;
 
 import { armarTramites, armarAlimentia } from './mapeo-extra.mjs';
+import { generarAlertas } from './alertas.mjs';
 
 const REGLA = 'virtual-metrics-v1';
 const MESLARGO = ['enero','febrero','marzo','abril','mayo','junio','julio',
@@ -311,7 +312,7 @@ export function armarCorte(m, narrativa = {}, fallaron = {}) {
     || new Date().toISOString().slice(0, 10);
   const versionRegla = m['calidad-dato'].datos.regla ? REGLA : REGLA;
 
-  return {
+  const corte = {
     corte: fechaCorte,
     generado_en: new Date().toISOString(),
     regla: versionRegla,
@@ -340,4 +341,10 @@ export function armarCorte(m, narrativa = {}, fallaron = {}) {
     precioMedioObservado: Math.round(ult.ingreso / ult.cert),
     ...narrativa,
   };
+
+  /* Las alertas se calculan sobre el corte ya armado, no en paralelo: así
+     miran exactamente las mismas cifras que verá la Dirección en pantalla y
+     no pueden contradecirlas. */
+  corte.alertas = generarAlertas(corte);
+  return corte;
 }

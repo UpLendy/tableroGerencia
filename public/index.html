@@ -34,6 +34,26 @@
   --good:#4ade80; --warn:#fbbf24; --bad:#f87171;
   --goodbg:#10241a; --warnbg:#2a2110; --badbg:#2a1517;
 }
+/* ========================================================== alertas ===== */
+.al-lista{display:grid;gap:9px}
+.al{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;
+  background:var(--card);border:1px solid var(--border);border-left-width:4px;
+  border-radius:11px;padding:13px 15px}
+.al.critica{border-left-color:var(--bad)}
+.al.atencion{border-left-color:var(--warn)}
+.al.aviso{border-left-color:var(--s1)}
+.al-sev{font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  padding:3px 7px;border-radius:5px;white-space:nowrap;margin-top:1px}
+.al.critica .al-sev{background:var(--badbg);color:var(--bad)}
+.al.atencion .al-sev{background:var(--warnbg);color:var(--warn)}
+.al.aviso .al-sev{background:var(--card2);color:var(--ink2)}
+.al-t{font-size:13.5px;font-weight:700;line-height:1.35}
+.al-d{font-size:12px;color:var(--ink2);margin-top:3px;line-height:1.5}
+.al-a{font-size:11.5px;color:var(--ink3);margin-top:6px}
+.al-a b{color:var(--ink2);font-weight:600}
+.al-vacio{background:var(--goodbg);border:1px solid var(--good);color:var(--good);
+  border-radius:11px;padding:13px 15px;font-size:12.5px}
+
 /* ========================================================== entrada ====== */
 #entrada{position:fixed;inset:0;z-index:200;background:var(--surface);
   display:none;align-items:center;justify-content:center;padding:20px}
@@ -370,6 +390,15 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
         <b>Hasta que eso se verifique contra las dos bases, el canal va aparte y no se suma.</b>
       </div>
     </div>
+  </section>
+
+  <!-- ============ 2b · ALERTAS ============ -->
+  <section>
+    <div class="shead">
+      <h2>Lo que hay que mirar</h2>
+      <span class="note" id="alNota"></span>
+    </div>
+    <div class="al-lista" id="alLista"></div>
   </section>
 
   <!-- ============ 3 · PRIORIDADES ============ -->
@@ -1063,6 +1092,34 @@ function renderSerie(){
     `Promedio de ${nf(prom)} certificaciones al mes. El mejor fue ${mejor.periodo} con ${nf(mejor.certificados)}.`;
 }
 
+/* ------------------------------------------------------- alertas */
+/**
+ * Lo que el tablero habria tenido que salir a decirle a alguien. Cada alerta
+ * trae una accion: una alerta sin que hacer es ruido con formato.
+ */
+function renderAlertas(){
+  const al = Array.isArray(CORTE.alertas) ? CORTE.alertas : [];
+  const n = s => al.filter(a=>a.severidad===s).length;
+
+  $('alNota').textContent = al.length
+    ? [n('critica')&&`${n('critica')} crítica${n('critica')===1?'':'s'}`,
+       n('atencion')&&`${n('atencion')} de atención`,
+       n('aviso')&&`${n('aviso')} aviso${n('aviso')===1?'':'s'}`].filter(Boolean).join(' · ')
+    : '';
+
+  $('alLista').innerHTML = al.length
+    ? al.map(a=>{
+        const sev = {critica:'Crítica', atencion:'Atención', aviso:'Aviso'}[a.severidad]||a.severidad;
+        return `<div class="al ${esc(a.severidad)}">`+
+          `<div class="al-sev">${esc(sev)}</div>`+
+          `<div><div class="al-t">${esc(a.titulo)}</div>`+
+          (a.detalle?`<div class="al-d">${esc(a.detalle)}</div>`:'')+
+          (a.accion?`<div class="al-a"><b>Qué hacer:</b> ${esc(a.accion)}</div>`:'')+
+          `</div></div>`;
+      }).join('')
+    : '<div class="al-vacio">Ningún umbral superado en este corte.</div>';
+}
+
 /* ------------------------------------------------------ recompra */
 /**
  * La cohorte de un periodo son los certificados emitidos doce meses antes.
@@ -1658,7 +1715,7 @@ function pintar(opts){
   construirSelector();
 
   renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy();
-  renderEmp(); renderCursos(); renderCalidad(); renderSerie(); renderRecompra();
+  renderAlertas(); renderEmp(); renderCursos(); renderCalidad(); renderSerie(); renderRecompra();
   renderTramites(); renderAlimentia();
 
   $('cargando').hidden=true;
