@@ -16,6 +16,8 @@
  * ------------------------------------------------------------------------- */
 import { traerTodasLasFuentes } from '../scripts/llamadas.mjs';
 import { armarCorte } from '../scripts/mapeo.mjs';
+import { despojarParaEquipo } from '../scripts/vista.mjs';
+import { rolDe } from '../scripts/sesion.mjs';
 
 export const config = { maxDuration: 60 };
 
@@ -343,6 +345,18 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, error: 'metodo_no_permitido' });
   }
 
+  /* El chat lee el corte para responder, de modo que sin esta puerta seria la
+     via mas comoda para sacar el dinero sin pasar por el tablero: bastaria
+     preguntarselo. La ficha se arma segun el rol, igual que el corte. */
+  const rol = rolDe(req);
+  if (!rol) {
+    return res.status(401).json({
+      ok: false,
+      error: 'sin_sesion',
+      mensaje: 'Hay que entrar al tablero para usar el asistente.',
+    });
+  }
+
   const elegido = elegirProveedor();
   if (elegido.error) {
     console.error('[chat] configuración:', elegido.error);
@@ -390,8 +404,19 @@ export default async function handler(req, res) {
 
   try {
     const { muestras, fallaron } = await traerTodasLasFuentes(periodo);
-    const corte = armarCorte(muestras, {}, fallaron);
-    const ficha = fichaDelCorte(corte);
+    const completo = armarCorte(muestras, {}, fallaron);
+    /* A Equipo no se le arma la ficha con dinero y despues se le pide al
+       modelo que no lo diga: no se le entrega. */
+    const corte = rol === 'gerencia' ? completo : despojarParaEquipo(completo);
+    const ficha = fichaDelCorte(corte) +
+      (rol === 'equipo'
+        ? '\n\n## ALCANCE DE ESTA CONVERSACIÓN\nQuien pregunta es del equipo ' +
+          'operativo. Esta ficha no trae cifras de dinero ni datos por persona, ' +
+          'a propósito. Si preguntan por ingresos, precios, valor del servicio o ' +
+          'por la carga de un ingeniero en particular, responde que esa ' +
+          'información es de la vista de Dirección y que no la tienes aquí. No ' +
+          'la estimes ni la deduzcas de otras cifras.'
+        : '');
 
     /* Los turnos tienen la misma forma en los dos proveedores; lo que cambia
        es dónde van las instrucciones y qué parámetros se aceptan. */
