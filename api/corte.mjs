@@ -11,7 +11,7 @@
 import { traerTodasLasFuentes } from '../scripts/llamadas.mjs';
 import { armarCorte } from '../scripts/mapeo.mjs';
 import { despojarParaEquipo } from '../scripts/vista.mjs';
-import { rolDe } from '../scripts/sesion.mjs';
+import { rolDe, veTodo } from '../scripts/sesion.mjs';
 
 export const config = { maxDuration: 120 };
 
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
     /* La vista de Equipo no recibe dinero ni cifras por persona. Se despoja
        aquí, antes de salir del servidor: ocultarlo en pantalla no cumpliría
        el criterio del bloque D, porque el dato igual habría viajado. */
-    const salida = rol === 'gerencia' ? corte : despojarParaEquipo(corte);
+    const salida = veTodo(rol) ? corte : despojarParaEquipo(corte);
 
     /* Los endpoints de la plataforma ya cachean quince minutos el mes en curso.
        Replicarlo aquí evita que cada visita dispare once llamados. */

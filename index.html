@@ -671,6 +671,7 @@ const API      = '/api/corte';
    corte de Gerencia; encima había un botón que invitaba a hacerlo. Ahora la
    decide el servidor según la sesión, y la página solo refleja lo que recibe. */
 let VISTA = 'equipo';
+let ROL = null;
 const RESPALDO = '/api/publicado';
 
 let CORTE = null;
@@ -1715,13 +1716,22 @@ function pintarTextosDelCorte(){
  */
 function construirSelectorVista(){
   const esGer = VISTA === 'gerencia';
+  const etiqueta = ROL === 'desarrollo' ? 'Desarrollo' : (esGer ? 'Dirección' : 'Equipo');
   $('selVista').innerHTML =
-    `<button type="button" aria-pressed="true" disabled>${esGer?'Dirección':'Equipo'}</button>`+
+    `<button type="button" aria-pressed="true" disabled>${etiqueta}</button>`+
     `<button type="button" id="btnSalir">Salir</button>`;
   $('btnSalir').onclick = async () => {
     try { await fetch('/api/entrar', { method:'DELETE' }); } catch(e){}
     location.reload();
   };
+
+  if(ROL === 'desarrollo'){
+    $('vistaAviso').innerHTML =
+      `<div class="vistaAviso" style="border-color:var(--warn);color:var(--warn)">`+
+      `<b>Sesión de desarrollo.</b> Ve los mismos datos que la Dirección, con una `+
+      `credencial aparte y revocable. No es la sesión de la Dirección.</div>`;
+    return;
+  }
 
   $('vistaAviso').innerHTML = esGer ? ''
     : `<div class="vistaAviso"><b>Vista de Equipo.</b> Sin cifras de dinero ni datos por `+
@@ -1847,7 +1857,10 @@ async function iniciar(){
     return mostrarEntrada('El tablero aún no tiene las claves configuradas en el servidor.');
   }
   if(!ses.rol){ return mostrarEntrada(); }
-  VISTA = ses.rol === 'gerencia' ? 'gerencia' : 'equipo';
+  ROL = ses.rol;
+  /* desarrollo ve los mismos datos que Dirección, así que para el tablero es
+     la misma vista; lo que cambia es que se declara en pantalla. */
+  VISTA = (ses.rol === 'gerencia' || ses.rol === 'desarrollo') ? 'gerencia' : 'equipo';
   document.documentElement.dataset.vista = VISTA;
 
   PERIODO = DESEADO = mesDeHoy();

@@ -17,7 +17,7 @@
 import { traerTodasLasFuentes } from '../scripts/llamadas.mjs';
 import { armarCorte } from '../scripts/mapeo.mjs';
 import { despojarParaEquipo } from '../scripts/vista.mjs';
-import { rolDe } from '../scripts/sesion.mjs';
+import { rolDe, veTodo } from '../scripts/sesion.mjs';
 
 export const config = { maxDuration: 60 };
 
@@ -407,9 +407,9 @@ export default async function handler(req, res) {
     const completo = armarCorte(muestras, {}, fallaron);
     /* A Equipo no se le arma la ficha con dinero y despues se le pide al
        modelo que no lo diga: no se le entrega. */
-    const corte = rol === 'gerencia' ? completo : despojarParaEquipo(completo);
+    const corte = veTodo(rol) ? completo : despojarParaEquipo(completo);
     const ficha = fichaDelCorte(corte) +
-      (rol === 'equipo'
+      (!veTodo(rol)
         ? '\n\n## ALCANCE DE ESTA CONVERSACIÓN\nQuien pregunta es del equipo ' +
           'operativo. Esta ficha no trae cifras de dinero ni datos por persona, ' +
           'a propósito. Si preguntan por ingresos, precios, valor del servicio o ' +

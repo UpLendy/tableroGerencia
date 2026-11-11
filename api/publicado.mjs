@@ -15,7 +15,7 @@
  * ------------------------------------------------------------------------- */
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { rolDe } from '../scripts/sesion.mjs';
+import { rolDe, veTodo } from '../scripts/sesion.mjs';
 import { despojarParaEquipo } from '../scripts/vista.mjs';
 
 export const config = { includeFiles: ['data/**'] };
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
     /* Gerencia lee el corte completo. Equipo lee el suyo, y si por lo que sea
        no estuviera publicado, se despoja el completo aquí mismo: nunca se le
        entrega el de Gerencia como último recurso. */
-    if (rol === 'gerencia') {
+    if (veTodo(rol)) {
       const c = await leer('corte.json');
       c.origen = 'archivo';
       return res.status(200).json(c);

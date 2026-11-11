@@ -92,7 +92,16 @@ export default async function handler(req, res) {
      tiempo de respuesta no delata cuál de los dos roles coincidió. */
   const esGerencia = igualesSeguro(clave, process.env.CLAVE_GERENCIA);
   const esEquipo = igualesSeguro(clave, process.env.CLAVE_EQUIPO);
-  const rol = esGerencia ? 'gerencia' : (esEquipo ? 'equipo' : null);
+  /* Solo cuenta si está configurada: sin la variable, comparar contra vacío
+     dejaría entrar a cualquiera con la cadena vacía. */
+  const esDesarrollo = !!process.env.CLAVE_DESARROLLO &&
+    igualesSeguro(clave, process.env.CLAVE_DESARROLLO);
+
+  const rol = esGerencia ? 'gerencia'
+            : esDesarrollo ? 'desarrollo'
+            : esEquipo ? 'equipo' : null;
+
+  if (rol === 'desarrollo') console.log('[entrar] sesión de desarrollo');
 
   if (!rol) {
     /* Un único mensaje para cualquier fallo: decir "esa clave es de Equipo,

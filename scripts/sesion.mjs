@@ -17,7 +17,15 @@
 import { createHmac, timingSafeEqual, randomBytes } from 'node:crypto';
 
 export const COOKIE = 'tablero_sesion';
-export const ROLES = ['gerencia', 'equipo'];
+/* desarrollo ve los mismos datos que gerencia, a propósito: lo que se
+   verifica son las cifras reales. Lo que gana no es menos exposición sino una
+   credencial separada, revocable por su cuenta y distinguible en los
+   registros, para que quien entra a revisar no use la de la Dirección. Si
+   CLAVE_DESARROLLO no está configurada, el rol sencillamente no existe. */
+export const ROLES = ['gerencia', 'equipo', 'desarrollo'];
+
+/** Qué datos le corresponden a cada rol. */
+export const veTodo = (rol) => rol === 'gerencia' || rol === 'desarrollo';
 
 /** Doce horas: una jornada. Al día siguiente hay que volver a entrar. */
 const VIGENCIA_MS = 12 * 60 * 60 * 1000;
@@ -107,6 +115,7 @@ export function faltaConfiguracion() {
   if (!process.env.SESION_SECRETO) faltan.push('SESION_SECRETO');
   if (!process.env.CLAVE_GERENCIA) faltan.push('CLAVE_GERENCIA');
   if (!process.env.CLAVE_EQUIPO) faltan.push('CLAVE_EQUIPO');
+  /* CLAVE_DESARROLLO no se exige: es opcional y se borra al terminar. */
   return faltan;
 }
 
