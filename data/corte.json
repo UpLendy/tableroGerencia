@@ -1,6 +1,6 @@
 {
-  "corte": "2026-11-10",
-  "generado_en": "2026-11-10T22:16:40.785Z",
+  "corte": "2026-11-11",
+  "generado_en": "2026-11-11T07:52:16.824Z",
   "regla": "virtual-metrics-v1",
   "fuente": "virtual.bpmsas.co · capa de métricas",
   "meses": [
@@ -26,13 +26,13 @@
       "id": "2026-11",
       "lbl": "Noviembre 2026",
       "corto": "noviembre",
-      "cert": 621,
-      "personas": 607,
-      "ingreso": 11784000,
+      "cert": 687,
+      "personas": 669,
+      "ingreso": 13062000,
       "ingresoBPM": null,
       "canal": {
-        "emp": 427,
-        "par": 194
+        "emp": 487,
+        "par": 200
       },
       "activasCodigos": 43,
       "activas": 41,
@@ -52,7 +52,7 @@
       "unificada": true,
       "meses": {
         "2026-10": 353,
-        "2026-11": 101
+        "2026-11": 115
       }
     },
     {
@@ -60,7 +60,7 @@
       "nombre": "DISTRIBUIDORA DE VINOS Y LICORES S.A.S.",
       "meses": {
         "2026-10": 162,
-        "2026-11": 106
+        "2026-11": 113
       }
     },
     {
@@ -68,7 +68,7 @@
       "nombre": "ROYAL FILMS S.A.S",
       "meses": {
         "2026-10": 90,
-        "2026-11": 40
+        "2026-11": 46
       }
     },
     {
@@ -84,7 +84,7 @@
       "nombre": "FARMACIAS DE SIMILARES COLOMBIA SAS",
       "meses": {
         "2026-10": 29,
-        "2026-11": 4
+        "2026-11": 5
       }
     },
     {
@@ -92,7 +92,7 @@
       "nombre": "SUCROAL S.A",
       "meses": {
         "2026-10": 25,
-        "2026-11": 5
+        "2026-11": 7
       }
     },
     {
@@ -177,7 +177,7 @@
       "nombre": "GESA  GESTIONES ADMINISTRATIVAS & TALENTO HUMANO SAS",
       "meses": {
         "2026-10": 15,
-        "2026-11": 9
+        "2026-11": 10
       }
     },
     {
@@ -209,7 +209,7 @@
       "nombre": "EMPRESA POWER SERVICES LTDA",
       "meses": {
         "2026-10": 10,
-        "2026-11": 5
+        "2026-11": 6
       }
     },
     {
@@ -257,7 +257,7 @@
       "nombre": "ECO VIDA INTEGRAL",
       "meses": {
         "2026-10": 7,
-        "2026-11": 3
+        "2026-11": 4
       }
     },
     {
@@ -512,7 +512,7 @@
       "codigo": "c404e8",
       "nombre": "J&D DISTRIBUCIONES DEL OCCIDENTE",
       "meses": {
-        "2026-11": 30,
+        "2026-11": 54,
         "2026-10": 0
       }
     },
@@ -520,7 +520,7 @@
       "codigo": "d489a4",
       "nombre": "DISPROLACTEOS .",
       "meses": {
-        "2026-11": 13,
+        "2026-11": 16,
         "2026-10": 0
       }
     },
@@ -722,8 +722,8 @@
     },
     {
       "periodo": "2026-11",
-      "certificados": 621,
-      "personas": 607,
+      "certificados": 687,
+      "personas": 669,
       "empresas_activas": 43
     }
   ],
@@ -731,39 +731,39 @@
     {
       "periodo": "2026-11",
       "serie": 616,
-      "resumen": 621
+      "resumen": 687
     }
   ],
   "yoy": {
     "acum": {
       "lbl": "Enero – noviembre",
-      "a2026": 17411,
+      "a2026": 17477,
       "a2025": 17076
     },
     "mes": {
       "lbl": "Noviembre",
-      "a2026": 621,
+      "a2026": 687,
       "a2025": 1351
     }
   },
   "venc": {
-    "corte": "2026-11-10",
+    "corte": "2026-11-11",
     "ventana_dias": 30,
-    "total": 1412,
-    "emp": 761,
-    "par": 651,
+    "total": 1388,
+    "emp": 755,
+    "par": 633,
     "por_semana": [
       {
         "semana": "2026-W46",
-        "vencen": 426
+        "vencen": 369
       },
       {
         "semana": "2026-W47",
-        "vencen": 231
+        "vencen": 230
       },
       {
         "semana": "2026-W48",
-        "vencen": 350
+        "vencen": 347
       },
       {
         "semana": "2026-W49",
@@ -771,29 +771,29 @@
       },
       {
         "semana": "2026-W50",
-        "vencen": 122
+        "vencen": 159
       }
     ],
     "por_empresa": [
       {
         "codigo": "637b9c",
         "nombre": "ARCOS (Disabled) DORADOS (Disabled)",
-        "vencen": 220
-      },
-      {
-        "codigo": "2b5b45",
-        "nombre": "Cinépolis .",
-        "vencen": 68
-      },
-      {
-        "codigo": "603a8e",
-        "nombre": "ROYAL FILMS S.A.S",
-        "vencen": 65
+        "vencen": 212
       },
       {
         "codigo": "8ac087",
         "nombre": "ARCOS DORADOS COLOMBIA  S.A.S.",
-        "vencen": 64
+        "vencen": 66
+      },
+      {
+        "codigo": "2b5b45",
+        "nombre": "Cinépolis .",
+        "vencen": 66
+      },
+      {
+        "codigo": "603a8e",
+        "nombre": "ROYAL FILMS S.A.S",
+        "vencen": 62
       },
       {
         "codigo": "2ca4f9",
@@ -801,8 +801,8 @@
         "vencen": 34
       },
       {
-        "codigo": "ea6e74",
-        "nombre": "C.I. INTEGRAL DE SERVICIOS S.A.S B.I.C.",
+        "codigo": "d4d8c7",
+        "nombre": "OSTI EST SAS",
         "vencen": 28
       },
       {
@@ -816,34 +816,52 @@
         "vencen": 28
       },
       {
-        "codigo": "d4d8c7",
-        "nombre": "OSTI EST SAS",
+        "codigo": "ea6e74",
+        "nombre": "C.I. INTEGRAL DE SERVICIOS S.A.S B.I.C.",
         "vencen": 27
       },
       {
         "codigo": "a849aa",
         "nombre": "CAFE IGUANA .",
-        "vencen": 21
+        "vencen": 19
       }
     ]
   },
   "recompra": {
     "periodo": "2026-11",
     "dias_gracia_tarde": 90,
-    "elegibles": 1351,
+    "elegibles": 1346,
     "renovaron_a_tiempo": 0,
-    "renovaron_tarde": 4,
-    "no_renovaron": 1347,
-    "tasa_recompra": 0.003,
-    "dias_promedio_de_atraso": 3
+    "renovaron_tarde": 5,
+    "no_renovaron": 1341,
+    "tasa_recompra": 0.0037,
+    "dias_promedio_de_atraso": 4,
+    "ventana_abierta": true,
+    "ventana_cierra": "2027-02-28",
+    "ventana_dias_totales": 119,
+    "ventana_dias_corridos": 10
+  },
+  "recompra_cerrada": {
+    "periodo": "2026-07",
+    "dias_gracia_tarde": 90,
+    "elegibles": 1878,
+    "renovaron_a_tiempo": 107,
+    "renovaron_tarde": 235,
+    "no_renovaron": 1536,
+    "tasa_recompra": 0.1821,
+    "dias_promedio_de_atraso": 28,
+    "ventana_abierta": false,
+    "ventana_cierra": "2026-10-29",
+    "ventana_dias_totales": 120,
+    "ventana_dias_corridos": 120
   },
   "atribucion": {
     "desde": "2026-11-01",
     "hasta": "2026-11-30",
-    "registros_periodo": 584,
+    "registros_periodo": 599,
     "con_atribucion": 6,
-    "sin_atribucion": 578,
-    "cobertura": 0.0103,
+    "sin_atribucion": 593,
+    "cobertura": 0.01,
     "por_fuente": [
       {
         "fuente": "adwords",
@@ -870,7 +888,7 @@
     ]
   },
   "cursos": {
-    "desde": "2025-11-10",
+    "desde": "2025-11-11",
     "total_cursos": 23,
     "cursos_con_certificaciones_sin_precio": 1,
     "cursos": [
@@ -881,7 +899,7 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 16672,
+        "certificados_ultimos_12m": 16668,
         "alerta_sin_precio": false
       },
       {
@@ -891,7 +909,7 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 1570,
+        "certificados_ultimos_12m": 1579,
         "alerta_sin_precio": false
       },
       {
@@ -901,7 +919,7 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 356,
+        "certificados_ultimos_12m": 355,
         "alerta_sin_precio": false
       },
       {
@@ -911,7 +929,7 @@
         "tipo": "slideshow",
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 309,
+        "certificados_ultimos_12m": 316,
         "alerta_sin_precio": false
       },
       {
@@ -941,7 +959,7 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 113,
+        "certificados_ultimos_12m": 112,
         "alerta_sin_precio": false
       },
       {
@@ -1117,7 +1135,7 @@
     {
       "n": "Registros de curso cuyo course_id no existe en courses",
       "d": "No tienen precio asociado, de modo que no entran en el ingreso estimado ni en el cruce contra Siigo.",
-      "r": "4.999 de 158.233 · 3.16 %",
+      "r": "4.999 de 158.282 · 3.16 %",
       "p": 7.6,
       "peso": "alta"
     },
@@ -1145,35 +1163,35 @@
     {
       "n": "Registros de curso cuyo user_id no existe en users",
       "d": "Se cuentan en el total pero no se pueden atribuir a una empresa ni a un canal. Descuadran el total contra la suma por empresa.",
-      "r": "10 de 158.233 · 0.01 %",
+      "r": "10 de 158.282 · 0.01 %",
       "p": 0.1,
       "peso": "critica"
     },
     {
       "n": "Certificaciones completas y pagadas sin cert_date",
       "d": "No caen en ningún periodo. Desaparecen del corte mensual, de la serie histórica y del cruce contable, sin aparecer como error en ninguna parte.",
-      "r": "0 de 116.299 · 0.00 %",
+      "r": "0 de 116.354 · 0.00 %",
       "p": 0,
       "peso": "critica"
     },
     {
       "n": "cert_date que no es una fecha Y-m-d válida",
       "d": "Los rangos de MongoDB respetan el tipo: un valor que no es texto con formato Y-m-d queda fuera de todas las consultas de periodo en silencio.",
-      "r": "0 de 116.299 · 0.00 %",
+      "r": "0 de 116.354 · 0.00 %",
       "p": 0,
       "peso": "critica"
     },
     {
       "n": "Usuarios sin created_at",
       "d": "No entran en el conteo de registros del periodo, de modo que la cobertura de atribución sale inflada.",
-      "r": "0 de 156.602 · 0.00 %",
+      "r": "0 de 156.614 · 0.00 %",
       "p": 0,
       "peso": "media"
     },
     {
       "n": "Usuarios con created_at guardado como texto",
       "d": "Los rangos de fecha no los alcanzan. La atribución de origen los ignora en silencio y puede devolver cero sin fallar.",
-      "r": "0 de 156.602 · 0.00 %",
+      "r": "0 de 156.614 · 0.00 %",
       "p": 0,
       "peso": "alta"
     },
@@ -1192,22 +1210,31 @@
     "como_se_calcula": "El puntaje parte de 100 y cada verificación lo multiplica por (1 - peso/100 × min(1, tasa / umbral)). Peso y umbral van explícitos en cada verificación para que el cálculo sea auditable y reproducible."
   },
   "universo": {
-    "user_course": 158233,
-    "users": 156602,
+    "user_course": 158282,
+    "users": 156614,
     "courses": 23
   },
   "tramites": {
     "regla": "tramites-metrics-v1",
-    "generado_en": "2026-11-10T22:16:40.641Z",
+    "generado_en": "2026-11-11T07:52:16.710Z",
     "periodo": "2026-11",
     "ingenieros": {
       "activos": 14,
-      "con_carga": null,
-      "sin_carga": null,
-      "carga_mediana": 0,
-      "criterio_sobrecarga": "más del doble de la carga mediana",
-      "sobrecargados": [],
-      "reparto_desigual": null,
+      "con_carga": 5,
+      "sin_carga": 9,
+      "carga_mediana": 3,
+      "criterio_sobrecarga": "más del doble de la mediana de quienes tienen carga (3), o 10 o más trámites abiertos",
+      "sobrecargados": [
+        {
+          "nombre": "Luisa Garcia",
+          "solicitudes_abiertas": 18
+        },
+        {
+          "nombre": "Jannis Quijano",
+          "solicitudes_abiertas": 15
+        }
+      ],
+      "reparto_desigual": true,
       "detalle": [
         {
           "ingeniero_id": "cmqkhnqj700vz01s7p6hayl8n",
@@ -1235,7 +1262,7 @@
           "solicitudes_abiertas": 3,
           "solicitudes_recibidas_periodo": 0,
           "solicitudes_cerradas_periodo": 0,
-          "citas_periodo": 4,
+          "citas_periodo": 5,
           "avance_promedio": 73,
           "dias_mediana_cierre": null
         },
@@ -1349,11 +1376,196 @@
           "avance_promedio": null,
           "dias_mediana_cierre": null
         }
-      ]
+      ],
+      "que_mide_la_carga": "Solicitudes INVIMA abiertas. No incluye visitas en sitio —asesorías, auditorías, seguimientos, capacitaciones—, que la plataforma registra como citas y no como carga.",
+      "sin_carga_con_citas": 3,
+      "citas_periodo_total": 24
     },
     "etapas": {
       "medidas": 10,
       "cuello_de_botella": "TIEMPO DE RESPUESTA RESOLUCIÓN INVMAGIL",
+      "atascadas": [
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "INICIO DE TRÁMITE PROVEEDOR",
+          "dias_abierta": 152.5,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 152.5,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "ELABORACIÓN DE FORMULARIOS",
+          "dias_abierta": 152.5,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "ELABORACIÓN ANTICIPO",
+          "dias_abierta": 152.5,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "REVISIÓN / APROBACIÓN FORMULARIOS",
+          "dias_abierta": 152.5,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "PAGO ANTICIPO",
+          "dias_abierta": 152.5,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "RADICADO INVIMA",
+          "dias_abierta": 152.5,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780073348381-C",
+          "etapa": "ENVÍO INFORME RESOLUCIÓN",
+          "dias_abierta": 152.5,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780606741235-C",
+          "etapa": "TIEMPO DE RESPUESTA RESOLUCIÓN INVMAGIL",
+          "dias_abierta": 151.7,
+          "mediana_de_la_etapa": 14.7,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780606741235-C",
+          "etapa": "ENVÍO INFORME RESOLUCIÓN",
+          "dias_abierta": 151.7,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1780606741235-C",
+          "etapa": "RADICADO INVIMA",
+          "dias_abierta": 151.7,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782493622227-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.6,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782242832311-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.6,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782495656404-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.6,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782495737392-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.6,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782495670128-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.6,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782495726560-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.6,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782241508525-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.6,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782505657176-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.5,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
+          "proceso": "Pendiente por asignar-1782495635730-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 137.3,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        }
+      ],
+      "sin_asignar": [
+        {
+          "proceso": "546545",
+          "etapa": "SOLICITUD INICIO DE TRÁMITE",
+          "dias_abierta": 168.7,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": true,
+          "excede": true
+        },
+        {
+          "proceso": "546545",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 168.7,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": true,
+          "excede": true
+        }
+      ],
+      "sin_asignar_total": 2,
+      "dias_del_mas_viejo_sin_asignar": 168.7,
       "detalle": [
         {
           "etapa_id": "cmoj9o88f000dogh7c5acm6kb",
@@ -1361,7 +1573,9 @@
           "completadas": 11,
           "dias_mediana": 14.7,
           "dias_promedio": 16.6,
-          "dias_max": 52.7
+          "dias_max": 52.7,
+          "no_registra": false,
+          "registro_mixto": false
         },
         {
           "etapa_id": "cmoj9htni0005ogh7z2h401vg",
@@ -1369,7 +1583,9 @@
           "completadas": 6,
           "dias_mediana": 0,
           "dias_promedio": 0,
-          "dias_max": 0
+          "dias_max": 0,
+          "no_registra": true,
+          "registro_mixto": false
         },
         {
           "etapa_id": "cmoj9ixh40009ogh750s718v6",
@@ -1377,7 +1593,9 @@
           "completadas": 9,
           "dias_mediana": 0,
           "dias_promedio": 17.6,
-          "dias_max": 117.6
+          "dias_max": 117.6,
+          "no_registra": false,
+          "registro_mixto": true
         },
         {
           "etapa_id": "cmoj9jdwh000bogh7mehhogw8",
@@ -1385,7 +1603,9 @@
           "completadas": 10,
           "dias_mediana": 0,
           "dias_promedio": 13.5,
-          "dias_max": 124.8
+          "dias_max": 124.8,
+          "no_registra": false,
+          "registro_mixto": true
         },
         {
           "etapa_id": "cmoj9oh8o000eogh7j4cec04w",
@@ -1393,7 +1613,9 @@
           "completadas": 6,
           "dias_mediana": 0,
           "dias_promedio": 5.5,
-          "dias_max": 32.9
+          "dias_max": 32.9,
+          "no_registra": false,
+          "registro_mixto": true
         },
         {
           "etapa_id": "cmoj9ia760006ogh7rjnudr8m",
@@ -1401,7 +1623,9 @@
           "completadas": 7,
           "dias_mediana": 0,
           "dias_promedio": 0,
-          "dias_max": 0
+          "dias_max": 0,
+          "no_registra": true,
+          "registro_mixto": false
         },
         {
           "etapa_id": "cmoj9jk0z000cogh7wg0852fi",
@@ -1409,7 +1633,9 @@
           "completadas": 7,
           "dias_mediana": 0,
           "dias_promedio": 0,
-          "dias_max": 0
+          "dias_max": 0,
+          "no_registra": true,
+          "registro_mixto": false
         },
         {
           "etapa_id": "cmoj9iom20008ogh7by6m8ry7",
@@ -1417,7 +1643,9 @@
           "completadas": 9,
           "dias_mediana": 0,
           "dias_promedio": 0,
-          "dias_max": 0
+          "dias_max": 0,
+          "no_registra": true,
+          "registro_mixto": false
         },
         {
           "etapa_id": "cmoj9j4vk000aogh7gh2iamkq",
@@ -1425,7 +1653,9 @@
           "completadas": 8,
           "dias_mediana": 0,
           "dias_promedio": 0,
-          "dias_max": 0
+          "dias_max": 0,
+          "no_registra": true,
+          "registro_mixto": false
         },
         {
           "etapa_id": "cmoj9ihmu0007ogh7d0hyazzp",
@@ -1433,151 +1663,13 @@
           "completadas": 9,
           "dias_mediana": 0,
           "dias_promedio": 13.2,
-          "dias_max": 52.7
+          "dias_max": 52.7,
+          "no_registra": false,
+          "registro_mixto": true
         }
       ],
-      "atascadas": [
-        {
-          "proceso": "546545",
-          "etapa": "SOLICITUD INICIO DE TRÁMITE",
-          "dias_abierta": 168.3,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "546545",
-          "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 168.3,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1780073348381-C",
-          "etapa": "INICIO DE TRÁMITE PROVEEDOR",
-          "dias_abierta": 152.1,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1780073348381-C",
-          "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 152.1,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1780073348381-C",
-          "etapa": "ELABORACIÓN DE FORMULARIOS",
-          "dias_abierta": 152.1,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1780073348381-C",
-          "etapa": "ELABORACIÓN ANTICIPO",
-          "dias_abierta": 152.1,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1780073348381-C",
-          "etapa": "REVISIÓN / APROBACIÓN FORMULARIOS",
-          "dias_abierta": 152.1,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1780073348381-C",
-          "etapa": "PAGO ANTICIPO",
-          "dias_abierta": 152.1,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1780073348381-C",
-          "etapa": "RADICADO INVIMA",
-          "dias_abierta": 152.1,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1780073348381-C",
-          "etapa": "ENVÍO INFORME RESOLUCIÓN",
-          "dias_abierta": 152.1,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1780606741235-C",
-          "etapa": "TIEMPO DE RESPUESTA RESOLUCIÓN INVMAGIL",
-          "dias_abierta": 151.3,
-          "mediana_de_la_etapa": 14.7,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1780606741235-C",
-          "etapa": "ENVÍO INFORME RESOLUCIÓN",
-          "dias_abierta": 151.3,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1780606741235-C",
-          "etapa": "RADICADO INVIMA",
-          "dias_abierta": 151.3,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1782493622227-C",
-          "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 137.2,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1782242832311-C",
-          "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 137.2,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1782495656404-C",
-          "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 137.2,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1782495737392-C",
-          "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 137.2,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1782495670128-C",
-          "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 137.2,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1782495726560-C",
-          "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 137.2,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        },
-        {
-          "proceso": "Pendiente por asignar-1782241508525-C",
-          "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 137.2,
-          "mediana_de_la_etapa": 0,
-          "excede": true
-        }
-      ]
+      "etapas_sin_registro": 5,
+      "etapas_con_duracion_real": 1
     },
     "retrabajo": {
       "eliminadas": 0,
@@ -1599,14 +1691,14 @@
   },
   "alimentia": {
     "regla": "alimentia-metrics-v2",
-    "generado_en": "2026-11-10T22:16:40.722Z",
+    "generado_en": "2026-11-11T07:52:16.764Z",
     "periodo": "2026-11",
-    "dias_del_periodo": 10,
+    "dias_del_periodo": 11,
     "empresas": 2,
     "con_obligacion": 2,
-    "esperados": 170,
+    "esperados": 189,
     "entregados": 4,
-    "cumplimiento": 0.0235,
+    "cumplimiento": 0.0212,
     "sin_un_solo_registro": 1,
     "detalle": [
       {
@@ -1618,8 +1710,8 @@
         "fecha_alta": "2026-11-03",
         "sedes": 1,
         "formatos_habilitados": 10,
-        "dias_contados": 8,
-        "esperados": 80,
+        "dias_contados": 9,
+        "esperados": 90,
         "entregados": 0,
         "cumplimiento": 0,
         "ultimo_diligenciamiento": null
@@ -1633,10 +1725,10 @@
         "fecha_alta": "2026-09-11",
         "sedes": 1,
         "formatos_habilitados": 9,
-        "dias_contados": 10,
-        "esperados": 90,
+        "dias_contados": 11,
+        "esperados": 99,
         "entregados": 4,
-        "cumplimiento": 0.0444,
+        "cumplimiento": 0.0404,
         "ultimo_diligenciamiento": "2026-11-05"
       }
     ],
@@ -1660,17 +1752,17 @@
     "demo_excluidas": 3
   },
   "salud": {
-    "total": 71,
+    "total": 72,
     "comp": [
       {
         "n": "Producción",
         "v": 100,
-        "d": "Noviembre 2026 contra el mismo mes del año anterior: 1.863 proyectadas contra 1.351, +37,9 %. Se mapea 0–20 % de crecimiento a 50–100 puntos. Noviembre 2026 lleva 10 de 30 días y va en 621 certificaciones observadas; el índice proyecta a 1.863 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
+        "d": "Noviembre 2026 contra el mismo mes del año anterior: 1.874 proyectadas contra 1.351, +38,7 %. Se mapea 0–20 % de crecimiento a 50–100 puntos. Noviembre 2026 lleva 11 de 30 días y va en 687 certificaciones observadas; el índice proyecta a 1.874 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
       },
       {
         "n": "Reposición",
-        "v": 66,
-        "d": "Certificaciones del mes sobre vencimientos de los próximos 30 días, medidos el 2026-11-10: 1.863 proyectadas / 1.412 = 1,32. Paridad (1,00) vale 50 puntos. Noviembre 2026 lleva 10 de 30 días y va en 621 certificaciones observadas; el índice proyecta a 1.863 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
+        "v": 68,
+        "d": "Certificaciones del mes sobre vencimientos de los próximos 30 días, medidos el 2026-11-11: 1.874 proyectadas / 1.388 = 1,35. Paridad (1,00) vale 50 puntos. Noviembre 2026 lleva 11 de 30 días y va en 687 certificaciones observadas; el índice proyecta a 1.874 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
       },
       {
         "n": "Calidad del dato",
@@ -1679,29 +1771,30 @@
       },
       {
         "n": "Diversificación",
-        "v": 50,
-        "d": "Un solo cliente concentra el 24,8 % del canal empresa. Cada punto de concentración descuenta dos puntos del componente."
+        "v": 53,
+        "d": "Un solo cliente concentra el 23,6 % del canal empresa. Cada punto de concentración descuenta dos puntos del componente."
       }
     ]
   },
-  "precioMedioObservado": 18976,
+  "precioMedioObservado": 19013,
   "tiempos_ms": {
-    "certificaciones": 621,
-    "certificaciones_prev": 640,
-    "empresas": 798,
-    "empresas_prev": 744,
-    "recompra": 879,
-    "serie": 811,
-    "vencimientos": 877,
-    "atribucion": 814,
-    "cursos": 933,
-    "calidad-dato": 702,
-    "tr_carga": 365,
-    "tr_tiempos": 357,
-    "tr_retrabajo": 345,
-    "tr_duracion": 364,
-    "al_diligenciamiento": 439,
-    "al_caida": 465,
-    "total": 1487
+    "certificaciones": 610,
+    "certificaciones_prev": 571,
+    "empresas": 733,
+    "empresas_prev": 673,
+    "recompra": 833,
+    "recompra_cerrada": 772,
+    "serie": 830,
+    "vencimientos": 804,
+    "atribucion": 770,
+    "cursos": 789,
+    "calidad-dato": 894,
+    "tr_carga": 234,
+    "tr_tiempos": 238,
+    "tr_retrabajo": 245,
+    "tr_duracion": 217,
+    "al_diligenciamiento": 284,
+    "al_caida": 286,
+    "total": 1282
   }
 }
