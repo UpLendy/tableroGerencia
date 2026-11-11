@@ -155,8 +155,21 @@ const pc = (n) =>
 
 function fichaDelCorte(c) {
   const L = [];
+
+  /* El mes del corte está a medias por definición. Que el modelo lo dedujera
+     de la fecha funcionó en las pruebas, pero esto es justo lo que no puede
+     quedar a su criterio: una cifra parcial presentada como cierre es el
+     error que el tablero entero existe para evitar. Va declarado. */
+  const mesEnCurso = String(c.corte || '').slice(0, 7);
+  const diaDelCorte = Number(String(c.corte || '').slice(8, 10)) || null;
+
   const mes = (m) =>
-    `- ${m.lbl}: ${nf(m.cert)} certificaciones · ${nf(m.personas)} personas distintas · ` +
+    `- ${m.lbl}${m.id === mesEnCurso
+      ? ` [MES PARCIAL: va hasta el día ${diaDelCorte}, no es un mes cerrado. ` +
+        `Cualquier cifra suya es un acumulado a la fecha y NO se puede comparar ` +
+        `en bruto contra un mes completo; al darla hay que decir que es parcial]`
+      : ' [mes cerrado]'}: ` +
+    `${nf(m.cert)} certificaciones · ${nf(m.personas)} personas distintas · ` +
     `canal empresa ${nf(m.canal.emp)} y particular ${nf(m.canal.par)} · ` +
     `valor del servicio ${cop(m.ingreso)} · ventas pagadas ${m.ingresoBPM === null ? 'ausente, la produce BPM' : cop(m.ingresoBPM)} · ` +
     `${nf(m.activas)} empresas con actividad de ${nf(m.registradas)} registradas`;
