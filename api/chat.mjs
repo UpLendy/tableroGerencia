@@ -181,6 +181,34 @@ function fichaDelCorte(c) {
   L.push(`\n## Meses del corte`);
   (c.meses || []).forEach((m) => L.push(mes(m)));
 
+  /* Prohibir la comparación en bruto no alcanzó: preguntado si noviembre fue
+     mejor o peor que octubre, el modelo comparó 710 parciales contra 1.847
+     cerrados y emitió veredicto, aunque avisara. Hace falta darle la
+     comparación correcta hecha, que es la que el tablero muestra en pantalla:
+     ritmo diario contra ritmo diario. */
+  const parcial = (c.meses || []).find((m) => m.id === mesEnCurso);
+  const previo = (c.meses || []).find((m) => m.id !== mesEnCurso);
+  if (parcial && previo && diaDelCorte) {
+    const [py, pm] = previo.id.split('-').map(Number);
+    const diasPrevio = new Date(Date.UTC(py, pm, 0)).getUTCDate();
+    const rActual = parcial.cert / diaDelCorte;
+    const rPrevio = previo.cert / diasPrevio;
+    const dif = rPrevio > 0 ? (rActual / rPrevio - 1) * 100 : null;
+    const uno = (x) => x.toLocaleString('es-CO', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+    L.push(
+      `\n## CÓMO COMPARAR ${parcial.lbl} CONTRA ${previo.lbl} (usar esto, no los totales)\n` +
+        `Comparar ${nf(parcial.cert)} contra ${nf(previo.cert)} es incorrecto: el primero son ` +
+        `${diaDelCorte} días y el segundo ${diasPrevio}. La comparación válida es el ritmo diario:\n` +
+        `- ${parcial.lbl}: ${uno(rActual)} certificaciones por día (${nf(parcial.cert)} en ${diaDelCorte} días).\n` +
+        `- ${previo.lbl}: ${uno(rPrevio)} por día (${nf(previo.cert)} en ${diasPrevio} días).\n` +
+        `- Al ritmo actual, ${parcial.lbl} va ${dif === null ? 'sin referencia' : (dif >= 0 ? 'mejor' : 'peor')} ` +
+        `que ${previo.lbl}${dif === null ? '' : ` por ${uno(Math.abs(dif))} %`}.\n` +
+        `Si te preguntan si un mes va mejor o peor que otro, responde con el ritmo diario y dilo así. ` +
+        `Nunca declares que el mes parcial va peor solo porque su total acumulado es menor.`,
+    );
+  }
+
   if (c.salud) {
     L.push(`\n## Índice de salud: ${nf(c.salud.total)} de 100`);
     (c.salud.comp || []).forEach((x) => L.push(`- ${x.n}: ${x.v === null ? 'sin valor' : x.v}. ${x.d}`));
