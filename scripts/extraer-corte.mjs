@@ -193,60 +193,86 @@ async function armarYGuardar() {
     console.warn('');
   }
 
+  /* ------------------------------------------------- meses ya cerrados
+     Un mes cerrado no debería moverse, y en esta plataforma se mueve: renovar
+     un curso reutiliza el registro del certificado anterior y le sobre-escribe
+     cert_date, así que el certificado se muda de mes. Octubre de 2025 marcaba
+     1.518 por la mañana y 1.512 por la tarde del mismo día.
+
+     Por eso la cifra se congela cuando el mes cierra y no se vuelve a tocar:
+     data/meses-cerrados.json es el único sitio donde queda la cifra original,
+     porque la plataforma ya no la tiene. Si empieza a reportar otra, se dice
+     en voz alta en vez de recalcularla en silencio.
+
+     OJO con el orden: el registro se lee ANTES de escribir el corte nuevo. La
+     primera versión de esto leía data/corte.json después de sobrescribirlo y
+     comparaba el corte contra sí mismo, así que no detectaba nada nunca. */
+  const congelado = await import('./congelado.mjs');
+  const rutaRegistro = new URL(congelado.ARCHIVO, import.meta.url);
+
+  let registro = congelado.registroVacio();
+  try {
+    registro = JSON.parse(await readFile(rutaRegistro, 'utf8'));
+    console.log(`  meses cerrados en el registro: ${Object.keys(registro.meses || {}).length}`);
+  } catch {
+    console.log('  sin registro de meses cerrados · se crea en este corte');
+  }
+
   console.log('  armando el corte…');
-  const corte = armarCorte(muestras, narrativa, fallaron);
+
+  /* Se arma dos veces a propósito: una para poder comparar contra lo cerrado
+     y otra con la deriva dentro, porque las alertas se calculan en armarCorte
+     y tienen que verla. Armar es cálculo sobre datos ya traídos; no cuesta
+     una segunda llamada a nadie. */
+  const preliminar = armarCorte(muestras, narrativa, fallaron);
+  const laDeriva = congelado.deriva(registro, preliminar);
+
+  const corte = armarCorte(muestras, narrativa, fallaron, {
+        cerrados: registro,
+        ...(laDeriva.length ? {
+        deriva_meses_cerrados: { desde: preliminar.corte, cambios: laDeriva },
+        /* Se conserva el nombre anterior para no romper a quien ya lo lee. */
+        meses_cerrados_que_cambiaron: {
+          desde: preliminar.corte,
+          cambios: laDeriva.map((x) => ({
+            periodo: x.periodo, campo: x.campo,
+            antes: x.cerrado, despues: x.ahora, diferencia: x.diferencia,
+          })),
+        },
+        } : {}),
+      });
+
   corte.tiempos_ms = { ...tiempos, total: Date.now() - t0 };
 
+  if (laDeriva.length) {
+    const r = congelado.resumirDeriva(laDeriva);
+    console.log(`\n⚠ ${r.meses} mes(es) ya cerrado(s) cambiaron en la plataforma:\n`);
+    for (const x of laDeriva) {
+      console.log(`   ${x.periodo} · ${x.campo}: cerrado en ${x.cerrado} → hoy ${x.ahora} ` +
+                  `(${x.diferencia > 0 ? '+' : ''}${x.diferencia})` +
+                  (x.cerrado_en ? `   [cerrado el ${x.cerrado_en}]` : ''));
+    }
+    console.log('\n  El tablero muestra la cifra cerrada; la diferencia sale como alerta.\n');
+  }
+
+  /* Congelar va después de comparar: un mes que se cierra en este mismo corte
+     no puede aparecer como deriva de sí mismo. */
+  const { registro: actualizado, nuevos } = congelado.congelar(registro, corte);
+  if (nuevos.length) {
+    console.log('  se cierran ' + nuevos.length + ' mes(es): ' +
+      nuevos.map((x) => `${x.periodo}=${x.cert}`).join(', '));
+  }
+  corte.meses_cerrados_registrados = Object.keys(actualizado.meses || {}).length;
+
   await mkdir(new URL('../data', import.meta.url), { recursive: true });
-  const ruta = new URL('../data/corte.json', import.meta.url);
-  await writeFile(ruta, JSON.stringify(corte, null, 2));
+  await writeFile(new URL('../data/corte.json', import.meta.url),
+                  JSON.stringify(corte, null, 2));
+  await writeFile(rutaRegistro, JSON.stringify(actualizado, null, 2));
 
   /* La vista de Equipo no se publica como segundo archivo: la despoja
      /api/publicado en cada petición. Un solo archivo publicado es un sitio
-     menos donde dos versiones del mismo corte puedan discrepar, y despojarlo
-     no cuesta nada medible.
-
-     Lo que sí se hace aquí es comprobarlo: se despoja y se le pregunta al
-     detector si quedó algo que el equipo no debería ver. Si queda, no se
-     publica nada. Vale la pena antes de subir, no después. */
-  /* Un mes cerrado no debería moverse. Octubre pasó de 1.848 a 1.847 entre el
-     5 y el 10 de noviembre y nadie se enteró hasta que se comparó a mano: la
-     plataforma admite bajas y correcciones sobre meses anteriores y el corte
-     las absorbía en silencio. Lo pidió la Dirección en su observación A1.
-
-     Se compara contra el corte anterior, que está en el repositorio, y la
-     diferencia queda escrita en el propio corte para que el tablero la
-     muestre y el proceso la informe. No se bloquea la publicación: el dato
-     nuevo es el correcto, lo que faltaba era enterarse. */
-  const cambios = [];
-  try {
-    const previo = JSON.parse(
-      await readFile(new URL('../data/corte.json', import.meta.url), 'utf8'));
-    const mesAhora = corte.corte.slice(0, 7);
-    for (const m of previo.meses || []) {
-      if (m.id >= mesAhora) continue;               // el mes en curso sí se mueve
-      const ahora = (corte.meses || []).find((x) => x.id === m.id);
-      if (!ahora) continue;
-      for (const campo of ['cert', 'personas', 'ingreso']) {
-        const antes = Number(m[campo]);
-        const despues = Number(ahora[campo]);
-        if (Number.isFinite(antes) && Number.isFinite(despues) && antes !== despues) {
-          cambios.push({ periodo: m.id, campo, antes, despues, diferencia: despues - antes });
-        }
-      }
-    }
-  } catch { /* primer corte: no hay con qué comparar */ }
-
-  if (cambios.length) {
-    corte.meses_cerrados_que_cambiaron = { desde: corte.corte, cambios };
-    console.log('\n⚠ Un mes ya cerrado cambió desde el corte anterior:\n');
-    for (const c of cambios) {
-      console.log(`   ${c.periodo} · ${c.campo}: ${c.antes} → ${c.despues} ` +
-                  `(${c.diferencia > 0 ? '+' : ''}${c.diferencia})`);
-    }
-    console.log('');
-  }
-
+     menos donde dos versiones del mismo corte puedan discrepar. Lo que sí se
+     hace aquí es comprobarlo antes de subir, no después. */
   const { despojarParaEquipo, fugasDeEquipo } = await import('./vista.mjs');
   const fugas = fugasDeEquipo(despojarParaEquipo(corte));
   if (fugas.length) {

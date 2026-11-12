@@ -60,11 +60,31 @@ export function despojarParaEquipo(corte) {
     'Vista de Equipo: sin cifras de dinero ni datos por persona. ' +
     'El corte se despoja en el servidor, de modo que esas cifras no llegan a esta página.';
 
-  /* ---------------------------------------------------------------- meses */
-  c.meses = (c.meses || []).map((m) => sin(m, DINERO_MES));
+  /* ---------------------------------------------------------------- meses
+     El desglose por curso lleva el precio de cada uno: es dinero, aunque esté
+     anidado. Se conserva el reparto de certificaciones por curso, que al
+     equipo le sirve y no dice cuánto vale nada. Lo encontró el detector de
+     fugas en vez de una revisión a ojo, que es para lo que está. */
+  c.meses = (c.meses || []).map((m) => {
+    const r = sin(m, DINERO_MES);
+    if (Array.isArray(r.porCurso)) {
+      r.porCurso = r.porCurso.map((x) => sin(x, ['precio']));
+    }
+    return r;
+  });
 
   /* ------------------------------------------------------------ precio */
   delete c.precioMedioObservado;
+
+  /* --------------------------------------------- deriva de meses cerrados
+     La deriva en certificaciones o personas es volumen y se queda: al equipo
+     le sirve saber que un mes informado se movió. La de dinero, no. */
+  for (const k of ['deriva_meses_cerrados', 'meses_cerrados_que_cambiaron']) {
+    if (c[k] && Array.isArray(c[k].cambios)) {
+      c[k] = { ...c[k], cambios: c[k].cambios.filter((x) => x.campo !== 'ingreso') };
+      if (!c[k].cambios.length) delete c[k];
+    }
+  }
 
   /* ------------------------------------------------------- vencimientos
      El conteo se queda —el equipo tiene que saber cuántos vencen— y se va

@@ -19,6 +19,7 @@ for (const [jefe, g] of Object.entries(UNIFICAR)) for (const c of g.codigos) DUE
 
 import { armarTramites, armarAlimentia } from './mapeo-extra.mjs';
 import { generarAlertas } from './alertas.mjs';
+import { aplicarCerrados } from './congelado.mjs';
 
 const REGLA = 'virtual-metrics-v1';
 const MESLARGO = ['enero','febrero','marzo','abril','mayo','junio','julio',
@@ -40,6 +41,19 @@ function armarMes(cert, emp) {
     cert: d.total_certificados,
     personas: d.total_personas,
     ingreso: valorServicio(d.por_curso),
+    /* El desglose por curso se conserva, no solo el total. Es el precio con
+       el que se calculo el mes, y es lo que se congela cuando el mes cierra:
+       sin el, cambiar un co_price en la plataforma recalcula un mes ya
+       informado. Ademas es la respuesta a "de donde sale este valor", que es
+       lo que la Direccion pidio en B3. */
+    porCurso: (d.por_curso || [])
+      .filter((c) => Number(c.certificados) > 0)
+      .map((c) => ({
+        course_id: c.course_id,
+        nombre: c.nombre,
+        precio: Number(c.precio_vigente || 0),
+        certificados: Number(c.certificados || 0),
+      })),
     ingresoBPM: null,                       // ventas pagadas: las produce BPM
     canal: { emp: d.por_canal.empresa, par: d.por_canal.particular },
     activasCodigos: e ? e.activas : null,   // lo que reporta la plataforma
@@ -272,7 +286,7 @@ function armarYoy(serie, mes) {
   };
 }
 
-export function armarCorte(m, narrativa = {}, fallaron = {}) {
+export function armarCorte(m, narrativa = {}, fallaron = {}, extras = {}) {
   const certPorMes = { prev: m.certificaciones_prev, act: m.certificaciones };
   const meses = [
     armarMes(m.certificaciones_prev, m.empresas_prev || null),
@@ -310,6 +324,14 @@ export function armarCorte(m, narrativa = {}, fallaron = {}) {
 
   const calidad = armarCalidad(m['calidad-dato']);
   const serie = (m.serie.datos.meses || []).map((x) => ({ ...x }));
+
+  /* Los meses ya cerrados se sustituyen por la cifra con la que cerraron,
+     ANTES de calcular lo derivado, para que el ano contra ano, el indice de
+     salud y el precio observado salgan todos del mismo numero. La diferencia
+     contra lo que la plataforma reporta hoy viaja aparte, como deriva. */
+  const cerradosAplicados = extras.cerrados
+    ? aplicarCerrados({ meses, serie }, extras.cerrados).aplicados
+    : [];
 
   /* La serie y el resumen salen de endpoints distintos de la misma plataforma,
      y los dos cachean. Si las llamadas caen a distinto lado de un vencimiento
@@ -367,6 +389,12 @@ export function armarCorte(m, narrativa = {}, fallaron = {}) {
     salud: armarSalud({ mes: ult, serie, venc, calidad, concentracion,
                        hoy: fechaCorte }),
     precioMedioObservado: Math.round(ult.ingreso / ult.cert),
+    /* La deriva de los meses cerrados se calcula antes de armar el corte,
+       porque hace falta leer el registro en disco. Entra aqui para que las
+       alertas la vean: si llegara despues, se calcularian sin ella. */
+    meses_cerrados: cerradosAplicados.length ? cerradosAplicados : undefined,
+    ...(extras.deriva_meses_cerrados ? { deriva_meses_cerrados: extras.deriva_meses_cerrados } : {}),
+    ...(extras.meses_cerrados_que_cambiaron ? { meses_cerrados_que_cambiaron: extras.meses_cerrados_que_cambiaron } : {}),
     ...narrativa,
   };
 

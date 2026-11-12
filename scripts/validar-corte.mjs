@@ -222,6 +222,56 @@ for (const e of d.empresas || []) {
   }
 }
 
+/* ------------------------------------------- el valor cuadra con su desglose
+   El valor de un mes es la suma de certificados x precio de cada curso. Si el
+   total no cuadra con el desglose, una de las dos cifras esta mal y el cruce
+   contra lo facturado va a fallar sin que se sepa por que. Ademas es la
+   pregunta que la Direccion hizo en B3: de donde sale este valor. */
+for (const m of d.meses || []) {
+  const p = `mes ${m.id}`;
+  if (!Array.isArray(m.porCurso) || !m.porCurso.length) {
+    avisos.push(`${p}: sin desglose por curso; el valor no se puede justificar`);
+    continue;
+  }
+  const suma = m.porCurso.reduce(
+    (a, c) => a + Number(c.precio || 0) * Number(c.certificados || 0), 0);
+  ok(suma === Number(m.ingreso),
+     `${p}: el valor dice ${nf(m.ingreso)} y el desglose por curso suma ${nf(suma)}`);
+
+  const certs = m.porCurso.reduce((a, c) => a + Number(c.certificados || 0), 0);
+  ok(certs === Number(m.cert),
+     `${p}: ${nf(m.cert)} certificaciones contra ${nf(certs)} repartidas por curso`);
+
+  for (const c of m.porCurso) {
+    if (!(Number(c.precio) > 0)) {
+      avisos.push(`${p}: el curso "${c.nombre}" entra con precio ${nf(c.precio)} ` +
+                  `y ${nf(c.certificados)} certificacion(es)`);
+    }
+  }
+}
+
+/* --------------------------------------------- la deriva de meses cerrados
+   Si el corte declara que un mes cerrado se movio, la aritmetica de ese aviso
+   tiene que cuadrar: un aviso de deriva con las cuentas mal es peor que no
+   tenerlo, porque se discute el aviso en vez del dato. */
+{
+  const dm = d.deriva_meses_cerrados;
+  if (dm) {
+    ok(Array.isArray(dm.cambios) && dm.cambios.length > 0,
+       'deriva_meses_cerrados: viene el bloque pero sin cambios dentro');
+    for (const x of dm.cambios || []) {
+      const et = `deriva ${x.periodo}/${x.campo}`;
+      ok(/^\d{4}-\d{2}$/.test(x.periodo || ''), `${et}: periodo invalido`);
+      ok(Number.isFinite(Number(x.cerrado)) && Number.isFinite(Number(x.ahora)),
+         `${et}: faltan las cifras cerrada y actual`);
+      ok(Number(x.ahora) - Number(x.cerrado) === Number(x.diferencia),
+         `${et}: ${nf(x.ahora)} - ${nf(x.cerrado)} no da ${nf(x.diferencia)}`);
+      ok(x.periodo < String(d.corte).slice(0, 7),
+         `${et}: no es un mes cerrado, es el mes en curso`);
+    }
+  }
+}
+
 /* ---------------------------------------------------------- salida */
 for (const a of avisos) console.log(`  aviso   ${a}`);
 if (fallos.length) {

@@ -54,22 +54,44 @@ export function generarAlertas(c, umbrales = {}) {
   const esParcial = mes.id === corte.slice(0, 7);
   const diaCorte = Number(corte.slice(8, 10)) || diasDe(mes.id);
 
-  /* --------------------------------------------- un mes cerrado cambió
-     Observación A1 de la Dirección. Octubre pasó de 1.848 a 1.847 y el
-     cambio no se detectó: hay que enterarse el mismo día, no al comparar. */
-  const mc = c.meses_cerrados_que_cambiaron;
+  /* --------------------------------------------- un mes cerrado se movió
+     Observación A1 de la Dirección, con la causa ya establecida. La cifra de
+     un mes cerrado se mueve por dos rutas del código de la plataforma:
+
+       · renovar un curso reutiliza el registro del certificado anterior y le
+         sobre-escribe cert_date, así que el certificado se muda de mes;
+       · asignar un código de empresa sobre-escribe el cert_date de todos los
+         cursos activos de esa persona con la fecha de la asignación.
+
+     Ninguna de las dos es un error de alguien dando de baja un registro, que
+     es lo que esta alerta decía antes. El tablero muestra la cifra que se
+     congeló al cerrar el mes; esto informa cuánto se ha movido desde entonces
+     y por qué, para que la diferencia sea auditable en vez de invisible. */
+  const mc = c.deriva_meses_cerrados || c.meses_cerrados_que_cambiaron;
   if (mc && Array.isArray(mc.cambios) && mc.cambios.length) {
+    const unidad = { cert: 'certificaciones', personas: 'personas', ingreso: 'el valor' };
     for (const x of mc.cambios) {
+      /* Los dos nombres de campo conviven: 'cerrado'/'ahora' es el registro
+         congelado, 'antes'/'despues' el formato anterior. */
+      const antes = Number(x.cerrado ?? x.antes);
+      const ahora = Number(x.ahora ?? x.despues);
+      const esDinero = x.campo === 'ingreso';
+      const fmt = esDinero ? cop : nf;
       añadir({
-        id: `mes-cerrado-cambio-${x.periodo}-${x.campo}-${x.despues}`,
-        severidad: 'critica',
-        para: x.campo === 'ingreso' ? 'gerencia' : 'todos',
-        titulo: `${x.periodo} cambió después de cerrado: ${x.campo} pasó de ${nf(x.antes)} a ${nf(x.despues)}`,
-        detalle: `Diferencia de ${x.diferencia > 0 ? '+' : ''}${nf(x.diferencia)}. ` +
-                 'Un mes cerrado no debería moverse: alguien dio de baja, anuló o corrigió un registro.',
+        id: `mes-cerrado-deriva-${x.periodo}-${x.campo}-${ahora}`,
+        severidad: Math.abs(x.diferencia) > 5 ? 'critica' : 'atencion',
+        para: esDinero ? 'gerencia' : 'todos',
+        titulo: `${x.periodo} se cerró con ${fmt(antes)} y la plataforma hoy reporta ${fmt(ahora)}`,
+        detalle: `Se movió ${x.diferencia > 0 ? '+' : ''}${fmt(Math.abs(x.diferencia))} en ` +
+                 `${unidad[x.campo] || x.campo}` +
+                 (x.cerrado_en ? `, desde que el mes se cerró el ${x.cerrado_en}.` : '.') +
+                 ' El tablero sigue mostrando la cifra cerrada. La causa habitual es una ' +
+                 'renovación: el certificado anterior cambia de fecha y se muda de mes.',
         cifra: x.diferencia,
         seccion: 'volumen',
-        accion: 'Identificar el registro que entró o salió y por qué, antes de que el mes se informe otra vez.',
+        accion: x.diferencia < 0
+          ? 'Confirmar que son renovaciones; si no lo son, buscar el registro que salió.'
+          : 'Confirmar qué registros entraron a un mes que ya estaba informado.',
       });
     }
   }
@@ -312,9 +334,14 @@ export function generarAlertas(c, umbrales = {}) {
 
   /* ---------------------------------------------------------------- cursos */
   if (c.cursos && Array.isArray(c.cursos.cursos)) {
+    /* Por debajo de mil pesos es un precio mal escrito —Colgranja estaba en
+       $20 en vez de $20.000— y por encima de cincuenta mil, en un catálogo
+       donde todo vale 14.000 o 20.000, es un curso de prueba que no debería
+       estar en producción. Las dos cosas descuadran el cruce. */
     const malos = c.cursos.cursos.filter((x) => {
       const n = Number(x.certificados ?? x.certificados_ultimos_12m ?? 0);
-      return n > 0 && Number.isFinite(Number(x.precio)) && Number(x.precio) < 1000;
+      const pr = Number(x.precio);
+      return n > 0 && Number.isFinite(pr) && (pr < 1000 || pr > 50000);
     });
     if (malos.length) {
       añadir({
