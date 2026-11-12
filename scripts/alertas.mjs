@@ -54,6 +54,26 @@ export function generarAlertas(c, umbrales = {}) {
   const esParcial = mes.id === corte.slice(0, 7);
   const diaCorte = Number(corte.slice(8, 10)) || diasDe(mes.id);
 
+  /* --------------------------------------------- un mes cerrado cambió
+     Observación A1 de la Dirección. Octubre pasó de 1.848 a 1.847 y el
+     cambio no se detectó: hay que enterarse el mismo día, no al comparar. */
+  const mc = c.meses_cerrados_que_cambiaron;
+  if (mc && Array.isArray(mc.cambios) && mc.cambios.length) {
+    for (const x of mc.cambios) {
+      añadir({
+        id: `mes-cerrado-cambio-${x.periodo}-${x.campo}-${x.despues}`,
+        severidad: 'critica',
+        para: x.campo === 'ingreso' ? 'gerencia' : 'todos',
+        titulo: `${x.periodo} cambió después de cerrado: ${x.campo} pasó de ${nf(x.antes)} a ${nf(x.despues)}`,
+        detalle: `Diferencia de ${x.diferencia > 0 ? '+' : ''}${nf(x.diferencia)}. ` +
+                 'Un mes cerrado no debería moverse: alguien dio de baja, anuló o corrigió un registro.',
+        cifra: x.diferencia,
+        seccion: 'volumen',
+        accion: 'Identificar el registro que entró o salió y por qué, antes de que el mes se informe otra vez.',
+      });
+    }
+  }
+
   /* ------------------------------------------------------------- salud */
   if (c.salud && Number.isFinite(Number(c.salud.total))) {
     const v = Number(c.salud.total);

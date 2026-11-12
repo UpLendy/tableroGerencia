@@ -808,12 +808,16 @@ function renderKpis(){
      d:cmp('personas'), s:ant(x=>nf(x.personas)), pie:pie()},
     {l:'Ingreso del mes · ventas pagadas', ausente:true, soloGerencia:true,
      s:'Lo produce BPM. El tablero lo lee, no lo calcula. Pendiente del cruce con Siigo.'},
-    {l:'Valor del servicio prestado', v:cop(m.ingreso), soloGerencia:true,
+    /* La Dirección fijó que la tarifa real es la del CUADRE 2026, pestaña
+       EMPRESAS, no la configurada en la plataforma. Mientras no se haga ese
+       cruce, el campo se rotula por lo que de verdad es. */
+    {l:'Valor a precio de lista de la plataforma', v:cop(m.ingreso), soloGerencia:true,
      d:cmp('ingreso'), s:ant(x=>cop(x.ingreso)),
-     pie:pie('A tarifa vigente de la plataforma. No es facturación.')},
+     pie:pie('Precio configurado en la plataforma de formación. No es facturación ni '+
+             'tarifa de convenio: la tarifa real es la del CUADRE 2026 y el cruce llega con la Entrega 2.')},
     {l:'Valor promedio por persona', v:cop(vpp(m)), soloGerencia:true,
      d:p&&vpp(m)/vpp(p)-1, s:ant(x=>cop(vpp(x))),
-     pie:'Sobre el valor del servicio, no sobre ventas pagadas.'},
+     pie:'Precio de lista dividido por personas distintas. No es ingreso real.'},
     {l:'Canal empresa', v:nf(m.canal.emp),
      d:cmpCanal('emp'), s:pc(m.canal.emp/m.cert*100)+' del mes', pie:pie()},
     {l:'Canal particular', v:nf(m.canal.par),
@@ -1154,11 +1158,14 @@ function renderRecompra(){
     /* La cifra de referencia es la de la cohorte cerrada. La del mes en curso
        se muestra como avance, nunca como tasa. */
     const tc = pct(c);
+    const rev = c && c.en_revision;
     $('recKpis').innerHTML =
-      tarjeta('Tasa de renovación', c?pc(tc):emdash,
-        c ? `última cohorte cerrada · ${esc(c.periodo)} · ${nf(renov(c))} de ${nf(c.elegibles)}`
+      tarjeta('Tasa de renovación',
+        rev ? `${pc(rev.desde*100)} a ${pc(rev.hasta*100)}` : (c?pc(tc):emdash),
+        rev ? `en revisión · ${esc(c.periodo)} · ${nf(rev.anticipadas)} renovaciones anticipadas sin verificar`
+          : c ? `última cohorte cerrada · ${esc(c.periodo)} · ${nf(renov(c))} de ${nf(c.elegibles)}`
           : 'no hay ninguna cohorte con ventana cerrada todavía',
-        color(tc)) +
+        rev ? 'var(--warn)' : color(tc)) +
       tarjeta('Cohorte en curso', nf(r.elegibles),
         `vencen en ${esc(r.periodo)} · se puede medir desde el ${esc(r.ventana_cierra)}`) +
       tarjeta('Han renovado hasta hoy', nf(renov(r)),
@@ -1167,8 +1174,9 @@ function renderRecompra(){
         'si no renovara ninguno de los que faltan');
   }else{
     const t = pct(r);
+    const rv = r.en_revision;
     $('recKpis').innerHTML =
-      tarjeta('Tasa de renovación', pc(t),
+      tarjeta('Tasa de renovación', rv ? `${pc(rv.desde*100)} a ${pc(rv.hasta*100)}` : pc(t),
         hayNum(r.elegibles)&&r.elegibles>0
           ? `${nf(renov(r))} de ${nf(r.elegibles)} elegibles`
           : 'ningún certificado cumple un año en este periodo',
@@ -1191,6 +1199,14 @@ function renderRecompra(){
       `cerrar hasta el ${esc(r.ventana_cierra)}, así que su porcentaje de hoy no es una tasa de `+
       `renovación sino un avance. La cifra de arriba es la de la última cohorte que sí terminó`+
       (c?` —${esc(c.periodo)}—`:'')+`, que es la única que se puede afirmar.`+
+      '</div></div>');
+
+  const enRev = (c && c.en_revision) || (r && r.en_revision);
+  if(enRev)
+    avisos.push('<div class="alert w"><div class="ai">i</div><div>'+
+      `<b>La tasa está en revisión, entre ${pc(enRev.desde*100)} y ${pc(enRev.hasta*100)}.</b> `+
+      `${esc(enRev.motivo)} Son ${nf(enRev.anticipadas)} certificaciones en duda. `+
+      'No conviene fijar una cifra ni apoyar una decisión en ella hasta resolverlo.'+
       '</div></div>');
 
   /* Renovar exige volver a certificarse en el MISMO curso. Quien renueva
@@ -1422,8 +1438,11 @@ function renderAlimentia(){
       (a.detenidas||[]).length?'var(--warn)':'var(--good)');
 
   const avisos=[];
-  if(a.advertencia_definicion)
-    avisos.push(`<div class="alert w"><div class="ai">i</div><div><b>Falta definir qué días son exigibles.</b> ${esc(a.advertencia_definicion)}</div></div>`);
+  /* La Dirección decidió el 11 de noviembre que cuentan todos los días,
+     domingos y festivos incluidos, y que la cifra se muestra tal cual. Se
+     retira la advertencia de que podría estar subestimada. */
+  avisos.push(`<div class="vistaAviso"><b>Todos los días cuentan.</b> El esperado incluye `+
+    `domingos y festivos, por decisión de la Dirección del 11 de noviembre. La cifra es la que es.</div>`);
 
   /* La lista de detenidas se deriva aquí, sobre empresas reales. Si la que
      produce la plataforma no coincide, es una discrepancia que conviene ver,
@@ -1738,8 +1757,12 @@ function pintarTextosDelCorte(){
     /* A precio observado, no a $20.000 planos: la tarifa plana fue justo la
        corrección que pidió la Dirección el 2 de noviembre. */
     const pm=CORTE.precioMedioObservado;
+    /* «Precio observado» no estaba definido en ninguna parte. Es el valor a
+       precio de lista del último mes dividido por sus certificaciones: el
+       promedio que de hecho se cobró, no una tarifa de lista. Se declara. */
     $('vencSub').textContent = pm
-      ? `Recompra potencial: ${cop(v.total*pm)} · a precio observado de ${cop(pm)} por certificación`
+      ? `Recompra potencial: ${cop(v.total*pm)} · a ${cop(pm)} por certificación, `+
+        `que es el promedio observado del último mes (valor a precio de lista dividido por certificaciones)`
       : 'Recompra potencial: pendiente del precio observado';
   }
 

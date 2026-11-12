@@ -209,6 +209,44 @@ async function armarYGuardar() {
      Lo que sí se hace aquí es comprobarlo: se despoja y se le pregunta al
      detector si quedó algo que el equipo no debería ver. Si queda, no se
      publica nada. Vale la pena antes de subir, no después. */
+  /* Un mes cerrado no debería moverse. Octubre pasó de 1.848 a 1.847 entre el
+     5 y el 10 de noviembre y nadie se enteró hasta que se comparó a mano: la
+     plataforma admite bajas y correcciones sobre meses anteriores y el corte
+     las absorbía en silencio. Lo pidió la Dirección en su observación A1.
+
+     Se compara contra el corte anterior, que está en el repositorio, y la
+     diferencia queda escrita en el propio corte para que el tablero la
+     muestre y el proceso la informe. No se bloquea la publicación: el dato
+     nuevo es el correcto, lo que faltaba era enterarse. */
+  const cambios = [];
+  try {
+    const previo = JSON.parse(
+      await readFile(new URL('../data/corte.json', import.meta.url), 'utf8'));
+    const mesAhora = corte.corte.slice(0, 7);
+    for (const m of previo.meses || []) {
+      if (m.id >= mesAhora) continue;               // el mes en curso sí se mueve
+      const ahora = (corte.meses || []).find((x) => x.id === m.id);
+      if (!ahora) continue;
+      for (const campo of ['cert', 'personas', 'ingreso']) {
+        const antes = Number(m[campo]);
+        const despues = Number(ahora[campo]);
+        if (Number.isFinite(antes) && Number.isFinite(despues) && antes !== despues) {
+          cambios.push({ periodo: m.id, campo, antes, despues, diferencia: despues - antes });
+        }
+      }
+    }
+  } catch { /* primer corte: no hay con qué comparar */ }
+
+  if (cambios.length) {
+    corte.meses_cerrados_que_cambiaron = { desde: corte.corte, cambios };
+    console.log('\n⚠ Un mes ya cerrado cambió desde el corte anterior:\n');
+    for (const c of cambios) {
+      console.log(`   ${c.periodo} · ${c.campo}: ${c.antes} → ${c.despues} ` +
+                  `(${c.diferencia > 0 ? '+' : ''}${c.diferencia})`);
+    }
+    console.log('');
+  }
+
   const { despojarParaEquipo, fugasDeEquipo } = await import('./vista.mjs');
   const fugas = fugasDeEquipo(despojarParaEquipo(corte));
   if (fugas.length) {

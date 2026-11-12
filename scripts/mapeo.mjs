@@ -142,12 +142,40 @@ function armarRecompra(d, hoy) {
   const total = Math.round((cierra - abre) / 864e5);
   const corridos = Math.max(0, Math.min(total, Math.round((ahora - abre) / 864e5)));
 
+  /* La tasa no es un punto mientras no esté definido qué cuenta como
+     renovación anticipada. «A tiempo» exige volver a certificarse en el mismo
+     curso antes de que venza el original, pero hoy eso no se distingue de una
+     reemisión del mismo certificado a los pocos días. Julio muestra 107
+     anticipadas y agosto una, con cohortes comparables: la diferencia es
+     demasiado grande para ser estacional.
+
+     Hasta que se fije la ventana, la tasa se publica como el rango entre
+     excluir y contar esas anticipadas. Lo pidió la Dirección en su
+     observación B2, y es lo correcto: un punto que puede moverse seis puntos
+     no es un punto. */
+  const elegibles = Number(d.elegibles || 0);
+  const aTiempo = Number(d.renovaron_a_tiempo || 0);
+  const tarde = Number(d.renovaron_tarde || 0);
+  const enRevision = elegibles > 0 && aTiempo > 0
+    ? {
+        desde: Math.round((tarde / elegibles) * 10000) / 10000,
+        hasta: Math.round(((tarde + aTiempo) / elegibles) * 10000) / 10000,
+        anticipadas: aTiempo,
+        motivo:
+          'No está definido desde cuántos días antes del vencimiento una ' +
+          'certificación cuenta como renovación anticipada, de modo que no se ' +
+          'puede separar una renovación de una reemisión. El límite inferior ' +
+          'excluye las anticipadas y el superior las cuenta.',
+      }
+    : null;
+
   return {
     ...d,
     ventana_abierta: ahora < cierra,
     ventana_cierra: new Date(cierra).toISOString().slice(0, 10),
     ventana_dias_totales: total,
     ventana_dias_corridos: corridos,
+    en_revision: enRevision,
   };
 }
 

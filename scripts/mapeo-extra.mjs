@@ -104,10 +104,11 @@ export function armarTramites(m) {
       dias_mediana: duracion.dias_mediana,
       dias_p75: duracion.dias_p75,
       dias_p90: duracion.dias_p90,
-      /* Sin meta no hay cumplimiento: el esquema no guarda plazo por trámite
-         y calcularlo exigiría inventar un objetivo. */
-      cumplimiento: duracion.cumplimiento,
-      nota_cumplimiento: duracion.nota_cumplimiento,
+      /* La Dirección decidió el 11 de noviembre que NO habrá meta en días
+         para los trámites: son ocasionales y no se miden contra un plazo
+         fijo. El indicador no se calcula y no entra en el corte. Se deja
+         dicho aquí para que nadie lo vuelva a agregar por iniciativa propia.
+         La meta de BPM es la meta mensual de ventas, que es otro indicador. */
     } : null,
   };
 }
