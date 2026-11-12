@@ -82,6 +82,17 @@ console.log('\n-- la cartera por empresa se congela con el total --');
           'una empresa que entro despues del cierre se va a cero');
 }
 
+console.log('\n-- la llamada incompleta no puede pasar callada --');
+{
+  const { aplicarCerrados } = await import('../scripts/congelado.mjs');
+  const reg = { version: 1, meses: { '2026-10': {
+    periodo: '2026-10', cert: 1848, por_empresa: [{ codigo: 'A', nombre: 'Arcos', certificados: 1071 }] } } };
+  let reventó = false;
+  try { aplicarCerrados({ meses: [{ id: '2026-10' }], serie: [] }, reg); }
+  catch { reventó = true; }
+  iguales(reventó, true, 'sin corte.empresas revienta en vez de saltarse la cartera');
+}
+
 console.log('\n-- deriva --');
 const d = deriva(registro, corte('2026-11-20', 1840, 36800000));
 iguales(d.filter((x) => x.periodo === '2026-10').map((x) => [x.campo, x.cerrado, x.ahora, x.diferencia]),

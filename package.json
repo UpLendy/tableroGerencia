@@ -8,6 +8,6 @@
     "corte": "node scripts/extraer-corte.mjs",
     "dump": "node scripts/extraer-corte.mjs --dump",
     "validar": "node scripts/validar-corte.mjs",
-    "probar": "node pruebas/congelado.mjs"
+    "probar": "node pruebas/congelado.mjs && node pruebas/corte-offline.mjs"
   }
 }

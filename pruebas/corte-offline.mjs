@@ -11,8 +11,18 @@ import { armarCorte } from '../scripts/mapeo.mjs';
 import { congelar, deriva, registroVacio, ARCHIVO } from '../scripts/congelado.mjs';
 
 const dir = new URL('../muestras/', import.meta.url);
+let archivos;
+try {
+  archivos = await readdir(dir);
+} catch {
+  /* muestras/ esta en .gitignore: son respuestas crudas de produccion y no
+     van al repositorio. En CI no existe, y esto no es un fallo. */
+  console.log('\n  sin muestras/ · nada que armar offline.');
+  console.log('  Para generarlas: TABLERO_API_TOKEN=... npm run dump\n');
+  process.exit(0);
+}
 const muestras = {};
-for (const f of await readdir(dir)) {
+for (const f of archivos) {
   if (!f.endsWith('.json') || f.startsWith('_')) continue;
   muestras[f.replace(/\.json$/, '')] = JSON.parse(await readFile(new URL(f, dir), 'utf8'));
 }
@@ -69,6 +79,49 @@ const porSev = al.reduce((a, x) => ({ ...a, [x.severidad]: (a[x.severidad] || 0)
 console.log('\n  alertas: ' + JSON.stringify(porSev));
 for (const a of al.filter((x) => x.severidad === 'critica')) {
   console.log('    critica · ' + a.titulo);
+}
+
+/* ------------------------------------------------------------------ cruce
+   Lo que ninguna de las otras pruebas podia ver. La unitaria le pasa a
+   aplicarCerrados un objeto completo, y esta prueba usaba las mismas muestras
+   con las que se congelo, asi que las cifras coincidian por casualidad y una
+   llamada incompleta pasaba inadvertida. Aqui el registro se perturba a
+   proposito: si las cifras congeladas no llegan al corte, se nota. */
+{
+  let fallos = 0;
+  const af = (bien, q) => { console.log((bien ? '  ok   ' : '  FALLA ') + q); if (!bien) fallos++; };
+  console.log('\n  -- las cifras congeladas llegan al corte --');
+
+  for (const m of corte.meses.filter((x) => x.cerrado)) {
+    const suma = (corte.empresas || [])
+      .reduce((a, e) => a + Number((e.meses || {})[m.id] || 0), 0);
+    af(suma === m.canal.emp,
+       m.id + ': la cartera suma ' + suma + ' y el canal dice ' + m.canal.emp);
+  }
+
+  const cerrado = Object.keys(registro.meses || {})[0];
+  if (cerrado) {
+    const falso = JSON.parse(JSON.stringify(registro));
+    const r = falso.meses[cerrado];
+    r.cert -= 1;
+    r.canal.emp -= 1;
+    r.por_empresa[0].certificados -= 1;
+    const perturbado = armarCorte(muestras, {}, {}, { cerrados: falso });
+    const mp = perturbado.meses.find((x) => x.id === cerrado);
+    if (!mp) {
+      af(false, cerrado + ' deberia estar entre los meses del corte');
+    } else {
+      const suma = perturbado.empresas
+        .reduce((a, e) => a + Number((e.meses || {})[cerrado] || 0), 0);
+      af(mp.cert === r.cert, 'el total del mes sale del registro, no de la plataforma');
+      af(mp.canal.emp === r.canal.emp, 'el canal tambien');
+      af(suma === r.canal.emp, 'y la cartera se reescribio para cuadrar con el');
+    }
+  } else {
+    af(false, 'no hay ningun mes congelado con el que cruzar');
+  }
+
+  if (fallos) { console.log('\n  ' + fallos + ' fallo(s)\n'); process.exitCode = 1; }
 }
 
 if (process.argv.includes('--escribir')) {

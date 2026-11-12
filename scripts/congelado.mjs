@@ -221,6 +221,18 @@ export function aplicarCerrados(corte, reg) {
   if (!reg || !reg.meses) return { aplicados: [] };
   const aplicados = [];
 
+  /* Si hay cartera congelada y no llega corte.empresas, este saltaria el
+     bloque sin decir nada y dejaria el mes contradiciendose consigo mismo.
+     Paso una vez y lo encontro el validador en produccion, no aqui. Mejor
+     reventar: un corte que no se arma se nota, uno incoherente no. */
+  const necesitaCartera = (corte.meses || []).some(
+    (m) => Array.isArray(reg.meses[m?.id]?.por_empresa));
+  if (necesitaCartera && !Array.isArray(corte.empresas)) {
+    throw new Error(
+      'aplicarCerrados: hay cartera congelada pero no llego corte.empresas. ' +
+      'Quien llama tiene que pasar { meses, serie, empresas }.');
+  }
+
   for (const m of corte.meses || []) {
     const c = reg.meses[m.id];
     if (!c) continue;

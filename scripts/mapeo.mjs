@@ -329,8 +329,13 @@ export function armarCorte(m, narrativa = {}, fallaron = {}, extras = {}) {
      ANTES de calcular lo derivado, para que el ano contra ano, el indice de
      salud y el precio observado salgan todos del mismo numero. La diferencia
      contra lo que la plataforma reporta hoy viaja aparte, como deriva. */
+  /* OJO: van los tres. La primera version pasaba solo { meses, serie } y
+     aplicarCerrados se saltaba la cartera en silencio, porque comprueba que
+     corte.empresas sea un arreglo antes de tocarla. El resultado fue un corte
+     con el canal congelado en 1.071 y las empresas sumando 1.070, que el
+     validador rechazo en produccion. Ahora la funcion revienta si le falta. */
   const cerradosAplicados = extras.cerrados
-    ? aplicarCerrados({ meses, serie }, extras.cerrados).aplicados
+    ? aplicarCerrados({ meses, serie, empresas }, extras.cerrados).aplicados
     : [];
 
   /* La serie y el resumen salen de endpoints distintos de la misma plataforma,

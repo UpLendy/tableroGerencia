@@ -36,6 +36,11 @@ jobs:
           echo "Periodo: $PERIODO"
           node scripts/extraer-corte.mjs --periodo "$PERIODO"
 
+      # Antes de hablar con la plataforma. Si el congelamiento de meses esta
+      # roto, se nota aqui y no despues de haber traido todo.
+      - name: Probar el congelamiento
+        run: npm run probar
+
       - name: Validar la coherencia del corte
         run: node scripts/validar-corte.mjs
 
