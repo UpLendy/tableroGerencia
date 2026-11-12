@@ -68,28 +68,302 @@
           "certificados": 1
         }
       ],
+      "por_empresa": [
+        {
+          "codigo": "8ac087",
+          "nombre": "ARCOS DORADOS COLOMBIA S.A.S.",
+          "certificados": 353
+        },
+        {
+          "codigo": "dad4ef",
+          "nombre": "DISTRIBUIDORA DE VINOS Y LICORES S.A.S.",
+          "certificados": 162
+        },
+        {
+          "codigo": "603a8e",
+          "nombre": "ROYAL FILMS S.A.S",
+          "certificados": 91
+        },
+        {
+          "codigo": "1f2ad1",
+          "nombre": "Centro Aseo",
+          "certificados": 39
+        },
+        {
+          "codigo": "66accf",
+          "nombre": "FARMACIAS DE SIMILARES COLOMBIA SAS",
+          "certificados": 29
+        },
+        {
+          "codigo": "7016fa",
+          "nombre": "SUCROAL S.A",
+          "certificados": 25
+        },
+        {
+          "codigo": "d4d8c7",
+          "nombre": "OSTI EST SAS",
+          "certificados": 23
+        },
+        {
+          "codigo": "e1529e",
+          "nombre": "OUTSOURCING SEASIN LIMITADA",
+          "certificados": 22
+        },
+        {
+          "codigo": "044787",
+          "nombre": "COMPAÑIA LECHERA DE EL MORTIÑO  S.A.S",
+          "certificados": 21
+        },
+        {
+          "codigo": "23375f",
+          "nombre": "OSYA OCUPACIONAL IPS S.A.S",
+          "certificados": 19
+        },
+        {
+          "codigo": "e7c194",
+          "nombre": "VIVE CAFÉ S.A. BIC",
+          "certificados": 18
+        },
+        {
+          "codigo": "d85ce6",
+          "nombre": "FASALACT SAS",
+          "certificados": 17
+        },
+        {
+          "codigo": "a6824d",
+          "nombre": "GRUPO EMPRESARIAL PUERTO DE BARRANQUILLA S.A",
+          "certificados": 17
+        },
+        {
+          "codigo": "cc43d6",
+          "nombre": "Integrativa Agropecuaria S.A.S.",
+          "certificados": 16
+        },
+        {
+          "codigo": "d53a9f",
+          "nombre": "DECAMERON CINCO HERRADURAS S.A.S.",
+          "certificados": 16
+        },
+        {
+          "codigo": "14f27a",
+          "nombre": "GESA  GESTIONES ADMINISTRATIVAS & TALENTO HUMANO SAS",
+          "certificados": 15
+        },
+        {
+          "codigo": "1ba628",
+          "nombre": "RECISERVICIOS LA COSTA S.A.S",
+          "certificados": 14
+        },
+        {
+          "codigo": "99b3d6",
+          "nombre": "SURTIALIADOS SAS",
+          "certificados": 12
+        },
+        {
+          "codigo": "564a3b",
+          "nombre": "PUNTO EMPLEO S.A.S.",
+          "certificados": 12
+        },
+        {
+          "codigo": "4a1320",
+          "nombre": "EMPRESA POWER SERVICES LTDA",
+          "certificados": 10
+        },
+        {
+          "codigo": "04379a",
+          "nombre": "⁠E&D cafés  S.A.S.",
+          "certificados": 10
+        },
+        {
+          "codigo": "c4d643",
+          "nombre": "AXDA COLOMBIA SAS",
+          "certificados": 10
+        },
+        {
+          "codigo": "2b5b45",
+          "nombre": "Cinépolis .",
+          "certificados": 9
+        },
+        {
+          "codigo": "444ba5",
+          "nombre": "PRICESMART EL POBLADO",
+          "certificados": 8
+        },
+        {
+          "codigo": "1689a7",
+          "nombre": "ECO VIDA INTEGRAL",
+          "certificados": 7
+        },
+        {
+          "codigo": "c57e9b",
+          "nombre": "INVERSIONES RCP SAS",
+          "certificados": 7
+        },
+        {
+          "codigo": "9b149c",
+          "nombre": "Produempak EFC",
+          "certificados": 6
+        },
+        {
+          "codigo": "9a107d",
+          "nombre": "MANEL FOODS S.A.S.",
+          "certificados": 6
+        },
+        {
+          "codigo": "c19b6a",
+          "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
+          "certificados": 5
+        },
+        {
+          "codigo": "eb8357",
+          "nombre": "LOGISTICA CIRCULAR S.A.S",
+          "certificados": 5
+        },
+        {
+          "codigo": "c7d780",
+          "nombre": "HARISSA FOODS",
+          "certificados": 5
+        },
+        {
+          "codigo": "8340e0",
+          "nombre": "ALADINO SALAS DE JUEGOS",
+          "certificados": 5
+        },
+        {
+          "codigo": "39a3fe",
+          "nombre": "VICTORIA C SAS",
+          "certificados": 5
+        },
+        {
+          "codigo": "ba0a51",
+          "nombre": "SANILAB IPS SAS",
+          "certificados": 4
+        },
+        {
+          "codigo": "692cd9",
+          "nombre": "DISTRIMARCAS AGENTE COMERCIAL SAS",
+          "certificados": 4
+        },
+        {
+          "codigo": "4a81fb",
+          "nombre": "Grupo Éxito",
+          "certificados": 4
+        },
+        {
+          "codigo": "b459c8",
+          "nombre": "EMBOTELLADORA CAPRI LTDA",
+          "certificados": 4
+        },
+        {
+          "codigo": "5a73a4",
+          "nombre": "Bioservicios S.A.S",
+          "certificados": 3
+        },
+        {
+          "codigo": "7f6fc3",
+          "nombre": "AMERICAN CHEESE CAKES",
+          "certificados": 3
+        },
+        {
+          "codigo": "7b14f4",
+          "nombre": "Dr. Leonardo Palacios",
+          "certificados": 3
+        },
+        {
+          "codigo": "2e62ce",
+          "nombre": "PRO-SER COLOMBIA  SAS",
+          "certificados": 2
+        },
+        {
+          "codigo": "7d089c",
+          "nombre": "MERCADOS  UNO A",
+          "certificados": 2
+        },
+        {
+          "codigo": "be428a",
+          "nombre": "CAMARON PAISA",
+          "certificados": 2
+        },
+        {
+          "codigo": "e14b95",
+          "nombre": "COLOMBIA HELADOS SAS",
+          "certificados": 2
+        },
+        {
+          "codigo": "dadd5b",
+          "nombre": "SERVICIOS TEMPORALES DE COLOMBIA  - TEMPOCOLBA",
+          "certificados": 2
+        },
+        {
+          "codigo": "af291e",
+          "nombre": "ASEOS COLOMBIANOS ASEOCOLBA SA",
+          "certificados": 2
+        },
+        {
+          "codigo": "63b7c5",
+          "nombre": "FLORIUS  S.A.S.",
+          "certificados": 2
+        },
+        {
+          "codigo": "721afa",
+          "nombre": "U T ZZZ ZOE",
+          "certificados": 2
+        },
+        {
+          "codigo": "adafe6",
+          "nombre": "CERCAFE COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
+          "certificados": 2
+        },
+        {
+          "codigo": "2ca4f9",
+          "nombre": "R & A FOOD SAS BRAZZEIRO",
+          "certificados": 2
+        },
+        {
+          "codigo": "bd17d3",
+          "nombre": "PAPELES Y NEGOCIOS",
+          "certificados": 1
+        },
+        {
+          "codigo": "701bc2",
+          "nombre": "ALMACAFÉ ARMENIA",
+          "certificados": 1
+        },
+        {
+          "codigo": "e76e26",
+          "nombre": "ASTEMPRO LTDA",
+          "certificados": 1
+        },
+        {
+          "codigo": "4w32sa",
+          "nombre": "Waytic S.A.S",
+          "certificados": 1
+        },
+        {
+          "codigo": "af42d4",
+          "nombre": "INVERSIONES PAYSANDU  S.A.S",
+          "certificados": 1
+        },
+        {
+          "codigo": "ac3f36",
+          "nombre": "HOTEL HILTON GARDEN INN",
+          "certificados": 1
+        },
+        {
+          "codigo": "c777a6",
+          "nombre": "Super Admini Andrés",
+          "certificados": 1
+        }
+      ],
       "cerrado_en": "2026-11-05",
       "regla": "virtual-metrics-v1",
       "al_cierre": true
     }
   },
-  "actualizado_en": "2026-11-12T21:03:33.300Z",
+  "actualizado_en": "2026-11-12T21:45:37.240Z",
   "sembrado": {
     "por": "pruebas/corte-offline.mjs",
     "desde": "muestras/ · volcado del 2026-11-05",
-    "nota": "Octubre de 2026 se congelo a partir del volcado del 5 de noviembre, cinco dias despues de cerrar el mes: es su cifra de cierre y ya no existe en la plataforma, que hoy reporta una distinta. Los demas meses NO se congelaron: cerraron antes de que este registro existiera, su cifra de hoy ya venia derivada y declararla oficial habria sido enterrar un numero movido. Se siguen leyendo en vivo.",
-    "meses_descartados": [
-      "2025-11",
-      "2025-12",
-      "2026-01",
-      "2026-02",
-      "2026-03",
-      "2026-04",
-      "2026-05",
-      "2026-06",
-      "2026-07",
-      "2026-08",
-      "2026-09"
-    ]
+    "nota": "Octubre de 2026 se congelo a partir del volcado del 5 de noviembre, cinco dias despues de cerrar: es su cifra de cierre, con el desglose por curso y la cartera por empresa. Ya no existe en la plataforma, que hoy reporta una distinta. Ningun otro mes se congelo, porque cerraron antes de que este registro existiera y su cifra de hoy ya venia derivada."
   }
 }

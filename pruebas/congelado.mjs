@@ -44,6 +44,44 @@ const antes = JSON.parse(JSON.stringify(registro.meses['2026-10']));
 iguales(nuevos.length, 0, 'no vuelve a congelar lo ya cerrado');
 iguales(registro.meses['2026-10'], antes, 'la cifra cerrada es intocable');
 
+console.log('\n-- la cartera por empresa se congela con el total --');
+/* El fallo que encontro la primera corrida real: el total quedaba congelado y
+   el desglose por empresa se leia en vivo, asi que las empresas sumaban 1.070
+   y canal.emp decia 1.071. El validador rechazo el corte, con razon. */
+{
+  const { aplicarCerrados } = await import('../scripts/congelado.mjs');
+  const alCerrar = {
+    corte: '2026-11-12', regla: 'r',
+    meses: [{ id: '2026-10', cert: 1848, personas: 1700, ingreso: 1, canal: { emp: 1071, par: 777 }, activas: 2 },
+            { id: '2026-11', cert: 877, personas: 820, ingreso: 1, canal: { emp: 1, par: 1 }, activas: 1 }],
+    serie: [],
+    empresas: [{ codigo: 'A', nombre: 'Arcos', meses: { '2026-10': 1000 } },
+               { codigo: 'B', nombre: 'Beta',  meses: { '2026-10': 71 } }],
+  };
+  const { registro: reg } = congelar(registroVacio(), alCerrar);
+  iguales(reg.meses['2026-10'].por_empresa.map((x) => [x.codigo, x.certificados]),
+          [['A', 1000], ['B', 71]], 'guarda la cartera con el total');
+
+  /* Un mes despues: Beta perdio uno por una renovacion y aparecio una empresa
+     nueva con certificaciones en ese mes que antes no estaba. */
+  const hoy = {
+    corte: '2026-11-20', regla: 'r',
+    meses: [{ id: '2026-10', cert: 1847, personas: 1699, ingreso: 1, canal: { emp: 1070, par: 777 }, activas: 3 },
+            { id: '2026-11', cert: 900, personas: 840, ingreso: 1, canal: { emp: 1, par: 1 }, activas: 1 }],
+    serie: [],
+    empresas: [{ codigo: 'A', nombre: 'Arcos', meses: { '2026-10': 1000 } },
+               { codigo: 'B', nombre: 'Beta',  meses: { '2026-10': 70 } },
+               { codigo: 'C', nombre: 'Nueva', meses: { '2026-10': 4 } }],
+  };
+  aplicarCerrados(hoy, reg);
+  const mes = hoy.meses.find((x) => x.id === '2026-10');
+  const suma = hoy.empresas.reduce((a, e) => a + Number(e.meses['2026-10'] || 0), 0);
+  iguales(mes.canal.emp, 1071, 'el canal vuelve a la cifra de cierre');
+  iguales(suma, 1071, 'y la cartera vuelve a sumar lo mismo que el canal');
+  iguales(hoy.empresas.find((e) => e.codigo === 'C').meses['2026-10'], 0,
+          'una empresa que entro despues del cierre se va a cero');
+}
+
 console.log('\n-- deriva --');
 const d = deriva(registro, corte('2026-11-20', 1840, 36800000));
 iguales(d.filter((x) => x.periodo === '2026-10').map((x) => [x.campo, x.cerrado, x.ahora, x.diferencia]),

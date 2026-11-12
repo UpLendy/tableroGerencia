@@ -73,6 +73,18 @@ export function sePuedeCongelar(periodo, fechaCorte) {
   return diaDe(fechaCorte) >= 2;
 }
 
+/** La cartera de un mes: cuántas certificaciones hizo cada empresa. */
+function carteraDe(empresas, periodo) {
+  return (empresas || [])
+    .map((e) => ({
+      codigo: e.codigo ?? e.id ?? null,
+      nombre: e.nombre,
+      certificados: Number((e.meses || {})[periodo] || 0),
+    }))
+    .filter((e) => e.certificados > 0)
+    .sort((a, b) => b.certificados - a.certificados);
+}
+
 /** Lo que se guarda de un mes que viene del resumen (trae todo). */
 function retratoDeMes(m) {
   const r = {
@@ -115,7 +127,17 @@ export function congelar(reg, corte) {
 
   const candidatos = [];
   for (const m of corte.meses || []) {
-    if (m && m.id) candidatos.push([m.id, () => retratoDeMes(m)]);
+    if (!m || !m.id) continue;
+    candidatos.push([m.id, () => {
+      const r = retratoDeMes(m);
+      /* La cartera va junto con el total, no aparte. Congelar el total y
+         dejar el desglose por empresa en vivo deja las dos cifras peleadas:
+         el reparto suma una cosa y el canal dice otra, y el validador lo
+         rechaza con razón. Lo encontró en la primera corrida real. */
+      const cartera = carteraDe(corte.empresas, m.id);
+      if (cartera.length) r.por_empresa = cartera;
+      return r;
+    }]);
   }
   for (const p of corte.serie || []) {
     if (p && p.periodo) candidatos.push([p.periodo, () => retratoDeSerie(p)]);
@@ -188,10 +210,12 @@ export function deriva(reg, corte) {
  * se aplicara después, el tablero mostraría el total cerrado y los indicadores
  * calculados sobre otro número.
  *
- * Lo que NO se congela, y hay que decirlo: el desglose por empresa. Esas
- * cifras se siguen leyendo en vivo, porque congelar la cartera entera de cada
- * mes multiplicaría el tamaño del registro por veinte para una sección que se
- * mira por tendencia y no por total. La alerta de deriva cubre la diferencia.
+ * La cartera del mes se congela también. La primera version dejaba el
+ * desglose por empresa en vivo, con el argumento de que esa seccion se mira
+ * por tendencia; el resultado fue que las empresas sumaban 1.070 y el canal
+ * congelado decia 1.071, y el validador rechazo el corte en la primera
+ * corrida real. Tenia razon: dos cifras del mismo mes no pueden pelearse
+ * porque una se congelo y la otra no.
  */
 export function aplicarCerrados(corte, reg) {
   if (!reg || !reg.meses) return { aplicados: [] };
@@ -209,6 +233,32 @@ export function aplicarCerrados(corte, reg) {
     m.cerrado = true;
     m.cerrado_en = c.cerrado_en || null;
     aplicados.push(m.id);
+
+    /* La cartera congelada se escribe de vuelta sobre corte.empresas, para
+       que el reparto por empresa cuadre con el total del mes. Una empresa que
+       certificó ese mes y hoy ya no aparece en la lista se vuelve a crear:
+       si no, su cifra se perdería y el mes dejaría de sumar. */
+    if (Array.isArray(c.por_empresa) && Array.isArray(corte.empresas)) {
+      const porCodigo = new Map(corte.empresas.map((e) => [String(e.codigo ?? e.id), e]));
+      const congeladas = new Set();
+      for (const x of c.por_empresa) {
+        const clave = String(x.codigo);
+        congeladas.add(clave);
+        let e = porCodigo.get(clave);
+        if (!e) {
+          e = { codigo: x.codigo, nombre: x.nombre, meses: {} };
+          corte.empresas.push(e);
+          porCodigo.set(clave, e);
+        }
+        e.meses = { ...(e.meses || {}), [m.id]: Number(x.certificados) };
+      }
+      /* Y una que hoy aparece con certificaciones en ese mes pero no estaba
+         cuando se cerró, vuelve a cero: entró después. */
+      for (const e of corte.empresas) {
+        if (congeladas.has(String(e.codigo ?? e.id))) continue;
+        if (Number((e.meses || {})[m.id] || 0) > 0) e.meses[m.id] = 0;
+      }
+    }
   }
 
   for (const p of corte.serie || []) {
