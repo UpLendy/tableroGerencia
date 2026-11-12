@@ -332,7 +332,11 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     <div>
       <div class="brand">BPM Consulting SAS BIC</div>
       <h1>Tablero gerencial</h1>
-      <div class="sub">Corte <b id="corteLbl">30 de octubre de 2026</b> · <span id="fuentesLbl">lectura directa de las plataformas de formación, trámites y Alimentia</span></div>
+      <!-- Sin fecha de relleno. La anterior decia "30 de octubre de 2026" y se
+           quedaba en pantalla mientras no hubiera sesion ni corte cargado: una
+           fecha inventada es peor que ninguna, y es justo lo que la Direccion
+           nos senalo. El dato real lo escribe el corte al llegar. -->
+      <div class="sub">Corte <b id="corteLbl">—</b> · <span id="fuentesLbl">lectura directa de las plataformas de formación, trámites y Alimentia</span></div>
     </div>
     <div class="ctrl">
       <div class="seg" id="selMes" role="group" aria-label="Periodo"></div>
