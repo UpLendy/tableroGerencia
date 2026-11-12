@@ -8,7 +8,8 @@ const iguales = (a, b, q) => {
 console.log('\n-- cuando se puede congelar --');
 iguales(sePuedeCongelar('2026-10', '2026-11-01'), false, 'el dia 1 del mes siguiente todavia no (cache de 24h)');
 iguales(sePuedeCongelar('2026-10', '2026-11-02'), true,  'el dia 2 si');
-iguales(sePuedeCongelar('2026-10', '2026-12-01'), true,  'dos meses despues si, aunque sea dia 1');
+iguales(sePuedeCongelar('2026-10', '2026-12-01'), false, 'dos meses despues ya no: esa cifra no es la de cierre');
+iguales(sePuedeCongelar('2025-10', '2026-11-12'), false, 'un ano despues menos todavia');
 iguales(sePuedeCongelar('2026-11', '2026-11-20'), false, 'el mes en curso nunca');
 iguales(sePuedeCongelar('2026-12', '2026-11-20'), false, 'un mes futuro nunca');
 
@@ -27,16 +28,15 @@ const corte = (fecha, cert, ingreso) => ({
 
 console.log('\n-- congelar --');
 let { registro, nuevos } = congelar(registroVacio(), corte('2026-11-12', 1845, 36900000));
-iguales(nuevos.map((x) => x.periodo), ['2025-10', '2026-10'], 'congela los dos cerrados, no el mes en curso');
+iguales(nuevos.map((x) => x.periodo), ['2026-10'], 'congela el mes que acaba de cerrar, no el que cerro hace un ano');
 iguales(registro.meses['2026-10'].origen, 'resumen', 'octubre entra por el resumen, que trae mas');
-iguales(registro.meses['2025-10'].origen, 'serie', 'octubre de 2025 solo esta en la serie');
+iguales(registro.meses['2025-10'], undefined, 'octubre de 2025 no entra: ya habia derivado');
 iguales(registro.meses['2026-10'].por_curso.length, 1, 'guarda el precio junto con la cifra');
 iguales(registro.meses['2026-10'].cerrado_en, '2026-11-12', 'anota cuando se cerro');
 
 console.log('\n-- de donde salio la cifra congelada --');
-iguales(registro.meses['2026-10'].al_cierre, true, 'octubre se congela el mes siguiente: es la cifra de cierre');
-iguales(registro.meses['2025-10'].al_cierre, false, 'octubre de 2025 se congela un ano tarde');
-iguales(typeof registro.meses['2025-10'].nota, 'string', 'y lo dice en el propio registro');
+iguales(registro.meses['2026-10'].al_cierre, true, 'lo congelado es siempre cifra de cierre');
+iguales(Object.keys(registro.meses), ['2026-10'], 'y no hay nada mas en el registro');
 
 console.log('\n-- no se vuelve a tocar --');
 const antes = JSON.parse(JSON.stringify(registro.meses['2026-10']));

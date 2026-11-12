@@ -51,16 +51,26 @@ function mesesEntre(a, b) {
 /**
  * ¿Se puede congelar este periodo con este corte?
  *
- * Tiene que estar cerrado —ser anterior al mes del corte— y, si el corte es
- * del mes siguiente, haber pasado del día 1. La capa de métricas cachea la
- * serie 24 horas: un corte del día 1 puede traer todavía el valor del mes
- * anterior calculado antes de medianoche, y congelar eso sería congelar un
- * número viejo para siempre.
+ * Dos condiciones, y la segunda importa más de lo que parece.
+ *
+ * Que el mes esté cerrado: ser anterior al mes del corte, y haber pasado del
+ * día 1. La capa de métricas cachea la serie 24 horas, así que un corte del
+ * día 1 puede traer todavía el valor calculado antes de medianoche, y eso
+ * quedaría congelado para siempre.
+ *
+ * Y que el corte sea del mes INMEDIATAMENTE siguiente. Un mes que cerró hace
+ * un año no se congela: su cifra de hoy no es la de cierre, porque los
+ * certificados que se mudaron de mes ya se fueron y no hay forma de
+ * recuperarlos. Congelarla sería declarar oficial un número ya derivado y
+ * perder la única cosa que este registro aporta: que la cifra guardada sea
+ * de verdad la del cierre. Los meses anteriores a este registro se quedan
+ * leyéndose en vivo, que es menos cómodo y más honesto.
  */
 export function sePuedeCongelar(periodo, fechaCorte) {
   const mesCorte = mesDe(fechaCorte);
   if (!periodo || !mesCorte || periodo >= mesCorte) return false;
-  return mesesEntre(periodo, mesCorte) > 1 || diaDe(fechaCorte) >= 2;
+  if (mesesEntre(periodo, mesCorte) !== 1) return false;
+  return diaDe(fechaCorte) >= 2;
 }
 
 /** Lo que se guarda de un mes que viene del resumen (trae todo). */
@@ -118,18 +128,10 @@ export function congelar(reg, corte) {
     if (!Number.isFinite(retrato.cert)) continue;
     retrato.cerrado_en = fecha;
     retrato.regla = corte.regla || null;
-    /* Honestidad sobre el origen de la cifra. Un mes congelado el mes
-       siguiente a su cierre guarda el valor con el que cerró de verdad. Un mes
-       que ya estaba cerrado cuando este registro empezó a existir guarda el
-       valor que la plataforma reportaba ESE día, que no es el original: los
-       certificados que se mudaron de mes antes de esa fecha ya se habían ido y
-       no hay forma de recuperarlos. Marcarlo evita que después se presente
-       como la cifra de cierre cuando no lo es. */
-    retrato.al_cierre = mesesEntre(periodo, mesDe(fecha)) === 1;
-    if (!retrato.al_cierre) {
-      retrato.nota = 'Congelado después del cierre: es el valor que la plataforma ' +
-        'reportaba el ' + fecha + ', no necesariamente el del cierre del mes.';
-    }
+    /* Siempre es cierto, porque sePuedeCongelar ya solo admite el mes
+       inmediatamente siguiente. Se escribe de todos modos: quien lea el
+       archivo dentro de un año no tiene por qué saber esa regla de memoria. */
+    retrato.al_cierre = true;
     r.meses[periodo] = retrato;
     nuevos.push(retrato);
   }

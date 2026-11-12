@@ -1,96 +1,6 @@
 {
   "version": 1,
   "meses": {
-    "2026-09": {
-      "periodo": "2026-09",
-      "cert": 1756,
-      "personas": 1709,
-      "ingreso": 34886000,
-      "origen": "resumen",
-      "canal": {
-        "emp": 1103,
-        "par": 653
-      },
-      "empresas_activas": 52,
-      "por_curso": [
-        {
-          "course_id": "5e0a8954872f0000f4004647",
-          "nombre": "Manipulación de alimentos",
-          "precio": 20000,
-          "certificados": 1425
-        },
-        {
-          "course_id": "69cafe131c643a704603cec2",
-          "nombre": "Manipulación de alimentos - Arcos Dorados",
-          "precio": 20000,
-          "certificados": 208
-        },
-        {
-          "course_id": "6aa8407f4d530241fb09ecd2",
-          "nombre": "Manipulación de alimentos - Bebidas alcohólicas (Dislicores)",
-          "precio": 14000,
-          "certificados": 39
-        },
-        {
-          "course_id": "640017b02a2ca9a7b2044c9a",
-          "nombre": "Manipulación de alimentos con enfoque en bebidas alcohólicas",
-          "precio": 20000,
-          "certificados": 19
-        },
-        {
-          "course_id": "6a5ff9517487a19421020ca2",
-          "nombre": "Manipulación de alimentos - COMLEMO",
-          "precio": 20000,
-          "certificados": 19
-        },
-        {
-          "course_id": "5fabfbdab2b79336e906b002",
-          "nombre": "Manipulación de alimentos con enfoque en Cárnicos - Basado en el Decreto 1500",
-          "precio": 20000,
-          "certificados": 18
-        },
-        {
-          "course_id": "5f639daf5ca6f4512b166e22",
-          "nombre": "Manipulación de alimentos con enfoque en lácteos",
-          "precio": 20000,
-          "certificados": 10
-        },
-        {
-          "course_id": "69c2c7a6c6b11bb8020040e2",
-          "nombre": "Manipulación de alimentos - Supermercado UNO A",
-          "precio": 20000,
-          "certificados": 7
-        },
-        {
-          "course_id": "66e310f9a50c3c7f5d0ee881",
-          "nombre": "Bioseguridad centros de estética",
-          "precio": 20000,
-          "certificados": 5
-        },
-        {
-          "course_id": "69fe62a8f8daa4fa480f9644",
-          "nombre": "PLAN DE MANEJO INTEGRAL DE RESIDUOS",
-          "precio": 20000,
-          "certificados": 4
-        },
-        {
-          "course_id": "67c868fdca533f8673b7fc1b",
-          "nombre": "Manipulación de Alimentos - BPM - Enfoque en medicamentos",
-          "precio": 20000,
-          "certificados": 1
-        },
-        {
-          "course_id": "66db8500b6b7fc4074e148c5",
-          "nombre": "Manipulación de alimentos - Celema",
-          "precio": 20000,
-          "certificados": 1
-        }
-      ],
-      "cerrado_en": "2026-11-05",
-      "regla": "virtual-metrics-v1",
-      "al_cierre": false,
-      "nota": "Congelado después del cierre: es el valor que la plataforma reportaba el 2026-11-05, no necesariamente el del cierre del mes."
-    },
     "2026-10": {
       "periodo": "2026-10",
       "cert": 1848,
@@ -161,112 +71,25 @@
       "cerrado_en": "2026-11-05",
       "regla": "virtual-metrics-v1",
       "al_cierre": true
-    },
-    "2025-11": {
-      "periodo": "2025-11",
-      "cert": 1396,
-      "personas": 1370,
-      "origen": "serie",
-      "cerrado_en": "2026-11-05",
-      "regla": "virtual-metrics-v1",
-      "al_cierre": false,
-      "nota": "Congelado después del cierre: es el valor que la plataforma reportaba el 2026-11-05, no necesariamente el del cierre del mes."
-    },
-    "2025-12": {
-      "periodo": "2025-12",
-      "cert": 1227,
-      "personas": 1183,
-      "origen": "serie",
-      "cerrado_en": "2026-11-05",
-      "regla": "virtual-metrics-v1",
-      "al_cierre": false,
-      "nota": "Congelado después del cierre: es el valor que la plataforma reportaba el 2026-11-05, no necesariamente el del cierre del mes."
-    },
-    "2026-01": {
-      "periodo": "2026-01",
-      "cert": 1805,
-      "personas": 1785,
-      "origen": "serie",
-      "cerrado_en": "2026-11-05",
-      "regla": "virtual-metrics-v1",
-      "al_cierre": false,
-      "nota": "Congelado después del cierre: es el valor que la plataforma reportaba el 2026-11-05, no necesariamente el del cierre del mes."
-    },
-    "2026-02": {
-      "periodo": "2026-02",
-      "cert": 1890,
-      "personas": 1855,
-      "origen": "serie",
-      "cerrado_en": "2026-11-05",
-      "regla": "virtual-metrics-v1",
-      "al_cierre": false,
-      "nota": "Congelado después del cierre: es el valor que la plataforma reportaba el 2026-11-05, no necesariamente el del cierre del mes."
-    },
-    "2026-03": {
-      "periodo": "2026-03",
-      "cert": 1865,
-      "personas": 1807,
-      "origen": "serie",
-      "cerrado_en": "2026-11-05",
-      "regla": "virtual-metrics-v1",
-      "al_cierre": false,
-      "nota": "Congelado después del cierre: es el valor que la plataforma reportaba el 2026-11-05, no necesariamente el del cierre del mes."
-    },
-    "2026-04": {
-      "periodo": "2026-04",
-      "cert": 1566,
-      "personas": 1509,
-      "origen": "serie",
-      "cerrado_en": "2026-11-05",
-      "regla": "virtual-metrics-v1",
-      "al_cierre": false,
-      "nota": "Congelado después del cierre: es el valor que la plataforma reportaba el 2026-11-05, no necesariamente el del cierre del mes."
-    },
-    "2026-05": {
-      "periodo": "2026-05",
-      "cert": 1490,
-      "personas": 1423,
-      "origen": "serie",
-      "cerrado_en": "2026-11-05",
-      "regla": "virtual-metrics-v1",
-      "al_cierre": false,
-      "nota": "Congelado después del cierre: es el valor que la plataforma reportaba el 2026-11-05, no necesariamente el del cierre del mes."
-    },
-    "2026-06": {
-      "periodo": "2026-06",
-      "cert": 1365,
-      "personas": 1317,
-      "origen": "serie",
-      "cerrado_en": "2026-11-05",
-      "regla": "virtual-metrics-v1",
-      "al_cierre": false,
-      "nota": "Congelado después del cierre: es el valor que la plataforma reportaba el 2026-11-05, no necesariamente el del cierre del mes."
-    },
-    "2026-07": {
-      "periodo": "2026-07",
-      "cert": 1637,
-      "personas": 1553,
-      "origen": "serie",
-      "cerrado_en": "2026-11-05",
-      "regla": "virtual-metrics-v1",
-      "al_cierre": false,
-      "nota": "Congelado después del cierre: es el valor que la plataforma reportaba el 2026-11-05, no necesariamente el del cierre del mes."
-    },
-    "2026-08": {
-      "periodo": "2026-08",
-      "cert": 1578,
-      "personas": 1563,
-      "origen": "serie",
-      "cerrado_en": "2026-11-05",
-      "regla": "virtual-metrics-v1",
-      "al_cierre": false,
-      "nota": "Congelado después del cierre: es el valor que la plataforma reportaba el 2026-11-05, no necesariamente el del cierre del mes."
     }
   },
   "actualizado_en": "2026-11-12T21:03:33.300Z",
   "sembrado": {
     "por": "pruebas/corte-offline.mjs",
     "desde": "muestras/ · volcado del 2026-11-05",
-    "nota": "Meses cerrados a partir de un volcado guardado, no de un corte programado. Las cifras son las que la plataforma reportaba ese dia."
+    "nota": "Octubre de 2026 se congelo a partir del volcado del 5 de noviembre, cinco dias despues de cerrar el mes: es su cifra de cierre y ya no existe en la plataforma, que hoy reporta una distinta. Los demas meses NO se congelaron: cerraron antes de que este registro existiera, su cifra de hoy ya venia derivada y declararla oficial habria sido enterrar un numero movido. Se siguen leyendo en vivo.",
+    "meses_descartados": [
+      "2025-11",
+      "2025-12",
+      "2026-01",
+      "2026-02",
+      "2026-03",
+      "2026-04",
+      "2026-05",
+      "2026-06",
+      "2026-07",
+      "2026-08",
+      "2026-09"
+    ]
   }
 }
