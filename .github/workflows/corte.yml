@@ -41,12 +41,18 @@ jobs:
 
       - name: Publicar si cambió
         run: |
-          if git diff --quiet -- data/corte.json; then
-            echo "El corte no cambió. No se publica nada."
+          # El registro de meses cerrados entra junto con el corte. Si no se
+          # commiteara, cada corrida empezaria con el registro vacio, volveria
+          # a congelar los mismos meses con las cifras del dia y el
+          # congelamiento no serviria para nada: lo que lo hace funcionar es
+          # que el archivo sobreviva de una corrida a la siguiente.
+          if git diff --quiet -- data/corte.json data/meses-cerrados.json \
+             && [ -z "$(git ls-files --others --exclude-standard -- data/meses-cerrados.json)" ]; then
+            echo "Ni el corte ni los meses cerrados cambiaron. No se publica nada."
             exit 0
           fi
           git config user.name  "corte-automatico"
           git config user.email "corte-automatico@users.noreply.github.com"
-          git add data/corte.json
+          git add data/corte.json data/meses-cerrados.json
           git commit -m "Corte automático $(date -u +%Y-%m-%d)"
           git push
