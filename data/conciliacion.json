@@ -9,6 +9,9 @@
       "nombre_siigo": "ARCOS DORADOS COLOMBIA S.A.S",
       "unidades": 207,
       "paquetes": 0,
+      "unidades_mes_siguiente": 329,
+      "posible_desfase": true,
+      "diferencia_si_mes_vencido": -24,
       "diferencia": -146,
       "valor_facturado": 2173500,
       "tarifa": [
@@ -25,6 +28,7 @@
       "nombre_siigo": "DISLICORES",
       "unidades": 149,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": -13,
       "valor_facturado": 2086000,
       "tarifa": [
@@ -41,6 +45,7 @@
       "nombre_siigo": "No aplica",
       "unidades": 186,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 95,
       "valor_facturado": 2046000,
       "tarifa": [
@@ -63,6 +68,7 @@
       "nombre_siigo": "FARMACIAS DE SIMILARES COLOMBIA SAS",
       "unidades": 29,
       "paquetes": 0,
+      "unidades_mes_siguiente": 19,
       "diferencia": 0,
       "valor_facturado": 507500,
       "tarifa": [
@@ -79,6 +85,7 @@
       "nombre_siigo": "SUCROAL S.A",
       "unidades": 25,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 362500,
       "tarifa": [
@@ -95,6 +102,7 @@
       "nombre_siigo": "No aplica",
       "unidades": 22,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": -1,
       "valor_facturado": 297000,
       "tarifa": [
@@ -124,6 +132,7 @@
       "nombre_siigo": "No aplica",
       "unidades": 18,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": -1,
       "valor_facturado": 297000,
       "tarifa": [
@@ -140,6 +149,7 @@
       "nombre_siigo": "VIVE CAFÉ S.A. BIC",
       "unidades": 18,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 315000,
       "tarifa": [
@@ -156,6 +166,7 @@
       "nombre_siigo": "FASALACT SAS",
       "unidades": 16,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": -1,
       "valor_facturado": 264000,
       "tarifa": [
@@ -187,6 +198,9 @@
       "nombre_siigo": "INTEGRATIVA AGROPECUARIA S.A.S",
       "unidades": 13,
       "paquetes": 0,
+      "unidades_mes_siguiente": 15,
+      "posible_desfase": true,
+      "diferencia_si_mes_vencido": -1,
       "diferencia": -3,
       "valor_facturado": 175500,
       "tarifa": [
@@ -210,6 +224,7 @@
       "nombre_siigo": "RECISERVICIOS LA COSTA S.A.S",
       "unidades": 25,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 11,
       "valor_facturado": 350000,
       "tarifa": [
@@ -226,6 +241,7 @@
       "nombre_siigo": "SURTIALIADOS S.A.S",
       "unidades": 12,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 162000,
       "tarifa": [
@@ -251,6 +267,7 @@
       "nombre_siigo": "EMPRESA POWER SERVICES LTDA",
       "unidades": 9,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": -1,
       "valor_facturado": 157500,
       "tarifa": [
@@ -267,6 +284,7 @@
       "nombre_siigo": "E&D CAFES S.A.S.",
       "unidades": 10,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 175000,
       "tarifa": [
@@ -283,6 +301,7 @@
       "nombre_siigo": "AXDA COLOMBIA SAS",
       "unidades": 10,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 160000,
       "tarifa": [
@@ -299,6 +318,7 @@
       "nombre_siigo": "OPERADORA COLOMBIANA DE CINES SAS",
       "unidades": 31,
       "paquetes": 0,
+      "unidades_mes_siguiente": 7,
       "diferencia": 22,
       "valor_facturado": 356500,
       "tarifa": [
@@ -321,6 +341,7 @@
       "nombre_siigo": "INVERSIONES RCP S.A.S",
       "unidades": 7,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 98000,
       "tarifa": [
@@ -337,6 +358,7 @@
       "nombre_siigo": "ECOVIDA INTEGRAL S.A.S",
       "unidades": 25,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 18,
       "valor_facturado": 350000,
       "tarifa": [
@@ -353,6 +375,7 @@
       "nombre_siigo": "MANEL FOODS S.A.S.",
       "unidades": 6,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 96000,
       "tarifa": [
@@ -381,6 +404,7 @@
       "nombre_siigo": "HARISSA FOOD SAS",
       "unidades": 5,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 80000,
       "tarifa": [
@@ -397,6 +421,7 @@
       "nombre_siigo": "ALADINO SALA DE JUEGOS S.A.S",
       "unidades": 5,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 77500,
       "tarifa": [
@@ -413,6 +438,7 @@
       "nombre_siigo": "RECISERVICIOS LOGISTICA CIRCULAR S.A.S.",
       "unidades": 2,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": -3,
       "valor_facturado": 28000,
       "tarifa": [
@@ -441,6 +467,7 @@
       "nombre_siigo": "No aplica",
       "unidades": 27,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 23,
       "valor_facturado": 468000,
       "tarifa": [
@@ -464,6 +491,7 @@
       "nombre_siigo": "DISTRIMARCAS AGENTE COMERCIAL SAS",
       "unidades": 4,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 62000,
       "tarifa": [
@@ -480,6 +508,7 @@
       "nombre_siigo": "GALAN Y CIA S EN C AMERICAN CHEESE  CAKE",
       "unidades": 3,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 46500,
       "tarifa": [
@@ -515,6 +544,7 @@
       "nombre_siigo": "FLORIUS S.A.S",
       "unidades": 2,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 40000,
       "tarifa": [
@@ -531,6 +561,7 @@
       "nombre_siigo": "U T ZZZ ZOE",
       "unidades": 2,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 33000,
       "tarifa": [
@@ -559,6 +590,7 @@
       "nombre_siigo": "SERVICIOS TEMPORALES DE COLOMBIA TEMPOCOLBA SOCIEDAD POR ACCIONES SIMPLIFICADA",
       "unidades": 2,
       "paquetes": 0,
+      "unidades_mes_siguiente": 2,
       "diferencia": 0,
       "valor_facturado": 28000,
       "tarifa": [
@@ -575,6 +607,7 @@
       "nombre_siigo": "R & A FOOD SAS",
       "unidades": 2,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 31000,
       "tarifa": [
@@ -591,6 +624,7 @@
       "nombre_siigo": "COLOMBIA HELADOS S.A.S",
       "unidades": 2,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 31000,
       "tarifa": [
@@ -607,6 +641,9 @@
       "nombre_siigo": "ASEOS COLOMBIANOS ASEO COLBA SA",
       "unidades": 1,
       "paquetes": 0,
+      "unidades_mes_siguiente": 2,
+      "posible_desfase": true,
+      "diferencia_si_mes_vencido": 0,
       "diferencia": -1,
       "valor_facturado": 14000,
       "tarifa": [
@@ -623,6 +660,7 @@
       "nombre_siigo": "PRO-SER COLOMBIA SAS",
       "unidades": 2,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 30000,
       "tarifa": [
@@ -663,6 +701,7 @@
       "nombre_siigo": "ASTEMPRO LTDA",
       "unidades": 1,
       "paquetes": 0,
+      "unidades_mes_siguiente": 0,
       "diferencia": 0,
       "valor_facturado": 16500,
       "tarifa": [
@@ -1145,7 +1184,8 @@
     "sin_factura_en_el_periodo": 2,
     "sin_nit": 19,
     "nit_no_resuelto": 3,
-    "solo_en_siigo": 74
+    "solo_en_siigo": 74,
+    "posible_desfase": 3
   },
   "datos_por_corregir": {
     "sin_nit": [
@@ -1266,8 +1306,10 @@
       }
     ]
   },
+  "periodo_siguiente": "2026-11",
+  "facturas_del_siguiente": 96,
   "periodo": "2026-10",
-  "generado_en": "2026-11-18T15:53:44.389Z",
+  "generado_en": "2026-11-18T17:17:36.684Z",
   "facturas_del_periodo": 225,
   "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
   "nota_periodo": "Se cruza el último mes cerrado, no el mes en curso: la facturación va detrás de la certificación y un mes a medias daría un descuadre falso."
