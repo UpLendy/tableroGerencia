@@ -391,6 +391,23 @@ console.log('\n-- la serie de unidades facturadas por mes --');
 
 console.log('\n-- el saldo acumulado --');
 {
+  /* El fallo que casi se publica: la plataforma guarda el NIT con digito de
+     verificacion y Siigo sin el, asi que buscar la serie por el documento
+     crudo no encuentra nada y TODA empresa sale con cero facturado, como si
+     no se le hubiera facturado nunca. */
+  const historia = { meses: { '2026-10': { por_empresa: { a: 353 } } } };
+  const unidades = new Map([['800244387', { '2026-11': 329 }]]);
+  const empresas = [{ codigo: 'a', nombre: 'ARCOS', nit: '8002443871' }];
+  const terceros = new Map([['800244387', 'ARCOS DORADOS COLOMBIA S.A']]);
+
+  const sinMaestro = saldoAcumulado({ historia, unidades, empresas, hasta: '2026-10', meses: 1 });
+  iguales(sinMaestro.empresas[0].facturado, 0, 'sin el maestro de terceros no encuentra la serie');
+
+  const con = saldoAcumulado({ historia, unidades, empresas, terceros, hasta: '2026-10', meses: 1 });
+  iguales(con.empresas[0].facturado, 329, 'con el maestro resuelve el digito y encuentra las 329');
+  iguales(con.empresas[0].saldo, 24, 'y el saldo son 24, no 353');
+}
+{
   const historia = { meses: {
     '2026-08': { por_empresa: { a: 100, b: 50 } },
     '2026-09': { por_empresa: { a: 100, b: 50 } },

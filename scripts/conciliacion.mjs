@@ -286,10 +286,15 @@ export function facturadoPorMes(facturas) {
  * @param historia  { "2026-10": { por_empresa: { codigo: cert } }, ... }
  * @param unidades  Map nit -> { "2026-11": unidades }   (de unidadesPorTerceroYMes)
  * @param empresas  las del corte, con codigo, nombre y nit
+ * @param terceros  el maestro de Siigo, para resolver el NIT. HACE FALTA: la
+ *                  plataforma guarda el documento a veces con digito de
+ *                  verificacion y Siigo nunca, asi que buscar la serie de
+ *                  facturas por el NIT crudo no encuentra nada y toda empresa
+ *                  sale con cero facturado.
  * @param hasta     ultimo mes de SERVICIO que entra (normalmente el cerrado)
  * @param meses     cuantos meses de servicio mirar hacia atras
  */
-export function saldoAcumulado({ historia, unidades, empresas, hasta, meses = 6 }) {
+export function saldoAcumulado({ historia, unidades, empresas, terceros, hasta, meses = 6 }) {
   const [aa, mm] = String(hasta).split('-').map(Number);
   const mesesServicio = [];
   for (let i = meses - 1; i >= 0; i--) {
@@ -305,9 +310,13 @@ export function saldoAcumulado({ historia, unidades, empresas, hasta, meses = 6 
   const conDatos = mesesServicio.filter((m) => historia?.meses?.[m]);
 
   const filas = [];
+  let sinNit = 0;
   for (const e of (empresas || [])) {
     const cod = String(e.codigo);
-    const nit = digitos(e.nit);
+    /* Mismo camino que el cruce: se prueba el documento tal cual y sin el
+       digito de verificacion contra el maestro de Siigo. */
+    const nit = terceros ? resolverNit(e.nit, terceros) : digitos(e.nit);
+    if (!nit && e.nit) sinNit++;
     const serie = (nit && unidades.get(nit)) || {};
     let cert = 0, fact = 0;
     const detalle = {};
@@ -337,6 +346,10 @@ export function saldoAcumulado({ historia, unidades, empresas, hasta, meses = 6 
     resumen: {
       empresas: filas.length,
       con_saldo: deben.length,
+      /* Las que no se pudieron emparejar con Siigo salen con su certificado y
+         cero facturado, lo que las haria parecer deudoras sin serlo. Se
+         cuentan aparte para que el total se pueda leer con eso delante. */
+      sin_nit_resuelto: sinNit,
       certificado: filas.reduce((a, f) => a + f.certificado, 0),
       facturado: filas.reduce((a, f) => a + f.facturado, 0),
       saldo: deben.reduce((a, f) => a + f.saldo, 0),

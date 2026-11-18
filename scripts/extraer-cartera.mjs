@@ -226,7 +226,7 @@ try {
     const todasLasEmpresas = (corte.empresas || [])
       .map((e) => ({ codigo: e.codigo, nombre: e.nombre, nit: e.nit }));
     conc.saldo = saldoAcumulado({
-      historia, unidades: serieUnidades, empresas: todasLasEmpresas,
+      historia, unidades: serieUnidades, empresas: todasLasEmpresas, terceros,
       hasta: periodo, meses: 6,
     });
     const rs = conc.saldo.resumen;
