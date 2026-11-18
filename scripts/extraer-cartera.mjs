@@ -21,7 +21,8 @@
  */
 import { mkdir, writeFile } from 'node:fs/promises';
 import { crearCliente, faltaConfiguracion } from './siigo.mjs';
-import { cartera, facturadoPorMes, comprasPorTercero, conciliar } from './conciliacion.mjs';
+import { cartera, facturadoPorMes, comprasPorTercero, conciliar,
+         unidadesPorTerceroYMes } from './conciliacion.mjs';
 import { readFile } from 'node:fs/promises';
 
 const args = process.argv.slice(2);
@@ -167,6 +168,21 @@ try {
                          comprasPorTercero(delSiguiente),
                          certAnterior.size ? certAnterior : null);
   conc.periodo_anterior = certAnterior.size ? anterior : null;
+
+  /* La serie de unidades facturadas por mes, para las empresas del cruce. Es
+     lo que deja ver si a un cliente se le factura al dia, a mes vencido, o
+     dos meses juntos, sin que nadie tenga que deducirlo de dos marcas. Seis
+     meses bastan para que el patron se vea y no infla el archivo. */
+  const serieUnidades = unidadesPorTerceroYMes(vigentes);
+  const meses6 = [];
+  for (let i = 5; i >= -1; i--) {
+    meses6.push(new Date(Date.UTC(aa, mm - 1 - i, 1)).toISOString().slice(0, 7));
+  }
+  conc.meses_serie = meses6;
+  for (const e of conc.empresas) {
+    const s = e.nit && serieUnidades.get(String(e.nit));
+    if (s) e.facturado_por_mes = Object.fromEntries(meses6.map((k) => [k, s[k] || 0]));
+  }
   conc.periodo_siguiente = siguiente;
   conc.facturas_del_siguiente = delSiguiente.length;
   conc.periodo = periodo;

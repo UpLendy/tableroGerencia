@@ -1,8 +1,8 @@
 /* Pruebas de la conciliación. Sin red: los datos van escritos aquí, con la
    forma real que devuelve Siigo. Lo que se comprueba no es que el código
    corra, sino que NO afirme cosas que no puede saber. */
-import { resolverNit, comprasPorTercero, conciliar, cartera, CONSUMIDOR_FINAL }
-  from '../scripts/conciliacion.mjs';
+import { resolverNit, comprasPorTercero, conciliar, cartera, CONSUMIDOR_FINAL,
+         unidadesPorTerceroYMes } from '../scripts/conciliacion.mjs';
 
 let fallos = 0;
 const iguales = (a, b, q) => {
@@ -362,6 +362,31 @@ console.log('\n-- el caso simetrico: facturado de mas --');
   const c = conciliar(emp, comprasPorTercero(octubre), t, new Map(), new Map());
   iguales(c.empresas[0].facturado_corresponde_al_mes_anterior, undefined,
     'empresa sin historia el mes anterior: no se marca');
+}
+
+console.log('\n-- la serie de unidades facturadas por mes --');
+{
+  const fs = [
+    factura('800244387', [{ code: '21002', quantity: 207, price: 10500 }], { date: '2026-10-20' }),
+    factura('800244387', [{ code: '21002', quantity: 329, price: 10500 }], { date: '2026-11-14' }),
+    factura('800244387', [{ code: '21002', quantity: 100, price: 10500 }], { date: '2026-09-10' }),
+    factura('800244387', [{ code: '21002', quantity: 50,  price: 10500 }], { date: '2026-09-25' }),
+    /* Una anulada no cuenta, y una linea que no es curso tampoco. */
+    factura('800244387', [{ code: '21002', quantity: 999, price: 10500 }], { date: '2026-10-05', annulled: true }),
+    factura('800244387', [{ code: '21010', quantity: 7,   price: 1000  }], { date: '2026-10-05' }),
+  ];
+  const m = unidadesPorTerceroYMes(fs);
+  const s = m.get('800244387');
+  iguales(s['2026-09'], 150, 'suma las dos facturas de septiembre');
+  iguales(s['2026-10'], 207, 'octubre, sin la anulada ni la linea que no es curso');
+  iguales(s['2026-11'], 329, 'y noviembre');
+  iguales(m.size, 1, 'un solo tercero');
+}
+{
+  const m = unidadesPorTerceroYMes([
+    factura('900111222', [{ code: '21002', quantity: 5, price: 1000 }], { date: '' }),
+  ]);
+  iguales(m.size, 0, 'una factura sin fecha no entra en ninguna serie');
 }
 
 console.log(fallos ? `\n  ${fallos} FALLO(S)\n` : '\n  todo bien\n');

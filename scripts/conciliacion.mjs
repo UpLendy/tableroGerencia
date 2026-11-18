@@ -189,6 +189,34 @@ export function cartera(facturas, terceros, hoy) {
  * cobrada en septiembre. Es la unica lectura posible con lo que la API
  * entrega, y por eso va dicho en el propio dato.
  */
+/**
+ * Unidades de curso facturadas por mes y por tercero.
+ *
+ * Las marcas de "mes vencido" contestan si una hipotesis cuadra, pero no
+ * dejan ver el patron, y el patron es lo que de verdad explica. A Arcos
+ * Dorados noviembre le cuadra con octubre y octubre no le cuadra con
+ * septiembre: con dos marcas eso es una contradiccion; con la serie delante
+ * es una pregunta concreta que BPM puede contestar mirando sus facturas.
+ *
+ * No interpreta nada: cuenta unidades por mes y las deja a la vista.
+ */
+export function unidadesPorTerceroYMes(facturas) {
+  const m = new Map();
+  for (const f of facturas) {
+    if (f.annulled === true) continue;
+    const nit = digitos(f?.customer?.identification);
+    const mes = String(f.date || '').slice(0, 7);
+    if (!nit || !/^[0-9]{4}-[0-9]{2}$/.test(mes)) continue;
+    for (const it of (f.items || [])) {
+      if (!CODIGOS.individual.includes(String(it.code))) continue;
+      if (!m.has(nit)) m.set(nit, {});
+      const e = m.get(nit);
+      e[mes] = (e[mes] || 0) + num(it.quantity);
+    }
+  }
+  return m;
+}
+
 export function facturadoPorMes(facturas) {
   const meses = {};
   for (const f of facturas) {
