@@ -1,0 +1,131 @@
+{
+  "regla": "conciliacion-v1",
+  "corte": "2026-11-18",
+  "total": 81504202.33,
+  "terceros": 103,
+  "por_antiguedad": {
+    "hasta 30": 43249713,
+    "31 a 60": 8280309.77,
+    "61 a 90": 1348760,
+    "mas de 90": 28625419.56,
+    "sin fecha": 0
+  },
+  "mayores": [
+    {
+      "nit": "900155107",
+      "nombre": "CENCOSUD COLOMBIA S.A",
+      "saldo": 27832910,
+      "facturas": 16,
+      "mas_vieja_dias": 35
+    },
+    {
+      "nit": "901120943",
+      "nombre": "MALL PLAZA  SERVICIOS  S A S",
+      "saldo": 20658400,
+      "facturas": 28,
+      "mas_vieja_dias": 519
+    },
+    {
+      "nit": "800244387",
+      "nombre": "ARCOS DORADOS COLOMBIA S.A.S",
+      "saldo": 3454500,
+      "facturas": 1,
+      "mas_vieja_dias": 15
+    },
+    {
+      "nit": "901071157",
+      "nombre": "INTEGRATIVA AGROPECUARIA S.A.S",
+      "saldo": 2249100,
+      "facturas": 4,
+      "mas_vieja_dias": 55
+    },
+    {
+      "nit": "890916575",
+      "nombre": "DISLICORES",
+      "saldo": 2086000,
+      "facturas": 1,
+      "mas_vieja_dias": 26
+    },
+    {
+      "nit": "900641156",
+      "nombre": "No aplica",
+      "saldo": 1594500,
+      "facturas": 7,
+      "mas_vieja_dias": 471
+    },
+    {
+      "nit": "900533674",
+      "nombre": "CARNICOS EL HATO SAS",
+      "saldo": 1485000,
+      "facturas": 1,
+      "mas_vieja_dias": 41
+    },
+    {
+      "nit": "901299445",
+      "nombre": "TIENDAS GUAYACAN S.A.S",
+      "saldo": 1418480,
+      "facturas": 9,
+      "mas_vieja_dias": 547
+    },
+    {
+      "nit": "900149693",
+      "nombre": "DECAMERON CINCO HERRADURAS S.A.S.",
+      "saldo": 1348500,
+      "facturas": 3,
+      "mas_vieja_dias": 322
+    },
+    {
+      "nit": "900229503",
+      "nombre": "SERVICIOS DE ASEO, CAFETERIA, MANTENIMIENTO INSTITUCIONAL, OUTSOURCING SEASIN LIMITADA",
+      "saldo": 1283500,
+      "facturas": 4,
+      "mas_vieja_dias": 258
+    },
+    {
+      "nit": "810000870",
+      "nombre": "ALADINO SALA DE JUEGOS S.A.S",
+      "saldo": 1112800,
+      "facturas": 2,
+      "mas_vieja_dias": 26
+    },
+    {
+      "nit": "810004836",
+      "nombre": "INVERSIONES AVICOLA SANTAGUEDA S.A.S.",
+      "saldo": 990000,
+      "facturas": 1,
+      "mas_vieja_dias": 22
+    },
+    {
+      "nit": "900073254",
+      "nombre": "CENTRO ASEO MANTENIMIENTO PROFESIONAL S.A.S",
+      "saldo": 957000,
+      "facturas": 2,
+      "mas_vieja_dias": 292
+    },
+    {
+      "nit": "901216537",
+      "nombre": "No aplica",
+      "saldo": 927000,
+      "facturas": 6,
+      "mas_vieja_dias": 49
+    },
+    {
+      "nit": "9004581672",
+      "nombre": "MAAZ ALTERNATIVA SAS",
+      "saldo": 778000,
+      "facturas": 6,
+      "mas_vieja_dias": 292
+    }
+  ],
+  "generado_en": "2026-11-18T09:58:12.165Z",
+  "ventana": {
+    "desde": "2024-11-01",
+    "hasta": "2026-11-18",
+    "meses": 24
+  },
+  "facturas_revisadas": 3947,
+  "fuente": "api.siigo.com · facturas de venta",
+  "tiempos_ms": {
+    "total": 39334
+  }
+}
