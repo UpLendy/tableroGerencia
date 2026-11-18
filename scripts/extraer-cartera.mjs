@@ -152,8 +152,21 @@ try {
   const [a, m] = periodo.split('-').map(Number);
   const siguiente = new Date(Date.UTC(a, m, 1)).toISOString().slice(0, 7);
   const delSiguiente = vigentes.filter((f) => String(f.date || '').slice(0, 7) === siguiente);
+  /* Lo certificado el mes ANTERIOR, por empresa. Sale del mismo corte: desde
+     hoy transporta tres meses justamente para esto. Si no esta —un corte
+     viejo, o la fuente no respondio— el cruce sale igual, sin esa columna. */
+  const [aa, mm] = periodo.split('-').map(Number);
+  const anterior = new Date(Date.UTC(aa, mm - 2, 1)).toISOString().slice(0, 7);
+  const certAnterior = new Map();
+  for (const e of (corte.empresas || [])) {
+    const n = Number((e.meses || {})[anterior] || 0);
+    if (n > 0) certAnterior.set(String(e.codigo), n);
+  }
+
   const conc = conciliar(empresas, comprasPorTercero(delMes), terceros,
-                         comprasPorTercero(delSiguiente));
+                         comprasPorTercero(delSiguiente),
+                         certAnterior.size ? certAnterior : null);
+  conc.periodo_anterior = certAnterior.size ? anterior : null;
   conc.periodo_siguiente = siguiente;
   conc.facturas_del_siguiente = delSiguiente.length;
   conc.periodo = periodo;

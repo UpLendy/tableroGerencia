@@ -329,5 +329,40 @@ console.log('\n-- las que van dentro de la factura a consumidor final --');
   iguales(c.empresas.length, r.total, 'y hay una fila por empresa');
 }
 
+console.log('\n-- el caso simetrico: facturado de mas --');
+{
+  /* Royal Films: certifica 91 en octubre y se le facturan 186. BPM pregunta
+     si eso es el servicio de septiembre facturado en octubre, o
+     certificaciones hechas por fuera de la plataforma. Si en septiembre
+     certifico ~186, es lo primero. */
+  const octubre = [factura('900333444', [{ code: '21002', quantity: 186, price: 11000 }])];
+  const emp = [{ codigo: 'rf', nombre: 'ROYAL FILMS', nit: '900333444', certificados: 91 }];
+  const t = new Map([['900333444', 'ROYAL FILMS S.A.S']]);
+
+  const sinAnterior = conciliar(emp, comprasPorTercero(octubre), t);
+  iguales(sinAnterior.empresas[0].certificado_mes_anterior, undefined,
+    'sin el mes anterior no se afirma nada');
+
+  const cuadra = conciliar(emp, comprasPorTercero(octubre), t, new Map(), new Map([['rf', 180]]));
+  iguales(cuadra.empresas[0].certificado_mes_anterior, 180, 'se publica lo certificado en septiembre');
+  iguales(cuadra.empresas[0].facturado_corresponde_al_mes_anterior, true,
+    '186 facturadas contra 180 certificadas el mes anterior: cuadra');
+
+  const noCuadra = conciliar(emp, comprasPorTercero(octubre), t, new Map(), new Map([['rf', 20]]));
+  iguales(noCuadra.empresas[0].facturado_corresponde_al_mes_anterior, undefined,
+    'si en septiembre certifico 20, lo facturado no viene de alli');
+  iguales(noCuadra.empresas[0].certificado_mes_anterior, 20,
+    'pero el dato se publica igual, para que se vea');
+}
+{
+  /* Sin dato del mes anterior no se inventa una explicacion. */
+  const octubre = [factura('900333444', [{ code: '21002', quantity: 186, price: 11000 }])];
+  const emp = [{ codigo: 'rf', nombre: 'ROYAL FILMS', nit: '900333444', certificados: 91 }];
+  const t = new Map([['900333444', 'ROYAL FILMS']]);
+  const c = conciliar(emp, comprasPorTercero(octubre), t, new Map(), new Map());
+  iguales(c.empresas[0].facturado_corresponde_al_mes_anterior, undefined,
+    'empresa sin historia el mes anterior: no se marca');
+}
+
 console.log(fallos ? `\n  ${fallos} FALLO(S)\n` : '\n  todo bien\n');
 process.exit(fallos ? 1 : 0);

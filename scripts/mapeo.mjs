@@ -310,7 +310,12 @@ function armarYoy(serie, mes) {
 }
 
 export function armarCorte(m, narrativa = {}, fallaron = {}, extras = {}) {
-  const certPorMes = { prev: m.certificaciones_prev, act: m.certificaciones };
+  /* Tres meses para las empresas, dos para lo que se pinta. El mes -2 entra
+     solo para que el cruce contra Siigo pueda mirar hacia atras; el tablero
+     sigue mostrando el mes en curso y el anterior, como siempre.
+     Si la fuente no respondio, se sigue sin el: no es obligatoria. */
+  const certPorMes = { act: m.certificaciones, prev: m.certificaciones_prev,
+    ...(m.certificaciones_prev2 ? { prev2: m.certificaciones_prev2 } : {}) };
   const meses = [
     armarMes(m.certificaciones_prev, m.empresas_prev || null),
     armarMes(m.certificaciones, m.empresas || null),

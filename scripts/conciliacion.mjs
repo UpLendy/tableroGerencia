@@ -227,12 +227,18 @@ export function facturadoPorMes(facturas) {
  * factura de noviembre. Cruzar solo por fecha de factura los declara
  * descuadrados cuando no lo estan.
  *
- * Aqui NO se adivina cual cliente va a mes vencido: se publican las dos
- * cifras y se marca el caso en el que la del mes siguiente explica la
- * diferencia. Quien decide si eso es un desfase o un descuadre de verdad es
- * BPM, que es quien sabe como le factura a cada quien.
+ * `certAnterior` es un Map de codigo de empresa a lo que certifico el mes
+ * ANTERIOR. Sirve para el caso simetrico, que BPM pidio mirar: una empresa a
+ * la que en octubre se le factura mas de lo que certifico en octubre puede
+ * estar facturada a mes vencido tambien —lo de octubre seria el servicio de
+ * septiembre— o puede estar certificando por fuera de la plataforma. Son dos
+ * explicaciones muy distintas y hay que poder distinguirlas.
+ *
+ * Aqui NO se adivina cual cliente va a mes vencido: se publican las cifras y
+ * se marca el caso en el que cuadran. Quien decide si eso es un desfase o un
+ * descuadre de verdad es BPM, que es quien sabe como le factura a cada quien.
  */
-export function conciliar(empresas, compras, terceros, comprasSiguiente) {
+export function conciliar(empresas, compras, terceros, comprasSiguiente, certAnterior) {
   const filas = [];
   const sinNit = [], noResuelto = [], soloEnSiigo = [];
   const usados = new Set();
@@ -305,10 +311,22 @@ export function conciliar(empresas, compras, terceros, comprasSiguiente) {
       Math.abs(cert - sigSueltas) / cert <= 0.15 &&
       Math.abs(cert - sigSueltas) < Math.abs(cert - sueltas);
 
+    /* El caso simetrico: lo facturado ESTE mes contra lo certificado el mes
+       ANTERIOR. Si cuadran, a esta empresa se le factura a mes vencido y lo
+       de este mes es el servicio del anterior. Si no cuadran y ademas se
+       facturo de mas, la pregunta es otra: de donde salieron esas
+       certificaciones que la plataforma no vio. */
+    let certPrev = null;
+    if (certAnterior) certPrev = num(certAnterior.get(String(emp.codigo)) ?? 0);
+    const cuadraConAnterior = paquetes === 0 && certPrev !== null && certPrev > 0 &&
+      sueltas > 0 && Math.abs(certPrev - sueltas) / certPrev <= 0.15;
+
     filas.push({
       ...base, nit, nombre_siigo: nombreSiigo,
       unidades: sueltas, paquetes,
       ...(sigSueltas !== null ? { unidades_mes_siguiente: sigSueltas } : {}),
+      ...(certPrev !== null ? { certificado_mes_anterior: certPrev } : {}),
+      ...(cuadraConAnterior ? { facturado_corresponde_al_mes_anterior: true } : {}),
       ...(desfase ? {
         posible_desfase: true,
         diferencia_si_mes_vencido: sigSueltas - cert,

@@ -18,6 +18,14 @@ export function llamadasDe(periodo) {
   const prev = new Date(Date.UTC(anio, mes - 2, 1));
   const aPrev = prev.getUTCFullYear(), mPrev = prev.getUTCMonth() + 1;
 
+  /* Y el anterior a ese. Hace falta para el cruce contra Siigo: para saber si
+     lo facturado en octubre corresponde al servicio de septiembre, hay que
+     tener las certificaciones de septiembre por empresa. Con solo dos meses,
+     el cruce de octubre no puede mirar hacia atras y las empresas facturadas
+     por adelantado salen descuadradas sin estarlo. Es una llamada mas. */
+  const prev2 = new Date(Date.UTC(anio, mes - 3, 1));
+  const aPrev2 = prev2.getUTCFullYear(), mPrev2 = prev2.getUTCMonth() + 1;
+
   /* 24 meses: hacen falta los doce anteriores para comparar contra el año pasado */
   const desdeSerie = new Date(Date.UTC(anio, mes - 24, 1)).toISOString().slice(0, 7);
 
@@ -43,6 +51,7 @@ export function llamadasDe(periodo) {
   return [
     { nombre: 'certificaciones',      ruta: 'certificaciones', params: { year: anio,  month: mes  } },
     { nombre: 'certificaciones_prev', ruta: 'certificaciones', params: { year: aPrev, month: mPrev } },
+    { nombre: 'certificaciones_prev2',ruta: 'certificaciones', params: { year: aPrev2, month: mPrev2 } },
     { nombre: 'empresas',             ruta: 'empresas',        params: { year: anio,  month: mes  } },
     { nombre: 'empresas_prev',        ruta: 'empresas',        params: { year: aPrev, month: mPrev } },
     { nombre: 'recompra',             ruta: 'recompra',        params: { year: anio,  month: mes  } },
