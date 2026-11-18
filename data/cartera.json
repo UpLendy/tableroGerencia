@@ -656,11 +656,25 @@
       }
     },
     {
-      "nit": "860007627",
-      "nombre": "COMPAÑIA DE JESUS",
+      "nit": "901331542",
+      "nombre": "UNION TEMPORAL OPERACION NEVADOS",
       "saldo": 119000,
       "facturas": 1,
-      "mas_vieja_dias": 14,
+      "mas_vieja_dias": 5,
+      "por_antiguedad": {
+        "hasta 30": 119000,
+        "31 a 60": 0,
+        "61 a 90": 0,
+        "mas de 90": 0,
+        "sin fecha": 0
+      }
+    },
+    {
+      "nit": "901749078",
+      "nombre": "SUPER POLLO AL CARBON MALL PLAZA S.A.S",
+      "saldo": 119000,
+      "facturas": 1,
+      "mas_vieja_dias": 5,
       "por_antiguedad": {
         "hasta 30": 119000,
         "31 a 60": 0,
@@ -684,25 +698,11 @@
       }
     },
     {
-      "nit": "901331542",
-      "nombre": "UNION TEMPORAL OPERACION NEVADOS",
+      "nit": "860007627",
+      "nombre": "COMPAÑIA DE JESUS",
       "saldo": 119000,
       "facturas": 1,
-      "mas_vieja_dias": 5,
-      "por_antiguedad": {
-        "hasta 30": 119000,
-        "31 a 60": 0,
-        "61 a 90": 0,
-        "mas de 90": 0,
-        "sin fecha": 0
-      }
-    },
-    {
-      "nit": "901749078",
-      "nombre": "SUPER POLLO AL CARBON MALL PLAZA S.A.S",
-      "saldo": 119000,
-      "facturas": 1,
-      "mas_vieja_dias": 5,
+      "mas_vieja_dias": 14,
       "por_antiguedad": {
         "hasta 30": 119000,
         "31 a 60": 0,
@@ -1505,7 +1505,7 @@
       "mas_vieja_dias": 292
     }
   ],
-  "generado_en": "2026-11-18T17:17:36.661Z",
+  "generado_en": "2026-11-18T19:18:28.197Z",
   "ventana": {
     "desde": "2024-11-01",
     "hasta": "2026-11-18",
@@ -1987,7 +1987,7 @@
       "cobrado": 110807774.8
     },
     "2025-10": {
-      "facturado": 54111028.27,
+      "facturado": 54111028.269999996,
       "saldo": 210000,
       "facturas": 167,
       "por_codigo": {
@@ -2024,7 +2024,7 @@
           "valor": 595000
         }
       },
-      "cobrado": 53901028.27
+      "cobrado": 53901028.269999996
     },
     "2025-09": {
       "facturado": 49072655,
@@ -2433,6 +2433,6 @@
   },
   "nota_facturado": "Incluye todo lo que BPM factura: certificaciones, tramites INVIMA, asesorias presenciales y apto medico. No es comparable con el valor a precio de lista del tablero, que solo cuenta certificaciones.",
   "tiempos_ms": {
-    "total": 115439
+    "total": 61123
   }
 }

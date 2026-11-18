@@ -195,6 +195,10 @@ try {
   console.log('      certifican sin facturar  ' + r.certifican_sin_facturar);
   console.log('      sin factura en el mes    ' + r.sin_factura_en_el_periodo);
   console.log('      sin NIT / no resuelto    ' + r.sin_nit + ' / ' + r.nit_no_resuelto);
+  if (r.via_consumidor_final) {
+    console.log('      en consumidor final      ' + r.via_consumidor_final +
+      '   (no se les busca factura propia)');
+  }
   console.log('      solo en Siigo            ' + r.solo_en_siigo);
   if (r.posible_desfase) {
     console.log('      de las que difieren, ' + r.posible_desfase +

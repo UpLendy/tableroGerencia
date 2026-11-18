@@ -243,8 +243,7 @@
       "codigo": "14f27a",
       "nombre": "GESA  GESTIONES ADMINISTRATIVAS & TALENTO HUMANO SAS",
       "certificados": 15,
-      "dni": "9017939810",
-      "estado": "nit_no_resuelto",
+      "estado": "via_consumidor_final",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
     },
@@ -290,10 +289,7 @@
       "codigo": "564a3b",
       "nombre": "PUNTO EMPLEO S.A.S.",
       "certificados": 12,
-      "nit": "801002775",
-      "nombre_siigo": "PUNTO EMPLEO S.A.S",
-      "unidades": 0,
-      "estado": "sin_factura_en_el_periodo",
+      "estado": "via_consumidor_final",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
     },
@@ -989,15 +985,15 @@
       "valor": 231000
     },
     {
-      "nit": "901226431",
-      "nombre": "MERCAPLAZA RAMIREZ GONZALEZ S.A.S",
-      "unidades": 1,
-      "valor": 200000
-    },
-    {
       "nit": "10246343",
       "nombre": "LUIS ALCIDES SALAZAR BUENO",
       "unidades": 2,
+      "valor": 200000
+    },
+    {
+      "nit": "901226431",
+      "nombre": "MERCAPLAZA RAMIREZ GONZALEZ S.A.S",
+      "unidades": 1,
       "valor": 200000
     },
     {
@@ -1055,8 +1051,8 @@
       "valor": 140000
     },
     {
-      "nit": "901147428",
-      "nombre": "ATRACCIONES MECANICAS S.A.S",
+      "nit": "1075316605",
+      "nombre": "JACOBO ARANGO TABARES",
       "unidades": 1,
       "valor": 100000
     },
@@ -1067,38 +1063,8 @@
       "valor": 100000
     },
     {
-      "nit": "1075316605",
-      "nombre": "JACOBO ARANGO TABARES",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "900631190",
-      "nombre": "ALIMENTOS Y BEBIDAS ALYCA S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "901360781",
-      "nombre": "COSTIFOOD S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1053817691",
-      "nombre": "MARIA PAULINA ARANGO BOTERO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1053853162",
-      "nombre": "TATIANA QUIRAMA GIRALDO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1053827372",
-      "nombre": "JUAN ALEJANDRO GONZALEZ CASTAÑO",
+      "nit": "901147428",
+      "nombre": "ATRACCIONES MECANICAS S.A.S",
       "unidades": 1,
       "valor": 100000
     },
@@ -1109,20 +1075,14 @@
       "valor": 100000
     },
     {
-      "nit": "24731045",
-      "nombre": "MARIA GLADIS CASTRO QUICENO",
+      "nit": "1053817691",
+      "nombre": "MARIA PAULINA ARANGO BOTERO",
       "unidades": 1,
       "valor": 100000
     },
     {
       "nit": "902059437",
       "nombre": "ROCKET LAB S.A.S.",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "25109229",
-      "nombre": "MARIA MELIDA TABORDA MURILLO",
       "unidades": 1,
       "valor": 100000
     },
@@ -1139,8 +1099,44 @@
       "valor": 100000
     },
     {
+      "nit": "25109229",
+      "nombre": "MARIA MELIDA TABORDA MURILLO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "900631190",
+      "nombre": "ALIMENTOS Y BEBIDAS ALYCA S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1053853162",
+      "nombre": "TATIANA QUIRAMA GIRALDO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901360781",
+      "nombre": "COSTIFOOD S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
       "nit": "65795368",
       "nombre": "DIANA RAMIREZ CASTRO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "24731045",
+      "nombre": "MARIA GLADIS CASTRO QUICENO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1053827372",
+      "nombre": "JUAN ALEJANDRO GONZALEZ CASTAÑO",
       "unidades": 1,
       "valor": 100000
     },
@@ -1157,15 +1153,15 @@
       "valor": 90000
     },
     {
-      "nit": "900192134",
-      "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
-      "unidades": 5,
-      "valor": 80000
-    },
-    {
       "nit": "860035200",
       "nombre": "ATALAYA 1 SECURITY GROUP LTDA",
       "unidades": 4,
+      "valor": 80000
+    },
+    {
+      "nit": "900192134",
+      "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
+      "unidades": 5,
       "valor": 80000
     },
     {
@@ -1271,6 +1267,12 @@
       "valor": 16000
     },
     {
+      "nit": "901806035",
+      "nombre": "EL GURU NUTRICIONAL S.A.S",
+      "unidades": 1,
+      "valor": 14500
+    },
+    {
       "nit": "900694108",
       "nombre": "GRUPO SLAM SAS",
       "unidades": 1,
@@ -1281,12 +1283,6 @@
       "nombre": "INVERSIONES PAYSANDU S.A.S",
       "unidades": 1,
       "valor": 14500
-    },
-    {
-      "nit": "901806035",
-      "nombre": "EL GURU NUTRICIONAL S.A.S",
-      "unidades": 1,
-      "valor": 14500
     }
   ],
   "resumen": {
@@ -1295,9 +1291,10 @@
     "difieren": 14,
     "no_comparables": 0,
     "certifican_sin_facturar": 0,
-    "sin_factura_en_el_periodo": 2,
+    "sin_factura_en_el_periodo": 1,
     "sin_nit": 19,
-    "nit_no_resuelto": 3,
+    "nit_no_resuelto": 2,
+    "via_consumidor_final": 2,
     "solo_en_siigo": 74,
     "posible_desfase": 3,
     "sin_facturar": 45,
@@ -1409,12 +1406,6 @@
         "dni": "8320084649"
       },
       {
-        "codigo": "14f27a",
-        "nombre": "GESA  GESTIONES ADMINISTRATIVAS & TALENTO HUMANO SAS",
-        "certificados": 15,
-        "dni": "9017939810"
-      },
-      {
         "codigo": "7d089c",
         "nombre": "MERCADOS  UNO A",
         "certificados": 2,
@@ -1425,7 +1416,7 @@
   "periodo_siguiente": "2026-11",
   "facturas_del_siguiente": 96,
   "periodo": "2026-10",
-  "generado_en": "2026-11-18T17:17:36.684Z",
+  "generado_en": "2026-11-18T19:18:28.221Z",
   "facturas_del_periodo": 225,
   "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
   "nota_periodo": "Se cruza el último mes cerrado, no el mes en curso: la facturación va detrás de la certificación y un mes a medias daría un descuadre falso."
