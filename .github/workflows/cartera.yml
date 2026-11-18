@@ -1,0 +1,70 @@
+name: Cartera desde Siigo
+
+# A las 6:17 a. m. hora de Bogotá (11:17 UTC), casi dos horas después del
+# corte. Separado a propósito: si los dos empujaran al repositorio a la vez,
+# el segundo se cae por conflicto.
+#
+# Y va en su propio flujo porque no depende de la plataforma de formación:
+# la cartera sale entera de Siigo y tiene que poder correr aunque el corte
+# esté bloqueado, que es exactamente lo que pasa ahora.
+on:
+  schedule:
+    - cron: "17 11 * * *"
+  workflow_dispatch:
+    inputs:
+      meses:
+        description: "Meses hacia atrás a revisar (vacío = 24)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publica-datos
+  cancel-in-progress: false
+
+jobs:
+  cartera:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: actions/setup-node@v4.1.0
+        with:
+          node-version: "22"
+
+      - name: Probar
+        run: npm run probar
+
+      - name: Traer la cartera
+        env:
+          SIIGO_USERNAME: ${{ secrets.SIIGO_USERNAME }}
+          SIIGO_ACCESS_KEY: ${{ secrets.SIIGO_ACCESS_KEY }}
+          SIIGO_PARTNER_ID: ${{ secrets.SIIGO_PARTNER_ID }}
+          MESES: ${{ github.event.inputs.meses }}
+        run: |
+          if [ -n "$MESES" ]; then
+            node scripts/extraer-cartera.mjs --meses "$MESES"
+          else
+            node scripts/extraer-cartera.mjs
+          fi
+
+      - name: Publicar si cambió
+        run: |
+          if git diff --quiet -- data/cartera.json \
+             && [ -z "$(git ls-files --others --exclude-standard -- data/cartera.json)" ]; then
+            echo "La cartera no cambió. No se publica nada."
+            exit 0
+          fi
+          git config user.name  "corte-automatico"
+          git config user.email "corte-automatico@users.noreply.github.com"
+          git add data/cartera.json
+          git commit -m "Cartera $(date -u +%Y-%m-%d)"
+          # El otro flujo tambien empuja a main. Si publico mientras tanto,
+          # este push se cae; se reintenta sobre lo que haya llegado.
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 5
+          done
+          echo "No se pudo publicar después de tres intentos"; exit 1

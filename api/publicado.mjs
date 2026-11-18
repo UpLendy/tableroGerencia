@@ -13,26 +13,13 @@
  * Es rápido porque no llama a ninguna plataforma: lee el archivo que el proceso
  * nocturno dejó en el repositorio.
  * ------------------------------------------------------------------------- */
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
 import { rolDe, veTodo } from '../scripts/sesion.mjs';
 import { despojarParaEquipo } from '../scripts/vista.mjs';
+import { leerDato, leerCartera } from '../scripts/datos.mjs';
 
 export const config = { includeFiles: ['data/**'] };
 
-/** Vercel no garantiza desde dónde corre la función: se prueban los dos sitios. */
-async function leer(nombre) {
-  const rutas = [
-    new URL(`../data/${nombre}`, import.meta.url),
-    join(process.cwd(), 'data', nombre),
-  ];
-  let ultimo;
-  for (const r of rutas) {
-    try { return JSON.parse(await readFile(r, 'utf8')); }
-    catch (e) { ultimo = e; }
-  }
-  throw ultimo;
-}
+const leer = leerDato;
 
 export default async function handler(req, res) {
   const rol = rolDe(req);
@@ -42,8 +29,14 @@ export default async function handler(req, res) {
     /* Gerencia lee el corte completo. Equipo lee el suyo, y si por lo que sea
        no estuviera publicado, se despoja el completo aquí mismo: nunca se le
        entrega el de Gerencia como último recurso. */
+    /* La cartera la produce otro proceso y vive en otro archivo, porque dos
+       flujos escribiendo el mismo archivo se pisan al empujar. Se une aquí,
+       al servir, y si todavía no está publicada el tablero sale igual. */
+    const cartera = await leerCartera();
+
     if (veTodo(rol)) {
       const c = await leer('corte.json');
+      if (cartera) c.cartera = cartera;
       c.origen = 'archivo';
       return res.status(200).json(c);
     }
@@ -51,7 +44,9 @@ export default async function handler(req, res) {
     /* Un solo archivo publicado. La vista de Equipo se despoja aquí, en cada
        petición, en vez de mantener un segundo archivo que pueda quedar
        desfasado del primero. */
-    const c = despojarParaEquipo(await leer('corte.json'));
+    const completo = await leer('corte.json');
+    if (cartera) completo.cartera = cartera;
+    const c = despojarParaEquipo(completo);
     c.origen = 'archivo';
     return res.status(200).json(c);
   } catch (e) {

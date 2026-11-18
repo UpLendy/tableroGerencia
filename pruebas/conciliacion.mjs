@@ -115,4 +115,30 @@ console.log('\n-- la cartera --');
 }
 
 console.log('');
+
+
+console.log('-- la cartera no puede llegar a la vista de Equipo --');
+{
+  const { despojarParaEquipo, fugasDeEquipo } = await import('../scripts/vista.mjs');
+  const corte = {
+    corte: '2026-11-18', regla: 'r',
+    meses: [{ id: '2026-11', cert: 10, personas: 9, ingreso: 200000, canal: { emp: 5, par: 5 } }],
+    cartera: {
+      total: 18713373, terceros: 14,
+      por_antiguedad: { 'hasta 30': 1000, 'mas de 90': 17713373 },
+      mayores: [{ nit: '900155107', nombre: 'UN CLIENTE SAS', saldo: 6383160, facturas: 7, mas_vieja_dias: 95 }],
+    },
+    alertas: [],
+  };
+  const equipo = despojarParaEquipo(corte);
+  iguales(equipo.cartera, undefined, 'se quita el bloque entero, no campo por campo');
+  iguales(corte.cartera.total, 18713373, 'y no se muta el original: Gerencia la sigue viendo');
+  /* El detector recorre el corte buscando cualquier cosa con aspecto de
+     dinero. Si mañana alguien mete la cartera en otro sitio, lo encuentra. */
+  const fugas = fugasDeEquipo(equipo);
+  iguales(fugas.length, 0, 'y el detector de fugas no encuentra dinero suelto');
+  iguales(fugasDeEquipo(corte).length > 0, true, 'que sí lo encuentra si la cartera se cuela');
+}
+
+console.log('');
 if (fallos) { console.log('  ' + fallos + ' fallo(s)\n'); process.exit(1); }

@@ -76,6 +76,12 @@ export function despojarParaEquipo(corte) {
   /* ------------------------------------------------------------ precio */
   delete c.precioMedioObservado;
 
+  /* ------------------------------------------------------------ cartera
+     Entera. Cuánto debe cada cliente y desde cuándo es lo más sensible que
+     va a tener el tablero: no es solo dinero, es dinero de un tercero con
+     nombre propio. No se despoja por campos, se quita el bloque. */
+  delete c.cartera;
+
   /* --------------------------------------------- deriva de meses cerrados
      La deriva en certificaciones o personas es volumen y se queda: al equipo
      le sirve saber que un mes informado se movió. La de dinero, no. */
