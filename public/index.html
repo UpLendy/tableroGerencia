@@ -520,6 +520,48 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     </div>
   </section>
 
+  <!-- ============ 6a · CUENTAS POR COBRAR ============ -->
+  <!-- Ojo con el nombre: la seccion de arriba se llama "Cartera de empresas"
+       y es la cartera de CLIENTES, quien certifica y cuanto. Esta es cartera
+       en el sentido contable, plata por cobrar, y sale de Siigo. Dos cosas
+       distintas con la misma palabra: por eso esta se llama como se llama.
+
+       Va oculta y solo aparece si el corte trae el bloque de cartera. A la
+       vista de Equipo el servidor se lo quita antes de enviarlo, asi que
+       nunca se le pinta: no hace falta comprobar el rol aqui. -->
+  <section id="secCobrar" hidden>
+    <div class="shead">
+      <h2>Cuentas por cobrar</h2>
+      <span class="note" id="cobNote">—</span>
+    </div>
+    <div class="grid kpis" style="margin-bottom:14px">
+      <div class="kpi">
+        <div class="kl">Total por cobrar</div>
+        <div class="kv" id="cobTotal">—</div>
+        <div class="kd"><span id="cobTerceros"></span></div>
+      </div>
+      <div class="kpi">
+        <div class="kl">Vencido a más de 90 días</div>
+        <div class="kv" id="cobViejo">—</div>
+        <div class="kd"><span id="cobViejoPct"></span></div>
+      </div>
+      <div class="kpi">
+        <div class="kl">El mayor deudor concentra</div>
+        <div class="kv" id="cobConc">—</div>
+        <div class="kd"><span id="cobConcQuien"></span></div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="chartcard">
+        <div class="ct">Cuánto lleva esperando cada peso</div>
+        <div class="cs" id="cobCs"></div>
+        <div class="bars" id="cobBars"></div>
+        <button class="ghost" style="margin-top:14px" onclick="verTablaCob(this)">Ver los mayores deudores</button>
+        <div class="tw" id="tablaCob" hidden style="margin-top:14px"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ 6b · INGENIEROS ============ -->
   <section>
     <div class="shead">
@@ -776,6 +818,92 @@ function renderSalud(){
       <div class="track"><div class="fill" style="width:${c.v}%;background:${RAMP[i]}"></div></div>
       <div class="bd">${esc(c.d)}</div>
     </div>`).join('');
+}
+
+/* ------------------------------------------- cuentas por cobrar */
+function renderCobrar(){
+  const c = CORTE.cartera;
+  const sec = $('secCobrar');
+  /* Sin el bloque no hay seccion. Pasa en la vista de Equipo, donde el
+     servidor lo quita antes de enviar el corte, y mientras la lectura de
+     Siigo no haya corrido. No hace falta comprobar el rol aqui. */
+  if(!c || !hayNum(c.total)){ sec.hidden = true; return; }
+  sec.hidden = false;
+
+  /* Algunos terceros de Siigo no tienen nombre util ("No aplica"). Mostrar
+     eso no sirve para nada; el NIT si, porque con el se busca en Siigo. */
+  const quien = m => (!m.nombre || /^no aplica$/i.test(m.nombre.trim()))
+    ? 'NIT ' + m.nit : m.nombre;
+  const corto = t => t.length > 38 ? t.slice(0,36) + '…' : t;
+
+  $('cobNote').textContent = 'Al ' + fechaLarga(c.corte) + ' · ' +
+    nf(c.facturas_revisadas) + ' facturas de venta revisadas en Siigo';
+  $('cobTotal').textContent = cop(c.total);
+  $('cobTerceros').textContent = nf(c.terceros) + ' clientes deben algo';
+
+  const ant = c.por_antiguedad || {};
+  const viejo = Number(ant['mas de 90']) || 0;
+  $('cobViejo').textContent = cop(viejo);
+  $('cobViejoPct').textContent = c.total
+    ? pc(viejo / c.total * 100, 0) + ' de todo lo que hay por cobrar' : '';
+  /* Lo vencido es lo unico que se colorea, y solo cuando pasa de un tercio:
+     un numero que siempre esta rojo deja de mirarse. */
+  $('cobViejo').style.color = c.total && viejo / c.total > 0.33 ? 'var(--bad)' : '';
+
+  const may = (c.mayores || [])[0];
+  $('cobConc').textContent = may && c.total ? pc(may.saldo / c.total * 100, 0) : emdash;
+  $('cobConcQuien').textContent = may
+    ? corto(quien(may)) + ' · ' + cop(may.saldo) : '';
+
+  /* Los tramos van en orden de antiguedad y la rampa es de un solo tono: lo
+     mas viejo se lleva el extremo de mas contraste contra el fondo, que es
+     RAMP[0] tanto en claro como en oscuro. El color no dice "malo", lo dice
+     la etiqueta, que esta escrita al lado. */
+  const orden = ['hasta 30','31 a 60','61 a 90','mas de 90','sin fecha'];
+  const etiq = {'hasta 30':'Hasta 30 días','31 a 60':'De 31 a 60 días',
+                '61 a 90':'De 61 a 90 días','mas de 90':'Más de 90 días',
+                'sin fecha':'Sin fecha en la factura'};
+  const tramos = orden.filter(k => Number(ant[k]) > 0);
+  const tope = Math.max(...tramos.map(k => Number(ant[k])), 1);
+  /* Quien mas debe entre los que tienen factura vencida. El saldo es el TOTAL
+     de ese cliente, no solo la parte vencida: el desglose por tramo lo tengo
+     de toda la cartera, no por tercero, y no se inventa. La frase lo dice. */
+  const moroso = (c.mayores || []).filter(m => hayNum(m.mas_vieja_dias) && m.mas_vieja_dias > 90)
+    .reduce((a,m) => (!a || m.saldo > a.saldo) ? m : a, null);
+  $('cobCs').textContent = 'Cada peso en el tramo de los días que lleva su factura sin pagarse.';
+  $('cobBars').innerHTML = tramos.map((k,i) => {
+    const v = Number(ant[k]);
+    const pie = k === 'mas de 90' && moroso
+      ? 'Quien más debe de los vencidos: ' + esc(corto(quien(moroso))) + ', ' +
+        esc(cop(moroso.saldo)) + ' en total y hasta ' + nf(moroso.mas_vieja_dias) + ' días de atraso.'
+      : (c.total ? pc(v / c.total * 100, 0) + ' del total' : '');
+    return `<div class="bar">
+      <div class="bt"><span>${esc(etiq[k] || k)}</span><b>${esc(cop(v))}</b></div>
+      <div class="track"><div class="fill" style="width:${(v/tope*100).toFixed(1)}%;background:${RAMP[Math.max(0, Math.min(tramos.length-1-i, RAMP.length-1))]}"></div></div>
+      <div class="bd">${pie}</div>
+    </div>`;
+  }).join('');
+
+  $('tablaCob').innerHTML = `<table><thead><tr>
+      <th>Cliente</th><th class="n">Debe</th><th class="n">Facturas</th>
+      <th class="n">La más vieja</th></tr></thead><tbody>` +
+    (c.mayores || []).map(m => {
+      const d = m.mas_vieja_dias;
+      const cl = hayNum(d) && d > 90 ? ' style="color:var(--bad);font-weight:600"' : '';
+      return `<tr>
+        <td title="NIT ${esc(m.nit)}">${esc(corto(quien(m)))}</td>
+        <td class="n">${esc(cop(m.saldo))}</td>
+        <td class="n">${nf(m.facturas)}</td>
+        <td class="n"${cl}>${hayNum(d) ? nf(d) + ' días' : emdash}</td>
+      </tr>`;
+    }).join('') + '</tbody></table>';
+}
+
+function verTablaCob(b){
+  const t = $('tablaCob');
+  t.hidden = !t.hidden;
+  const n = ((CORTE.cartera || {}).mayores || []).length;
+  b.textContent = t.hidden ? 'Ver los ' + n + ' mayores deudores' : 'Ocultar la tabla';
 }
 
 /* ------------------------------------------------------ kpi */
@@ -1774,7 +1902,7 @@ function pintar(opts){
 
   renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy();
   renderAlertas(); renderEmp(); renderCursos(); renderCalidad(); renderSerie(); renderRecompra();
-  renderTramites(); renderAlimentia();
+  renderTramites(); renderAlimentia(); renderCobrar();
 
   $('cargando').hidden=true;
   $('contenido').hidden=false;
