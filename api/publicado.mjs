@@ -16,6 +16,7 @@
 import { rolDe, veTodo } from '../scripts/sesion.mjs';
 import { despojarParaEquipo } from '../scripts/vista.mjs';
 import { leerDato, leerCartera } from '../scripts/datos.mjs';
+import { adjuntarCartera } from '../scripts/alertas.mjs';
 
 export const config = { includeFiles: ['data/**'] };
 
@@ -36,7 +37,7 @@ export default async function handler(req, res) {
 
     if (veTodo(rol)) {
       const c = await leer('corte.json');
-      if (cartera) c.cartera = cartera;
+      adjuntarCartera(c, cartera);
       c.origen = 'archivo';
       return res.status(200).json(c);
     }
@@ -45,7 +46,7 @@ export default async function handler(req, res) {
        petición, en vez de mantener un segundo archivo que pueda quedar
        desfasado del primero. */
     const completo = await leer('corte.json');
-    if (cartera) completo.cartera = cartera;
+    adjuntarCartera(completo, cartera);
     const c = despojarParaEquipo(completo);
     c.origen = 'archivo';
     return res.status(200).json(c);

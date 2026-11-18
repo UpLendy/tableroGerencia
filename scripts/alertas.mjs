@@ -31,6 +31,10 @@ export const UMBRALES = {
   minimoParaCaida: 20,            // no se avisa por una empresa de 3 certificados
   vencimientosSemana: 300,        // concentración en una sola semana
   ritmoCaida: 10,                 // % de caída del ritmo diario
+  carteraVencida: 25,             // % del total por cobrar con más de 90 días
+  carteraVencidaGrave: 40,
+  carteraConcentracion: 30,       // % de lo que se debe, en un solo cliente
+  carteraConcentracionGrave: 45,
 };
 
 const nf = (n) => Number(n).toLocaleString('es-CO');
@@ -360,6 +364,88 @@ export function generarAlertas(c, umbrales = {}) {
 
   const orden = { critica: 0, atencion: 1, aviso: 2 };
   return A.sort((a, b) => orden[a.severidad] - orden[b.severidad]);
+}
+
+/* ---------------------------------------------------------------- cartera
+ * Las alertas de lo que está por cobrar van aparte porque la cartera llega
+ * aparte: la produce su propio flujo, vive en su propio archivo y se adjunta
+ * al servir, cuando generarAlertas ya corrió. Mezclarlas allá obligaría a
+ * armar el corte dos veces.
+ *
+ * Las dos nombran pesos y nombran clientes, así que son de gerencia y nunca
+ * salen hacia la vista de Equipo.
+ * ----------------------------------------------------------------------- */
+export function alertasDeCartera(cartera, umbrales = {}) {
+  const U = { ...UMBRALES, ...umbrales };
+  const A = [];
+  if (!cartera || !Number.isFinite(Number(cartera.total)) || Number(cartera.total) <= 0) return A;
+
+  const total = Number(cartera.total);
+  /* El id se renueva cada mes: si el problema sigue en diciembre es otra
+     tarjeta, y si se arregla dentro del mes no se crea una cada noche. */
+  const periodo = String(cartera.corte || '').slice(0, 7) || 'sin-fecha';
+  const nombreDe = (m) => (!m || !m.nombre || /^no aplica$/i.test(String(m.nombre).trim()))
+    ? 'NIT ' + (m && m.nit) : m.nombre;
+
+  /* ------------------------------------------------- lo que lleva vencido */
+  const vencido = Number((cartera.por_antiguedad || {})['mas de 90']) || 0;
+  const share = vencido / total * 100;
+  if (vencido > 0 && share >= U.carteraVencida) {
+    /* Quién más debe de los vencidos, para que la alerta diga por dónde
+       empezar. El saldo es el total de ese cliente, no solo su parte
+       vencida: el desglose por tramo es de toda la cartera, no por tercero. */
+    const moroso = (cartera.mayores || [])
+      .filter((m) => Number(m.mas_vieja_dias) > 90)
+      .sort((a, b) => Number(b.saldo) - Number(a.saldo))[0];
+    A.push({
+      id: `cartera-vencida-${periodo}`,
+      severidad: share >= U.carteraVencidaGrave ? 'critica' : 'atencion',
+      para: 'gerencia',
+      titulo: `${cop(vencido)} llevan más de 90 días sin cobrarse`,
+      detalle: `Es el ${pc(share)} de los ${cop(total)} que hay por cobrar` +
+        (moroso ? `. El mayor es ${nombreDe(moroso)}, con ${cop(moroso.saldo)} ` +
+                  `y hasta ${nf(moroso.mas_vieja_dias)} días de atraso.` : '.'),
+      cifra: Number(share.toFixed(1)),
+      seccion: 'cobrar',
+      accion: 'Decidir qué se gestiona y qué se da por perdido.',
+    });
+  }
+
+  /* --------------------------------------------- todo en un solo cliente */
+  const mayor = (cartera.mayores || [])[0];
+  if (mayor && Number(mayor.saldo) > 0) {
+    const conc = Number(mayor.saldo) / total * 100;
+    if (conc >= U.carteraConcentracion) {
+      A.push({
+        id: `cartera-concentracion-${periodo}`,
+        severidad: conc >= U.carteraConcentracionGrave ? 'critica' : 'atencion',
+        para: 'gerencia',
+        titulo: `${nombreDe(mayor)} debe el ${pc(conc)} de toda la cartera`,
+        detalle: `${cop(mayor.saldo)} en ${nf(mayor.facturas)} factura` +
+          (Number(mayor.facturas) === 1 ? '' : 's') +
+          `. Que ese cliente se demore mueve la caja del mes entero.`,
+        cifra: Number(conc.toFixed(1)),
+        seccion: 'cobrar',
+        accion: 'Confirmar la fecha de pago antes de contar con esa plata.',
+      });
+    }
+  }
+
+  return A;
+}
+
+/* Adjunta la cartera al corte y suma sus alertas, ordenadas con las demás.
+   Lo hacen los dos endpoints, así que vive aquí y no duplicado en cada uno. */
+export function adjuntarCartera(corte, cartera) {
+  if (!corte || !cartera) return corte;
+  corte.cartera = cartera;
+  const nuevas = alertasDeCartera(cartera);
+  if (nuevas.length) {
+    const orden = { critica: 0, atencion: 1, aviso: 2 };
+    corte.alertas = [...(Array.isArray(corte.alertas) ? corte.alertas : []), ...nuevas]
+      .sort((a, b) => orden[a.severidad] - orden[b.severidad]);
+  }
+  return corte;
 }
 
 /** Solo las que puede ver el equipo: ninguna que nombre pesos ni personas. */
