@@ -117,7 +117,7 @@
       "mas_vieja_dias": 292
     }
   ],
-  "generado_en": "2026-11-18T09:58:12.165Z",
+  "generado_en": "2026-11-18T10:16:20.019Z",
   "ventana": {
     "desde": "2024-11-01",
     "hasta": "2026-11-18",
@@ -125,7 +125,926 @@
   },
   "facturas_revisadas": 3947,
   "fuente": "api.siigo.com · facturas de venta",
+  "facturado_por_mes": {
+    "2026-11": {
+      "facturado": 49007290,
+      "saldo": 29747550,
+      "facturas": 96,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 107,
+          "valor": 28049490
+        },
+        "21002": {
+          "cantidad": 571,
+          "valor": 17848800
+        },
+        "21004": {
+          "cantidad": 4,
+          "valor": 136000
+        },
+        "21007": {
+          "cantidad": 22,
+          "valor": 850000
+        },
+        "210101": {
+          "cantidad": 5,
+          "valor": 2023000
+        },
+        "VIA01": {
+          "cantidad": 1,
+          "valor": 100000
+        }
+      },
+      "cobrado": 19259740
+    },
+    "2026-10": {
+      "facturado": 76316367.97999999,
+      "saldo": 18713372.77,
+      "facturas": 225,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 213,
+          "valor": 16961803
+        },
+        "20004": {
+          "cantidad": 1,
+          "valor": 2832200
+        },
+        "21002": {
+          "cantidad": 1391,
+          "valor": 43854568
+        },
+        "21004": {
+          "cantidad": 24,
+          "valor": 728000
+        },
+        "21007": {
+          "cantidad": 112,
+          "valor": 5556000
+        },
+        "21010": {
+          "cantidad": 1,
+          "valor": 636.98
+        },
+        "210101": {
+          "cantidad": 7,
+          "valor": 6383160
+        }
+      },
+      "cobrado": 57602995.20999999
+    },
+    "2026-09": {
+      "facturado": 81175967,
+      "saldo": 3610360,
+      "facturas": 182,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 809,
+          "valor": 39817757
+        },
+        "21002": {
+          "cantidad": 769,
+          "valor": 31835720
+        },
+        "21004": {
+          "cantidad": 6,
+          "valor": 184000
+        },
+        "21007": {
+          "cantidad": 70,
+          "valor": 3671000
+        },
+        "21010": {
+          "cantidad": 2,
+          "valor": 550490
+        },
+        "210101": {
+          "cantidad": 12,
+          "valor": 5117000
+        }
+      },
+      "cobrado": 77565607
+    },
+    "2026-08": {
+      "facturado": 84085936.5,
+      "saldo": 861166,
+      "facturas": 152,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 1978,
+          "valor": 40451886.5
+        },
+        "21002": {
+          "cantidad": 1627,
+          "valor": 39209550
+        },
+        "21007": {
+          "cantidad": 45,
+          "valor": 2056000
+        },
+        "21010": {
+          "cantidad": 1,
+          "valor": 550000
+        },
+        "210101": {
+          "cantidad": 3,
+          "valor": 1368500
+        },
+        "VIA01": {
+          "cantidad": 2,
+          "valor": 450000
+        }
+      },
+      "cobrado": 83224770.5
+    },
+    "2026-07": {
+      "facturado": 55572528,
+      "saldo": 752940,
+      "facturas": 205,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 117,
+          "valor": 7408702
+        },
+        "20007": {
+          "cantidad": 2,
+          "valor": 238000
+        },
+        "21002": {
+          "cantidad": 908,
+          "valor": 36696826
+        },
+        "21004": {
+          "cantidad": 2,
+          "valor": 45000
+        },
+        "21007": {
+          "cantidad": 187,
+          "valor": 6650000
+        },
+        "21010": {
+          "cantidad": 1,
+          "valor": 250000
+        },
+        "210101": {
+          "cantidad": 15,
+          "valor": 4284000
+        }
+      },
+      "cobrado": 54819588
+    },
+    "2026-06": {
+      "facturado": 80685548.5,
+      "saldo": 656740,
+      "facturas": 209,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 2700,
+          "valor": 43041048.5
+        },
+        "21002": {
+          "cantidad": 865,
+          "valor": 32964500
+        },
+        "21004": {
+          "cantidad": 19,
+          "valor": 880000
+        },
+        "21007": {
+          "cantidad": 48,
+          "valor": 2660000
+        },
+        "21010": {
+          "cantidad": 1,
+          "valor": 800000
+        },
+        "VIA01": {
+          "cantidad": 1,
+          "valor": 340000
+        }
+      },
+      "cobrado": 80028808.5
+    },
+    "2026-05": {
+      "facturado": 140134614.37,
+      "saldo": 1564753.56,
+      "facturas": 221,
+      "por_codigo": {
+        "107": {
+          "cantidad": 11,
+          "valor": 575960
+        },
+        "20001": {
+          "cantidad": 6517,
+          "valor": 92589932.27
+        },
+        "20002": {
+          "cantidad": 8,
+          "valor": 190400
+        },
+        "20004": {
+          "cantidad": 2,
+          "valor": 3059830.34
+        },
+        "21002": {
+          "cantidad": 1178,
+          "valor": 33147618
+        },
+        "21004": {
+          "cantidad": 71,
+          "valor": 2150000
+        },
+        "21007": {
+          "cantidad": 113,
+          "valor": 5206000
+        },
+        "21010": {
+          "cantidad": 5,
+          "valor": 1873.76
+        },
+        "210101": {
+          "cantidad": 10,
+          "valor": 3213000
+        }
+      },
+      "cobrado": 138569860.81
+    },
+    "2026-04": {
+      "facturado": 123381206,
+      "saldo": 316500,
+      "facturas": 210,
+      "por_codigo": {
+        "100": {
+          "cantidad": 1,
+          "valor": 952000
+        },
+        "107": {
+          "cantidad": 5,
+          "valor": 267750
+        },
+        "20001": {
+          "cantidad": 2715,
+          "valor": 67303226
+        },
+        "20002": {
+          "cantidad": 67,
+          "valor": 1267350
+        },
+        "20005": {
+          "cantidad": 8,
+          "valor": 323680
+        },
+        "21002": {
+          "cantidad": 1770,
+          "valor": 41585400
+        },
+        "21004": {
+          "cantidad": 99,
+          "valor": 2695000
+        },
+        "21007": {
+          "cantidad": 112,
+          "valor": 4367000
+        },
+        "21010": {
+          "cantidad": 4,
+          "valor": 3406000
+        },
+        "22001": {
+          "cantidad": 2,
+          "valor": 142800
+        },
+        "210101": {
+          "cantidad": 4,
+          "valor": 1071000
+        }
+      },
+      "cobrado": 123064706
+    },
+    "2026-03": {
+      "facturado": 98521449.5,
+      "saldo": 554500,
+      "facturas": 157,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 146,
+          "valor": 11143949.5
+        },
+        "20002": {
+          "cantidad": 10,
+          "valor": 214200
+        },
+        "21002": {
+          "cantidad": 751,
+          "valor": 24371100
+        },
+        "21004": {
+          "cantidad": 988,
+          "valor": 49400000
+        },
+        "21007": {
+          "cantidad": 312,
+          "valor": 11036000
+        },
+        "22001": {
+          "cantidad": 3,
+          "valor": 214200
+        },
+        "210101": {
+          "cantidad": 1,
+          "valor": 2142000
+        }
+      },
+      "cobrado": 97966949.5
+    },
+    "2026-02": {
+      "facturado": 101205484.3,
+      "saldo": 718000,
+      "facturas": 173,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 147,
+          "valor": 15128064.3
+        },
+        "20002": {
+          "cantidad": 12,
+          "valor": 257040
+        },
+        "21002": {
+          "cantidad": 1186,
+          "valor": 25580530
+        },
+        "21004": {
+          "cantidad": 1,
+          "valor": 53550
+        },
+        "21007": {
+          "cantidad": 1161,
+          "valor": 58050000
+        },
+        "22001": {
+          "cantidad": 2,
+          "valor": 142800
+        },
+        "210101": {
+          "cantidad": 3,
+          "valor": 1963500
+        },
+        "VIA01": {
+          "cantidad": 1,
+          "valor": 30000
+        }
+      },
+      "cobrado": 100487484.3
+    },
+    "2026-01": {
+      "facturado": 21126523.58,
+      "saldo": 1044000,
+      "facturas": 92,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 68,
+          "valor": 4250677.08
+        },
+        "21002": {
+          "cantidad": 378.5,
+          "valor": 16070846.5
+        },
+        "21004": {
+          "cantidad": 7,
+          "valor": 189000
+        },
+        "21007": {
+          "cantidad": 14,
+          "valor": 616000
+        }
+      },
+      "cobrado": 20082523.58
+    },
+    "2025-12": {
+      "facturado": 98324920,
+      "saldo": 2368940,
+      "facturas": 207,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 450,
+          "valor": 22967000
+        },
+        "20002": {
+          "cantidad": 1215,
+          "valor": 17907120
+        },
+        "20010": {
+          "cantidad": 9,
+          "valor": 162000
+        },
+        "21002": {
+          "cantidad": 4087,
+          "valor": 54835000
+        },
+        "21004": {
+          "cantidad": 22,
+          "valor": 600000
+        },
+        "21007": {
+          "cantidad": 9,
+          "valor": 164000
+        },
+        "210101": {
+          "cantidad": 5,
+          "valor": 1689800
+        }
+      },
+      "cobrado": 95955980
+    },
+    "2025-11": {
+      "facturado": 117739554.8,
+      "saldo": 6931780,
+      "facturas": 157,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 1575.5,
+          "valor": 60892300
+        },
+        "20002": {
+          "cantidad": 489,
+          "valor": 8752463
+        },
+        "20003": {
+          "cantidad": 1,
+          "valor": 107100
+        },
+        "20004": {
+          "cantidad": 1,
+          "valor": 1054244.8
+        },
+        "20010": {
+          "cantidad": 3,
+          "valor": 382347
+        },
+        "21002": {
+          "cantidad": 2776,
+          "valor": 41566500
+        },
+        "21004": {
+          "cantidad": 30,
+          "valor": 852900
+        },
+        "21007": {
+          "cantidad": 20,
+          "valor": 4131700
+        }
+      },
+      "cobrado": 110807774.8
+    },
+    "2025-10": {
+      "facturado": 54111028.27,
+      "saldo": 210000,
+      "facturas": 167,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 595,
+          "valor": 19194560
+        },
+        "20002": {
+          "cantidad": 59,
+          "valor": 3319960
+        },
+        "20007": {
+          "cantidad": 28,
+          "valor": 2263772.27
+        },
+        "20010": {
+          "cantidad": 1,
+          "valor": 107100
+        },
+        "21002": {
+          "cantidad": 1163,
+          "valor": 20727236
+        },
+        "21004": {
+          "cantidad": 34,
+          "valor": 884000
+        },
+        "21007": {
+          "cantidad": 83,
+          "valor": 7019400
+        },
+        "210101": {
+          "cantidad": 1,
+          "valor": 595000
+        }
+      },
+      "cobrado": 53901028.27
+    },
+    "2025-09": {
+      "facturado": 49072655,
+      "saldo": 75000,
+      "facturas": 175,
+      "por_codigo": {
+        "100": {
+          "cantidad": 5,
+          "valor": 535500
+        },
+        "103": {
+          "cantidad": 1,
+          "valor": 595000
+        },
+        "108": {
+          "cantidad": 2,
+          "valor": 2039600
+        },
+        "20001": {
+          "cantidad": 201,
+          "valor": 11833735
+        },
+        "20002": {
+          "cantidad": 2,
+          "valor": 214200
+        },
+        "20005": {
+          "cantidad": 1,
+          "valor": 30000
+        },
+        "20010": {
+          "cantidad": 13,
+          "valor": 381420
+        },
+        "21002": {
+          "cantidad": 1319,
+          "valor": 21781540
+        },
+        "21004": {
+          "cantidad": 23,
+          "valor": 792400
+        },
+        "21007": {
+          "cantidad": 232,
+          "valor": 10274260
+        },
+        "21010": {
+          "cantidad": 1,
+          "valor": 595000
+        }
+      },
+      "cobrado": 48997655
+    },
+    "2025-08": {
+      "facturado": 61459147.33,
+      "saldo": 4041860,
+      "facturas": 173,
+      "por_codigo": {
+        "100": {
+          "cantidad": 5,
+          "valor": 484200
+        },
+        "103": {
+          "cantidad": 4,
+          "valor": 1309000
+        },
+        "107": {
+          "cantidad": 7,
+          "valor": 308000
+        },
+        "20001": {
+          "cantidad": 535,
+          "valor": 21546160
+        },
+        "20004": {
+          "cantidad": 1,
+          "valor": 1130627.33
+        },
+        "20010": {
+          "cantidad": 3,
+          "valor": 720000
+        },
+        "21002": {
+          "cantidad": 1178,
+          "valor": 30108660
+        },
+        "21004": {
+          "cantidad": 31,
+          "valor": 882000
+        },
+        "21007": {
+          "cantidad": 132,
+          "valor": 3483000
+        },
+        "21010": {
+          "cantidad": 1,
+          "valor": 297500
+        },
+        "210101": {
+          "cantidad": 4,
+          "valor": 1190000
+        }
+      },
+      "cobrado": 57417287.33
+    },
+    "2025-07": {
+      "facturado": 89072357.80999999,
+      "saldo": 8337140,
+      "facturas": 182,
+      "por_codigo": {
+        "200": {
+          "cantidad": 1,
+          "valor": 126000
+        },
+        "20001": {
+          "cantidad": 1652,
+          "valor": 44178750
+        },
+        "20010": {
+          "cantidad": 2,
+          "valor": 210000
+        },
+        "21002": {
+          "cantidad": 2477,
+          "valor": 44314057.81
+        },
+        "21007": {
+          "cantidad": 5,
+          "valor": 190000
+        },
+        "22001": {
+          "cantidad": 1,
+          "valor": 53550
+        }
+      },
+      "cobrado": 80735217.80999999
+    },
+    "2025-06": {
+      "facturado": 42727411,
+      "saldo": 678300,
+      "facturas": 133,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 41,
+          "valor": 16558255
+        },
+        "20010": {
+          "cantidad": 5,
+          "valor": 525000
+        },
+        "21002": {
+          "cantidad": 888,
+          "valor": 24732156
+        },
+        "21007": {
+          "cantidad": 36,
+          "valor": 912000
+        }
+      },
+      "cobrado": 42049111
+    },
+    "2025-05": {
+      "facturado": 68902608,
+      "saldo": 321300,
+      "facturas": 125,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 26,
+          "valor": 4331600
+        },
+        "20010": {
+          "cantidad": 6,
+          "valor": 690000
+        },
+        "21002": {
+          "cantidad": 1965,
+          "valor": 42189008
+        },
+        "21004": {
+          "cantidad": 1,
+          "valor": 28000
+        },
+        "21007": {
+          "cantidad": 501,
+          "valor": 21069000
+        },
+        "210101": {
+          "cantidad": 1,
+          "valor": 595000
+        }
+      },
+      "cobrado": 68581308
+    },
+    "2025-04": {
+      "facturado": 97656119,
+      "saldo": 0,
+      "facturas": 157,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 261,
+          "valor": 57460935
+        },
+        "20004": {
+          "cantidad": 1,
+          "valor": 2142000
+        },
+        "20010": {
+          "cantidad": 3,
+          "valor": 374000
+        },
+        "21002": {
+          "cantidad": 1655,
+          "valor": 33142184
+        },
+        "21004": {
+          "cantidad": 49,
+          "valor": 1078000
+        },
+        "21007": {
+          "cantidad": 142,
+          "valor": 3459000
+        }
+      },
+      "cobrado": 97656119
+    },
+    "2025-03": {
+      "facturado": 81885639,
+      "saldo": 0,
+      "facturas": 101,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 22,
+          "valor": 6602715
+        },
+        "20010": {
+          "cantidad": 7,
+          "valor": 852000
+        },
+        "21002": {
+          "cantidad": 492,
+          "valor": 20788924
+        },
+        "21004": {
+          "cantidad": 10,
+          "valor": 220000
+        },
+        "21007": {
+          "cantidad": 1095,
+          "valor": 53422000
+        }
+      },
+      "cobrado": 81885639
+    },
+    "2025-02": {
+      "facturado": 39790284,
+      "saldo": 0,
+      "facturas": 110,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 18,
+          "valor": 15120140
+        },
+        "20004": {
+          "cantidad": 1,
+          "valor": 833000
+        },
+        "20010": {
+          "cantidad": 11,
+          "valor": 1590000
+        },
+        "21002": {
+          "cantidad": 985,
+          "valor": 21385144
+        },
+        "21007": {
+          "cantidad": 26,
+          "valor": 832000
+        },
+        "VIA01": {
+          "cantidad": 2,
+          "valor": 30000
+        }
+      },
+      "cobrado": 39790284
+    },
+    "2025-01": {
+      "facturado": 58473903.199999996,
+      "saldo": 0,
+      "facturas": 82,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 16,
+          "valor": 40754025.199999996
+        },
+        "20007": {
+          "cantidad": 2,
+          "valor": 190400
+        },
+        "20010": {
+          "cantidad": 2,
+          "valor": 180000
+        },
+        "21002": {
+          "cantidad": 337,
+          "valor": 13957478
+        },
+        "21004": {
+          "cantidad": 123,
+          "valor": 2535000
+        },
+        "21007": {
+          "cantidad": 26,
+          "valor": 857000
+        }
+      },
+      "cobrado": 58473903.199999996
+    },
+    "2024-12": {
+      "facturado": 96952197.00999999,
+      "saldo": 0,
+      "facturas": 135,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 45,
+          "valor": 7138215
+        },
+        "20004": {
+          "cantidad": 1,
+          "valor": 535500
+        },
+        "20010": {
+          "cantidad": 2,
+          "valor": 190000
+        },
+        "20011": {
+          "cantidad": 2,
+          "valor": 19050000
+        },
+        "21002": {
+          "cantidad": 2047,
+          "valor": 29029982
+        },
+        "21004": {
+          "cantidad": 2,
+          "valor": 40000
+        },
+        "21007": {
+          "cantidad": 63,
+          "valor": 1920000
+        },
+        "22001": {
+          "cantidad": 5,
+          "valor": 34378500
+        },
+        "210101": {
+          "cantidad": 1,
+          "valor": 4500000.01
+        },
+        "VIA01": {
+          "cantidad": 2,
+          "valor": 170000
+        }
+      },
+      "cobrado": 96952197.00999999
+    },
+    "2024-11": {
+      "facturado": 55597715,
+      "saldo": 0,
+      "facturas": 121,
+      "por_codigo": {
+        "20001": {
+          "cantidad": 27,
+          "valor": 7369715
+        },
+        "20010": {
+          "cantidad": 7,
+          "valor": 590000
+        },
+        "20011": {
+          "cantidad": 1,
+          "valor": 9525000
+        },
+        "21002": {
+          "cantidad": 804,
+          "valor": 18349000
+        },
+        "21004": {
+          "cantidad": 10,
+          "valor": 190000
+        },
+        "21007": {
+          "cantidad": 84,
+          "valor": 2339000
+        },
+        "22001": {
+          "cantidad": 3,
+          "valor": 17180000
+        },
+        "VIA01": {
+          "cantidad": 4,
+          "valor": 55000
+        }
+      },
+      "cobrado": 55597715
+    }
+  },
+  "nota_facturado": "Incluye todo lo que BPM factura: certificaciones, tramites INVIMA, asesorias presenciales y apto medico. No es comparable con el valor a precio de lista del tablero, que solo cuenta certificaciones.",
   "tiempos_ms": {
-    "total": 39334
+    "total": 70075
   }
 }
