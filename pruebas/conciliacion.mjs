@@ -235,6 +235,43 @@ console.log('\n-- facturacion a mes vencido --');
   iguales(c.empresas[0].posible_desfase, undefined, 'una diferencia del 22 % no se declara desfase');
 }
 
+{
+  /* El caso que BPM pidio probar: una empresa facturada a mes vencido a la
+     que, aun asi, le queda faltando. Arcos Dorados certifica 353, se le
+     facturan 207 en octubre y 329 en noviembre: el desfase explica 122, pero
+     quedan 24 sin facturar y esos 24 NO se pueden perdonar.
+     Descontar la empresa entera por estar marcada como mes vencido fue
+     exactamente el error que nos señalaron. */
+  const octubre = [factura('800244387', [{ code: '21002', quantity: 207, price: 10500 }])];
+  const noviembre = [factura('800244387', [{ code: '21002', quantity: 329, price: 10500 }])];
+  const emp = [{ codigo: '8ac087', nombre: 'ARCOS DORADOS', nit: '800244387', certificados: 353 }];
+  const t = new Map([['800244387', 'ARCOS DORADOS COLOMBIA S.A']]);
+  const c = conciliar(emp, comprasPorTercero(octubre), t, comprasPorTercero(noviembre));
+  const e = c.empresas[0];
+  iguales(e.posible_desfase, true, 'se marca el mes vencido');
+  iguales(e.sin_facturar, 24, 'pero le siguen faltando 24, no cero');
+  iguales(e.valor_sin_facturar, 252000, 'y 24 a $10.500 son $252.000');
+  iguales(c.resumen.sin_facturar, 24, 'el resumen cuenta el residuo, no el bruto de 146');
+  iguales(c.resumen.valor_sin_facturar, 252000, 'y su valor');
+}
+{
+  /* Y cuando el mes vencido lo explica entero, no queda nada. */
+  const octubre = [factura('900111222', [{ code: '21002', quantity: 0, price: 14000 }])];
+  const noviembre = [factura('900111222', [{ code: '21002', quantity: 40, price: 14000 }])];
+  const emp = [{ codigo: 'x', nombre: 'EXACTA', nit: '900111222', certificados: 40 }];
+  const t = new Map([['900111222', 'EXACTA SAS']]);
+  const c = conciliar(emp, comprasPorTercero(octubre), t, comprasPorTercero(noviembre));
+  iguales(c.empresas[0].sin_facturar, 0, 'si el mes siguiente lo cubre entero, no falta nada');
+}
+{
+  /* Las filas que no tienen diferencia —sin NIT, o paquete— no pueden
+     envenenar el total con un NaN. */
+  const emp = [{ codigo: 'y', nombre: 'SIN DOC', nit: null, certificados: 50 }];
+  const c = conciliar(emp, new Map(), new Map(), new Map());
+  iguales(c.empresas[0].sin_facturar, 0, 'una empresa sin NIT no suma al faltante');
+  iguales(Number.isFinite(c.resumen.sin_facturar), true, 'y el total sigue siendo un numero');
+}
+
 console.log('\n-- la cartera publica a todos, no a quince --');
 {
   const fs = [];
@@ -247,6 +284,29 @@ console.log('\n-- la cartera publica a todos, no a quince --');
   iguales(c.detalle[0].por_antiguedad['31 a 60'], 20000, 'cada tercero trae su reparto por tramo');
   const suma = c.detalle.reduce((a, x) => a + x.saldo, 0);
   iguales(Math.round(suma), Math.round(c.total), 'el detalle suma exactamente el total');
+}
+
+
+
+console.log('\n-- las que van dentro de la factura a consumidor final --');
+{
+  /* BPM confirmo que Punto Empleo, Normandy y GESA no se facturan aparte.
+     Buscarles factura propia es buscar algo que no existe, asi que no pueden
+     salir como "sin factura en el mes" ni como "NIT no resuelto". */
+  const emp = [
+    { codigo: 'pe', nombre: 'PUNTO EMPLEO S.A.S.', nit: null, certificados: 12 },
+    { codigo: '14f27a', nombre: 'GESA GESTIONES ADMINISTRATIVAS', nit: '9017939810', certificados: 15 },
+    { codigo: 'nm', nombre: 'Normandy S.A.', nit: null, certificados: 7 },
+    { codigo: 'ok', nombre: 'OTRA SAS', nit: null, certificados: 5 },
+  ];
+  const c = conciliar(emp, new Map(), new Map());
+  const por = (cod) => c.empresas.find((e) => e.codigo === cod).estado;
+  iguales(por('pe'), 'via_consumidor_final', 'Punto Empleo no se busca aparte');
+  iguales(por('14f27a'), 'via_consumidor_final', 'GESA tampoco, aunque tenga un NIT invalido');
+  iguales(por('nm'), 'via_consumidor_final', 'Normandy tampoco');
+  iguales(por('ok'), 'sin_nit', 'pero una empresa normal sin NIT sigue saliendo como tal');
+  iguales(c.resumen.via_consumidor_final, 3, 'y el resumen las cuenta aparte');
+  iguales(c.resumen.sin_nit, 1, 'sin inflar el conteo de las que hay que corregir');
 }
 
 console.log(fallos ? `\n  ${fallos} FALLO(S)\n` : '\n  todo bien\n');

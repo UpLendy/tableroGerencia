@@ -116,11 +116,19 @@ console.log('\n-- y no se le escapan al Equipo --');
 
 /* ===================================================== el cruce con Siigo */
 
-const emp = (codigo, cert, unidades, estado, extra = {}) => ({
-  codigo, nombre: codigo.toUpperCase() + ' SAS', certificados: cert,
-  unidades, diferencia: estado === 'no_comparable_por_paquetes' ? null : unidades - cert,
-  estado, ...extra,
-});
+/* Igual que lo que produce conciliar(), incluido sin_facturar, que es el
+   campo que la alerta consume: el residuo despues del mes vencido. */
+const emp = (codigo, cert, unidades, estado, extra = {}) => {
+  const dif = estado === 'no_comparable_por_paquetes' ? null : unidades - cert;
+  const ef = extra.posible_desfase ? Number(extra.diferencia_si_mes_vencido) : dif;
+  const falta = Number.isFinite(ef) && dif != null ? Math.max(0, -ef) : 0;
+  return {
+    codigo, nombre: codigo.toUpperCase() + ' SAS', certificados: cert,
+    unidades, diferencia: dif, estado,
+    sin_facturar: falta, valor_sin_facturar: falta * 10000,
+    ...extra,
+  };
+};
 const cruce = (empresas, resumen = {}) => ({
   regla: 'conciliacion-v1', periodo: '2026-10', empresas,
   resumen: { total: empresas.length, cuadran: 0, difieren: 0, no_comparables: 0,
@@ -164,25 +172,28 @@ iguales(alertasDeConciliacion(cruce([emp('a', 400, 100, 'difiere')]))[0].severid
 }
 
 {
-  /* El caso Arcos: 146 sin facturar segun la fecha de factura, pero marcado
-     como facturado a mes vencido. Alertar por esas 146 manda a alguien a
-     reclamar algo que ya esta facturado. */
-  const a = alertasDeConciliacion(cruce([
-    { ...emp('arcos', 353, 207, 'difiere'), posible_desfase: true, diferencia_si_mes_vencido: -24 },
-  ]));
-  iguales(a.length, 0, 'lo facturado a mes vencido no dispara la alerta de sin facturar');
+  /* El caso Arcos, tal como lo corrigio BPM: se le factura a mes vencido, el
+     desfase explica 122 de las 146, pero le quedan 24 SIN FACTURAR. Antes
+     descontabamos la empresa entera y esos 24 desaparecian. */
+  const arcos = emp('arcos', 353, 207, 'difiere',
+    { posible_desfase: true, diferencia_si_mes_vencido: -24 });
+  iguales(arcos.sin_facturar, 24, 'el residuo tras el mes vencido es 24, no 0 ni 146');
+  const a = alertasDeConciliacion(cruce([arcos]));
+  iguales(a.length, 0, '24 solo no pasa el umbral de 30, asi que no avisa');
 }
 {
-  /* Pero si hay ademas una de verdad, esa si suena, y la otra se menciona
-     aparte para que nadie piense que se escondio. */
+  /* Y cuando ademas hay otra de verdad, el total los suma: el residuo del
+     que va a mes vencido cuenta igual que el de los demas. */
   const a = alertasDeConciliacion(cruce([
-    { ...emp('arcos', 353, 207, 'difiere'), posible_desfase: true, diferencia_si_mes_vencido: -24 },
+    emp('arcos', 353, 207, 'difiere', { posible_desfase: true, diferencia_si_mes_vencido: -24 }),
     emp('otra', 100, 50, 'difiere'),
   ]));
-  iguales(a.length, 1, 'la que no tiene explicacion si avisa');
-  cierto(a[0].titulo.includes('50'), 'y cuenta solo las suyas, no las 146 del desfase');
-  cierto(a[0].detalle.includes('146') && /mes vencido/.test(a[0].detalle),
-    'pero dice aparte las que se descontaron y por que');
+  iguales(a.length, 1, 'la suma si pasa el umbral y avisa');
+  cierto(a[0].titulo.includes('74'), 'suma el residuo de Arcos (24) con las 50 de la otra');
+  cierto(/mes vencido/.test(a[0].detalle),
+    'y marca cual lleva el mes vencido ya descontado');
+  cierto(/ARCOS/.test(a[0].detalle) && /OTRA/.test(a[0].detalle),
+    'y nombra a las dos, para saber a quien llamar');
 }
 
 console.log('\n-- el cruce: lo que hay que corregir --');

@@ -43,6 +43,29 @@ export const CODIGOS = { individual: ['21002'], paquete: ['21007'] };
 
 export const CONSUMIDOR_FINAL = '222222222';
 
+/**
+ * Empresas que NO se facturan aparte: su consumo va dentro de la factura a
+ * consumidor final. Confirmado por BPM el 18 de noviembre de 2026, y dicho
+ * alli que son exactamente estas tres y no hay mas.
+ *
+ * No son un error ni un descuadre: buscarles factura propia es buscar algo
+ * que por definicion no existe. Se marcan aparte para que dejen de aparecer
+ * como problema.
+ *
+ * Se empareja por codigo de la plataforma cuando se conoce, y por nombre
+ * cuando no. Si BPM agrega una, va aqui.
+ */
+export const VIA_CONSUMIDOR_FINAL = {
+  codigos: ['14f27a'],                       // GESA
+  nombres: ['punto empleo', 'normandy', 'gesa'],
+};
+
+const esViaConsumidorFinal = (emp) => {
+  if (VIA_CONSUMIDOR_FINAL.codigos.includes(String(emp.codigo))) return true;
+  const n = String(emp.nombre || '').toLowerCase();
+  return VIA_CONSUMIDOR_FINAL.nombres.some((x) => n.includes(x));
+};
+
 const digitos = (s) => String(s ?? '').replace(/\D/g, '');
 const num = (x) => Number(x) || 0;
 
@@ -218,6 +241,15 @@ export function conciliar(empresas, compras, terceros, comprasSiguiente) {
     const cert = num(emp.certificados ?? emp.cert);
     const base = { codigo: emp.codigo, nombre: emp.nombre, certificados: cert };
 
+    /* Las que van dentro de la factura a consumidor final salen antes de
+       cualquier otra comprobacion: no tienen NIT que resolver ni factura
+       propia que buscar, y tratarlas como falta de dato manda a corregir
+       algo que esta bien. */
+    if (esViaConsumidorFinal(emp)) {
+      filas.push({ ...base, estado: 'via_consumidor_final' });
+      continue;
+    }
+
     if (!digitos(emp.nit)) { sinNit.push(base); filas.push({ ...base, estado: 'sin_nit' }); continue; }
 
     const nit = resolverNit(emp.nit, terceros);
@@ -315,8 +347,30 @@ export function conciliar(empresas, compras, terceros, comprasSiguiente) {
     };
   }
 
+  /* Lo que de verdad falta por facturar, empresa por empresa, DESPUES de
+     aplicar el mes vencido. Esto estuvo mal: se excluia a la empresa entera
+     cuando se marcaba como mes vencido, y asi los 24 que a Arcos Dorados le
+     seguian faltando desaparecian del total. Lo explicado por el desfase se
+     descuenta; el resto sigue siendo plata sin facturar.
+     Vive aqui, y no en quien lo pinta, para que la alerta y la pantalla no
+     puedan contar cosas distintas. */
+  for (const f of filas) {
+    /* Las filas sin NIT ni resueltas no traen diferencia, y las de paquete la
+       traen en null a proposito. En los dos casos no hay nada que contar, y
+       hay que comprobarlo con isFinite: `=== null` dejaba pasar undefined y
+       el total salia NaN. */
+    const efectiva = f.posible_desfase ? num(f.diferencia_si_mes_vencido) : num(f.diferencia);
+    const falta = Number.isFinite(efectiva) && f.diferencia != null
+      ? Math.max(0, -efectiva) : 0;
+    f.sin_facturar = falta;
+    const tarifa = (f.tarifa || [])[0];
+    f.valor_sin_facturar = falta && Number.isFinite(tarifa) ? falta * tarifa : 0;
+  }
+
   const cuenta = (e) => filas.filter((f) => f.estado === e).length;
   const conDesfase = filas.filter((f) => f.posible_desfase).length;
+  const sinFacturar = filas.reduce((a, f) => a + (f.sin_facturar || 0), 0);
+  const valorSinFacturar = filas.reduce((a, f) => a + (f.valor_sin_facturar || 0), 0);
   return {
     regla: REGLA,
     empresas: filas.sort((a, b) => b.certificados - a.certificados),
@@ -331,10 +385,16 @@ export function conciliar(empresas, compras, terceros, comprasSiguiente) {
       sin_factura_en_el_periodo: cuenta('sin_factura_en_el_periodo'),
       sin_nit: sinNit.length,
       nit_no_resuelto: noResuelto.length,
+      via_consumidor_final: cuenta('via_consumidor_final'),
       solo_en_siigo: soloEnSiigo.length,
       /* Cuantas de las que difieren se explicarian por facturacion a mes
          vencido. No se descuentan del conteo: se señalan. */
       posible_desfase: conDesfase,
+      /* Lo que queda por facturar una vez aplicado el mes vencido. Es la
+         cifra que va al informe y a la alerta: ni el bruto, que cuenta el
+         desfase como si fuera plata perdida, ni cero, que lo perdona entero. */
+      sin_facturar: sinFacturar,
+      valor_sin_facturar: valorSinFacturar,
     },
     /* Lo que BPM tiene que corregir en sus sistemas, separado de lo que es
        una diferencia de negocio. Son cosas distintas y se arreglan en sitios

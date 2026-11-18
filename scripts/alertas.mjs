@@ -451,39 +451,34 @@ export function alertasDeConciliacion(conc, umbrales = {}) {
   if (!conc || !conc.resumen || !Array.isArray(conc.empresas)) return A;
   const periodo = conc.periodo || 'sin-periodo';
 
-  /* Lo certificado que no aparece facturado. Solo cuenta hacia un lado: que
-     se facture de más es otra conversación y no se mezcla aquí.
-     Los no comparables por paquete quedan fuera a propósito: no se sabe
-     cuántas certificaciones trae un paquete, así que sumarlos sería inventar. */
-  const candidatas = conc.empresas
-    .filter((e) => e.estado === 'certifica_sin_facturar' ||
-                   (e.estado === 'difiere' && Number(e.diferencia) < 0))
-    .map((e) => ({ ...e, sinFacturar: Number(e.certificados) - Number(e.unidades || 0) }))
-    .filter((e) => e.sinFacturar > 0);
-
-  /* Las que parecen facturadas a mes vencido NO cuentan como sin facturar.
-     A Arcos Dorados le faltaban 146 segun la fecha de factura y 24 segun el
-     mes de servicio: alertar por las 146 manda a alguien a reclamar algo que
-     ya esta facturado. Se descuentan aqui y se dicen aparte. */
-  const desfasadas = candidatas.filter((e) => e.posible_desfase);
-  const faltantes = candidatas.filter((e) => !e.posible_desfase)
-    .sort((a, b) => b.sinFacturar - a.sinFacturar);
-  const total = faltantes.reduce((a, e) => a + e.sinFacturar, 0);
-  const porDesfase = desfasadas.reduce((a, e) => a + e.sinFacturar, 0);
+  /* Lo que falta por facturar DESPUES de aplicar el mes vencido. El calculo
+     vive en conciliacion.mjs, no aqui: cuando cada quien lo contaba a su
+     manera, la alerta y la pantalla decian cosas distintas. Esta funcion
+     antes excluia a la empresa entera cuando se marcaba como mes vencido, y
+     asi los 24 que a Arcos Dorados le siguen faltando desaparecian del total.
+     Lo explicado por el desfase se descuenta; el resto sigue siendo plata
+     sin facturar y tiene que salir. */
+  const faltantes = conc.empresas
+    .filter((e) => Number(e.sin_facturar) > 0)
+    .sort((a, b) => Number(b.sin_facturar) - Number(a.sin_facturar));
+  const total = faltantes.reduce((a, e) => a + Number(e.sin_facturar), 0);
+  const valor = faltantes.reduce((a, e) => a + Number(e.valor_sin_facturar || 0), 0);
 
   if (total >= U.certSinFacturar) {
-    const peor = faltantes[0];
+    const quien = (e) => e.nombre || e.codigo;
     A.push({
       id: `cruce-sin-facturar-${periodo}`,
       severidad: total >= U.certSinFacturarGrave ? 'critica' : 'atencion',
       para: 'gerencia',
-      titulo: `${nf(total)} certificaciones de ${periodo} no aparecen facturadas`,
-      detalle: `En ${nf(faltantes.length)} empresa${faltantes.length === 1 ? '' : 's'}. ` +
-        `La mayor es ${peor.nombre || peor.codigo}: certificó ${nf(peor.certificados)} ` +
-        `y en Siigo figuran ${nf(peor.unidades || 0)}.` +
-        (porDesfase ? ` No se cuentan aquí otras ${nf(porDesfase)} de ` +
-          `${nf(desfasadas.length)} empresa${desfasadas.length === 1 ? '' : 's'} que ` +
-          'parecen facturadas a mes vencido.' : ''),
+      titulo: `${nf(total)} certificaciones de ${periodo} sin facturar` +
+        (valor ? ` · ${cop(valor)}` : ''),
+      /* Empresa por empresa, no solo el total: sin el detalle nadie sabe a
+         quien llamar. */
+      detalle: faltantes.slice(0, 6).map((e) =>
+        `${quien(e)} ${nf(e.sin_facturar)}` +
+        (e.valor_sin_facturar ? ` (${cop(e.valor_sin_facturar)})` : '') +
+        (e.posible_desfase ? ', tras descontar el mes vencido' : '')).join('; ') +
+        (faltantes.length > 6 ? `; y ${nf(faltantes.length - 6)} más.` : '.'),
       cifra: total,
       seccion: 'cruce',
       accion: 'Revisar con Siigo si falta facturar o si se facturó en otro mes.',

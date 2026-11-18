@@ -18,7 +18,9 @@
         10500
       ],
       "saldo": 0,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 24,
+      "valor_sin_facturar": 252000
     },
     {
       "codigo": "dad4ef",
@@ -35,7 +37,9 @@
         14000
       ],
       "saldo": 2086000,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 13,
+      "valor_sin_facturar": 182000
     },
     {
       "codigo": "603a8e",
@@ -52,13 +56,17 @@
         11000
       ],
       "saldo": 0,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "1f2ad1",
       "nombre": "Centro Aseo",
       "certificados": 39,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "66accf",
@@ -75,7 +83,9 @@
         17500
       ],
       "saldo": 0,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "7016fa",
@@ -92,7 +102,9 @@
         14500
       ],
       "saldo": 362500,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "d4d8c7",
@@ -109,20 +121,26 @@
         13500
       ],
       "saldo": 297000,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 1,
+      "valor_sin_facturar": 13500
     },
     {
       "codigo": "e1529e",
       "nombre": "OUTSOURCING SEASIN LIMITADA",
       "certificados": 22,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "044787",
       "nombre": "COMPAÑIA LECHERA DE EL MORTIÑO  S.A.S",
       "certificados": 21,
       "dni": "8320084649",
-      "estado": "nit_no_resuelto"
+      "estado": "nit_no_resuelto",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "23375f",
@@ -139,7 +157,9 @@
         16500
       ],
       "saldo": 297000,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 1,
+      "valor_sin_facturar": 16500
     },
     {
       "codigo": "e7c194",
@@ -156,7 +176,9 @@
         17500
       ],
       "saldo": 315000,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "d85ce6",
@@ -173,13 +195,17 @@
         16500
       ],
       "saldo": 264000,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 1,
+      "valor_sin_facturar": 16500
     },
     {
       "codigo": "a6824d",
       "nombre": "GRUPO EMPRESARIAL PUERTO DE BARRANQUILLA S.A",
       "certificados": 17,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "d53a9f",
@@ -188,7 +214,9 @@
       "nit": "900149693",
       "nombre_siigo": "DECAMERON CINCO HERRADURAS S.A.S.",
       "unidades": 0,
-      "estado": "sin_factura_en_el_periodo"
+      "estado": "sin_factura_en_el_periodo",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "cc43d6",
@@ -207,14 +235,18 @@
         13500
       ],
       "saldo": 595000,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 1,
+      "valor_sin_facturar": 13500
     },
     {
       "codigo": "14f27a",
       "nombre": "GESA  GESTIONES ADMINISTRATIVAS & TALENTO HUMANO SAS",
       "certificados": 15,
       "dni": "9017939810",
-      "estado": "nit_no_resuelto"
+      "estado": "nit_no_resuelto",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "1ba628",
@@ -231,7 +263,9 @@
         14000
       ],
       "saldo": 0,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "99b3d6",
@@ -248,7 +282,9 @@
         13500
       ],
       "saldo": 0,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "564a3b",
@@ -257,7 +293,9 @@
       "nit": "801002775",
       "nombre_siigo": "PUNTO EMPLEO S.A.S",
       "unidades": 0,
-      "estado": "sin_factura_en_el_periodo"
+      "estado": "sin_factura_en_el_periodo",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "4a1320",
@@ -274,7 +312,9 @@
         17500
       ],
       "saldo": 0,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 1,
+      "valor_sin_facturar": 17500
     },
     {
       "codigo": "04379a",
@@ -291,7 +331,9 @@
         17500
       ],
       "saldo": 175000,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "c4d643",
@@ -308,7 +350,9 @@
         16000
       ],
       "saldo": 160000,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "2b5b45",
@@ -325,13 +369,17 @@
         11500
       ],
       "saldo": 0,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "444ba5",
       "nombre": "PRICESMART EL POBLADO",
       "certificados": 8,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "c57e9b",
@@ -348,7 +396,9 @@
         14000
       ],
       "saldo": 98000,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "1689a7",
@@ -365,7 +415,9 @@
         14000
       ],
       "saldo": 0,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "9a107d",
@@ -382,19 +434,25 @@
         16000
       ],
       "saldo": 0,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "9b149c",
       "nombre": "Produempak EFC",
       "certificados": 6,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "c19b6a",
       "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
       "certificados": 5,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "c7d780",
@@ -411,7 +469,9 @@
         16000
       ],
       "saldo": 80000,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "8340e0",
@@ -428,7 +488,9 @@
         15500
       ],
       "saldo": 1112800,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "eb8357",
@@ -445,19 +507,25 @@
         14000
       ],
       "saldo": 0,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 3,
+      "valor_sin_facturar": 42000
     },
     {
       "codigo": "39a3fe",
       "nombre": "VICTORIA C SAS",
       "certificados": 5,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "4a81fb",
       "nombre": "Grupo Éxito",
       "certificados": 4,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "ba0a51",
@@ -475,13 +543,17 @@
         18000
       ],
       "saldo": 468000,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "b459c8",
       "nombre": "EMBOTELLADORA CAPRI LTDA",
       "certificados": 4,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "692cd9",
@@ -498,7 +570,9 @@
         15500
       ],
       "saldo": 0,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "7f6fc3",
@@ -515,26 +589,34 @@
         15500
       ],
       "saldo": 46500,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "5a73a4",
       "nombre": "Bioservicios S.A.S",
       "certificados": 3,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "7b14f4",
       "nombre": "Dr. Leonardo Palacios",
       "certificados": 3,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "7d089c",
       "nombre": "MERCADOS  UNO A",
       "certificados": 2,
       "dni": "793998765",
-      "estado": "nit_no_resuelto"
+      "estado": "nit_no_resuelto",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "63b7c5",
@@ -551,7 +633,9 @@
         20000
       ],
       "saldo": 40000,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "721afa",
@@ -568,19 +652,25 @@
         16500
       ],
       "saldo": 33000,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "be428a",
       "nombre": "CAMARON PAISA",
       "certificados": 2,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "adafe6",
       "nombre": "CERCAFE COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
       "certificados": 2,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "dadd5b",
@@ -597,7 +687,9 @@
         14000
       ],
       "saldo": 28000,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "2ca4f9",
@@ -614,7 +706,9 @@
         15500
       ],
       "saldo": 31000,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "e14b95",
@@ -631,7 +725,9 @@
         15500
       ],
       "saldo": 31000,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "af291e",
@@ -650,7 +746,9 @@
         14000
       ],
       "saldo": 14000,
-      "estado": "difiere"
+      "estado": "difiere",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "2e62ce",
@@ -667,31 +765,41 @@
         15000
       ],
       "saldo": 0,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "701bc2",
       "nombre": "ALMACAFÉ ARMENIA",
       "certificados": 1,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "4w32sa",
       "nombre": "Waytic S.A.S",
       "certificados": 1,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "af42d4",
       "nombre": "INVERSIONES PAYSANDU  S.A.S",
       "certificados": 1,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "bd17d3",
       "nombre": "PAPELES Y NEGOCIOS",
       "certificados": 1,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "e76e26",
@@ -708,19 +816,25 @@
         16500
       ],
       "saldo": 0,
-      "estado": "cuadra"
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "ac3f36",
       "nombre": "HOTEL HILTON GARDEN INN",
       "certificados": 1,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "c777a6",
       "nombre": "Super Admini Andrés",
       "certificados": 1,
-      "estado": "sin_nit"
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     }
   ],
   "particular": {
@@ -1185,7 +1299,9 @@
     "sin_nit": 19,
     "nit_no_resuelto": 3,
     "solo_en_siigo": 74,
-    "posible_desfase": 3
+    "posible_desfase": 3,
+    "sin_facturar": 45,
+    "valor_sin_facturar": 553500
   },
   "datos_por_corregir": {
     "sin_nit": [

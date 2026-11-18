@@ -531,12 +531,12 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
        nunca se le pinta: no hace falta comprobar el rol aqui. -->
   <section id="secCobrar" hidden>
     <div class="shead">
-      <h2>Cuentas por cobrar</h2>
+      <h2>Cuentas por cobrar · bruta</h2>
       <span class="note" id="cobNote">—</span>
     </div>
     <div class="grid kpis" style="margin-bottom:14px">
       <div class="kpi">
-        <div class="kl">Total por cobrar</div>
+        <div class="kl">Total por cobrar, bruto</div>
         <div class="kv" id="cobTotal">—</div>
         <div class="kd"><span id="cobTerceros"></span></div>
       </div>
@@ -581,7 +581,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
         <div class="kd"><span id="cruCompSub"></span></div>
       </div>
       <div class="kpi">
-        <div class="kl">Certificaciones sin aparecer facturadas</div>
+        <div class="kl">Sin facturar · ya descontado el mes vencido</div>
         <div class="kv" id="cruFalta">—</div>
         <div class="kd"><span id="cruFaltaSub"></span></div>
       </div>
@@ -878,30 +878,30 @@ function renderCruce(){
 
   const comparadas = r.cuadran + r.difieren;
   $('cruComp').textContent = nf(comparadas) + ' de ' + nf(r.total);
-  $('cruCompSub').textContent = nf(r.cuadran) + ' coinciden, ' + nf(r.difieren) + ' no';
+  /* Las que van dentro de la factura a consumidor final no son un problema:
+     no tienen factura propia que buscar. Se dicen aquí para que la resta
+     cuadre y nadie las busque. */
+  $('cruCompSub').textContent = nf(r.cuadran) + ' coinciden, ' + nf(r.difieren) + ' no' +
+    (r.via_consumidor_final
+      ? ' · ' + nf(r.via_consumidor_final) + ' van en la factura a consumidor final'
+      : '');
 
-  /* Solo lo que falta por facturar. Que se facture de más es otra
-     conversación y mezclarlas haría que se cancelaran. */
+  /* Lo que falta por facturar DESPUÉS de aplicar el mes vencido. Lo calcula
+     el servidor y aquí solo se lee: cuando esta pantalla lo contaba por su
+     cuenta decía 170 mientras la alerta decía otra cosa. A Arcos Dorados le
+     quedan 24 aunque se le facture a mes vencido, y esos 24 cuentan. */
   const faltan = k.empresas
-    .filter(e => e.estado === 'certifica_sin_facturar' ||
-                (e.estado === 'difiere' && Number(e.diferencia) < 0))
-    .map(e => ({ ...e, falta: Number(e.certificados) - Number(e.unidades||0) }))
-    .sort((a,b) => b.falta - a.falta);
-  const totalFalta = faltan.reduce((a,e) => a + e.falta, 0);
-  /* Cuántas de las que faltan se explican porque a ese cliente se le factura
-     a mes vencido. No se descuentan de la cifra —no nos consta— pero decirlo
-     cambia por completo cómo se lee el número. */
-  const porDesfase = faltan.filter(e => e.posible_desfase)
-    .reduce((a,e) => a + e.falta, 0);
-  $('cruFalta').textContent = nf(totalFalta);
-  $('cruFaltaSub').textContent = faltan.length
-    ? (porDesfase
-        ? nf(porDesfase) + ' se explicarían por facturación a mes vencido'
-        : 'en ' + nf(faltan.length) + ' empresa' + (faltan.length===1?'':'s') +
-          (faltan[0] ? ' · la mayor, ' + esc(cortar(faltan[0].nombre || faltan[0].codigo, 24)) : ''))
+    .filter(e => Number(e.sin_facturar) > 0)
+    .sort((a,b) => Number(b.sin_facturar) - Number(a.sin_facturar));
+  const totalFalta = Number(k.resumen.sin_facturar) || 0;
+  const valorFalta = Number(k.resumen.valor_sin_facturar) || 0;
+  $('cruFalta').textContent = valorFalta ? cop(valorFalta) : nf(totalFalta);
+  $('cruFaltaSub').textContent = totalFalta
+    ? nf(totalFalta) + ' certificaciones en ' + nf(faltan.length) + ' empresa' +
+      (faltan.length===1?'':'s') +
+      (faltan[0] ? ' · la mayor, ' + esc(cortar(faltan[0].nombre || faltan[0].codigo, 22)) : '')
     : 'ninguna';
-  /* Si casi todo se explica por el desfase, el rojo miente. */
-  $('cruFalta').style.color = totalFalta > 0 && porDesfase < totalFalta / 2 ? 'var(--bad)' : '';
+  $('cruFalta').style.color = totalFalta > 0 ? 'var(--bad)' : '';
 
   const fuera = Number(r.sin_nit||0) + Number(r.nit_no_resuelto||0);
   $('cruFuera').textContent = nf(fuera);
