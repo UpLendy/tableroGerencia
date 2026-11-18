@@ -1,6 +1,6 @@
 {
   "corte": "2026-11-18",
-  "generado_en": "2026-11-18T15:49:45.147Z",
+  "generado_en": "2026-11-18T18:23:00.304Z",
   "regla": "virtual-metrics-v1",
   "fuente": "virtual.bpmsas.co · capa de métricas",
   "meses": [
@@ -84,27 +84,27 @@
       "id": "2026-11",
       "lbl": "Noviembre 2026",
       "corto": "noviembre",
-      "cert": 1258,
-      "personas": 1216,
-      "ingreso": 24194000,
+      "cert": 1279,
+      "personas": 1237,
+      "ingreso": 24608000,
       "porCurso": [
         {
           "course_id": "5e0a8954872f0000f4004647",
           "nombre": "Manipulación de alimentos",
           "precio": 20000,
-          "certificados": 907
+          "certificados": 924
         },
         {
           "course_id": "6aa8407f4d530241fb09ecd2",
           "nombre": "Manipulación de alimentos - Bebidas alcohólicas (Dislicores)",
           "precio": 14000,
-          "certificados": 161
+          "certificados": 162
         },
         {
           "course_id": "69cafe131c643a704603cec2",
           "nombre": "Manipulación de alimentos - Arcos Dorados",
           "precio": 20000,
-          "certificados": 153
+          "certificados": 156
         },
         {
           "course_id": "640017b02a2ca9a7b2044c9a",
@@ -151,8 +151,8 @@
       ],
       "ingresoBPM": null,
       "canal": {
-        "emp": 887,
-        "par": 371
+        "emp": 900,
+        "par": 379
       },
       "activasCodigos": 52,
       "activas": 50,
@@ -172,7 +172,7 @@
       "unificada": true,
       "meses": {
         "2026-10": 353,
-        "2026-11": 228
+        "2026-11": 231
       },
       "nit": "8002443871",
       "nits": [
@@ -185,7 +185,7 @@
       "nombre": "DISTRIBUIDORA DE VINOS Y LICORES S.A.S.",
       "meses": {
         "2026-10": 162,
-        "2026-11": 161
+        "2026-11": 162
       },
       "nit": "890916575"
     },
@@ -194,7 +194,7 @@
       "nombre": "ROYAL FILMS S.A.S",
       "meses": {
         "2026-10": 91,
-        "2026-11": 74
+        "2026-11": 75
       },
       "nit": "8901056523"
     },
@@ -329,7 +329,7 @@
       "nombre": "RECISERVICIOS LA COSTA S.A.S",
       "meses": {
         "2026-10": 14,
-        "2026-11": 14
+        "2026-11": 17
       },
       "nit": "9011641451"
     },
@@ -706,7 +706,7 @@
       "codigo": "d489a4",
       "nombre": "DISPROLACTEOS .",
       "meses": {
-        "2026-11": 63,
+        "2026-11": 64,
         "2026-10": 0
       },
       "nit": "901022172"
@@ -739,6 +739,15 @@
       "nit": "9020309724"
     },
     {
+      "codigo": "a3eda9",
+      "nombre": "Sedial Group",
+      "meses": {
+        "2026-11": 7,
+        "2026-10": 0
+      },
+      "nit": "9002177843"
+    },
+    {
       "codigo": "b92576",
       "nombre": "SERVICIOS AUXILIARES DE MANTENIMIENTO Y LIMPIEZA-SAMYL COLOMBIA SAS",
       "meses": {
@@ -764,15 +773,6 @@
         "2026-10": 0
       },
       "nit": "901618081"
-    },
-    {
-      "codigo": "a3eda9",
-      "nombre": "Sedial Group",
-      "meses": {
-        "2026-11": 3,
-        "2026-10": 0
-      },
-      "nit": "9002177843"
     },
     {
       "codigo": "3b0e79",
@@ -935,8 +935,8 @@
     },
     {
       "periodo": "2026-11",
-      "certificados": 1258,
-      "personas": 1216,
+      "certificados": 1279,
+      "personas": 1237,
       "empresas_activas": 51
     }
   ],
@@ -944,31 +944,31 @@
     {
       "periodo": "2026-11",
       "serie": 1243,
-      "resumen": 1258
+      "resumen": 1279
     }
   ],
   "yoy": {
     "acum": {
       "lbl": "Enero – noviembre",
-      "a2026": 18047,
+      "a2026": 18068,
       "a2025": 16993
     },
     "mes": {
       "lbl": "Noviembre",
-      "a2026": 1258,
+      "a2026": 1279,
       "a2025": 1286
     }
   },
   "venc": {
     "corte": "2026-11-18",
     "ventana_dias": 30,
-    "total": 1217,
+    "total": 1215,
     "emp": 666,
-    "par": 551,
+    "par": 549,
     "por_semana": [
       {
         "semana": "2026-W47",
-        "vencen": 197
+        "vencen": 195
       },
       {
         "semana": "2026-W48",
@@ -991,7 +991,7 @@
       {
         "codigo": "637b9c",
         "nombre": "ARCOS (Disabled) DORADOS (Disabled)",
-        "vencen": 184
+        "vencen": 182
       },
       {
         "codigo": "603a8e",
@@ -1001,7 +1001,7 @@
       {
         "codigo": "8ac087",
         "nombre": "ARCOS DORADOS COLOMBIA  S.A.S.",
-        "vencen": 54
+        "vencen": 56
       },
       {
         "codigo": "2b5b45",
@@ -1043,11 +1043,11 @@
   "recompra": {
     "periodo": "2026-11",
     "dias_gracia_tarde": 90,
-    "elegibles": 1286,
+    "elegibles": 1284,
     "renovaron_a_tiempo": 0,
-    "renovaron_tarde": 24,
-    "no_renovaron": 1262,
-    "tasa_recompra": 0.0187,
+    "renovaron_tarde": 25,
+    "no_renovaron": 1259,
+    "tasa_recompra": 0.0195,
     "dias_promedio_de_atraso": 5,
     "ventana_abierta": true,
     "ventana_cierra": "2027-02-28",
@@ -1078,14 +1078,14 @@
   "atribucion": {
     "desde": "2026-11-01",
     "hasta": "2026-11-30",
-    "registros_periodo": 1054,
-    "con_atribucion": 20,
-    "sin_atribucion": 1034,
-    "cobertura": 0.019,
+    "registros_periodo": 1087,
+    "con_atribucion": 22,
+    "sin_atribucion": 1065,
+    "cobertura": 0.0202,
     "por_fuente": [
       {
         "fuente": "adwords",
-        "registros": 19
+        "registros": 21
       },
       {
         "fuente": "chatgpt.com",
@@ -1095,7 +1095,7 @@
     "por_campana": [
       {
         "campana": 20852239193,
-        "registros": 18
+        "registros": 20
       },
       {
         "campana": "Google Ads — Manipulación",
@@ -1113,7 +1113,7 @@
     "desde": "2025-11-18",
     "hasta": "2026-11-18",
     "total_cursos": 23,
-    "certificados_en_la_ventana": 19806,
+    "certificados_en_la_ventana": 19822,
     "cursos_con_certificaciones_sin_precio": 1,
     "cursos": [
       {
@@ -1123,9 +1123,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados": 16686,
+        "certificados": 16698,
         "alerta_sin_precio": false,
-        "certificados_ultimos_12m": 16686
+        "certificados_ultimos_12m": 16698
       },
       {
         "course_id": "69cafe131c643a704603cec2",
@@ -1134,9 +1134,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados": 1648,
+        "certificados": 1651,
         "alerta_sin_precio": false,
-        "certificados_ultimos_12m": 1648
+        "certificados_ultimos_12m": 1651
       },
       {
         "course_id": "6aa8407f4d530241fb09ecd2",
@@ -1145,9 +1145,9 @@
         "tipo": "slideshow",
         "privado": false,
         "activo": true,
-        "certificados": 364,
+        "certificados": 365,
         "alerta_sin_precio": false,
-        "certificados_ultimos_12m": 364
+        "certificados_ultimos_12m": 365
       },
       {
         "course_id": "640017b02a2ca9a7b2044c9a",
@@ -1463,7 +1463,7 @@
   },
   "tramites": {
     "regla": "tramites-metrics-v1",
-    "generado_en": "2026-11-18T15:49:44.903Z",
+    "generado_en": "2026-11-18T18:22:59.585Z",
     "periodo": "2026-11",
     "ingenieros": {
       "activos": 14,
@@ -1635,7 +1635,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "INICIO DE TRÁMITE PROVEEDOR",
-          "dias_abierta": 159.8,
+          "dias_abierta": 159.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1643,7 +1643,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 159.8,
+          "dias_abierta": 159.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1651,7 +1651,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "ELABORACIÓN DE FORMULARIOS",
-          "dias_abierta": 159.8,
+          "dias_abierta": 159.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1659,7 +1659,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "ELABORACIÓN ANTICIPO",
-          "dias_abierta": 159.8,
+          "dias_abierta": 159.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1667,7 +1667,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "REVISIÓN / APROBACIÓN FORMULARIOS",
-          "dias_abierta": 159.8,
+          "dias_abierta": 159.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1675,7 +1675,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "PAGO ANTICIPO",
-          "dias_abierta": 159.8,
+          "dias_abierta": 159.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1683,7 +1683,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "RADICADO INVIMA",
-          "dias_abierta": 159.8,
+          "dias_abierta": 159.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1691,7 +1691,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "ENVÍO INFORME RESOLUCIÓN",
-          "dias_abierta": 159.8,
+          "dias_abierta": 159.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1699,7 +1699,7 @@
         {
           "proceso": "Pendiente por asignar-1780606741235-C",
           "etapa": "TIEMPO DE RESPUESTA RESOLUCIÓN INVMAGIL",
-          "dias_abierta": 159,
+          "dias_abierta": 159.1,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1707,7 +1707,7 @@
         {
           "proceso": "Pendiente por asignar-1780606741235-C",
           "etapa": "ENVÍO INFORME RESOLUCIÓN",
-          "dias_abierta": 159,
+          "dias_abierta": 159.1,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1715,7 +1715,7 @@
         {
           "proceso": "Pendiente por asignar-1780606741235-C",
           "etapa": "RADICADO INVIMA",
-          "dias_abierta": 159,
+          "dias_abierta": 159.1,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1723,7 +1723,7 @@
         {
           "proceso": "Pendiente por asignar-1782241508525-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 145,
+          "dias_abierta": 145.1,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1731,7 +1731,7 @@
         {
           "proceso": "Pendiente por asignar-1782242832311-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 144.9,
+          "dias_abierta": 145,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1739,7 +1739,7 @@
         {
           "proceso": "Pendiente por asignar-1782495656404-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 144.9,
+          "dias_abierta": 145,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1747,7 +1747,7 @@
         {
           "proceso": "Pendiente por asignar-1782495737392-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 144.9,
+          "dias_abierta": 145,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1755,7 +1755,7 @@
         {
           "proceso": "Pendiente por asignar-1782495670128-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 144.9,
+          "dias_abierta": 145,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1763,7 +1763,7 @@
         {
           "proceso": "Pendiente por asignar-1782495726560-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 144.9,
+          "dias_abierta": 145,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1771,7 +1771,7 @@
         {
           "proceso": "Pendiente por asignar-1782505657176-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 144.8,
+          "dias_abierta": 144.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1779,7 +1779,7 @@
         {
           "proceso": "Pendiente por asignar-1782495635730-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 144.7,
+          "dias_abierta": 144.8,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1787,7 +1787,7 @@
         {
           "proceso": "Pendiente por asignar-1782833001399-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 141,
+          "dias_abierta": 141.1,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1919,7 +1919,7 @@
   },
   "alimentia": {
     "regla": "alimentia-metrics-v2",
-    "generado_en": "2026-11-18T15:49:45.057Z",
+    "generado_en": "2026-11-18T18:22:59.760Z",
     "periodo": "2026-11",
     "dias_del_periodo": 18,
     "empresas": 2,
@@ -1995,12 +1995,12 @@
       {
         "n": "Producción",
         "v": 100,
-        "d": "Noviembre 2026 contra el mismo mes del año anterior: 2.097 proyectadas contra 1.286, +63,1 %. Se mapea 0–20 % de crecimiento a 50–100 puntos. Noviembre 2026 lleva 18 de 30 días y va en 1.258 certificaciones observadas; el índice proyecta a 2.097 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
+        "d": "Noviembre 2026 contra el mismo mes del año anterior: 2.132 proyectadas contra 1.286, +65,8 %. Se mapea 0–20 % de crecimiento a 50–100 puntos. Noviembre 2026 lleva 18 de 30 días y va en 1.279 certificaciones observadas; el índice proyecta a 2.132 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
       },
       {
         "n": "Reposición",
-        "v": 86,
-        "d": "Certificaciones del mes sobre vencimientos de los próximos 30 días, medidos el 2026-11-18: 2.097 proyectadas / 1.217 = 1,72. Paridad (1,00) vale 50 puntos. Noviembre 2026 lleva 18 de 30 días y va en 1.258 certificaciones observadas; el índice proyecta a 2.097 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
+        "v": 88,
+        "d": "Certificaciones del mes sobre vencimientos de los próximos 30 días, medidos el 2026-11-18: 2.132 proyectadas / 1.215 = 1,75. Paridad (1,00) vale 50 puntos. Noviembre 2026 lleva 18 de 30 días y va en 1.279 certificaciones observadas; el índice proyecta a 2.132 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
       },
       {
         "n": "Calidad del dato",
@@ -2014,7 +2014,7 @@
       }
     ]
   },
-  "precioMedioObservado": 19232,
+  "precioMedioObservado": 19240,
   "meses_cerrados": [
     "2026-10"
   ],
@@ -2128,9 +2128,9 @@
       "para": "todos",
       "id": "vencimientos-2026-11",
       "severidad": "atencion",
-      "titulo": "1.217 certificados vencen en los próximos 30 días",
-      "detalle": "666 vinculados a empresa, que se contactan en bloque, y 551 particulares, que son uno a uno.",
-      "cifra": 1217,
+      "titulo": "1.215 certificados vencen en los próximos 30 días",
+      "detalle": "666 vinculados a empresa, que se contactan en bloque, y 549 particulares, que son uno a uno.",
+      "cifra": 1215,
       "seccion": "vencimientos",
       "accion": "Lanzar el contacto del canal corporativo antes de que venzan."
     },
@@ -2218,9 +2218,9 @@
       "para": "gerencia",
       "id": "vencimientos-valor-2026-11",
       "severidad": "aviso",
-      "titulo": "La recompra en juego vale $23.405.344",
-      "detalle": "A precio observado de $19.232 por certificación.",
-      "cifra": 23405344,
+      "titulo": "La recompra en juego vale $23.376.600",
+      "detalle": "A precio observado de $19.240 por certificación.",
+      "cifra": 23376600,
       "seccion": "vencimientos",
       "accion": "Decidir si se prioriza el canal corporativo o el particular."
     },
@@ -2236,24 +2236,24 @@
     }
   ],
   "tiempos_ms": {
-    "certificaciones": 6945,
-    "certificaciones_prev": 712,
-    "empresas": 7955,
-    "empresas_prev": 730,
-    "recompra": 763,
-    "recompra_cerrada": 704,
-    "serie": 700,
-    "vencimientos": 5431,
-    "atribucion": 729,
-    "cursos": 727,
-    "calidad-dato": 3660,
-    "tr_carga": 189,
-    "tr_tiempos": 204,
-    "tr_retrabajo": 202,
-    "tr_duracion": 189,
-    "al_diligenciamiento": 336,
-    "al_caida": 375,
-    "total": 8411
+    "certificaciones": 7360,
+    "certificaciones_prev": 461,
+    "empresas": 8043,
+    "empresas_prev": 741,
+    "recompra": 1020,
+    "recompra_cerrada": 739,
+    "serie": 896,
+    "vencimientos": 5534,
+    "atribucion": 827,
+    "cursos": 1182,
+    "calidad-dato": 955,
+    "tr_carga": 198,
+    "tr_tiempos": 215,
+    "tr_retrabajo": 236,
+    "tr_duracion": 234,
+    "al_diligenciamiento": 370,
+    "al_caida": 369,
+    "total": 8555
   },
   "meses_cerrados_registrados": 1
 }
