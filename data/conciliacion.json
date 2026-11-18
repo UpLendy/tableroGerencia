@@ -10,6 +10,7 @@
       "unidades": 207,
       "paquetes": 0,
       "unidades_mes_siguiente": 329,
+      "certificado_mes_anterior": 349,
       "posible_desfase": true,
       "diferencia_si_mes_vencido": -24,
       "diferencia": -146,
@@ -31,6 +32,7 @@
       "unidades": 149,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 46,
       "diferencia": -13,
       "valor_facturado": 2086000,
       "tarifa": [
@@ -50,6 +52,7 @@
       "unidades": 186,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 94,
       "diferencia": 95,
       "valor_facturado": 2046000,
       "tarifa": [
@@ -77,6 +80,7 @@
       "unidades": 29,
       "paquetes": 0,
       "unidades_mes_siguiente": 19,
+      "certificado_mes_anterior": 11,
       "diferencia": 0,
       "valor_facturado": 507500,
       "tarifa": [
@@ -96,6 +100,8 @@
       "unidades": 25,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 29,
+      "facturado_corresponde_al_mes_anterior": true,
       "diferencia": 0,
       "valor_facturado": 362500,
       "tarifa": [
@@ -115,6 +121,7 @@
       "unidades": 22,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 11,
       "diferencia": -1,
       "valor_facturado": 297000,
       "tarifa": [
@@ -151,6 +158,8 @@
       "unidades": 18,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 19,
+      "facturado_corresponde_al_mes_anterior": true,
       "diferencia": -1,
       "valor_facturado": 297000,
       "tarifa": [
@@ -170,6 +179,7 @@
       "unidades": 18,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
       "diferencia": 0,
       "valor_facturado": 315000,
       "tarifa": [
@@ -189,6 +199,7 @@
       "unidades": 16,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 5,
       "diferencia": -1,
       "valor_facturado": 264000,
       "tarifa": [
@@ -208,17 +219,6 @@
       "valor_sin_facturar": 0
     },
     {
-      "codigo": "d53a9f",
-      "nombre": "DECAMERON CINCO HERRADURAS S.A.S.",
-      "certificados": 16,
-      "nit": "900149693",
-      "nombre_siigo": "DECAMERON CINCO HERRADURAS S.A.S.",
-      "unidades": 0,
-      "estado": "sin_factura_en_el_periodo",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
       "codigo": "cc43d6",
       "nombre": "Integrativa Agropecuaria S.A.S.",
       "certificados": 16,
@@ -227,6 +227,7 @@
       "unidades": 13,
       "paquetes": 0,
       "unidades_mes_siguiente": 15,
+      "certificado_mes_anterior": 100,
       "posible_desfase": true,
       "diferencia_si_mes_vencido": -1,
       "diferencia": -3,
@@ -238,6 +239,17 @@
       "estado": "difiere",
       "sin_facturar": 1,
       "valor_sin_facturar": 13500
+    },
+    {
+      "codigo": "d53a9f",
+      "nombre": "DECAMERON CINCO HERRADURAS S.A.S.",
+      "certificados": 16,
+      "nit": "900149693",
+      "nombre_siigo": "DECAMERON CINCO HERRADURAS S.A.S.",
+      "unidades": 0,
+      "estado": "sin_factura_en_el_periodo",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "14f27a",
@@ -256,6 +268,8 @@
       "unidades": 25,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 27,
+      "facturado_corresponde_al_mes_anterior": true,
       "diferencia": 11,
       "valor_facturado": 350000,
       "tarifa": [
@@ -275,6 +289,7 @@
       "unidades": 12,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 22,
       "diferencia": 0,
       "valor_facturado": 162000,
       "tarifa": [
@@ -302,6 +317,7 @@
       "unidades": 9,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 19,
       "diferencia": -1,
       "valor_facturado": 157500,
       "tarifa": [
@@ -313,25 +329,6 @@
       "valor_sin_facturar": 17500
     },
     {
-      "codigo": "04379a",
-      "nombre": "⁠E&D cafés  S.A.S.",
-      "certificados": 10,
-      "nit": "900407343",
-      "nombre_siigo": "E&D CAFES S.A.S.",
-      "unidades": 10,
-      "paquetes": 0,
-      "unidades_mes_siguiente": 0,
-      "diferencia": 0,
-      "valor_facturado": 175000,
-      "tarifa": [
-        17500
-      ],
-      "saldo": 175000,
-      "estado": "cuadra",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
       "codigo": "c4d643",
       "nombre": "AXDA COLOMBIA SAS",
       "certificados": 10,
@@ -340,12 +337,33 @@
       "unidades": 10,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
       "diferencia": 0,
       "valor_facturado": 160000,
       "tarifa": [
         16000
       ],
       "saldo": 160000,
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
+    },
+    {
+      "codigo": "04379a",
+      "nombre": "⁠E&D cafés  S.A.S.",
+      "certificados": 10,
+      "nit": "900407343",
+      "nombre_siigo": "E&D CAFES S.A.S.",
+      "unidades": 10,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
+      "diferencia": 0,
+      "valor_facturado": 175000,
+      "tarifa": [
+        17500
+      ],
+      "saldo": 175000,
       "estado": "cuadra",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
@@ -359,6 +377,7 @@
       "unidades": 31,
       "paquetes": 0,
       "unidades_mes_siguiente": 7,
+      "certificado_mes_anterior": 39,
       "diferencia": 22,
       "valor_facturado": 356500,
       "tarifa": [
@@ -378,25 +397,6 @@
       "valor_sin_facturar": 0
     },
     {
-      "codigo": "c57e9b",
-      "nombre": "INVERSIONES RCP SAS",
-      "certificados": 7,
-      "nit": "900659583",
-      "nombre_siigo": "INVERSIONES RCP S.A.S",
-      "unidades": 7,
-      "paquetes": 0,
-      "unidades_mes_siguiente": 0,
-      "diferencia": 0,
-      "valor_facturado": 98000,
-      "tarifa": [
-        14000
-      ],
-      "saldo": 98000,
-      "estado": "cuadra",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
       "codigo": "1689a7",
       "nombre": "ECO VIDA INTEGRAL",
       "certificados": 7,
@@ -405,6 +405,8 @@
       "unidades": 25,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 27,
+      "facturado_corresponde_al_mes_anterior": true,
       "diferencia": 18,
       "valor_facturado": 350000,
       "tarifa": [
@@ -412,6 +414,26 @@
       ],
       "saldo": 0,
       "estado": "difiere",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
+    },
+    {
+      "codigo": "c57e9b",
+      "nombre": "INVERSIONES RCP SAS",
+      "certificados": 7,
+      "nit": "900659583",
+      "nombre_siigo": "INVERSIONES RCP S.A.S",
+      "unidades": 7,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 10,
+      "diferencia": 0,
+      "valor_facturado": 98000,
+      "tarifa": [
+        14000
+      ],
+      "saldo": 98000,
+      "estado": "cuadra",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
     },
@@ -424,6 +446,7 @@
       "unidades": 6,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 11,
       "diferencia": 0,
       "valor_facturado": 96000,
       "tarifa": [
@@ -443,12 +466,24 @@
       "valor_sin_facturar": 0
     },
     {
-      "codigo": "c19b6a",
-      "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
+      "codigo": "eb8357",
+      "nombre": "LOGISTICA CIRCULAR S.A.S",
       "certificados": 5,
-      "estado": "sin_nit",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "nit": "901730593",
+      "nombre_siigo": "RECISERVICIOS LOGISTICA CIRCULAR S.A.S.",
+      "unidades": 2,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 3,
+      "diferencia": -3,
+      "valor_facturado": 28000,
+      "tarifa": [
+        14000
+      ],
+      "saldo": 0,
+      "estado": "difiere",
+      "sin_facturar": 3,
+      "valor_sin_facturar": 42000
     },
     {
       "codigo": "c7d780",
@@ -459,6 +494,7 @@
       "unidades": 5,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 1,
       "diferencia": 0,
       "valor_facturado": 80000,
       "tarifa": [
@@ -478,6 +514,7 @@
       "unidades": 5,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
       "diferencia": 0,
       "valor_facturado": 77500,
       "tarifa": [
@@ -489,64 +526,17 @@
       "valor_sin_facturar": 0
     },
     {
-      "codigo": "eb8357",
-      "nombre": "LOGISTICA CIRCULAR S.A.S",
+      "codigo": "c19b6a",
+      "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
       "certificados": 5,
-      "nit": "901730593",
-      "nombre_siigo": "RECISERVICIOS LOGISTICA CIRCULAR S.A.S.",
-      "unidades": 2,
-      "paquetes": 0,
-      "unidades_mes_siguiente": 0,
-      "diferencia": -3,
-      "valor_facturado": 28000,
-      "tarifa": [
-        14000
-      ],
-      "saldo": 0,
-      "estado": "difiere",
-      "sin_facturar": 3,
-      "valor_sin_facturar": 42000
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "39a3fe",
       "nombre": "VICTORIA C SAS",
       "certificados": 5,
-      "estado": "sin_nit",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
-      "codigo": "4a81fb",
-      "nombre": "Grupo Éxito",
-      "certificados": 4,
-      "estado": "sin_nit",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
-      "codigo": "ba0a51",
-      "nombre": "SANILAB IPS SAS",
-      "certificados": 4,
-      "nit": "901216537",
-      "nombre_siigo": "No aplica",
-      "unidades": 27,
-      "paquetes": 0,
-      "unidades_mes_siguiente": 0,
-      "diferencia": 23,
-      "valor_facturado": 468000,
-      "tarifa": [
-        13500,
-        18000
-      ],
-      "saldo": 468000,
-      "estado": "difiere",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
-      "codigo": "b459c8",
-      "nombre": "EMBOTELLADORA CAPRI LTDA",
-      "certificados": 4,
       "estado": "sin_nit",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
@@ -560,6 +550,7 @@
       "unidades": 4,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 8,
       "diferencia": 0,
       "valor_facturado": 62000,
       "tarifa": [
@@ -567,6 +558,43 @@
       ],
       "saldo": 0,
       "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
+    },
+    {
+      "codigo": "ba0a51",
+      "nombre": "SANILAB IPS SAS",
+      "certificados": 4,
+      "nit": "901216537",
+      "nombre_siigo": "No aplica",
+      "unidades": 27,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 9,
+      "diferencia": 23,
+      "valor_facturado": 468000,
+      "tarifa": [
+        13500,
+        18000
+      ],
+      "saldo": 468000,
+      "estado": "difiere",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
+    },
+    {
+      "codigo": "4a81fb",
+      "nombre": "Grupo Éxito",
+      "certificados": 4,
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
+    },
+    {
+      "codigo": "b459c8",
+      "nombre": "EMBOTELLADORA CAPRI LTDA",
+      "certificados": 4,
+      "estado": "sin_nit",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
     },
@@ -579,6 +607,7 @@
       "unidades": 3,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 1,
       "diferencia": 0,
       "valor_facturado": 46500,
       "tarifa": [
@@ -606,11 +635,42 @@
       "valor_sin_facturar": 0
     },
     {
-      "codigo": "7d089c",
-      "nombre": "MERCADOS  UNO A",
+      "codigo": "721afa",
+      "nombre": "U T ZZZ ZOE",
       "certificados": 2,
-      "dni": "793998765",
-      "estado": "nit_no_resuelto",
+      "nit": "901902595",
+      "nombre_siigo": "U T ZZZ ZOE",
+      "unidades": 2,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
+      "diferencia": 0,
+      "valor_facturado": 33000,
+      "tarifa": [
+        16500
+      ],
+      "saldo": 33000,
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
+    },
+    {
+      "codigo": "2ca4f9",
+      "nombre": "R & A FOOD SAS BRAZZEIRO",
+      "certificados": 2,
+      "nit": "901103672",
+      "nombre_siigo": "R & A FOOD SAS",
+      "unidades": 2,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
+      "diferencia": 0,
+      "valor_facturado": 31000,
+      "tarifa": [
+        15500
+      ],
+      "saldo": 31000,
+      "estado": "cuadra",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
     },
@@ -623,6 +683,7 @@
       "unidades": 2,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
       "diferencia": 0,
       "valor_facturado": 40000,
       "tarifa": [
@@ -634,21 +695,95 @@
       "valor_sin_facturar": 0
     },
     {
-      "codigo": "721afa",
-      "nombre": "U T ZZZ ZOE",
+      "codigo": "7d089c",
+      "nombre": "MERCADOS  UNO A",
       "certificados": 2,
-      "nit": "901902595",
-      "nombre_siigo": "U T ZZZ ZOE",
+      "dni": "793998765",
+      "estado": "nit_no_resuelto",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
+    },
+    {
+      "codigo": "e14b95",
+      "nombre": "COLOMBIA HELADOS SAS",
+      "certificados": 2,
+      "nit": "900529422",
+      "nombre_siigo": "COLOMBIA HELADOS S.A.S",
       "unidades": 2,
       "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 3,
       "diferencia": 0,
-      "valor_facturado": 33000,
+      "valor_facturado": 31000,
       "tarifa": [
-        16500
+        15500
       ],
-      "saldo": 33000,
+      "saldo": 31000,
       "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
+    },
+    {
+      "codigo": "2e62ce",
+      "nombre": "PRO-SER COLOMBIA  SAS",
+      "certificados": 2,
+      "nit": "900922080",
+      "nombre_siigo": "PRO-SER COLOMBIA SAS",
+      "unidades": 2,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 10,
+      "diferencia": 0,
+      "valor_facturado": 30000,
+      "tarifa": [
+        15000
+      ],
+      "saldo": 0,
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
+    },
+    {
+      "codigo": "dadd5b",
+      "nombre": "SERVICIOS TEMPORALES DE COLOMBIA  - TEMPOCOLBA",
+      "certificados": 2,
+      "nit": "802010216",
+      "nombre_siigo": "SERVICIOS TEMPORALES DE COLOMBIA TEMPOCOLBA SOCIEDAD POR ACCIONES SIMPLIFICADA",
+      "unidades": 2,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 2,
+      "certificado_mes_anterior": 2,
+      "facturado_corresponde_al_mes_anterior": true,
+      "diferencia": 0,
+      "valor_facturado": 28000,
+      "tarifa": [
+        14000
+      ],
+      "saldo": 28000,
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
+    },
+    {
+      "codigo": "af291e",
+      "nombre": "ASEOS COLOMBIANOS ASEOCOLBA SA",
+      "certificados": 2,
+      "nit": "800146077",
+      "nombre_siigo": "ASEOS COLOMBIANOS ASEO COLBA SA",
+      "unidades": 1,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 2,
+      "certificado_mes_anterior": 1,
+      "facturado_corresponde_al_mes_anterior": true,
+      "posible_desfase": true,
+      "diferencia_si_mes_vencido": 0,
+      "diferencia": -1,
+      "valor_facturado": 14000,
+      "tarifa": [
+        14000
+      ],
+      "saldo": 14000,
+      "estado": "difiere",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
     },
@@ -669,96 +804,19 @@
       "valor_sin_facturar": 0
     },
     {
-      "codigo": "dadd5b",
-      "nombre": "SERVICIOS TEMPORALES DE COLOMBIA  - TEMPOCOLBA",
-      "certificados": 2,
-      "nit": "802010216",
-      "nombre_siigo": "SERVICIOS TEMPORALES DE COLOMBIA TEMPOCOLBA SOCIEDAD POR ACCIONES SIMPLIFICADA",
-      "unidades": 2,
-      "paquetes": 0,
-      "unidades_mes_siguiente": 2,
-      "diferencia": 0,
-      "valor_facturado": 28000,
-      "tarifa": [
-        14000
-      ],
-      "saldo": 28000,
-      "estado": "cuadra",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
-      "codigo": "2ca4f9",
-      "nombre": "R & A FOOD SAS BRAZZEIRO",
-      "certificados": 2,
-      "nit": "901103672",
-      "nombre_siigo": "R & A FOOD SAS",
-      "unidades": 2,
-      "paquetes": 0,
-      "unidades_mes_siguiente": 0,
-      "diferencia": 0,
-      "valor_facturado": 31000,
-      "tarifa": [
-        15500
-      ],
-      "saldo": 31000,
-      "estado": "cuadra",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
-      "codigo": "e14b95",
-      "nombre": "COLOMBIA HELADOS SAS",
-      "certificados": 2,
-      "nit": "900529422",
-      "nombre_siigo": "COLOMBIA HELADOS S.A.S",
-      "unidades": 2,
-      "paquetes": 0,
-      "unidades_mes_siguiente": 0,
-      "diferencia": 0,
-      "valor_facturado": 31000,
-      "tarifa": [
-        15500
-      ],
-      "saldo": 31000,
-      "estado": "cuadra",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
-      "codigo": "af291e",
-      "nombre": "ASEOS COLOMBIANOS ASEOCOLBA SA",
-      "certificados": 2,
-      "nit": "800146077",
-      "nombre_siigo": "ASEOS COLOMBIANOS ASEO COLBA SA",
+      "codigo": "e76e26",
+      "nombre": "ASTEMPRO LTDA",
+      "certificados": 1,
+      "nit": "900818593",
+      "nombre_siigo": "ASTEMPRO LTDA",
       "unidades": 1,
       "paquetes": 0,
-      "unidades_mes_siguiente": 2,
-      "posible_desfase": true,
-      "diferencia_si_mes_vencido": 0,
-      "diferencia": -1,
-      "valor_facturado": 14000,
-      "tarifa": [
-        14000
-      ],
-      "saldo": 14000,
-      "estado": "difiere",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
-      "codigo": "2e62ce",
-      "nombre": "PRO-SER COLOMBIA  SAS",
-      "certificados": 2,
-      "nit": "900922080",
-      "nombre_siigo": "PRO-SER COLOMBIA SAS",
-      "unidades": 2,
-      "paquetes": 0,
       "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 6,
       "diferencia": 0,
-      "valor_facturado": 30000,
+      "valor_facturado": 16500,
       "tarifa": [
-        15000
+        16500
       ],
       "saldo": 0,
       "estado": "cuadra",
@@ -794,25 +852,6 @@
       "nombre": "PAPELES Y NEGOCIOS",
       "certificados": 1,
       "estado": "sin_nit",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
-      "codigo": "e76e26",
-      "nombre": "ASTEMPRO LTDA",
-      "certificados": 1,
-      "nit": "900818593",
-      "nombre_siigo": "ASTEMPRO LTDA",
-      "unidades": 1,
-      "paquetes": 0,
-      "unidades_mes_siguiente": 0,
-      "diferencia": 0,
-      "valor_facturado": 16500,
-      "tarifa": [
-        16500
-      ],
-      "saldo": 0,
-      "estado": "cuadra",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
     },
@@ -985,15 +1024,15 @@
       "valor": 231000
     },
     {
-      "nit": "10246343",
-      "nombre": "LUIS ALCIDES SALAZAR BUENO",
-      "unidades": 2,
-      "valor": 200000
-    },
-    {
       "nit": "901226431",
       "nombre": "MERCAPLAZA RAMIREZ GONZALEZ S.A.S",
       "unidades": 1,
+      "valor": 200000
+    },
+    {
+      "nit": "10246343",
+      "nombre": "LUIS ALCIDES SALAZAR BUENO",
+      "unidades": 2,
       "valor": 200000
     },
     {
@@ -1051,8 +1090,8 @@
       "valor": 140000
     },
     {
-      "nit": "1075316605",
-      "nombre": "JACOBO ARANGO TABARES",
+      "nit": "901147428",
+      "nombre": "ATRACCIONES MECANICAS S.A.S",
       "unidades": 1,
       "valor": 100000
     },
@@ -1063,8 +1102,8 @@
       "valor": 100000
     },
     {
-      "nit": "901147428",
-      "nombre": "ATRACCIONES MECANICAS S.A.S",
+      "nit": "1075316605",
+      "nombre": "JACOBO ARANGO TABARES",
       "unidades": 1,
       "valor": 100000
     },
@@ -1075,44 +1114,14 @@
       "valor": 100000
     },
     {
-      "nit": "1053817691",
-      "nombre": "MARIA PAULINA ARANGO BOTERO",
+      "nit": "65795368",
+      "nombre": "DIANA RAMIREZ CASTRO",
       "unidades": 1,
       "valor": 100000
     },
     {
-      "nit": "902059437",
-      "nombre": "ROCKET LAB S.A.S.",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "901849901",
-      "nombre": "HOGAR CORAZÓN CUERPO Y MENTE ACTIVA S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1076668475",
-      "nombre": "NICOLAS ANGULO AGUILAR",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "25109229",
-      "nombre": "MARIA MELIDA TABORDA MURILLO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "900631190",
-      "nombre": "ALIMENTOS Y BEBIDAS ALYCA S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1053853162",
-      "nombre": "TATIANA QUIRAMA GIRALDO",
+      "nit": "1053827372",
+      "nombre": "JUAN ALEJANDRO GONZALEZ CASTAÑO",
       "unidades": 1,
       "valor": 100000
     },
@@ -1123,8 +1132,32 @@
       "valor": 100000
     },
     {
-      "nit": "65795368",
-      "nombre": "DIANA RAMIREZ CASTRO",
+      "nit": "1053853162",
+      "nombre": "TATIANA QUIRAMA GIRALDO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "900631190",
+      "nombre": "ALIMENTOS Y BEBIDAS ALYCA S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "25109229",
+      "nombre": "MARIA MELIDA TABORDA MURILLO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1076668475",
+      "nombre": "NICOLAS ANGULO AGUILAR",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901849901",
+      "nombre": "HOGAR CORAZÓN CUERPO Y MENTE ACTIVA S.A.S",
       "unidades": 1,
       "valor": 100000
     },
@@ -1135,8 +1168,14 @@
       "valor": 100000
     },
     {
-      "nit": "1053827372",
-      "nombre": "JUAN ALEJANDRO GONZALEZ CASTAÑO",
+      "nit": "902059437",
+      "nombre": "ROCKET LAB S.A.S.",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1053817691",
+      "nombre": "MARIA PAULINA ARANGO BOTERO",
       "unidades": 1,
       "valor": 100000
     },
@@ -1153,15 +1192,15 @@
       "valor": 90000
     },
     {
-      "nit": "860035200",
-      "nombre": "ATALAYA 1 SECURITY GROUP LTDA",
-      "unidades": 4,
-      "valor": 80000
-    },
-    {
       "nit": "900192134",
       "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
       "unidades": 5,
+      "valor": 80000
+    },
+    {
+      "nit": "860035200",
+      "nombre": "ATALAYA 1 SECURITY GROUP LTDA",
+      "unidades": 4,
       "valor": 80000
     },
     {
@@ -1237,14 +1276,14 @@
       "valor": 30000
     },
     {
-      "nit": "901455816",
-      "nombre": "M&S VITAMINS SAS",
+      "nit": "901517118",
+      "nombre": "PHF SAS",
       "unidades": 1,
       "valor": 20000
     },
     {
-      "nit": "901517118",
-      "nombre": "PHF SAS",
+      "nit": "901455816",
+      "nombre": "M&S VITAMINS SAS",
       "unidades": 1,
       "valor": 20000
     },
@@ -1267,8 +1306,8 @@
       "valor": 16000
     },
     {
-      "nit": "901806035",
-      "nombre": "EL GURU NUTRICIONAL S.A.S",
+      "nit": "810006450",
+      "nombre": "INVERSIONES PAYSANDU S.A.S",
       "unidades": 1,
       "valor": 14500
     },
@@ -1279,8 +1318,8 @@
       "valor": 14500
     },
     {
-      "nit": "810006450",
-      "nombre": "INVERSIONES PAYSANDU S.A.S",
+      "nit": "901806035",
+      "nombre": "EL GURU NUTRICIONAL S.A.S",
       "unidades": 1,
       "valor": 14500
     }
@@ -1413,10 +1452,11 @@
       }
     ]
   },
+  "periodo_anterior": "2026-09",
   "periodo_siguiente": "2026-11",
   "facturas_del_siguiente": 96,
   "periodo": "2026-10",
-  "generado_en": "2026-11-18T19:18:28.221Z",
+  "generado_en": "2026-11-18T19:25:54.510Z",
   "facturas_del_periodo": 225,
   "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
   "nota_periodo": "Se cruza el último mes cerrado, no el mes en curso: la facturación va detrás de la certificación y un mes a medias daría un descuadre falso."
