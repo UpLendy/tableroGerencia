@@ -122,17 +122,33 @@ export function cartera(facturas, terceros, hoy) {
     }
   }
 
+  /* El reparto por tramos DE CADA TERCERO, no solo del total. Sin esto no se
+     puede contestar quien esta por pasar de 60 dias, que es justo lo que hay
+     que saber para cobrar antes de que se venza. Publicar solo los quince
+     mayores dejaba fuera a noventa y cinco. */
+  const tramoDe = (d) => d === null ? 'sin fecha'
+    : d <= 30 ? 'hasta 30' : d <= 60 ? '31 a 60' : d <= 90 ? '61 a 90' : 'mas de 90';
+  const detalle = filas.map((x) => {
+    const t = { 'hasta 30': 0, '31 a 60': 0, '61 a 90': 0, 'mas de 90': 0, 'sin fecha': 0 };
+    for (const f of x.facturas) t[tramoDe(f.dias)] += f.saldo;
+    return {
+      nit: x.nit, nombre: x.nombre, saldo: x.saldo,
+      facturas: x.facturas.length,
+      mas_vieja_dias: x.facturas[0]?.dias ?? null,
+      por_antiguedad: t,
+    };
+  });
+
   return {
     regla: REGLA,
     corte: hoy,
     total: filas.reduce((a, x) => a + x.saldo, 0),
     terceros: filas.length,
     por_antiguedad: tramos,
-    mayores: filas.slice(0, 15).map((x) => ({
-      nit: x.nit, nombre: x.nombre, saldo: x.saldo,
-      facturas: x.facturas.length,
-      mas_vieja_dias: x.facturas[0]?.dias ?? null,
-    })),
+    /* Todos, no los quince primeros. Son cien terceros: cabe de sobra y
+       permite contestar preguntas que antes obligaban a volver a Siigo. */
+    detalle,
+    mayores: detalle.slice(0, 15).map(({ por_antiguedad, ...r }) => r),
   };
 }
 
@@ -179,7 +195,21 @@ export function facturadoPorMes(facturas) {
  * @param compras   lo que devuelve comprasPorTercero()
  * @param terceros  NIT → nombre, del maestro de Siigo
  */
-export function conciliar(empresas, compras, terceros) {
+/**
+ * El cruce de un mes.
+ *
+ * `compras` son las facturas FECHADAS en el mes. `comprasSiguiente`, las del
+ * mes siguiente, y es opcional pero importa: hay clientes a los que BPM
+ * factura a mes vencido, asi que el servicio de octubre aparece en una
+ * factura de noviembre. Cruzar solo por fecha de factura los declara
+ * descuadrados cuando no lo estan.
+ *
+ * Aqui NO se adivina cual cliente va a mes vencido: se publican las dos
+ * cifras y se marca el caso en el que la del mes siguiente explica la
+ * diferencia. Quien decide si eso es un desfase o un descuadre de verdad es
+ * BPM, que es quien sabe como le factura a cada quien.
+ */
+export function conciliar(empresas, compras, terceros, comprasSiguiente) {
   const filas = [];
   const sinNit = [], noResuelto = [], soloEnSiigo = [];
   const usados = new Set();
@@ -221,9 +251,28 @@ export function conciliar(empresas, compras, terceros) {
       : sueltas === 0 ? 'certifica_sin_facturar'
       : 'difiere';
 
+    /* Lo mismo, pero con las facturas del mes siguiente. Si esa cifra se
+       parece mucho mas a lo certificado que la del propio mes, lo que hay
+       delante es un cliente facturado a mes vencido. */
+    let sigSueltas = null;
+    if (comprasSiguiente) {
+      const cs = comprasSiguiente.get(nit);
+      sigSueltas = 0;
+      if (cs) for (const [cod, c] of cs.porCodigo) {
+        if (CODIGOS.individual.includes(cod)) sigSueltas += c.cant;
+      }
+    }
+    const desfase = paquetes === 0 && sigSueltas !== null &&
+      Math.abs(cert - sigSueltas) < Math.abs(cert - sueltas);
+
     filas.push({
       ...base, nit, nombre_siigo: nombreSiigo,
       unidades: sueltas, paquetes,
+      ...(sigSueltas !== null ? { unidades_mes_siguiente: sigSueltas } : {}),
+      ...(desfase ? {
+        posible_desfase: true,
+        diferencia_si_mes_vencido: sigSueltas - cert,
+      } : {}),
       diferencia: paquetes > 0 ? null : sueltas - cert,
       valor_facturado: valor,
       tarifa: [...precios].sort((a, b) => a - b),
@@ -259,6 +308,7 @@ export function conciliar(empresas, compras, terceros) {
   }
 
   const cuenta = (e) => filas.filter((f) => f.estado === e).length;
+  const conDesfase = filas.filter((f) => f.posible_desfase).length;
   return {
     regla: REGLA,
     empresas: filas.sort((a, b) => b.certificados - a.certificados),
@@ -274,6 +324,9 @@ export function conciliar(empresas, compras, terceros) {
       sin_nit: sinNit.length,
       nit_no_resuelto: noResuelto.length,
       solo_en_siigo: soloEnSiigo.length,
+      /* Cuantas de las que difieren se explicarian por facturacion a mes
+         vencido. No se descuentan del conteo: se señalan. */
+      posible_desfase: conDesfase,
     },
     /* Lo que BPM tiene que corregir en sus sistemas, separado de lo que es
        una diferencia de negocio. Son cosas distintas y se arreglan en sitios

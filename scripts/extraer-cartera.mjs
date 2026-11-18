@@ -146,7 +146,16 @@ try {
 
   /* Solo las facturas de ese mes: la ventana de la cartera son dos años. */
   const delMes = vigentes.filter((f) => String(f.date || '').slice(0, 7) === periodo);
-  const conc = conciliar(empresas, comprasPorTercero(delMes), terceros);
+  /* Y las del mes siguiente, para ver los clientes facturados a mes vencido:
+     a ellos el servicio de octubre les llega en una factura de noviembre, y
+     cruzar solo por fecha de factura los declara descuadrados sin estarlo. */
+  const [a, m] = periodo.split('-').map(Number);
+  const siguiente = new Date(Date.UTC(a, m, 1)).toISOString().slice(0, 7);
+  const delSiguiente = vigentes.filter((f) => String(f.date || '').slice(0, 7) === siguiente);
+  const conc = conciliar(empresas, comprasPorTercero(delMes), terceros,
+                         comprasPorTercero(delSiguiente));
+  conc.periodo_siguiente = siguiente;
+  conc.facturas_del_siguiente = delSiguiente.length;
   conc.periodo = periodo;
   conc.generado_en = new Date().toISOString();
   conc.facturas_del_periodo = delMes.length;

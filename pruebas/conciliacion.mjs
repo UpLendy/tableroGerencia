@@ -165,3 +165,65 @@ console.log('-- lo facturado mes a mes --');
 console.log('');
 
 if (fallos) { console.log('  ' + fallos + ' fallo(s)\n'); process.exit(1); }
+
+console.log('\n-- facturacion a mes vencido --');
+{
+  /* El caso de Arcos Dorados: certifica 353 en octubre, en octubre se le
+     facturan 207 y en noviembre 329. Cruzar por fecha de factura lo declara
+     descuadrado en 146; lo que pasa es que se le factura a mes vencido. */
+  const octubre = [factura('800244387', [{ code: '21002', quantity: 207, price: 10500 }])];
+  const noviembre = [factura('800244387', [{ code: '21002', quantity: 329, price: 10500 }])];
+  const emp = [{ codigo: '8ac087', nombre: 'ARCOS DORADOS', nit: '800244387', certificados: 353 }];
+  const t = new Map([['800244387', 'ARCOS DORADOS COLOMBIA S.A']]);
+
+  const sinSiguiente = conciliar(emp, comprasPorTercero(octubre), t);
+  iguales(sinSiguiente.empresas[0].diferencia, -146, 'sin el mes siguiente, la diferencia es -146');
+  iguales(sinSiguiente.empresas[0].posible_desfase, undefined, 'y no se señala nada, porque no hay con que');
+
+  const con = conciliar(emp, comprasPorTercero(octubre), t, comprasPorTercero(noviembre));
+  const e = con.empresas[0];
+  iguales(e.unidades_mes_siguiente, 329, 'con el mes siguiente, se publica lo facturado en noviembre');
+  iguales(e.posible_desfase, true, 'y se marca como posible desfase');
+  iguales(e.diferencia_si_mes_vencido, -24, 'con la diferencia que quedaria: -24');
+  iguales(e.diferencia, -146, 'la diferencia por fecha de factura se conserva, no se reescribe');
+  iguales(con.resumen.posible_desfase, 1, 'y el resumen los cuenta');
+}
+{
+  /* Si el mes siguiente NO explica la diferencia, no se marca nada. Esto es
+     lo que evita que la señal se dispare siempre y deje de significar algo. */
+  const octubre = [factura('900111222', [{ code: '21002', quantity: 50, price: 14000 }])];
+  const noviembre = [factura('900111222', [{ code: '21002', quantity: 3, price: 14000 }])];
+  const emp = [{ codigo: 'abc123', nombre: 'OTRA', nit: '900111222', certificados: 100 }];
+  const t = new Map([['900111222', 'OTRA SAS']]);
+  const c = conciliar(emp, comprasPorTercero(octubre), t, comprasPorTercero(noviembre));
+  iguales(c.empresas[0].posible_desfase, undefined, 'si el mes siguiente no lo explica, no se marca');
+  iguales(c.resumen.posible_desfase, 0, 'y el resumen no lo cuenta');
+}
+{
+  /* Una empresa que cuadra en su propio mes no se marca aunque el mes
+     siguiente traiga algo: ya cuadraba. */
+  const octubre = [factura('900111222', [{ code: '21002', quantity: 100, price: 14000 }])];
+  const noviembre = [factura('900111222', [{ code: '21002', quantity: 100, price: 14000 }])];
+  const emp = [{ codigo: 'abc123', nombre: 'OTRA', nit: '900111222', certificados: 100 }];
+  const t = new Map([['900111222', 'OTRA SAS']]);
+  const c = conciliar(emp, comprasPorTercero(octubre), t, comprasPorTercero(noviembre));
+  iguales(c.empresas[0].estado, 'cuadra', 'sigue cuadrando');
+  iguales(c.empresas[0].posible_desfase, undefined, 'y no se marca desfase');
+}
+
+console.log('\n-- la cartera publica a todos, no a quince --');
+{
+  const fs = [];
+  for (let i = 0; i < 20; i++)
+    fs.push(factura('90000000' + i, [{ code: '21002', quantity: 1, price: 1000 }],
+      { balance: 1000 * (20 - i), date: '2026-10-15' }));
+  const c = cartera(fs, new Map(), '2026-11-18');
+  iguales(c.detalle.length, 20, 'el detalle trae los veinte terceros');
+  iguales(c.mayores.length, 15, 'y mayores sigue siendo el top quince');
+  iguales(c.detalle[0].por_antiguedad['31 a 60'], 20000, 'cada tercero trae su reparto por tramo');
+  const suma = c.detalle.reduce((a, x) => a + x.saldo, 0);
+  iguales(Math.round(suma), Math.round(c.total), 'el detalle suma exactamente el total');
+}
+
+console.log(fallos ? `\n  ${fallos} FALLO(S)\n` : '\n  todo bien\n');
+process.exit(fallos ? 1 : 0);

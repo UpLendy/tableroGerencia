@@ -888,12 +888,20 @@ function renderCruce(){
     .map(e => ({ ...e, falta: Number(e.certificados) - Number(e.unidades||0) }))
     .sort((a,b) => b.falta - a.falta);
   const totalFalta = faltan.reduce((a,e) => a + e.falta, 0);
+  /* Cuántas de las que faltan se explican porque a ese cliente se le factura
+     a mes vencido. No se descuentan de la cifra —no nos consta— pero decirlo
+     cambia por completo cómo se lee el número. */
+  const porDesfase = faltan.filter(e => e.posible_desfase)
+    .reduce((a,e) => a + e.falta, 0);
   $('cruFalta').textContent = nf(totalFalta);
   $('cruFaltaSub').textContent = faltan.length
-    ? 'en ' + nf(faltan.length) + ' empresa' + (faltan.length===1?'':'s') +
-      (faltan[0] ? ' · la mayor, ' + esc(cortar(faltan[0].nombre || faltan[0].codigo, 24)) : '')
+    ? (porDesfase
+        ? nf(porDesfase) + ' se explicarían por facturación a mes vencido'
+        : 'en ' + nf(faltan.length) + ' empresa' + (faltan.length===1?'':'s') +
+          (faltan[0] ? ' · la mayor, ' + esc(cortar(faltan[0].nombre || faltan[0].codigo, 24)) : ''))
     : 'ninguna';
-  $('cruFalta').style.color = totalFalta > 0 ? 'var(--bad)' : '';
+  /* Si casi todo se explica por el desfase, el rojo miente. */
+  $('cruFalta').style.color = totalFalta > 0 && porDesfase < totalFalta / 2 ? 'var(--bad)' : '';
 
   const fuera = Number(r.sin_nit||0) + Number(r.nit_no_resuelto||0);
   $('cruFuera').textContent = nf(fuera);
@@ -912,17 +920,29 @@ function renderCruce(){
     : 'Todas las empresas comparables coinciden.';
 
   const tarifa = t => (t||[]).length ? (t||[]).map(cop).join(' · ') : emdash;
+  const haySig = malas.some(e => e.unidades_mes_siguiente !== undefined);
   $('tablaCru').innerHTML = malas.length ? `<table><thead><tr>
-      <th>Empresa</th><th class="n">Certificó</th><th class="n">Facturado</th>
-      <th class="n">Diferencia</th><th class="n">Tarifa</th></tr></thead><tbody>` +
+      <th>Empresa</th><th class="n">Certificó</th><th class="n">Facturado</th>` +
+      (haySig ? '<th class="n">Mes siguiente</th>' : '') +
+      `<th class="n">Diferencia</th><th class="n">Tarifa</th></tr></thead><tbody>` +
     malas.map(e => {
+      /* Si se le factura a mes vencido, la diferencia que importa es la otra.
+         Se enseñan las dos: la de fecha de factura tachada, y al lado la que
+         quedaría. No se elige por BPM cuál es la buena. */
       const d = Number(e.diferencia||0);
       const cl = d < 0 ? 'dn' : (d > 0 ? 'up' : 'flat');
+      const dv = e.posible_desfase ? Number(e.diferencia_si_mes_vencido) : null;
+      const celdaDif = e.posible_desfase
+        ? `<span style="text-decoration:line-through;color:var(--ink3)">${d>0?'+':''}${nf(d)}</span>` +
+          ` <span class="${dv<0?'dn':(dv>0?'up':'flat')}">${dv>0?'+':''}${nf(dv)}</span>`
+        : `<span class="${cl}">${d>0?'+':''}${nf(d)}</span>`;
       return `<tr>
-        <td title="NIT ${esc(e.nit||'—')}">${esc(cortar(e.nombre||e.codigo,38))}</td>
+        <td title="NIT ${esc(e.nit||'—')}">${esc(cortar(e.nombre||e.codigo,36))}${
+          e.posible_desfase ? ' <span style="color:var(--s2)" title="Lo facturado al mes siguiente se parece mucho más a lo certificado: parece un cliente facturado a mes vencido">·a mes vencido</span>' : ''}</td>
         <td class="n">${nf(e.certificados)}</td>
-        <td class="n">${nf(e.unidades||0)}</td>
-        <td class="n"><span class="${cl}">${d>0?'+':''}${nf(d)}</span></td>
+        <td class="n">${nf(e.unidades||0)}</td>` +
+        (haySig ? `<td class="n">${e.unidades_mes_siguiente===undefined?emdash:nf(e.unidades_mes_siguiente)}</td>` : '') +
+        `<td class="n">${celdaDif}</td>
         <td class="n">${esc(tarifa(e.tarifa))}</td>
       </tr>`;
     }).join('') + '</tbody></table>' : '';
@@ -935,12 +955,15 @@ function renderCruce(){
   if (malas.length) {
     const neto = sobran - totalFalta;
     $('cruNeto').hidden = false;
+    const nDesf = (k.resumen && k.resumen.posible_desfase) || 0;
     $('cruNetoTxt').textContent =
       'Faltan ' + nf(totalFalta) + ' certificaciones por facturar y sobran ' + nf(sobran) +
       ' facturadas de más: el neto es ' + (neto>0?'+':'') + nf(neto) + '. ' +
-      (Math.abs(neto) * 10 < totalFalta
-        ? 'Que casi se cancelen apunta a reparto entre meses y entre empresas más que a facturación perdida, pero las diferencias grandes hay que mirarlas una por una.'
-        : 'La diferencia no se cancela sola: hay que revisarla.');
+      (nDesf
+        ? 'En ' + nf(nDesf) + ' de estas empresas lo facturado al mes siguiente se parece mucho más a lo certificado, así que probablemente se les factura a mes vencido y no hay descuadre: la columna del mes siguiente lo muestra. Las demás sí hay que mirarlas.'
+        : (Math.abs(neto) * 10 < totalFalta
+          ? 'Que casi se cancelen apunta a reparto entre meses más que a facturación perdida, pero las diferencias grandes hay que mirarlas una por una.'
+          : 'La diferencia no se cancela sola: hay que revisarla.'));
   } else {
     $('cruNeto').hidden = true;
   }
