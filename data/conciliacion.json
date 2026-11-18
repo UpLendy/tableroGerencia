@@ -21,7 +21,16 @@
       "saldo": 0,
       "estado": "difiere",
       "sin_facturar": 24,
-      "valor_sin_facturar": 252000
+      "valor_sin_facturar": 252000,
+      "facturado_por_mes": {
+        "2026-05": 261,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 795,
+        "2026-09": 0,
+        "2026-10": 207,
+        "2026-11": 329
+      }
     },
     {
       "codigo": "dad4ef",
@@ -41,7 +50,16 @@
       "saldo": 2086000,
       "estado": "difiere",
       "sin_facturar": 13,
-      "valor_sin_facturar": 182000
+      "valor_sin_facturar": 182000,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 25,
+        "2026-10": 149,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "603a8e",
@@ -61,7 +79,16 @@
       "saldo": 0,
       "estado": "difiere",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 154,
+        "2026-06": 55,
+        "2026-07": 40,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 186,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "1f2ad1",
@@ -89,7 +116,16 @@
       "saldo": 0,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 1,
+        "2026-06": 7,
+        "2026-07": 17,
+        "2026-08": 5,
+        "2026-09": 11,
+        "2026-10": 29,
+        "2026-11": 19
+      }
     },
     {
       "codigo": "7016fa",
@@ -110,7 +146,16 @@
       "saldo": 362500,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 6,
+        "2026-06": 31,
+        "2026-07": 12,
+        "2026-08": 8,
+        "2026-09": 19,
+        "2026-10": 25,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "d4d8c7",
@@ -130,7 +175,16 @@
       "saldo": 297000,
       "estado": "difiere",
       "sin_facturar": 1,
-      "valor_sin_facturar": 13500
+      "valor_sin_facturar": 13500,
+      "facturado_por_mes": {
+        "2026-05": 19,
+        "2026-06": 20,
+        "2026-07": 40,
+        "2026-08": 47,
+        "2026-09": 13,
+        "2026-10": 22,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "e1529e",
@@ -168,7 +222,16 @@
       "saldo": 297000,
       "estado": "difiere",
       "sin_facturar": 1,
-      "valor_sin_facturar": 16500
+      "valor_sin_facturar": 16500,
+      "facturado_por_mes": {
+        "2026-05": 22,
+        "2026-06": 40,
+        "2026-07": 15,
+        "2026-08": 0,
+        "2026-09": 35,
+        "2026-10": 18,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "e7c194",
@@ -188,7 +251,16 @@
       "saldo": 315000,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 1,
+        "2026-06": 2,
+        "2026-07": 2,
+        "2026-08": 3,
+        "2026-09": 0,
+        "2026-10": 18,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "d85ce6",
@@ -208,7 +280,16 @@
       "saldo": 264000,
       "estado": "difiere",
       "sin_facturar": 1,
-      "valor_sin_facturar": 16500
+      "valor_sin_facturar": 16500,
+      "facturado_por_mes": {
+        "2026-05": 1,
+        "2026-06": 3,
+        "2026-07": 7,
+        "2026-08": 6,
+        "2026-09": 5,
+        "2026-10": 16,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "a6824d",
@@ -238,7 +319,16 @@
       "saldo": 595000,
       "estado": "difiere",
       "sin_facturar": 1,
-      "valor_sin_facturar": 13500
+      "valor_sin_facturar": 13500,
+      "facturado_por_mes": {
+        "2026-05": 60,
+        "2026-06": 37,
+        "2026-07": 23,
+        "2026-08": 22,
+        "2026-09": 109,
+        "2026-10": 13,
+        "2026-11": 15
+      }
     },
     {
       "codigo": "d53a9f",
@@ -249,7 +339,16 @@
       "unidades": 0,
       "estado": "sin_factura_en_el_periodo",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 35,
+        "2026-06": 43,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 0,
+        "2026-11": 65
+      }
     },
     {
       "codigo": "14f27a",
@@ -278,7 +377,16 @@
       "saldo": 0,
       "estado": "difiere",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 64,
+        "2026-06": 39,
+        "2026-07": 40,
+        "2026-08": 0,
+        "2026-09": 22,
+        "2026-10": 25,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "99b3d6",
@@ -298,7 +406,16 @@
       "saldo": 0,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 8,
+        "2026-09": 20,
+        "2026-10": 12,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "564a3b",
@@ -326,7 +443,16 @@
       "saldo": 0,
       "estado": "difiere",
       "sin_facturar": 1,
-      "valor_sin_facturar": 17500
+      "valor_sin_facturar": 17500,
+      "facturado_por_mes": {
+        "2026-05": 5,
+        "2026-06": 19,
+        "2026-07": 43,
+        "2026-08": 36,
+        "2026-09": 19,
+        "2026-10": 9,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "c4d643",
@@ -346,7 +472,16 @@
       "saldo": 160000,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 10,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "04379a",
@@ -366,7 +501,16 @@
       "saldo": 175000,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 10,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "2b5b45",
@@ -386,7 +530,16 @@
       "saldo": 0,
       "estado": "difiere",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 45,
+        "2026-06": 28,
+        "2026-07": 53,
+        "2026-08": 65,
+        "2026-09": 21,
+        "2026-10": 31,
+        "2026-11": 7
+      }
     },
     {
       "codigo": "444ba5",
@@ -415,7 +568,16 @@
       "saldo": 0,
       "estado": "difiere",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 38,
+        "2026-06": 16,
+        "2026-07": 18,
+        "2026-08": 0,
+        "2026-09": 10,
+        "2026-10": 25,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "c57e9b",
@@ -435,7 +597,16 @@
       "saldo": 98000,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 3,
+        "2026-06": 2,
+        "2026-07": 7,
+        "2026-08": 3,
+        "2026-09": 10,
+        "2026-10": 7,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "9a107d",
@@ -455,7 +626,16 @@
       "saldo": 0,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 12,
+        "2026-10": 6,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "9b149c",
@@ -483,7 +663,16 @@
       "saldo": 0,
       "estado": "difiere",
       "sin_facturar": 3,
-      "valor_sin_facturar": 42000
+      "valor_sin_facturar": 42000,
+      "facturado_por_mes": {
+        "2026-05": 5,
+        "2026-06": 5,
+        "2026-07": 1,
+        "2026-08": 0,
+        "2026-09": 4,
+        "2026-10": 2,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "c7d780",
@@ -503,7 +692,16 @@
       "saldo": 80000,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 1,
+        "2026-06": 0,
+        "2026-07": 2,
+        "2026-08": 0,
+        "2026-09": 1,
+        "2026-10": 5,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "8340e0",
@@ -523,7 +721,16 @@
       "saldo": 1112800,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 73,
+        "2026-08": 1,
+        "2026-09": 2,
+        "2026-10": 5,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "c19b6a",
@@ -559,7 +766,16 @@
       "saldo": 0,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 15,
+        "2026-06": 6,
+        "2026-07": 4,
+        "2026-08": 11,
+        "2026-09": 7,
+        "2026-10": 4,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "ba0a51",
@@ -580,7 +796,16 @@
       "saldo": 468000,
       "estado": "difiere",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 7,
+        "2026-06": 47,
+        "2026-07": 3,
+        "2026-08": 33,
+        "2026-09": 28,
+        "2026-10": 27,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "4a81fb",
@@ -616,7 +841,16 @@
       "saldo": 46500,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 12,
+        "2026-06": 3,
+        "2026-07": 1,
+        "2026-08": 0,
+        "2026-09": 2,
+        "2026-10": 3,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "5a73a4",
@@ -652,7 +886,16 @@
       "saldo": 33000,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 32,
+        "2026-09": 0,
+        "2026-10": 2,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "2ca4f9",
@@ -672,7 +915,16 @@
       "saldo": 31000,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 8,
+        "2026-09": 0,
+        "2026-10": 2,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "63b7c5",
@@ -692,7 +944,16 @@
       "saldo": 40000,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 2,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "7d089c",
@@ -721,7 +982,16 @@
       "saldo": 31000,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 1,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 3,
+        "2026-10": 2,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "2e62ce",
@@ -741,7 +1011,16 @@
       "saldo": 0,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 7,
+        "2026-06": 5,
+        "2026-07": 6,
+        "2026-08": 6,
+        "2026-09": 10,
+        "2026-10": 2,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "dadd5b",
@@ -762,7 +1041,16 @@
       "saldo": 28000,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 9,
+        "2026-09": 2,
+        "2026-10": 2,
+        "2026-11": 2
+      }
     },
     {
       "codigo": "af291e",
@@ -785,7 +1073,16 @@
       "saldo": 14000,
       "estado": "difiere",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 10,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 1,
+        "2026-09": 0,
+        "2026-10": 1,
+        "2026-11": 2
+      }
     },
     {
       "codigo": "be428a",
@@ -821,7 +1118,16 @@
       "saldo": 0,
       "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 4,
+        "2026-06": 0,
+        "2026-07": 2,
+        "2026-08": 6,
+        "2026-09": 6,
+        "2026-10": 1,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "701bc2",
@@ -1453,10 +1759,19 @@
     ]
   },
   "periodo_anterior": "2026-09",
+  "meses_serie": [
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09",
+    "2026-10",
+    "2026-11"
+  ],
   "periodo_siguiente": "2026-11",
   "facturas_del_siguiente": 96,
   "periodo": "2026-10",
-  "generado_en": "2026-11-18T19:25:54.510Z",
+  "generado_en": "2026-11-18T19:29:30.250Z",
   "facturas_del_periodo": 225,
   "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
   "nota_periodo": "Se cruza el último mes cerrado, no el mes en curso: la facturación va detrás de la certificación y un mes a medias daría un descuadre falso."

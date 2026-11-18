@@ -1505,7 +1505,7 @@
       "mas_vieja_dias": 292
     }
   ],
-  "generado_en": "2026-11-18T19:25:54.494Z",
+  "generado_en": "2026-11-18T19:29:30.221Z",
   "ventana": {
     "desde": "2024-11-01",
     "hasta": "2026-11-18",
@@ -2433,6 +2433,6 @@
   },
   "nota_facturado": "Incluye todo lo que BPM factura: certificaciones, tramites INVIMA, asesorias presenciales y apto medico. No es comparable con el valor a precio de lista del tablero, que solo cuenta certificaciones.",
   "tiempos_ms": {
-    "total": 35696
+    "total": 62427
   }
 }
