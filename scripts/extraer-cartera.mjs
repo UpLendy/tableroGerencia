@@ -123,6 +123,27 @@ try {
     .filter((e) => e.certificados > 0);
   if (!empresas.length) throw new Error('ninguna empresa certificó en ' + periodo);
 
+  /* Si NINGUNA empresa trae documento, el problema no son los datos de BPM:
+     es que este corte se generó antes de que el corte transportara el NIT, o
+     antes de que la plataforma lo expusiera. Publicar el cruce así levantaría
+     una alerta diciendo que decenas de empresas quedan fuera por su
+     documento, que es falso y manda a alguien a corregir lo que no está mal.
+     Se para y se dice qué hacer. */
+  const conNit = empresas.filter((e) => String(e.nit || '').trim()).length;
+  if (conNit === 0) {
+    throw new Error(
+      'el corte publicado no trae el NIT de ninguna empresa.\n' +
+      '     Vuelve a generar el corte y repite:\n' +
+      '       Actions → "Corte automático" → Run workflow,  o  npm run corte\n' +
+      '     Si después de eso sigue en cero, revisa que el MetricsService.php\n' +
+      '     desplegado exponga el campo nit en /api/v1/metrics/certificaciones.');
+  }
+  if (conNit < empresas.length / 2) {
+    console.warn('');
+    console.warn('  ⚠  solo ' + conNit + ' de ' + empresas.length + ' empresas traen NIT.');
+    console.warn('     El cruce sale igual, pero con esa mitad fuera.');
+  }
+
   /* Solo las facturas de ese mes: la ventana de la cartera son dos años. */
   const delMes = vigentes.filter((f) => String(f.date || '').slice(0, 7) === periodo);
   const conc = conciliar(empresas, comprasPorTercero(delMes), terceros);
