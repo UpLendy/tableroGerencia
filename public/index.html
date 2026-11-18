@@ -826,11 +826,22 @@ function renderKpis(){
       if (!fm) return {l:'Facturado en el mes · Siigo', ausente:true, soloGerencia:true,
         s:'Pendiente de que corra la lectura de Siigo.'};
       const fp = p && fpm[p.id];
+      /* Por ritmo diario cuando el mes va a medias, igual que las demas
+         tarjetas. Comparando los totales en bruto, medio noviembre contra
+         octubre completo daba -35,8 %: el mismo desplome falso que la
+         Direccion nos senalo en la Entrega 1, recien estrenado en una
+         tarjeta nueva. */
+      const d = fp && fp.facturado
+        ? (par ? porDia(fm.facturado, m.id) / porDia(fp.facturado, p.id) - 1
+               : fm.facturado / fp.facturado - 1)
+        : null;
       return {
         l:'Facturado en el mes · Siigo', v:cop(fm.facturado), soloGerencia:true,
-        d: fp && fp.facturado ? fm.facturado/fp.facturado-1 : null,
+        d,
         s: fp ? cop(fp.facturado)+' el mes anterior' : null,
-        pie:'Todo lo que BPM facturó: certificaciones, trámites INVIMA, asesorías '+
+        pie:(par ? 'Ritmo diario comparado, no el total: '+m.corto+' va por '+
+              par.dias+' de '+par.total+' días. ' : '')+
+            'Todo lo que BPM facturó: certificaciones, trámites INVIMA, asesorías '+
             'presenciales y apto médico. No es comparable con el valor a precio de '+
             'lista de al lado, que solo cuenta certificaciones. '+
             (fm.saldo>0 ? 'De este mes siguen sin cobrar '+cop(fm.saldo)+'.' : 'Está todo cobrado.'),
