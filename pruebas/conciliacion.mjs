@@ -211,6 +211,30 @@ console.log('\n-- facturacion a mes vencido --');
   iguales(c.empresas[0].posible_desfase, undefined, 'y no se marca desfase');
 }
 
+{
+  /* El falso positivo que casi se publica: una empresa a la que se le factura
+     DE MAS en su mes y nada al siguiente. Cero queda cerca de cualquier
+     numero pequeno, asi que una regla de distancias la marcaba como desfase y
+     presentaba un -91 inventado en vez del +95 real. */
+  const octubre = [factura('900333444', [{ code: '21002', quantity: 186, price: 11000 }])];
+  const noviembre = [];
+  const emp = [{ codigo: 'rf', nombre: 'ROYAL FILMS', nit: '900333444', certificados: 91 }];
+  const t = new Map([['900333444', 'ROYAL FILMS S.A.S']]);
+  const c = conciliar(emp, comprasPorTercero(octubre), t, comprasPorTercero(noviembre));
+  iguales(c.empresas[0].posible_desfase, undefined, 'sin facturacion el mes siguiente no hay desfase que valga');
+  iguales(c.empresas[0].diferencia, 95, 'y la diferencia real se conserva');
+}
+{
+  /* Parecido no es igual: 7 contra 9 es un 22 % de diferencia y eso ya no es
+     un desfase limpio, es otra cosa que hay que mirar. */
+  const octubre = [factura('900555666', [{ code: '21002', quantity: 31, price: 11500 }])];
+  const noviembre = [factura('900555666', [{ code: '21002', quantity: 7, price: 11500 }])];
+  const emp = [{ codigo: 'cp', nombre: 'CINEPOLIS', nit: '900555666', certificados: 9 }];
+  const t = new Map([['900555666', 'Cinepolis']]);
+  const c = conciliar(emp, comprasPorTercero(octubre), t, comprasPorTercero(noviembre));
+  iguales(c.empresas[0].posible_desfase, undefined, 'una diferencia del 22 % no se declara desfase');
+}
+
 console.log('\n-- la cartera publica a todos, no a quince --');
 {
   const fs = [];

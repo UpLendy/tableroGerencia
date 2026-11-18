@@ -192,6 +192,10 @@ try {
   console.log('      sin factura en el mes    ' + r.sin_factura_en_el_periodo);
   console.log('      sin NIT / no resuelto    ' + r.sin_nit + ' / ' + r.nit_no_resuelto);
   console.log('      solo en Siigo            ' + r.solo_en_siigo);
+  if (r.posible_desfase) {
+    console.log('      de las que difieren, ' + r.posible_desfase +
+      ' parecen facturadas a mes vencido');
+  }
 } catch (e) {
   console.log('');
   console.log('  sin conciliación: ' + e.message);

@@ -262,7 +262,15 @@ export function conciliar(empresas, compras, terceros, comprasSiguiente) {
         if (CODIGOS.individual.includes(cod)) sigSueltas += c.cant;
       }
     }
-    const desfase = paquetes === 0 && sigSueltas !== null &&
+    /* Que el mes siguiente se PAREZCA a lo certificado, no solo que quede
+       mas cerca. Comparar distancias a secas marcaba como "a mes vencido" a
+       quien no facturo nada el mes siguiente, porque cero queda cerca de
+       cualquier numero pequeno: a Royal Films, con 91 certificadas y 186
+       facturadas en octubre, le habria presentado un -91 inventado en vez
+       del +95 real. Se exige que haya facturacion y que la diferencia sea
+       menor al 15 %, que es lo que distingue un desfase de un descuadre. */
+    const desfase = paquetes === 0 && sigSueltas !== null && sigSueltas > 0 && cert > 0 &&
+      Math.abs(cert - sigSueltas) / cert <= 0.15 &&
       Math.abs(cert - sigSueltas) < Math.abs(cert - sueltas);
 
     filas.push({
