@@ -562,6 +562,48 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     </div>
   </section>
 
+  <!-- ============ 6c · CRUCE CON SIIGO ============ -->
+  <!-- Lo que el tablero contó contra lo que BPM facturó, empresa por empresa,
+       del último mes CERRADO. No del mes en curso: la facturación va detrás de
+       la certificación y cruzar un mes a medias daría un descuadre inventado.
+
+       Oculta si el corte no trae el bloque, que es lo que pasa en la vista de
+       Equipo —el servidor se lo quita— y mientras el cruce no haya corrido. -->
+  <section id="secCruce" hidden>
+    <div class="shead">
+      <h2>Certificado contra facturado</h2>
+      <span class="note" id="cruNote">—</span>
+    </div>
+    <div class="grid kpis" style="margin-bottom:14px">
+      <div class="kpi">
+        <div class="kl">Empresas que se pudieron cruzar</div>
+        <div class="kv" id="cruComp">—</div>
+        <div class="kd"><span id="cruCompSub"></span></div>
+      </div>
+      <div class="kpi">
+        <div class="kl">Certificaciones sin aparecer facturadas</div>
+        <div class="kv" id="cruFalta">—</div>
+        <div class="kd"><span id="cruFaltaSub"></span></div>
+      </div>
+      <div class="kpi">
+        <div class="kl">Fuera del cruce por su documento</div>
+        <div class="kv" id="cruFuera">—</div>
+        <div class="kd"><span id="cruFueraSub"></span></div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="chartcard">
+        <div class="ct">Dónde no coinciden</div>
+        <div class="cs" id="cruCs"></div>
+        <div class="tw" id="tablaCru"></div>
+        <div class="al aviso" id="cruNeto" hidden style="margin-top:16px">
+          <div class="al-sev">Cómo leerlo</div>
+          <div><div class="al-d" id="cruNetoTxt"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ 6b · INGENIEROS ============ -->
   <section>
     <div class="shead">
@@ -769,6 +811,8 @@ const pc=(n,d)=>hayNum(n)
   :emdash;
 const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const RAMP=['var(--r5)','var(--r4)','var(--r3)','var(--r2)','var(--r1)'];
+/* Recorta un nombre largo sin partir la palabra a la mitad de un caracter raro. */
+const cortar=(t,n)=>{const s=String(t||'');return s.length>(n||38)?s.slice(0,(n||38)-2)+'…':s;};
 let MES=1;
 
 /* tooltip compartido */
@@ -820,6 +864,88 @@ function renderSalud(){
     </div>`).join('');
 }
 
+/* ------------------------------------------------ cruce con Siigo */
+function renderCruce(){
+  const k = CORTE.conciliacion;
+  const sec = $('secCruce');
+  if(!k || !k.resumen || !Array.isArray(k.empresas)){ sec.hidden = true; return; }
+  sec.hidden = false;
+  const r = k.resumen;
+
+  const mes = (k.periodo||'').replace(/^(\d{4})-(\d{2})$/, (_,a,b)=>MESESES[+b-1]+' de '+a);
+  $('cruNote').textContent = mes + ' · el último mes cerrado · ' +
+    nf(k.facturas_del_periodo) + ' facturas de ese mes en Siigo';
+
+  const comparadas = r.cuadran + r.difieren;
+  $('cruComp').textContent = nf(comparadas) + ' de ' + nf(r.total);
+  $('cruCompSub').textContent = nf(r.cuadran) + ' coinciden, ' + nf(r.difieren) + ' no';
+
+  /* Solo lo que falta por facturar. Que se facture de más es otra
+     conversación y mezclarlas haría que se cancelaran. */
+  const faltan = k.empresas
+    .filter(e => e.estado === 'certifica_sin_facturar' ||
+                (e.estado === 'difiere' && Number(e.diferencia) < 0))
+    .map(e => ({ ...e, falta: Number(e.certificados) - Number(e.unidades||0) }))
+    .sort((a,b) => b.falta - a.falta);
+  const totalFalta = faltan.reduce((a,e) => a + e.falta, 0);
+  $('cruFalta').textContent = nf(totalFalta);
+  $('cruFaltaSub').textContent = faltan.length
+    ? 'en ' + nf(faltan.length) + ' empresa' + (faltan.length===1?'':'s') +
+      (faltan[0] ? ' · la mayor, ' + esc(cortar(faltan[0].nombre || faltan[0].codigo, 24)) : '')
+    : 'ninguna';
+  $('cruFalta').style.color = totalFalta > 0 ? 'var(--bad)' : '';
+
+  const fuera = Number(r.sin_nit||0) + Number(r.nit_no_resuelto||0);
+  $('cruFuera').textContent = nf(fuera);
+  $('cruFueraSub').textContent = fuera
+    ? nf(r.sin_nit||0) + ' sin NIT, ' + nf(r.nit_no_resuelto||0) + ' con uno que no está en Siigo'
+    : 'ninguna';
+
+  /* Solo las que no coinciden. Listar las diecinueve que cuadran no aporta
+     nada: lo que hay que mirar es dónde falla. */
+  const malas = k.empresas
+    .filter(e => e.estado === 'difiere' || e.estado === 'certifica_sin_facturar')
+    .sort((a,b) => Math.abs(Number(b.diferencia||0)) - Math.abs(Number(a.diferencia||0)));
+  $('cruCs').textContent = malas.length
+    ? 'Las ' + nf(malas.length) + ' empresas donde la cuenta no da. Las de uno o dos suelen ser ' +
+      'certificaciones de fin de mes facturadas al mes siguiente.'
+    : 'Todas las empresas comparables coinciden.';
+
+  const tarifa = t => (t||[]).length ? (t||[]).map(cop).join(' · ') : emdash;
+  $('tablaCru').innerHTML = malas.length ? `<table><thead><tr>
+      <th>Empresa</th><th class="n">Certificó</th><th class="n">Facturado</th>
+      <th class="n">Diferencia</th><th class="n">Tarifa</th></tr></thead><tbody>` +
+    malas.map(e => {
+      const d = Number(e.diferencia||0);
+      const cl = d < 0 ? 'dn' : (d > 0 ? 'up' : 'flat');
+      return `<tr>
+        <td title="NIT ${esc(e.nit||'—')}">${esc(cortar(e.nombre||e.codigo,38))}</td>
+        <td class="n">${nf(e.certificados)}</td>
+        <td class="n">${nf(e.unidades||0)}</td>
+        <td class="n"><span class="${cl}">${d>0?'+':''}${nf(d)}</span></td>
+        <td class="n">${esc(tarifa(e.tarifa))}</td>
+      </tr>`;
+    }).join('') + '</tbody></table>' : '';
+
+  /* El neto. Si lo que falta y lo que sobra casi se cancelan, decirlo es más
+     honesto que enseñar un número grande de "sin facturar" a secas: casi
+     todo es reparto entre meses, no plata perdida. */
+  const sobran = k.empresas.filter(e => e.estado==='difiere' && Number(e.diferencia)>0)
+    .reduce((a,e) => a + Number(e.diferencia), 0);
+  if (malas.length) {
+    const neto = sobran - totalFalta;
+    $('cruNeto').hidden = false;
+    $('cruNetoTxt').textContent =
+      'Faltan ' + nf(totalFalta) + ' certificaciones por facturar y sobran ' + nf(sobran) +
+      ' facturadas de más: el neto es ' + (neto>0?'+':'') + nf(neto) + '. ' +
+      (Math.abs(neto) * 10 < totalFalta
+        ? 'Que casi se cancelen apunta a reparto entre meses y entre empresas más que a facturación perdida, pero las diferencias grandes hay que mirarlas una por una.'
+        : 'La diferencia no se cancela sola: hay que revisarla.');
+  } else {
+    $('cruNeto').hidden = true;
+  }
+}
+
 /* ------------------------------------------- cuentas por cobrar */
 function renderCobrar(){
   const c = CORTE.cartera;
@@ -834,7 +960,7 @@ function renderCobrar(){
      eso no sirve para nada; el NIT si, porque con el se busca en Siigo. */
   const quien = m => (!m.nombre || /^no aplica$/i.test(m.nombre.trim()))
     ? 'NIT ' + m.nit : m.nombre;
-  const corto = t => t.length > 38 ? t.slice(0,36) + '…' : t;
+  const corto = (t,n) => cortar(t,n);
 
   $('cobNote').textContent = 'Al ' + fechaLarga(c.corte) + ' · ' +
     nf(c.facturas_revisadas) + ' facturas de venta revisadas en Siigo';
@@ -1902,7 +2028,7 @@ function pintar(opts){
 
   renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy();
   renderAlertas(); renderEmp(); renderCursos(); renderCalidad(); renderSerie(); renderRecompra();
-  renderTramites(); renderAlimentia(); renderCobrar();
+  renderTramites(); renderAlimentia(); renderCobrar(); renderCruce();
 
   $('cargando').hidden=true;
   $('contenido').hidden=false;

@@ -1,11 +1,11 @@
 {
   "regla": "conciliacion-v1",
   "corte": "2026-11-18",
-  "total": 81504202.33,
-  "terceros": 103,
+  "total": 81011202.33,
+  "terceros": 100,
   "por_antiguedad": {
-    "hasta 30": 43249713,
-    "31 a 60": 8280309.77,
+    "hasta 30": 43113213,
+    "31 a 60": 7923809.77,
     "61 a 90": 1348760,
     "mas de 90": 28625419.56,
     "sin fecha": 0
@@ -117,7 +117,7 @@
       "mas_vieja_dias": 292
     }
   ],
-  "generado_en": "2026-11-18T10:16:20.019Z",
+  "generado_en": "2026-11-18T15:53:44.360Z",
   "ventana": {
     "desde": "2024-11-01",
     "hasta": "2026-11-18",
@@ -128,7 +128,7 @@
   "facturado_por_mes": {
     "2026-11": {
       "facturado": 49007290,
-      "saldo": 29747550,
+      "saldo": 29627550,
       "facturas": 96,
       "por_codigo": {
         "20001": {
@@ -156,11 +156,11 @@
           "valor": 100000
         }
       },
-      "cobrado": 19259740
+      "cobrado": 19379740
     },
     "2026-10": {
       "facturado": 76316367.97999999,
-      "saldo": 18713372.77,
+      "saldo": 18340372.77,
       "facturas": 225,
       "por_codigo": {
         "20001": {
@@ -192,7 +192,7 @@
           "valor": 6383160
         }
       },
-      "cobrado": 57602995.20999999
+      "cobrado": 57975995.20999999
     },
     "2026-09": {
       "facturado": 81175967,
@@ -1045,6 +1045,6 @@
   },
   "nota_facturado": "Incluye todo lo que BPM factura: certificaciones, tramites INVIMA, asesorias presenciales y apto medico. No es comparable con el valor a precio de lista del tablero, que solo cuenta certificaciones.",
   "tiempos_ms": {
-    "total": 70075
+    "total": 120590
   }
 }

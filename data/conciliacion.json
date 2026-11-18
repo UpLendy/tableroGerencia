@@ -1,0 +1,1274 @@
+{
+  "regla": "conciliacion-v1",
+  "empresas": [
+    {
+      "codigo": "8ac087",
+      "nombre": "ARCOS DORADOS COLOMBIA S.A.S.",
+      "certificados": 353,
+      "nit": "800244387",
+      "nombre_siigo": "ARCOS DORADOS COLOMBIA S.A.S",
+      "unidades": 207,
+      "paquetes": 0,
+      "diferencia": -146,
+      "valor_facturado": 2173500,
+      "tarifa": [
+        10500
+      ],
+      "saldo": 0,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "dad4ef",
+      "nombre": "DISTRIBUIDORA DE VINOS Y LICORES S.A.S.",
+      "certificados": 162,
+      "nit": "890916575",
+      "nombre_siigo": "DISLICORES",
+      "unidades": 149,
+      "paquetes": 0,
+      "diferencia": -13,
+      "valor_facturado": 2086000,
+      "tarifa": [
+        14000
+      ],
+      "saldo": 2086000,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "603a8e",
+      "nombre": "ROYAL FILMS S.A.S",
+      "certificados": 91,
+      "nit": "890105652",
+      "nombre_siigo": "No aplica",
+      "unidades": 186,
+      "paquetes": 0,
+      "diferencia": 95,
+      "valor_facturado": 2046000,
+      "tarifa": [
+        11000
+      ],
+      "saldo": 0,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "1f2ad1",
+      "nombre": "Centro Aseo",
+      "certificados": 39,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "66accf",
+      "nombre": "FARMACIAS DE SIMILARES COLOMBIA SAS",
+      "certificados": 29,
+      "nit": "901817612",
+      "nombre_siigo": "FARMACIAS DE SIMILARES COLOMBIA SAS",
+      "unidades": 29,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 507500,
+      "tarifa": [
+        17500
+      ],
+      "saldo": 0,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "7016fa",
+      "nombre": "SUCROAL S.A",
+      "certificados": 25,
+      "nit": "891300959",
+      "nombre_siigo": "SUCROAL S.A",
+      "unidades": 25,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 362500,
+      "tarifa": [
+        14500
+      ],
+      "saldo": 362500,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "d4d8c7",
+      "nombre": "OSTI EST SAS",
+      "certificados": 23,
+      "nit": "900509655",
+      "nombre_siigo": "No aplica",
+      "unidades": 22,
+      "paquetes": 0,
+      "diferencia": -1,
+      "valor_facturado": 297000,
+      "tarifa": [
+        13500
+      ],
+      "saldo": 297000,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "e1529e",
+      "nombre": "OUTSOURCING SEASIN LIMITADA",
+      "certificados": 22,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "044787",
+      "nombre": "COMPAÑIA LECHERA DE EL MORTIÑO  S.A.S",
+      "certificados": 21,
+      "dni": "8320084649",
+      "estado": "nit_no_resuelto"
+    },
+    {
+      "codigo": "23375f",
+      "nombre": "OSYA OCUPACIONAL IPS S.A.S",
+      "certificados": 19,
+      "nit": "900641156",
+      "nombre_siigo": "No aplica",
+      "unidades": 18,
+      "paquetes": 0,
+      "diferencia": -1,
+      "valor_facturado": 297000,
+      "tarifa": [
+        16500
+      ],
+      "saldo": 297000,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "e7c194",
+      "nombre": "VIVE CAFÉ S.A. BIC",
+      "certificados": 18,
+      "nit": "830131726",
+      "nombre_siigo": "VIVE CAFÉ S.A. BIC",
+      "unidades": 18,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 315000,
+      "tarifa": [
+        17500
+      ],
+      "saldo": 315000,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "d85ce6",
+      "nombre": "FASALACT SAS",
+      "certificados": 17,
+      "nit": "900589003",
+      "nombre_siigo": "FASALACT SAS",
+      "unidades": 16,
+      "paquetes": 0,
+      "diferencia": -1,
+      "valor_facturado": 264000,
+      "tarifa": [
+        16500
+      ],
+      "saldo": 264000,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "a6824d",
+      "nombre": "GRUPO EMPRESARIAL PUERTO DE BARRANQUILLA S.A",
+      "certificados": 17,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "d53a9f",
+      "nombre": "DECAMERON CINCO HERRADURAS S.A.S.",
+      "certificados": 16,
+      "nit": "900149693",
+      "nombre_siigo": "DECAMERON CINCO HERRADURAS S.A.S.",
+      "unidades": 0,
+      "estado": "sin_factura_en_el_periodo"
+    },
+    {
+      "codigo": "cc43d6",
+      "nombre": "Integrativa Agropecuaria S.A.S.",
+      "certificados": 16,
+      "nit": "901071157",
+      "nombre_siigo": "INTEGRATIVA AGROPECUARIA S.A.S",
+      "unidades": 13,
+      "paquetes": 0,
+      "diferencia": -3,
+      "valor_facturado": 175500,
+      "tarifa": [
+        13500
+      ],
+      "saldo": 595000,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "14f27a",
+      "nombre": "GESA  GESTIONES ADMINISTRATIVAS & TALENTO HUMANO SAS",
+      "certificados": 15,
+      "dni": "9017939810",
+      "estado": "nit_no_resuelto"
+    },
+    {
+      "codigo": "1ba628",
+      "nombre": "RECISERVICIOS LA COSTA S.A.S",
+      "certificados": 14,
+      "nit": "901164145",
+      "nombre_siigo": "RECISERVICIOS LA COSTA S.A.S",
+      "unidades": 25,
+      "paquetes": 0,
+      "diferencia": 11,
+      "valor_facturado": 350000,
+      "tarifa": [
+        14000
+      ],
+      "saldo": 0,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "99b3d6",
+      "nombre": "SURTIALIADOS SAS",
+      "certificados": 12,
+      "nit": "900269636",
+      "nombre_siigo": "SURTIALIADOS S.A.S",
+      "unidades": 12,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 162000,
+      "tarifa": [
+        13500
+      ],
+      "saldo": 0,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "564a3b",
+      "nombre": "PUNTO EMPLEO S.A.S.",
+      "certificados": 12,
+      "nit": "801002775",
+      "nombre_siigo": "PUNTO EMPLEO S.A.S",
+      "unidades": 0,
+      "estado": "sin_factura_en_el_periodo"
+    },
+    {
+      "codigo": "4a1320",
+      "nombre": "EMPRESA POWER SERVICES LTDA",
+      "certificados": 10,
+      "nit": "900008662",
+      "nombre_siigo": "EMPRESA POWER SERVICES LTDA",
+      "unidades": 9,
+      "paquetes": 0,
+      "diferencia": -1,
+      "valor_facturado": 157500,
+      "tarifa": [
+        17500
+      ],
+      "saldo": 0,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "04379a",
+      "nombre": "⁠E&D cafés  S.A.S.",
+      "certificados": 10,
+      "nit": "900407343",
+      "nombre_siigo": "E&D CAFES S.A.S.",
+      "unidades": 10,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 175000,
+      "tarifa": [
+        17500
+      ],
+      "saldo": 175000,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "c4d643",
+      "nombre": "AXDA COLOMBIA SAS",
+      "certificados": 10,
+      "nit": "901935596",
+      "nombre_siigo": "AXDA COLOMBIA SAS",
+      "unidades": 10,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 160000,
+      "tarifa": [
+        16000
+      ],
+      "saldo": 160000,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "2b5b45",
+      "nombre": "Cinépolis .",
+      "certificados": 9,
+      "nit": "900185315",
+      "nombre_siigo": "OPERADORA COLOMBIANA DE CINES SAS",
+      "unidades": 31,
+      "paquetes": 0,
+      "diferencia": 22,
+      "valor_facturado": 356500,
+      "tarifa": [
+        11500
+      ],
+      "saldo": 0,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "444ba5",
+      "nombre": "PRICESMART EL POBLADO",
+      "certificados": 8,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "c57e9b",
+      "nombre": "INVERSIONES RCP SAS",
+      "certificados": 7,
+      "nit": "900659583",
+      "nombre_siigo": "INVERSIONES RCP S.A.S",
+      "unidades": 7,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 98000,
+      "tarifa": [
+        14000
+      ],
+      "saldo": 98000,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "1689a7",
+      "nombre": "ECO VIDA INTEGRAL",
+      "certificados": 7,
+      "nit": "900761374",
+      "nombre_siigo": "ECOVIDA INTEGRAL S.A.S",
+      "unidades": 25,
+      "paquetes": 0,
+      "diferencia": 18,
+      "valor_facturado": 350000,
+      "tarifa": [
+        14000
+      ],
+      "saldo": 0,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "9a107d",
+      "nombre": "MANEL FOODS S.A.S.",
+      "certificados": 6,
+      "nit": "901412787",
+      "nombre_siigo": "MANEL FOODS S.A.S.",
+      "unidades": 6,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 96000,
+      "tarifa": [
+        16000
+      ],
+      "saldo": 0,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "9b149c",
+      "nombre": "Produempak EFC",
+      "certificados": 6,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "c19b6a",
+      "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
+      "certificados": 5,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "c7d780",
+      "nombre": "HARISSA FOODS",
+      "certificados": 5,
+      "nit": "901437119",
+      "nombre_siigo": "HARISSA FOOD SAS",
+      "unidades": 5,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 80000,
+      "tarifa": [
+        16000
+      ],
+      "saldo": 80000,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "8340e0",
+      "nombre": "ALADINO SALAS DE JUEGOS",
+      "certificados": 5,
+      "nit": "810000870",
+      "nombre_siigo": "ALADINO SALA DE JUEGOS S.A.S",
+      "unidades": 5,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 77500,
+      "tarifa": [
+        15500
+      ],
+      "saldo": 1112800,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "eb8357",
+      "nombre": "LOGISTICA CIRCULAR S.A.S",
+      "certificados": 5,
+      "nit": "901730593",
+      "nombre_siigo": "RECISERVICIOS LOGISTICA CIRCULAR S.A.S.",
+      "unidades": 2,
+      "paquetes": 0,
+      "diferencia": -3,
+      "valor_facturado": 28000,
+      "tarifa": [
+        14000
+      ],
+      "saldo": 0,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "39a3fe",
+      "nombre": "VICTORIA C SAS",
+      "certificados": 5,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "4a81fb",
+      "nombre": "Grupo Éxito",
+      "certificados": 4,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "ba0a51",
+      "nombre": "SANILAB IPS SAS",
+      "certificados": 4,
+      "nit": "901216537",
+      "nombre_siigo": "No aplica",
+      "unidades": 27,
+      "paquetes": 0,
+      "diferencia": 23,
+      "valor_facturado": 468000,
+      "tarifa": [
+        13500,
+        18000
+      ],
+      "saldo": 468000,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "b459c8",
+      "nombre": "EMBOTELLADORA CAPRI LTDA",
+      "certificados": 4,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "692cd9",
+      "nombre": "DISTRIMARCAS AGENTE COMERCIAL SAS",
+      "certificados": 4,
+      "nit": "900420888",
+      "nombre_siigo": "DISTRIMARCAS AGENTE COMERCIAL SAS",
+      "unidades": 4,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 62000,
+      "tarifa": [
+        15500
+      ],
+      "saldo": 0,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "7f6fc3",
+      "nombre": "AMERICAN CHEESE CAKES",
+      "certificados": 3,
+      "nit": "860352254",
+      "nombre_siigo": "GALAN Y CIA S EN C AMERICAN CHEESE  CAKE",
+      "unidades": 3,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 46500,
+      "tarifa": [
+        15500
+      ],
+      "saldo": 46500,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "5a73a4",
+      "nombre": "Bioservicios S.A.S",
+      "certificados": 3,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "7b14f4",
+      "nombre": "Dr. Leonardo Palacios",
+      "certificados": 3,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "7d089c",
+      "nombre": "MERCADOS  UNO A",
+      "certificados": 2,
+      "dni": "793998765",
+      "estado": "nit_no_resuelto"
+    },
+    {
+      "codigo": "63b7c5",
+      "nombre": "FLORIUS  S.A.S.",
+      "certificados": 2,
+      "nit": "9011789157",
+      "nombre_siigo": "FLORIUS S.A.S",
+      "unidades": 2,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 40000,
+      "tarifa": [
+        20000
+      ],
+      "saldo": 40000,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "721afa",
+      "nombre": "U T ZZZ ZOE",
+      "certificados": 2,
+      "nit": "901902595",
+      "nombre_siigo": "U T ZZZ ZOE",
+      "unidades": 2,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 33000,
+      "tarifa": [
+        16500
+      ],
+      "saldo": 33000,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "be428a",
+      "nombre": "CAMARON PAISA",
+      "certificados": 2,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "adafe6",
+      "nombre": "CERCAFE COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
+      "certificados": 2,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "dadd5b",
+      "nombre": "SERVICIOS TEMPORALES DE COLOMBIA  - TEMPOCOLBA",
+      "certificados": 2,
+      "nit": "802010216",
+      "nombre_siigo": "SERVICIOS TEMPORALES DE COLOMBIA TEMPOCOLBA SOCIEDAD POR ACCIONES SIMPLIFICADA",
+      "unidades": 2,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 28000,
+      "tarifa": [
+        14000
+      ],
+      "saldo": 28000,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "2ca4f9",
+      "nombre": "R & A FOOD SAS BRAZZEIRO",
+      "certificados": 2,
+      "nit": "901103672",
+      "nombre_siigo": "R & A FOOD SAS",
+      "unidades": 2,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 31000,
+      "tarifa": [
+        15500
+      ],
+      "saldo": 31000,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "e14b95",
+      "nombre": "COLOMBIA HELADOS SAS",
+      "certificados": 2,
+      "nit": "900529422",
+      "nombre_siigo": "COLOMBIA HELADOS S.A.S",
+      "unidades": 2,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 31000,
+      "tarifa": [
+        15500
+      ],
+      "saldo": 31000,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "af291e",
+      "nombre": "ASEOS COLOMBIANOS ASEOCOLBA SA",
+      "certificados": 2,
+      "nit": "800146077",
+      "nombre_siigo": "ASEOS COLOMBIANOS ASEO COLBA SA",
+      "unidades": 1,
+      "paquetes": 0,
+      "diferencia": -1,
+      "valor_facturado": 14000,
+      "tarifa": [
+        14000
+      ],
+      "saldo": 14000,
+      "estado": "difiere"
+    },
+    {
+      "codigo": "2e62ce",
+      "nombre": "PRO-SER COLOMBIA  SAS",
+      "certificados": 2,
+      "nit": "900922080",
+      "nombre_siigo": "PRO-SER COLOMBIA SAS",
+      "unidades": 2,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 30000,
+      "tarifa": [
+        15000
+      ],
+      "saldo": 0,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "701bc2",
+      "nombre": "ALMACAFÉ ARMENIA",
+      "certificados": 1,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "4w32sa",
+      "nombre": "Waytic S.A.S",
+      "certificados": 1,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "af42d4",
+      "nombre": "INVERSIONES PAYSANDU  S.A.S",
+      "certificados": 1,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "bd17d3",
+      "nombre": "PAPELES Y NEGOCIOS",
+      "certificados": 1,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "e76e26",
+      "nombre": "ASTEMPRO LTDA",
+      "certificados": 1,
+      "nit": "900818593",
+      "nombre_siigo": "ASTEMPRO LTDA",
+      "unidades": 1,
+      "paquetes": 0,
+      "diferencia": 0,
+      "valor_facturado": 16500,
+      "tarifa": [
+        16500
+      ],
+      "saldo": 0,
+      "estado": "cuadra"
+    },
+    {
+      "codigo": "ac3f36",
+      "nombre": "HOTEL HILTON GARDEN INN",
+      "certificados": 1,
+      "estado": "sin_nit"
+    },
+    {
+      "codigo": "c777a6",
+      "nombre": "Super Admini Andrés",
+      "certificados": 1,
+      "estado": "sin_nit"
+    }
+  ],
+  "particular": {
+    "facturas": 36,
+    "valor_facturado": 21844508,
+    "valor_total": 21844508,
+    "nota": "Consumidor final factura una línea por venta con el valor completo, así que este canal se concilia por valor y no por cantidad."
+  },
+  "solo_en_siigo": [
+    {
+      "nit": "810004836",
+      "nombre": "INVERSIONES AVICOLA SANTAGUEDA S.A.S.",
+      "unidades": 23,
+      "valor": 1390000
+    },
+    {
+      "nit": "901898087",
+      "nombre": "PRODUCIMOS EMOCIONES E INDULGENCIAS SAS",
+      "unidades": 70,
+      "valor": 1050000
+    },
+    {
+      "nit": "901024305",
+      "nombre": "FOOD BAR 360 S.A.S.",
+      "unidades": 15,
+      "valor": 726000
+    },
+    {
+      "nit": "902021417",
+      "nombre": "UNION TEMPORAL CALDAS FELIZ 2026",
+      "unidades": 14,
+      "valor": 700000
+    },
+    {
+      "nit": "900073254",
+      "nombre": "CENTRO ASEO MANTENIMIENTO PROFESIONAL S.A.S",
+      "unidades": 39,
+      "valor": 643500
+    },
+    {
+      "nit": "901912601",
+      "nombre": "DÚO CAPITAL SAS",
+      "unidades": 13,
+      "valor": 585000
+    },
+    {
+      "nit": "900319753",
+      "nombre": "PRICESMART COLOMBIA S.A.S.",
+      "unidades": 44,
+      "valor": 572000
+    },
+    {
+      "nit": "1054865619",
+      "nombre": "NICOLE RESTREPO SERNA",
+      "unidades": 8,
+      "valor": 536000
+    },
+    {
+      "nit": "21464066",
+      "nombre": "BEATRIZ ELENA BUITRAGO SALAZAR",
+      "unidades": 5,
+      "valor": 500000
+    },
+    {
+      "nit": "900229503",
+      "nombre": "SERVICIOS DE ASEO, CAFETERIA, MANTENIMIENTO INSTITUCIONAL, OUTSOURCING SEASIN LIMITADA",
+      "unidades": 24,
+      "valor": 432000
+    },
+    {
+      "nit": "1053871160",
+      "nombre": "DANIEL ESTEBAN ZULUAGA ZULUAGA",
+      "unidades": 7,
+      "valor": 404000
+    },
+    {
+      "nit": "30394776",
+      "nombre": "MIRYAM ESPERANZA GUERRERO CORTES",
+      "unidades": 10,
+      "valor": 400000
+    },
+    {
+      "nit": "24628872",
+      "nombre": "GLORIA ESPERANZA CASTRILLON",
+      "unidades": 10,
+      "valor": 375000
+    },
+    {
+      "nit": "75079803",
+      "nombre": "NELSON ENRIQUE GONZALEZ MUÑOZ",
+      "unidades": 2,
+      "valor": 360000
+    },
+    {
+      "nit": "1016054196",
+      "nombre": "LAURA MURILLO HERNANDEZ",
+      "unidades": 8,
+      "valor": 360000
+    },
+    {
+      "nit": "800186891",
+      "nombre": "SOCIEDAD PORTUARIA REGIONAL DE BARRANQUILLA S.A",
+      "unidades": 24,
+      "valor": 348000
+    },
+    {
+      "nit": "901853250",
+      "nombre": "GRUPO EMPRESARIAL 1940 SAS",
+      "unidades": 23,
+      "valor": 345000
+    },
+    {
+      "nit": "901465344",
+      "nombre": "DISTRIBUIDORA AGRICOLA GALLEGO RAMIREZ SAS",
+      "unidades": 1,
+      "valor": 320000
+    },
+    {
+      "nit": "1192729709",
+      "nombre": "Alejandra Marín Gil",
+      "unidades": 11,
+      "valor": 320000
+    },
+    {
+      "nit": "24727700",
+      "nombre": "CARLOS LECHONA MANIZALES",
+      "unidades": 1,
+      "valor": 300000
+    },
+    {
+      "nit": "900973932",
+      "nombre": "TIENDAS & MARCAS DEL EJE CAFETERO S.A.S.",
+      "unidades": 23,
+      "valor": 276000
+    },
+    {
+      "nit": "901817775",
+      "nombre": "JUICIO COMPANY S.A.S.",
+      "unidades": 6,
+      "valor": 270000
+    },
+    {
+      "nit": "900445797",
+      "nombre": "PRODUEMPAK S.A.S",
+      "unidades": 16,
+      "valor": 232000
+    },
+    {
+      "nit": "810001366",
+      "nombre": "BIOSERVICIOS S.A.S",
+      "unidades": 14,
+      "valor": 231000
+    },
+    {
+      "nit": "901226431",
+      "nombre": "MERCAPLAZA RAMIREZ GONZALEZ S.A.S",
+      "unidades": 1,
+      "valor": 200000
+    },
+    {
+      "nit": "10246343",
+      "nombre": "LUIS ALCIDES SALAZAR BUENO",
+      "unidades": 2,
+      "valor": 200000
+    },
+    {
+      "nit": "9970351",
+      "nombre": "ASADERO KARBON Y POLLO",
+      "unidades": 10,
+      "valor": 200000
+    },
+    {
+      "nit": "1018427831",
+      "nombre": "ANDRES FELIPE DIAZ BECERRA",
+      "unidades": 4,
+      "valor": 176000
+    },
+    {
+      "nit": "900752805",
+      "nombre": "ROYAL ULTRA S.A.S.",
+      "unidades": 16,
+      "valor": 176000
+    },
+    {
+      "nit": "860010973",
+      "nombre": "ALMACENES GENERALES DE DEPOSITOS DE CAFE S A ALMACAFE",
+      "unidades": 9,
+      "valor": 175500
+    },
+    {
+      "nit": "901930329",
+      "nombre": "PANDA BAMBOO SAS",
+      "unidades": 2,
+      "valor": 166000
+    },
+    {
+      "nit": "900732693",
+      "nombre": "GRUPO MLT SINCE 2004 SAS",
+      "unidades": 15,
+      "valor": 150000
+    },
+    {
+      "nit": "811039091",
+      "nombre": "PAPELES Y NEGOCIOS S.A",
+      "unidades": 9,
+      "valor": 148500
+    },
+    {
+      "nit": "1055750374",
+      "nombre": "ESTEBAN SANCHEZ FRANCO",
+      "unidades": 9,
+      "valor": 144000
+    },
+    {
+      "nit": "1004798805",
+      "nombre": "CHOCOLATES CASA Y CAFE",
+      "unidades": 1,
+      "valor": 140000
+    },
+    {
+      "nit": "901147428",
+      "nombre": "ATRACCIONES MECANICAS S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "24329657",
+      "nombre": "COMIDAS RAPIDAS EL CALI",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1075316605",
+      "nombre": "JACOBO ARANGO TABARES",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "900631190",
+      "nombre": "ALIMENTOS Y BEBIDAS ALYCA S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901360781",
+      "nombre": "COSTIFOOD S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1053817691",
+      "nombre": "MARIA PAULINA ARANGO BOTERO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1053853162",
+      "nombre": "TATIANA QUIRAMA GIRALDO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1053827372",
+      "nombre": "JUAN ALEJANDRO GONZALEZ CASTAÑO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901938278",
+      "nombre": "GRUPO GASTRONOMICO DGM S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "24731045",
+      "nombre": "MARIA GLADIS CASTRO QUICENO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "902059437",
+      "nombre": "ROCKET LAB S.A.S.",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "25109229",
+      "nombre": "MARIA MELIDA TABORDA MURILLO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901849901",
+      "nombre": "HOGAR CORAZÓN CUERPO Y MENTE ACTIVA S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1076668475",
+      "nombre": "NICOLAS ANGULO AGUILAR",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "65795368",
+      "nombre": "DIANA RAMIREZ CASTRO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "15896496",
+      "nombre": "LACTEOS AA",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901929818",
+      "nombre": "STAR GAMING GROUP SAS",
+      "unidades": 5,
+      "valor": 90000
+    },
+    {
+      "nit": "900192134",
+      "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
+      "unidades": 5,
+      "valor": 80000
+    },
+    {
+      "nit": "860035200",
+      "nombre": "ATALAYA 1 SECURITY GROUP LTDA",
+      "unidades": 4,
+      "valor": 80000
+    },
+    {
+      "nit": "901132651",
+      "nombre": "VICTORIA C. S.A.S",
+      "unidades": 5,
+      "valor": 77500
+    },
+    {
+      "nit": "901954951",
+      "nombre": "THE HOST OPERATOR S.A.S.",
+      "unidades": 4,
+      "valor": 72000
+    },
+    {
+      "nit": "900388525",
+      "nombre": "MAESTRI ON TRACK S.A.S",
+      "unidades": 5,
+      "valor": 70000
+    },
+    {
+      "nit": "800032071",
+      "nombre": "EMBOTELLADORA CAPRI LTDA EN REORGANIZACION",
+      "unidades": 4,
+      "valor": 66000
+    },
+    {
+      "nit": "892301141",
+      "nombre": "C.I. INVERSIONES ELCER S.A.S.",
+      "unidades": 3,
+      "valor": 60000
+    },
+    {
+      "nit": "900654821",
+      "nombre": "MABC INGENIERIA S.A.S.",
+      "unidades": 3,
+      "valor": 48060
+    },
+    {
+      "nit": "1063562627",
+      "nombre": "LEONARDO PALACIOS ARRIETA",
+      "unidades": 3,
+      "valor": 48000
+    },
+    {
+      "nit": "900064238",
+      "nombre": "TOSTADORA EL NOGAL SAS",
+      "unidades": 2,
+      "valor": 40000
+    },
+    {
+      "nit": "816003954",
+      "nombre": "COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
+      "unidades": 2,
+      "valor": 36000
+    },
+    {
+      "nit": "1041202955",
+      "nombre": "ANDRES FELIPE LOPEZ GONZALEZ",
+      "unidades": 2,
+      "valor": 33000
+    },
+    {
+      "nit": "800042175",
+      "nombre": "PRODUCTOS QUIMICOS ANDINOS S.A.S.",
+      "unidades": 2,
+      "valor": 32000
+    },
+    {
+      "nit": "9004581672",
+      "nombre": "MAAZ ALTERNATIVA SAS",
+      "unidades": 2,
+      "valor": 30000
+    },
+    {
+      "nit": "901455816",
+      "nombre": "M&S VITAMINS SAS",
+      "unidades": 1,
+      "valor": 20000
+    },
+    {
+      "nit": "901517118",
+      "nombre": "PHF SAS",
+      "unidades": 1,
+      "valor": 20000
+    },
+    {
+      "nit": "810006204",
+      "nombre": "CORPORACION CLUB SOCIAL DRIVE IN CERRITOS",
+      "unidades": 1,
+      "valor": 20000
+    },
+    {
+      "nit": "902030972",
+      "nombre": "CARIBE THIEL S.A.S",
+      "unidades": 1,
+      "valor": 18000
+    },
+    {
+      "nit": "890806646",
+      "nombre": "FRUGY S.A.S",
+      "unidades": 1,
+      "valor": 16000
+    },
+    {
+      "nit": "900694108",
+      "nombre": "GRUPO SLAM SAS",
+      "unidades": 1,
+      "valor": 14500
+    },
+    {
+      "nit": "810006450",
+      "nombre": "INVERSIONES PAYSANDU S.A.S",
+      "unidades": 1,
+      "valor": 14500
+    },
+    {
+      "nit": "901806035",
+      "nombre": "EL GURU NUTRICIONAL S.A.S",
+      "unidades": 1,
+      "valor": 14500
+    }
+  ],
+  "resumen": {
+    "total": 57,
+    "cuadran": 19,
+    "difieren": 14,
+    "no_comparables": 0,
+    "certifican_sin_facturar": 0,
+    "sin_factura_en_el_periodo": 2,
+    "sin_nit": 19,
+    "nit_no_resuelto": 3,
+    "solo_en_siigo": 74
+  },
+  "datos_por_corregir": {
+    "sin_nit": [
+      {
+        "codigo": "1f2ad1",
+        "nombre": "Centro Aseo",
+        "certificados": 39
+      },
+      {
+        "codigo": "e1529e",
+        "nombre": "OUTSOURCING SEASIN LIMITADA",
+        "certificados": 22
+      },
+      {
+        "codigo": "a6824d",
+        "nombre": "GRUPO EMPRESARIAL PUERTO DE BARRANQUILLA S.A",
+        "certificados": 17
+      },
+      {
+        "codigo": "444ba5",
+        "nombre": "PRICESMART EL POBLADO",
+        "certificados": 8
+      },
+      {
+        "codigo": "9b149c",
+        "nombre": "Produempak EFC",
+        "certificados": 6
+      },
+      {
+        "codigo": "c19b6a",
+        "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
+        "certificados": 5
+      },
+      {
+        "codigo": "39a3fe",
+        "nombre": "VICTORIA C SAS",
+        "certificados": 5
+      },
+      {
+        "codigo": "4a81fb",
+        "nombre": "Grupo Éxito",
+        "certificados": 4
+      },
+      {
+        "codigo": "b459c8",
+        "nombre": "EMBOTELLADORA CAPRI LTDA",
+        "certificados": 4
+      },
+      {
+        "codigo": "5a73a4",
+        "nombre": "Bioservicios S.A.S",
+        "certificados": 3
+      },
+      {
+        "codigo": "7b14f4",
+        "nombre": "Dr. Leonardo Palacios",
+        "certificados": 3
+      },
+      {
+        "codigo": "be428a",
+        "nombre": "CAMARON PAISA",
+        "certificados": 2
+      },
+      {
+        "codigo": "adafe6",
+        "nombre": "CERCAFE COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
+        "certificados": 2
+      },
+      {
+        "codigo": "701bc2",
+        "nombre": "ALMACAFÉ ARMENIA",
+        "certificados": 1
+      },
+      {
+        "codigo": "4w32sa",
+        "nombre": "Waytic S.A.S",
+        "certificados": 1
+      },
+      {
+        "codigo": "af42d4",
+        "nombre": "INVERSIONES PAYSANDU  S.A.S",
+        "certificados": 1
+      },
+      {
+        "codigo": "bd17d3",
+        "nombre": "PAPELES Y NEGOCIOS",
+        "certificados": 1
+      },
+      {
+        "codigo": "ac3f36",
+        "nombre": "HOTEL HILTON GARDEN INN",
+        "certificados": 1
+      },
+      {
+        "codigo": "c777a6",
+        "nombre": "Super Admini Andrés",
+        "certificados": 1
+      }
+    ],
+    "nit_no_resuelto": [
+      {
+        "codigo": "044787",
+        "nombre": "COMPAÑIA LECHERA DE EL MORTIÑO  S.A.S",
+        "certificados": 21,
+        "dni": "8320084649"
+      },
+      {
+        "codigo": "14f27a",
+        "nombre": "GESA  GESTIONES ADMINISTRATIVAS & TALENTO HUMANO SAS",
+        "certificados": 15,
+        "dni": "9017939810"
+      },
+      {
+        "codigo": "7d089c",
+        "nombre": "MERCADOS  UNO A",
+        "certificados": 2,
+        "dni": "793998765"
+      }
+    ]
+  },
+  "periodo": "2026-10",
+  "generado_en": "2026-11-18T15:53:44.389Z",
+  "facturas_del_periodo": 225,
+  "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
+  "nota_periodo": "Se cruza el último mes cerrado, no el mes en curso: la facturación va detrás de la certificación y un mes a medias daría un descuadre falso."
+}
