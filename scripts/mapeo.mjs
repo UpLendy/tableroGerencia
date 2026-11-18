@@ -64,8 +64,10 @@ function armarMes(cert, emp) {
   };
 }
 
-/** Empresas de todos los periodos, con los códigos duplicados unificados. */
-function armarEmpresas(certPorMes) {
+/** Empresas de todos los periodos, con los códigos duplicados unificados.
+    Se exporta para poder probarla sola: armar un corte entero solo para
+    comprobar que un campo se transporta obliga a inventar media plataforma. */
+export function armarEmpresas(certPorMes) {
   const acc = new Map();
   for (const cert of Object.values(certPorMes)) {
     const periodo = cert.datos.periodo;        // la clave del mapa era 'prev'/'act'
@@ -81,15 +83,36 @@ function armarEmpresas(certPorMes) {
           nombre: (UNIFICAR[jefe] && UNIFICAR[jefe].nombre) || row.nombre,
           ...(UNIFICAR[jefe] ? { codigos: UNIFICAR[jefe].codigos, unificada: true } : {}),
           meses: {},
+          /* Los documentos vistos para esta empresa. Es un conjunto porque una
+             empresa unificada junta varios codigos de la plataforma, y cada
+             uno trae el suyo. Si todos coinciden hay uno solo y no pasa nada;
+             si no coinciden, se reportan todos en vez de elegir uno en
+             silencio, que seria decidir cual de los registros de BPM vale. */
+          _nits: new Set(),
         });
       }
       const e = acc.get(jefe);
       e.meses[periodo] = (e.meses[periodo] || 0) + Number(row.certificados || 0);
+      /* El NIT llega crudo de la plataforma: a veces con digito de
+         verificacion, a veces con guion. Se guarda tal cual. Quien concilia
+         contra Siigo prueba las dos formas contra el maestro de terceros; si
+         se normalizara aqui, el digito ya no se podria recuperar. */
+      const nit = String(row.nit || '').trim();
+      if (nit) e._nits.add(nit);
     }
   }
   for (const cert of Object.values(certPorMes))
     for (const e of acc.values())
       if (e.meses[cert.datos.periodo] === undefined) e.meses[cert.datos.periodo] = 0;
+
+  for (const e of acc.values()) {
+    const nits = [...e._nits];
+    delete e._nits;
+    e.nit = nits[0] ?? null;
+    /* Solo se deja la lista cuando hay desacuerdo, para que su sola presencia
+       signifique "esto hay que mirarlo" y no haya que compararla cada vez. */
+    if (nits.length > 1) e.nits = nits;
+  }
   return [...acc.values()];
 }
 

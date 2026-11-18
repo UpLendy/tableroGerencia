@@ -76,6 +76,14 @@ export function despojarParaEquipo(corte) {
   /* ------------------------------------------------------------ precio */
   delete c.precioMedioObservado;
 
+  /* --------------------------------------------------------------- NIT
+     El documento de cada empresa solo existe en el corte para cruzar contra
+     Siigo, y ese cruce es de gerencia. Al equipo no le aporta nada y es un
+     identificador de un tercero, asi que no viaja. */
+  if (Array.isArray(c.empresas)) {
+    c.empresas = c.empresas.map((e) => { const r = { ...e }; delete r.nit; delete r.nits; return r; });
+  }
+
   /* ------------------------------------------------------------ cartera
      Entera. Cuánto debe cada cliente y desde cuándo es lo más sensible que
      va a tener el tablero: no es solo dinero, es dinero de un tercero con
