@@ -393,7 +393,20 @@ export function saldoAcumulado({ historia, unidades, empresas, terceros, hasta, 
     });
   }
 
-  filas.sort((a, b) => b.saldo - a.saldo);
+  /* El saldo en unidades no distingue dos casos muy distintos: 425 sin
+     facturar en un cliente que certifica 290 al mes es una orden de compra
+     pendiente; 425 en uno que certifica 20 al mes son dos anios de
+     facturacion perdida. Expresarlo en meses de su propio volumen es lo que
+     hace comparable a un cliente grande con uno pequeno. */
+  for (const f of filas) {
+    const promedio = f.certificado / (conDatos.length || 1);
+    f.meses_sin_facturar = promedio > 0
+      ? Number((f.saldo / promedio).toFixed(1)) : null;
+  }
+
+  /* Se ordena por meses, no por unidades: lo urgente no es lo mas grande,
+     es lo que lleva mas tiempo sin facturarse. */
+  filas.sort((a, b) => (b.meses_sin_facturar ?? -99) - (a.meses_sin_facturar ?? -99));
   const deben = filas.filter((f) => f.saldo > 0);
   return {
     meses: conDatos,

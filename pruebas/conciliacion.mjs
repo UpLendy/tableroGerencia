@@ -389,6 +389,31 @@ console.log('\n-- la serie de unidades facturadas por mes --');
   iguales(m.size, 0, 'una factura sin fecha no entra en ninguna serie');
 }
 
+console.log('\n-- el saldo, medido en meses --');
+{
+  /* Dos empresas con el MISMO saldo en unidades y gravedad muy distinta. */
+  const historia = { meses: {} };
+  for (const m of ['2026-08', '2026-09', '2026-10']) {
+    historia.meses[m] = { por_empresa: { grande: 300, chica: 10 } };
+  }
+  const unidades = new Map([
+    ['800000001', { '2026-09': 300, '2026-10': 300, '2026-11': 0 }],   // le falta un mes
+    ['800000002', { '2026-09': 0, '2026-10': 0, '2026-11': 0 }],       // no se le factura nunca
+  ]);
+  const empresas = [
+    { codigo: 'grande', nombre: 'GRANDE', nit: '800000001' },
+    { codigo: 'chica', nombre: 'CHICA', nit: '800000002' },
+  ];
+  const t = new Map([['800000001', 'G'], ['800000002', 'C']]);
+  const r = saldoAcumulado({ historia, unidades, empresas, terceros: t, hasta: '2026-10', meses: 3 });
+  const de = (c) => r.empresas.find((x) => x.codigo === c);
+  iguales(de('grande').saldo, 300, 'la grande arrastra 300 unidades');
+  iguales(de('grande').meses_sin_facturar, 1, 'que es un mes de su volumen');
+  iguales(de('chica').saldo, 30, 'la chica solo 30');
+  iguales(de('chica').meses_sin_facturar, 3, 'pero son tres meses enteros sin facturarle');
+  iguales(r.empresas[0].codigo, 'chica', 'y por eso la chica va primero, aunque deba menos');
+}
+
 console.log('\n-- el saldo: quien queda fuera y por que --');
 {
   const historia = { meses: { '2026-10': { por_empresa: { gesa: 78, sinnit: 107, mort: 49, merc: 54, sani: 4, normal: 100 } } } };

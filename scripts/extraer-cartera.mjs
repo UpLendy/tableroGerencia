@@ -237,10 +237,11 @@ try {
     console.log('      certificado  ' + rs.certificado);
     console.log('      facturado    ' + rs.facturado);
     console.log('      sin facturar ' + rs.saldo + ' en ' + rs.con_saldo + ' empresas');
-    for (const e of conc.saldo.empresas.filter((x) => x.saldo > 0).slice(0, 8)) {
-      console.log('        ' + String(e.saldo).padStart(5) + '   ' +
-        String(e.certificado).padStart(5) + ' cert / ' + String(e.facturado).padStart(5) +
-        ' fact   ' + String(e.nombre || e.codigo).slice(0, 34));
+    console.log('        meses  saldo    cert    fact   empresa');
+    for (const e of conc.saldo.empresas.filter((x) => x.saldo > 0).slice(0, 10)) {
+      console.log('        ' + String(e.meses_sin_facturar ?? '—').padStart(5) +
+        String(e.saldo).padStart(7) + String(e.certificado).padStart(8) +
+        String(e.facturado).padStart(8) + '   ' + String(e.nombre || e.codigo).slice(0, 32));
     }
   } catch (e) {
     console.log('');
