@@ -1,6 +1,6 @@
 {
   "corte": "2026-11-18",
-  "generado_en": "2026-11-18T14:55:18.739Z",
+  "generado_en": "2026-11-18T15:49:45.147Z",
   "regla": "virtual-metrics-v1",
   "fuente": "virtual.bpmsas.co · capa de métricas",
   "meses": [
@@ -84,21 +84,21 @@
       "id": "2026-11",
       "lbl": "Noviembre 2026",
       "corto": "noviembre",
-      "cert": 1253,
-      "personas": 1211,
-      "ingreso": 24100000,
+      "cert": 1258,
+      "personas": 1216,
+      "ingreso": 24194000,
       "porCurso": [
         {
           "course_id": "5e0a8954872f0000f4004647",
           "nombre": "Manipulación de alimentos",
           "precio": 20000,
-          "certificados": 903
+          "certificados": 907
         },
         {
           "course_id": "6aa8407f4d530241fb09ecd2",
           "nombre": "Manipulación de alimentos - Bebidas alcohólicas (Dislicores)",
           "precio": 14000,
-          "certificados": 160
+          "certificados": 161
         },
         {
           "course_id": "69cafe131c643a704603cec2",
@@ -151,11 +151,11 @@
       ],
       "ingresoBPM": null,
       "canal": {
-        "emp": 884,
-        "par": 369
+        "emp": 887,
+        "par": 371
       },
-      "activasCodigos": 51,
-      "activas": 49,
+      "activasCodigos": 52,
+      "activas": 50,
       "registradas": 207,
       "nuevas": 5,
       "retomadas": 0
@@ -173,15 +173,21 @@
       "meses": {
         "2026-10": 353,
         "2026-11": 228
-      }
+      },
+      "nit": "8002443871",
+      "nits": [
+        "8002443871",
+        "8002443874"
+      ]
     },
     {
       "codigo": "dad4ef",
       "nombre": "DISTRIBUIDORA DE VINOS Y LICORES S.A.S.",
       "meses": {
         "2026-10": 162,
-        "2026-11": 160
-      }
+        "2026-11": 161
+      },
+      "nit": "890916575"
     },
     {
       "codigo": "603a8e",
@@ -189,7 +195,8 @@
       "meses": {
         "2026-10": 91,
         "2026-11": 74
-      }
+      },
+      "nit": "8901056523"
     },
     {
       "codigo": "1f2ad1",
@@ -197,7 +204,8 @@
       "meses": {
         "2026-10": 39,
         "2026-11": 1
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "66accf",
@@ -205,7 +213,8 @@
       "meses": {
         "2026-10": 29,
         "2026-11": 6
-      }
+      },
+      "nit": "901817612"
     },
     {
       "codigo": "7016fa",
@@ -213,7 +222,8 @@
       "meses": {
         "2026-10": 25,
         "2026-11": 10
-      }
+      },
+      "nit": "8913009598"
     },
     {
       "codigo": "d4d8c7",
@@ -221,7 +231,8 @@
       "meses": {
         "2026-10": 23,
         "2026-11": 7
-      }
+      },
+      "nit": "9005096555"
     },
     {
       "codigo": "e1529e",
@@ -229,7 +240,8 @@
       "meses": {
         "2026-10": 22,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "044787",
@@ -237,7 +249,8 @@
       "meses": {
         "2026-10": 21,
         "2026-11": 5
-      }
+      },
+      "nit": "8320084649"
     },
     {
       "codigo": "23375f",
@@ -245,7 +258,8 @@
       "meses": {
         "2026-10": 19,
         "2026-11": 16
-      }
+      },
+      "nit": "9006411565"
     },
     {
       "codigo": "e7c194",
@@ -253,7 +267,8 @@
       "meses": {
         "2026-10": 18,
         "2026-11": 1
-      }
+      },
+      "nit": "8301317261"
     },
     {
       "codigo": "d85ce6",
@@ -261,7 +276,8 @@
       "meses": {
         "2026-10": 17,
         "2026-11": 10
-      }
+      },
+      "nit": "900589003"
     },
     {
       "codigo": "a6824d",
@@ -269,7 +285,8 @@
       "meses": {
         "2026-10": 17,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "d53a9f",
@@ -277,7 +294,8 @@
       "meses": {
         "2026-10": 16,
         "2026-11": 7
-      }
+      },
+      "nit": "9001496931"
     },
     {
       "codigo": "cc43d6",
@@ -290,7 +308,12 @@
       "meses": {
         "2026-10": 16,
         "2026-11": 27
-      }
+      },
+      "nit": "9010711571",
+      "nits": [
+        "9010711571",
+        "7897879879789"
+      ]
     },
     {
       "codigo": "14f27a",
@@ -298,7 +321,8 @@
       "meses": {
         "2026-10": 15,
         "2026-11": 11
-      }
+      },
+      "nit": "9017939810"
     },
     {
       "codigo": "1ba628",
@@ -306,7 +330,8 @@
       "meses": {
         "2026-10": 14,
         "2026-11": 14
-      }
+      },
+      "nit": "9011641451"
     },
     {
       "codigo": "99b3d6",
@@ -314,7 +339,8 @@
       "meses": {
         "2026-10": 12,
         "2026-11": 6
-      }
+      },
+      "nit": "900269636"
     },
     {
       "codigo": "564a3b",
@@ -322,7 +348,8 @@
       "meses": {
         "2026-10": 12,
         "2026-11": 5
-      }
+      },
+      "nit": "8010027754"
     },
     {
       "codigo": "4a1320",
@@ -330,7 +357,8 @@
       "meses": {
         "2026-10": 10,
         "2026-11": 10
-      }
+      },
+      "nit": "900008662"
     },
     {
       "codigo": "04379a",
@@ -338,7 +366,8 @@
       "meses": {
         "2026-10": 10,
         "2026-11": 1
-      }
+      },
+      "nit": "900407343"
     },
     {
       "codigo": "c4d643",
@@ -346,7 +375,8 @@
       "meses": {
         "2026-10": 10,
         "2026-11": 1
-      }
+      },
+      "nit": "901935596"
     },
     {
       "codigo": "2b5b45",
@@ -354,7 +384,8 @@
       "meses": {
         "2026-10": 9,
         "2026-11": 25
-      }
+      },
+      "nit": "900185315"
     },
     {
       "codigo": "444ba5",
@@ -362,7 +393,8 @@
       "meses": {
         "2026-10": 8,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "c57e9b",
@@ -370,7 +402,8 @@
       "meses": {
         "2026-10": 7,
         "2026-11": 1
-      }
+      },
+      "nit": "9006595836"
     },
     {
       "codigo": "1689a7",
@@ -378,7 +411,8 @@
       "meses": {
         "2026-10": 7,
         "2026-11": 7
-      }
+      },
+      "nit": "9007613749"
     },
     {
       "codigo": "9a107d",
@@ -386,7 +420,8 @@
       "meses": {
         "2026-10": 6,
         "2026-11": 4
-      }
+      },
+      "nit": "901412787"
     },
     {
       "codigo": "9b149c",
@@ -394,7 +429,8 @@
       "meses": {
         "2026-10": 6,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "c19b6a",
@@ -402,7 +438,8 @@
       "meses": {
         "2026-10": 5,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "c7d780",
@@ -410,7 +447,8 @@
       "meses": {
         "2026-10": 5,
         "2026-11": 1
-      }
+      },
+      "nit": "901437119"
     },
     {
       "codigo": "8340e0",
@@ -418,7 +456,8 @@
       "meses": {
         "2026-10": 5,
         "2026-11": 1
-      }
+      },
+      "nit": "810000870"
     },
     {
       "codigo": "eb8357",
@@ -426,7 +465,8 @@
       "meses": {
         "2026-10": 5,
         "2026-11": 2
-      }
+      },
+      "nit": "9017305936"
     },
     {
       "codigo": "39a3fe",
@@ -434,7 +474,8 @@
       "meses": {
         "2026-10": 5,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "4a81fb",
@@ -442,7 +483,8 @@
       "meses": {
         "2026-10": 4,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "ba0a51",
@@ -450,7 +492,8 @@
       "meses": {
         "2026-10": 4,
         "2026-11": 1
-      }
+      },
+      "nit": "9012165371"
     },
     {
       "codigo": "b459c8",
@@ -458,7 +501,8 @@
       "meses": {
         "2026-10": 4,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "692cd9",
@@ -466,15 +510,17 @@
       "meses": {
         "2026-10": 4,
         "2026-11": 4
-      }
+      },
+      "nit": "9004208881"
     },
     {
       "codigo": "7f6fc3",
       "nombre": "AMERICAN CHEESE CAKES",
       "meses": {
         "2026-10": 3,
-        "2026-11": 0
-      }
+        "2026-11": 1
+      },
+      "nit": "860352254"
     },
     {
       "codigo": "5a73a4",
@@ -482,7 +528,8 @@
       "meses": {
         "2026-10": 3,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "7b14f4",
@@ -490,7 +537,8 @@
       "meses": {
         "2026-10": 3,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "7d089c",
@@ -498,7 +546,8 @@
       "meses": {
         "2026-10": 2,
         "2026-11": 2
-      }
+      },
+      "nit": "793998765"
     },
     {
       "codigo": "63b7c5",
@@ -506,7 +555,8 @@
       "meses": {
         "2026-10": 2,
         "2026-11": 3
-      }
+      },
+      "nit": "9011789157"
     },
     {
       "codigo": "721afa",
@@ -514,7 +564,8 @@
       "meses": {
         "2026-10": 2,
         "2026-11": 34
-      }
+      },
+      "nit": "901902595"
     },
     {
       "codigo": "be428a",
@@ -522,7 +573,8 @@
       "meses": {
         "2026-10": 2,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "adafe6",
@@ -530,7 +582,8 @@
       "meses": {
         "2026-10": 2,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "dadd5b",
@@ -538,7 +591,8 @@
       "meses": {
         "2026-10": 2,
         "2026-11": 1
-      }
+      },
+      "nit": "8020102166"
     },
     {
       "codigo": "2ca4f9",
@@ -546,7 +600,8 @@
       "meses": {
         "2026-10": 2,
         "2026-11": 4
-      }
+      },
+      "nit": "901103672"
     },
     {
       "codigo": "e14b95",
@@ -554,7 +609,8 @@
       "meses": {
         "2026-10": 2,
         "2026-11": 2
-      }
+      },
+      "nit": "900529422"
     },
     {
       "codigo": "af291e",
@@ -562,7 +618,8 @@
       "meses": {
         "2026-10": 2,
         "2026-11": 1
-      }
+      },
+      "nit": "800146077"
     },
     {
       "codigo": "2e62ce",
@@ -570,7 +627,8 @@
       "meses": {
         "2026-10": 2,
         "2026-11": 1
-      }
+      },
+      "nit": "9009220800"
     },
     {
       "codigo": "701bc2",
@@ -578,7 +636,8 @@
       "meses": {
         "2026-10": 1,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "4w32sa",
@@ -586,7 +645,8 @@
       "meses": {
         "2026-10": 1,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "af42d4",
@@ -594,7 +654,8 @@
       "meses": {
         "2026-10": 1,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "bd17d3",
@@ -602,7 +663,8 @@
       "meses": {
         "2026-10": 1,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "e76e26",
@@ -610,7 +672,8 @@
       "meses": {
         "2026-10": 1,
         "2026-11": 2
-      }
+      },
+      "nit": "900818593"
     },
     {
       "codigo": "ac3f36",
@@ -618,7 +681,8 @@
       "meses": {
         "2026-10": 1,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "c777a6",
@@ -626,7 +690,8 @@
       "meses": {
         "2026-10": 1,
         "2026-11": 0
-      }
+      },
+      "nit": null
     },
     {
       "codigo": "c404e8",
@@ -634,7 +699,8 @@
       "meses": {
         "2026-11": 81,
         "2026-10": 0
-      }
+      },
+      "nit": "900417713"
     },
     {
       "codigo": "d489a4",
@@ -642,7 +708,8 @@
       "meses": {
         "2026-11": 63,
         "2026-10": 0
-      }
+      },
+      "nit": "901022172"
     },
     {
       "codigo": "705a1a",
@@ -650,7 +717,8 @@
       "meses": {
         "2026-11": 12,
         "2026-10": 0
-      }
+      },
+      "nit": "900728049"
     },
     {
       "codigo": "9fec23",
@@ -658,7 +726,8 @@
       "meses": {
         "2026-11": 10,
         "2026-10": 0
-      }
+      },
+      "nit": "9000829070"
     },
     {
       "codigo": "e1ba56",
@@ -666,7 +735,8 @@
       "meses": {
         "2026-11": 8,
         "2026-10": 0
-      }
+      },
+      "nit": "9020309724"
     },
     {
       "codigo": "b92576",
@@ -674,7 +744,8 @@
       "meses": {
         "2026-11": 4,
         "2026-10": 0
-      }
+      },
+      "nit": "900558491"
     },
     {
       "codigo": "c2779c",
@@ -682,7 +753,8 @@
       "meses": {
         "2026-11": 3,
         "2026-10": 0
-      }
+      },
+      "nit": "9006706251"
     },
     {
       "codigo": "21d93a",
@@ -690,15 +762,17 @@
       "meses": {
         "2026-11": 3,
         "2026-10": 0
-      }
+      },
+      "nit": "901618081"
     },
     {
       "codigo": "a3eda9",
       "nombre": "Sedial Group",
       "meses": {
-        "2026-11": 2,
+        "2026-11": 3,
         "2026-10": 0
-      }
+      },
+      "nit": "9002177843"
     },
     {
       "codigo": "3b0e79",
@@ -706,7 +780,8 @@
       "meses": {
         "2026-11": 1,
         "2026-10": 0
-      }
+      },
+      "nit": "901806035"
     },
     {
       "codigo": "15daa2",
@@ -714,7 +789,8 @@
       "meses": {
         "2026-11": 1,
         "2026-10": 0
-      }
+      },
+      "nit": "901426815"
     }
   ],
   "serie": [
@@ -859,8 +935,8 @@
     },
     {
       "periodo": "2026-11",
-      "certificados": 1253,
-      "personas": 1211,
+      "certificados": 1258,
+      "personas": 1216,
       "empresas_activas": 51
     }
   ],
@@ -868,18 +944,18 @@
     {
       "periodo": "2026-11",
       "serie": 1243,
-      "resumen": 1253
+      "resumen": 1258
     }
   ],
   "yoy": {
     "acum": {
       "lbl": "Enero – noviembre",
-      "a2026": 18042,
+      "a2026": 18047,
       "a2025": 16993
     },
     "mes": {
       "lbl": "Noviembre",
-      "a2026": 1253,
+      "a2026": 1258,
       "a2025": 1286
     }
   },
@@ -1002,10 +1078,10 @@
   "atribucion": {
     "desde": "2026-11-01",
     "hasta": "2026-11-30",
-    "registros_periodo": 1041,
+    "registros_periodo": 1054,
     "con_atribucion": 20,
-    "sin_atribucion": 1021,
-    "cobertura": 0.0192,
+    "sin_atribucion": 1034,
+    "cobertura": 0.019,
     "por_fuente": [
       {
         "fuente": "adwords",
@@ -1032,8 +1108,12 @@
     ]
   },
   "cursos": {
+    "ventana": "ultimos_12m",
+    "periodo": null,
     "desde": "2025-11-18",
+    "hasta": "2026-11-18",
     "total_cursos": 23,
+    "certificados_en_la_ventana": 19806,
     "cursos_con_certificaciones_sin_precio": 1,
     "cursos": [
       {
@@ -1043,8 +1123,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 16685,
-        "alerta_sin_precio": false
+        "certificados": 16686,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 16686
       },
       {
         "course_id": "69cafe131c643a704603cec2",
@@ -1053,8 +1134,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 1648,
-        "alerta_sin_precio": false
+        "certificados": 1648,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 1648
       },
       {
         "course_id": "6aa8407f4d530241fb09ecd2",
@@ -1063,8 +1145,9 @@
         "tipo": "slideshow",
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 363,
-        "alerta_sin_precio": false
+        "certificados": 364,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 364
       },
       {
         "course_id": "640017b02a2ca9a7b2044c9a",
@@ -1073,8 +1156,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 357,
-        "alerta_sin_precio": false
+        "certificados": 357,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 357
       },
       {
         "course_id": "5f639daf5ca6f4512b166e22",
@@ -1083,8 +1167,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 160,
-        "alerta_sin_precio": false
+        "certificados": 160,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 160
       },
       {
         "course_id": "66db8500b6b7fc4074e148c5",
@@ -1093,8 +1178,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 151,
-        "alerta_sin_precio": false
+        "certificados": 151,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 151
       },
       {
         "course_id": "5fabfbdab2b79336e906b002",
@@ -1103,8 +1189,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 112,
-        "alerta_sin_precio": false
+        "certificados": 112,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 112
       },
       {
         "course_id": "69fe62a8f8daa4fa480f9644",
@@ -1113,8 +1200,9 @@
         "tipo": null,
         "privado": true,
         "activo": true,
-        "certificados_ultimos_12m": 84,
-        "alerta_sin_precio": false
+        "certificados": 84,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 84
       },
       {
         "course_id": "69c2c7a6c6b11bb8020040e2",
@@ -1123,8 +1211,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 77,
-        "alerta_sin_precio": false
+        "certificados": 77,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 77
       },
       {
         "course_id": "66e310f9a50c3c7f5d0ee881",
@@ -1133,8 +1222,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 70,
-        "alerta_sin_precio": false
+        "certificados": 70,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 70
       },
       {
         "course_id": "6a5ff9517487a19421020ca2",
@@ -1143,8 +1233,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados_ultimos_12m": 66,
-        "alerta_sin_precio": false
+        "certificados": 66,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 66
       },
       {
         "course_id": "69bdb0a0101207833f0686d2",
@@ -1153,8 +1244,9 @@
         "tipo": null,
         "privado": true,
         "activo": true,
-        "certificados_ultimos_12m": 19,
-        "alerta_sin_precio": false
+        "certificados": 19,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 19
       },
       {
         "course_id": "67b87bab8998e8afd7dad40c",
@@ -1163,8 +1255,9 @@
         "tipo": null,
         "privado": true,
         "activo": false,
-        "certificados_ultimos_12m": 2,
-        "alerta_sin_precio": false
+        "certificados": 2,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 2
       },
       {
         "course_id": "67c868fdca533f8673b7fc1b",
@@ -1173,8 +1266,9 @@
         "tipo": null,
         "privado": true,
         "activo": false,
-        "certificados_ultimos_12m": 2,
-        "alerta_sin_precio": false
+        "certificados": 2,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 2
       },
       {
         "course_id": "692232887e30128b9104c6e6",
@@ -1183,8 +1277,9 @@
         "tipo": null,
         "privado": true,
         "activo": false,
-        "certificados_ultimos_12m": 2,
-        "alerta_sin_precio": false
+        "certificados": 2,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 2
       },
       {
         "course_id": "69a1f3e5c739d682f80b9032",
@@ -1193,8 +1288,9 @@
         "tipo": null,
         "privado": true,
         "activo": true,
-        "certificados_ultimos_12m": 2,
-        "alerta_sin_precio": false
+        "certificados": 2,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 2
       },
       {
         "course_id": "69cafe26bceeedf3f1057bf2",
@@ -1203,8 +1299,9 @@
         "tipo": null,
         "privado": true,
         "activo": false,
-        "certificados_ultimos_12m": 2,
-        "alerta_sin_precio": true
+        "certificados": 2,
+        "alerta_sin_precio": true,
+        "certificados_ultimos_12m": 2
       },
       {
         "course_id": "67c86753ca533f8673b7fc1a",
@@ -1213,8 +1310,9 @@
         "tipo": null,
         "privado": true,
         "activo": false,
-        "certificados_ultimos_12m": 1,
-        "alerta_sin_precio": false
+        "certificados": 1,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 1
       },
       {
         "course_id": "6a31a58652e4a3a5ad069a32",
@@ -1223,8 +1321,9 @@
         "tipo": null,
         "privado": true,
         "activo": true,
-        "certificados_ultimos_12m": 1,
-        "alerta_sin_precio": false
+        "certificados": 1,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 1
       },
       {
         "course_id": "661765a919a128a144afd51e",
@@ -1233,8 +1332,9 @@
         "tipo": null,
         "privado": false,
         "activo": false,
-        "certificados_ultimos_12m": 0,
-        "alerta_sin_precio": false
+        "certificados": 0,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 0
       },
       {
         "course_id": "69c2c793cfde145b71088ae2",
@@ -1243,8 +1343,9 @@
         "tipo": null,
         "privado": true,
         "activo": false,
-        "certificados_ultimos_12m": 0,
-        "alerta_sin_precio": false
+        "certificados": 0,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 0
       },
       {
         "course_id": "69c2c80c8c70124fa105a642",
@@ -1253,8 +1354,9 @@
         "tipo": null,
         "privado": true,
         "activo": false,
-        "certificados_ultimos_12m": 0,
-        "alerta_sin_precio": false
+        "certificados": 0,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 0
       },
       {
         "course_id": "69fe6276f8daa4fa480f9643",
@@ -1263,8 +1365,9 @@
         "tipo": null,
         "privado": false,
         "activo": false,
-        "certificados_ultimos_12m": 0,
-        "alerta_sin_precio": false
+        "certificados": 0,
+        "alerta_sin_precio": false,
+        "certificados_ultimos_12m": 0
       }
     ]
   },
@@ -1279,7 +1382,7 @@
     {
       "n": "Registros de curso cuyo course_id no existe en courses",
       "d": "No tienen precio asociado, de modo que no entran en el ingreso estimado ni en el cruce contra Siigo.",
-      "r": "4.998 de 158.835 · 3.15 %",
+      "r": "4.998 de 158.856 · 3.15 %",
       "p": 7.5,
       "peso": "alta"
     },
@@ -1307,35 +1410,35 @@
     {
       "n": "Registros de curso cuyo user_id no existe en users",
       "d": "Se cuentan en el total pero no se pueden atribuir a una empresa ni a un canal. Descuadran el total contra la suma por empresa.",
-      "r": "10 de 158.835 · 0.01 %",
+      "r": "10 de 158.856 · 0.01 %",
       "p": 0.1,
       "peso": "critica"
     },
     {
       "n": "Certificaciones completas y pagadas sin cert_date",
       "d": "No caen en ningún periodo. Desaparecen del corte mensual, de la serie histórica y del cruce contable, sin aparecer como error en ninguna parte.",
-      "r": "0 de 116.825 · 0.00 %",
+      "r": "0 de 116.837 · 0.00 %",
       "p": 0,
       "peso": "critica"
     },
     {
       "n": "cert_date que no es una fecha Y-m-d válida",
       "d": "Los rangos de MongoDB respetan el tipo: un valor que no es texto con formato Y-m-d queda fuera de todas las consultas de periodo en silencio.",
-      "r": "0 de 116.825 · 0.00 %",
+      "r": "0 de 116.837 · 0.00 %",
       "p": 0,
       "peso": "critica"
     },
     {
       "n": "Usuarios sin created_at",
       "d": "No entran en el conteo de registros del periodo, de modo que la cobertura de atribución sale inflada.",
-      "r": "0 de 156.991 · 0.00 %",
+      "r": "0 de 157.020 · 0.00 %",
       "p": 0,
       "peso": "media"
     },
     {
       "n": "Usuarios con created_at guardado como texto",
       "d": "Los rangos de fecha no los alcanzan. La atribución de origen los ignora en silencio y puede devolver cero sin fallar.",
-      "r": "0 de 156.991 · 0.00 %",
+      "r": "0 de 157.020 · 0.00 %",
       "p": 0,
       "peso": "alta"
     },
@@ -1354,13 +1457,13 @@
     "como_se_calcula": "El puntaje parte de 100 y cada verificación lo multiplica por (1 - peso/100 × min(1, tasa / umbral)). Peso y umbral van explícitos en cada verificación para que el cálculo sea auditable y reproducible."
   },
   "universo": {
-    "user_course": 158835,
-    "users": 156991,
+    "user_course": 158856,
+    "users": 157020,
     "courses": 23
   },
   "tramites": {
     "regla": "tramites-metrics-v1",
-    "generado_en": "2026-11-18T14:55:18.477Z",
+    "generado_en": "2026-11-18T15:49:44.903Z",
     "periodo": "2026-11",
     "ingenieros": {
       "activos": 14,
@@ -1396,7 +1499,7 @@
           "solicitudes_abiertas": 14,
           "solicitudes_recibidas_periodo": 0,
           "solicitudes_cerradas_periodo": 3,
-          "citas_periodo": 8,
+          "citas_periodo": 9,
           "avance_promedio": 36,
           "dias_mediana_cierre": 15
         },
@@ -1406,7 +1509,7 @@
           "solicitudes_abiertas": 3,
           "solicitudes_recibidas_periodo": 0,
           "solicitudes_cerradas_periodo": 0,
-          "citas_periodo": 8,
+          "citas_periodo": 9,
           "avance_promedio": 73,
           "dias_mediana_cierre": null
         },
@@ -1523,7 +1626,7 @@
       ],
       "que_mide_la_carga": "Solicitudes INVIMA abiertas. No incluye visitas en sitio —asesorías, auditorías, seguimientos, capacitaciones—, que la plataforma registra como citas y no como carga.",
       "sin_carga_con_citas": 3,
-      "citas_periodo_total": 47
+      "citas_periodo_total": 49
     },
     "etapas": {
       "medidas": 10,
@@ -1618,6 +1721,14 @@
           "excede": true
         },
         {
+          "proceso": "Pendiente por asignar-1782241508525-C",
+          "etapa": "VERIFICACIÓN DOCUMENTAL",
+          "dias_abierta": 145,
+          "mediana_de_la_etapa": 0,
+          "sin_asignar": false,
+          "excede": true
+        },
+        {
           "proceso": "Pendiente por asignar-1782242832311-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
           "dias_abierta": 144.9,
@@ -1658,14 +1769,6 @@
           "excede": true
         },
         {
-          "proceso": "Pendiente por asignar-1782241508525-C",
-          "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 144.9,
-          "mediana_de_la_etapa": 0,
-          "sin_asignar": false,
-          "excede": true
-        },
-        {
           "proceso": "Pendiente por asignar-1782505657176-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
           "dias_abierta": 144.8,
@@ -1676,7 +1779,7 @@
         {
           "proceso": "Pendiente por asignar-1782495635730-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 144.6,
+          "dias_abierta": 144.7,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1816,7 +1919,7 @@
   },
   "alimentia": {
     "regla": "alimentia-metrics-v2",
-    "generado_en": "2026-11-18T14:55:18.658Z",
+    "generado_en": "2026-11-18T15:49:45.057Z",
     "periodo": "2026-11",
     "dias_del_periodo": 18,
     "empresas": 2,
@@ -1892,12 +1995,12 @@
       {
         "n": "Producción",
         "v": 100,
-        "d": "Noviembre 2026 contra el mismo mes del año anterior: 2.088 proyectadas contra 1.286, +62,4 %. Se mapea 0–20 % de crecimiento a 50–100 puntos. Noviembre 2026 lleva 18 de 30 días y va en 1.253 certificaciones observadas; el índice proyecta a 2.088 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
+        "d": "Noviembre 2026 contra el mismo mes del año anterior: 2.097 proyectadas contra 1.286, +63,1 %. Se mapea 0–20 % de crecimiento a 50–100 puntos. Noviembre 2026 lleva 18 de 30 días y va en 1.258 certificaciones observadas; el índice proyecta a 2.097 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
       },
       {
         "n": "Reposición",
         "v": 86,
-        "d": "Certificaciones del mes sobre vencimientos de los próximos 30 días, medidos el 2026-11-18: 2.088 proyectadas / 1.217 = 1,72. Paridad (1,00) vale 50 puntos. Noviembre 2026 lleva 18 de 30 días y va en 1.253 certificaciones observadas; el índice proyecta a 2.088 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
+        "d": "Certificaciones del mes sobre vencimientos de los próximos 30 días, medidos el 2026-11-18: 2.097 proyectadas / 1.217 = 1,72. Paridad (1,00) vale 50 puntos. Noviembre 2026 lleva 18 de 30 días y va en 1.258 certificaciones observadas; el índice proyecta a 2.097 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
       },
       {
         "n": "Calidad del dato",
@@ -1906,12 +2009,12 @@
       },
       {
         "n": "Diversificación",
-        "v": 48,
-        "d": "Un solo cliente concentra el 25,8 % del canal empresa. Cada punto de concentración descuenta dos puntos del componente."
+        "v": 49,
+        "d": "Un solo cliente concentra el 25,7 % del canal empresa. Cada punto de concentración descuenta dos puntos del componente."
       }
     ]
   },
-  "precioMedioObservado": 19234,
+  "precioMedioObservado": 19232,
   "meses_cerrados": [
     "2026-10"
   ],
@@ -2115,9 +2218,9 @@
       "para": "gerencia",
       "id": "vencimientos-valor-2026-11",
       "severidad": "aviso",
-      "titulo": "La recompra en juego vale $23.407.778",
-      "detalle": "A precio observado de $19.234 por certificación.",
-      "cifra": 23407778,
+      "titulo": "La recompra en juego vale $23.405.344",
+      "detalle": "A precio observado de $19.232 por certificación.",
+      "cifra": 23405344,
       "seccion": "vencimientos",
       "accion": "Decidir si se prioriza el canal corporativo o el particular."
     },
@@ -2133,24 +2236,24 @@
     }
   ],
   "tiempos_ms": {
-    "certificaciones": 508,
-    "certificaciones_prev": 616,
-    "empresas": 711,
-    "empresas_prev": 718,
-    "recompra": 816,
-    "recompra_cerrada": 641,
-    "serie": 965,
-    "vencimientos": 931,
-    "atribucion": 930,
-    "cursos": 904,
-    "calidad-dato": 954,
-    "tr_carga": 346,
-    "tr_tiempos": 343,
-    "tr_retrabajo": 513,
-    "tr_duracion": 506,
-    "al_diligenciamiento": 523,
-    "al_caida": 524,
-    "total": 1554
+    "certificaciones": 6945,
+    "certificaciones_prev": 712,
+    "empresas": 7955,
+    "empresas_prev": 730,
+    "recompra": 763,
+    "recompra_cerrada": 704,
+    "serie": 700,
+    "vencimientos": 5431,
+    "atribucion": 729,
+    "cursos": 727,
+    "calidad-dato": 3660,
+    "tr_carga": 189,
+    "tr_tiempos": 204,
+    "tr_retrabajo": 202,
+    "tr_duracion": 189,
+    "al_diligenciamiento": 336,
+    "al_caida": 375,
+    "total": 8411
   },
   "meses_cerrados_registrados": 1
 }
