@@ -455,13 +455,21 @@ export function alertasDeConciliacion(conc, umbrales = {}) {
      se facture de más es otra conversación y no se mezcla aquí.
      Los no comparables por paquete quedan fuera a propósito: no se sabe
      cuántas certificaciones trae un paquete, así que sumarlos sería inventar. */
-  const faltantes = conc.empresas
+  const candidatas = conc.empresas
     .filter((e) => e.estado === 'certifica_sin_facturar' ||
                    (e.estado === 'difiere' && Number(e.diferencia) < 0))
     .map((e) => ({ ...e, sinFacturar: Number(e.certificados) - Number(e.unidades || 0) }))
-    .filter((e) => e.sinFacturar > 0)
+    .filter((e) => e.sinFacturar > 0);
+
+  /* Las que parecen facturadas a mes vencido NO cuentan como sin facturar.
+     A Arcos Dorados le faltaban 146 segun la fecha de factura y 24 segun el
+     mes de servicio: alertar por las 146 manda a alguien a reclamar algo que
+     ya esta facturado. Se descuentan aqui y se dicen aparte. */
+  const desfasadas = candidatas.filter((e) => e.posible_desfase);
+  const faltantes = candidatas.filter((e) => !e.posible_desfase)
     .sort((a, b) => b.sinFacturar - a.sinFacturar);
   const total = faltantes.reduce((a, e) => a + e.sinFacturar, 0);
+  const porDesfase = desfasadas.reduce((a, e) => a + e.sinFacturar, 0);
 
   if (total >= U.certSinFacturar) {
     const peor = faltantes[0];
@@ -472,7 +480,10 @@ export function alertasDeConciliacion(conc, umbrales = {}) {
       titulo: `${nf(total)} certificaciones de ${periodo} no aparecen facturadas`,
       detalle: `En ${nf(faltantes.length)} empresa${faltantes.length === 1 ? '' : 's'}. ` +
         `La mayor es ${peor.nombre || peor.codigo}: certificó ${nf(peor.certificados)} ` +
-        `y en Siigo figuran ${nf(peor.unidades || 0)}.`,
+        `y en Siigo figuran ${nf(peor.unidades || 0)}.` +
+        (porDesfase ? ` No se cuentan aquí otras ${nf(porDesfase)} de ` +
+          `${nf(desfasadas.length)} empresa${desfasadas.length === 1 ? '' : 's'} que ` +
+          'parecen facturadas a mes vencido.' : ''),
       cifra: total,
       seccion: 'cruce',
       accion: 'Revisar con Siigo si falta facturar o si se facturó en otro mes.',

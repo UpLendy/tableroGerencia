@@ -163,6 +163,28 @@ iguales(alertasDeConciliacion(cruce([emp('a', 400, 100, 'difiere')]))[0].severid
   cierto(a[0].titulo.includes('340'), 'y suma las dos');
 }
 
+{
+  /* El caso Arcos: 146 sin facturar segun la fecha de factura, pero marcado
+     como facturado a mes vencido. Alertar por esas 146 manda a alguien a
+     reclamar algo que ya esta facturado. */
+  const a = alertasDeConciliacion(cruce([
+    { ...emp('arcos', 353, 207, 'difiere'), posible_desfase: true, diferencia_si_mes_vencido: -24 },
+  ]));
+  iguales(a.length, 0, 'lo facturado a mes vencido no dispara la alerta de sin facturar');
+}
+{
+  /* Pero si hay ademas una de verdad, esa si suena, y la otra se menciona
+     aparte para que nadie piense que se escondio. */
+  const a = alertasDeConciliacion(cruce([
+    { ...emp('arcos', 353, 207, 'difiere'), posible_desfase: true, diferencia_si_mes_vencido: -24 },
+    emp('otra', 100, 50, 'difiere'),
+  ]));
+  iguales(a.length, 1, 'la que no tiene explicacion si avisa');
+  cierto(a[0].titulo.includes('50'), 'y cuenta solo las suyas, no las 146 del desfase');
+  cierto(a[0].detalle.includes('146') && /mes vencido/.test(a[0].detalle),
+    'pero dice aparte las que se descontaron y por que');
+}
+
 console.log('\n-- el cruce: lo que hay que corregir --');
 iguales(alertasDeConciliacion(cruce([], { total: 0, sin_nit: 2, nit_no_resuelto: 2 })).length, 0,
   '4 empresas por corregir está por debajo del umbral');
