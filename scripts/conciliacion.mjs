@@ -266,6 +266,84 @@ export function facturadoPorMes(facturas) {
  * se marca el caso en el que cuadran. Quien decide si eso es un desfase o un
  * descuadre de verdad es BPM, que es quien sabe como le factura a cada quien.
  */
+/**
+ * El saldo acumulado por empresa: certificado menos facturado, en una
+ * ventana de varios meses.
+ *
+ * Es la forma de cruzar que pidio BPM, y la razon es la cadencia: a casi
+ * todas las empresas se les factura a mes vencido y condicionado a que llegue
+ * la orden de compra, asi que un mes sin factura no significa nada. Mirar mes
+ * contra mes fabrica descuadres que se deshacen solos al mes siguiente.
+ *
+ * El saldo no se deshace solo. Si vuelve a cero, era cadencia; si se queda
+ * arriba mes tras mes, es facturacion que no se hizo.
+ *
+ * LA VENTANA DE FACTURAS VA CORRIDA UN MES. El servicio de octubre se cobra
+ * en la factura de noviembre, asi que comparar los mismos meses desalinearia
+ * todo por uno. Esto importa poco en el medio de la ventana y mucho en los
+ * bordes, que es donde estan las cifras recientes.
+ *
+ * @param historia  { "2026-10": { por_empresa: { codigo: cert } }, ... }
+ * @param unidades  Map nit -> { "2026-11": unidades }   (de unidadesPorTerceroYMes)
+ * @param empresas  las del corte, con codigo, nombre y nit
+ * @param hasta     ultimo mes de SERVICIO que entra (normalmente el cerrado)
+ * @param meses     cuantos meses de servicio mirar hacia atras
+ */
+export function saldoAcumulado({ historia, unidades, empresas, hasta, meses = 6 }) {
+  const [aa, mm] = String(hasta).split('-').map(Number);
+  const mesesServicio = [];
+  for (let i = meses - 1; i >= 0; i--) {
+    mesesServicio.push(new Date(Date.UTC(aa, mm - 1 - i, 1)).toISOString().slice(0, 7));
+  }
+  /* El mes de factura que corresponde a cada mes de servicio: el siguiente. */
+  const mesFactura = (m) => {
+    const [a, b] = m.split('-').map(Number);
+    return new Date(Date.UTC(a, b, 1)).toISOString().slice(0, 7);
+  };
+  /* Solo se cuentan los meses de servicio de los que HAY historia. Sumar un
+     mes sin datos como si fuera cero inventaria un saldo a favor. */
+  const conDatos = mesesServicio.filter((m) => historia?.meses?.[m]);
+
+  const filas = [];
+  for (const e of (empresas || [])) {
+    const cod = String(e.codigo);
+    const nit = digitos(e.nit);
+    const serie = (nit && unidades.get(nit)) || {};
+    let cert = 0, fact = 0;
+    const detalle = {};
+    for (const m of conDatos) {
+      const c = num(historia.meses[m].por_empresa?.[cod] ?? 0);
+      const f = num(serie[mesFactura(m)] ?? 0);
+      cert += c; fact += f;
+      detalle[m] = { certificado: c, facturado_al_mes_siguiente: f };
+    }
+    if (cert === 0 && fact === 0) continue;
+    filas.push({
+      codigo: cod, nombre: e.nombre, nit: e.nit || null,
+      certificado: cert, facturado: fact, saldo: cert - fact, por_mes: detalle,
+    });
+  }
+
+  filas.sort((a, b) => b.saldo - a.saldo);
+  const deben = filas.filter((f) => f.saldo > 0);
+  return {
+    meses: conDatos,
+    meses_sin_historia: mesesServicio.filter((m) => !historia?.meses?.[m]),
+    nota: 'Certificado de cada mes contra lo facturado al mes siguiente, ' +
+          'porque a las empresas se les factura a mes vencido. Un saldo que ' +
+          'vuelve a cero era cadencia; uno que se queda arriba es facturacion ' +
+          'que no se hizo.',
+    empresas: filas,
+    resumen: {
+      empresas: filas.length,
+      con_saldo: deben.length,
+      certificado: filas.reduce((a, f) => a + f.certificado, 0),
+      facturado: filas.reduce((a, f) => a + f.facturado, 0),
+      saldo: deben.reduce((a, f) => a + f.saldo, 0),
+    },
+  };
+}
+
 export function conciliar(empresas, compras, terceros, comprasSiguiente, certAnterior) {
   const filas = [];
   const sinNit = [], noResuelto = [], soloEnSiigo = [];

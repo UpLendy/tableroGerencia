@@ -2,7 +2,7 @@
    forma real que devuelve Siigo. Lo que se comprueba no es que el código
    corra, sino que NO afirme cosas que no puede saber. */
 import { resolverNit, comprasPorTercero, conciliar, cartera, CONSUMIDOR_FINAL,
-         unidadesPorTerceroYMes } from '../scripts/conciliacion.mjs';
+         unidadesPorTerceroYMes, saldoAcumulado } from '../scripts/conciliacion.mjs';
 
 let fallos = 0;
 const iguales = (a, b, q) => {
@@ -387,6 +387,51 @@ console.log('\n-- la serie de unidades facturadas por mes --');
     factura('900111222', [{ code: '21002', quantity: 5, price: 1000 }], { date: '' }),
   ]);
   iguales(m.size, 0, 'una factura sin fecha no entra en ninguna serie');
+}
+
+console.log('\n-- el saldo acumulado --');
+{
+  const historia = { meses: {
+    '2026-08': { por_empresa: { a: 100, b: 50 } },
+    '2026-09': { por_empresa: { a: 100, b: 50 } },
+    '2026-10': { por_empresa: { a: 100, b: 50 } },
+  } };
+  /* A la empresa a se le factura a mes vencido y completo: cert de agosto en
+     septiembre, etc. Saldo cero aunque mes contra mes nunca cuadre. */
+  const unidades = new Map([
+    ['800000001', { '2026-09': 100, '2026-10': 100, '2026-11': 100 }],
+    ['800000002', { '2026-09': 50, '2026-10': 0, '2026-11': 0 }],
+  ]);
+  const empresas = [
+    { codigo: 'a', nombre: 'AL DIA SAS', nit: '800000001' },
+    { codigo: 'b', nombre: 'DEBE SAS', nit: '800000002' },
+  ];
+  const r = saldoAcumulado({ historia, unidades, empresas, hasta: '2026-10', meses: 3 });
+  const de = (c) => r.empresas.find((x) => x.codigo === c);
+  iguales(de('a').saldo, 0, 'facturada a mes vencido y completa: saldo cero');
+  iguales(de('a').certificado, 300, 'con sus 300 certificadas');
+  iguales(de('b').saldo, 100, 'la que dejo de facturar dos meses arrastra 100');
+  iguales(r.resumen.saldo, 100, 'el resumen solo suma los saldos positivos');
+  iguales(r.resumen.con_saldo, 1, 'y cuenta una sola empresa debiendo');
+}
+{
+  /* Un mes sin historia no se cuenta como cero: eso inventaria un saldo. */
+  const historia = { meses: { '2026-10': { por_empresa: { a: 100 } } } };
+  const unidades = new Map([['800000001', { '2026-11': 100, '2026-10': 999 }]]);
+  const empresas = [{ codigo: 'a', nombre: 'A', nit: '800000001' }];
+  const r = saldoAcumulado({ historia, unidades, empresas, hasta: '2026-10', meses: 6 });
+  iguales(r.meses, ['2026-10'], 'solo entra el mes del que hay historia');
+  iguales(r.meses_sin_historia.length, 5, 'y se dice cuales faltan');
+  iguales(r.empresas[0].saldo, 0, '100 certificadas contra 100 facturadas en noviembre');
+}
+{
+  /* La ventana de facturas va corrida: si se compararan los mismos meses,
+     esta empresa saldria debiendo 100 cuando esta al dia. */
+  const historia = { meses: { '2026-10': { por_empresa: { a: 100 } } } };
+  const unidades = new Map([['800000001', { '2026-10': 0, '2026-11': 100 }]]);
+  const r = saldoAcumulado({ historia, unidades,
+    empresas: [{ codigo: 'a', nombre: 'A', nit: '800000001' }], hasta: '2026-10', meses: 1 });
+  iguales(r.empresas[0].facturado, 100, 'se mira la factura del mes siguiente, no la del mismo mes');
 }
 
 console.log(fallos ? `\n  ${fallos} FALLO(S)\n` : '\n  todo bien\n');

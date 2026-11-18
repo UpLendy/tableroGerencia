@@ -22,7 +22,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { crearCliente, faltaConfiguracion } from './siigo.mjs';
 import { cartera, facturadoPorMes, comprasPorTercero, conciliar,
-         unidadesPorTerceroYMes } from './conciliacion.mjs';
+         unidadesPorTerceroYMes, saldoAcumulado } from './conciliacion.mjs';
 import { readFile } from 'node:fs/promises';
 
 const args = process.argv.slice(2);
@@ -213,6 +213,39 @@ try {
     for (const f of malos) console.error('   ' + f);
     console.error('');
     process.exit(1);
+  }
+
+  /* ------------------------------------------------- el saldo acumulado
+     Es la vista que pidio BPM: ni mes contra mes, que fabrica descuadres con
+     la cadencia de las ordenes de compra, ni nada. Necesita la historia de
+     certificaciones por empresa, que se siembra con sembrar-historia.mjs y
+     vive en su propio archivo. Si no esta, el cruce sale igual sin ella. */
+  try {
+    const historia = JSON.parse(await readFile(
+      new URL('../data/historia-empresas.json', import.meta.url), 'utf8'));
+    const todasLasEmpresas = (corte.empresas || [])
+      .map((e) => ({ codigo: e.codigo, nombre: e.nombre, nit: e.nit }));
+    conc.saldo = saldoAcumulado({
+      historia, unidades: serieUnidades, empresas: todasLasEmpresas,
+      hasta: periodo, meses: 6,
+    });
+    const rs = conc.saldo.resumen;
+    console.log('');
+    console.log('  saldo acumulado · ' + conc.saldo.meses.length + ' mes(es) de servicio' +
+      (conc.saldo.meses_sin_historia.length
+        ? ' (faltan ' + conc.saldo.meses_sin_historia.join(', ') + ')' : ''));
+    console.log('      certificado  ' + rs.certificado);
+    console.log('      facturado    ' + rs.facturado);
+    console.log('      sin facturar ' + rs.saldo + ' en ' + rs.con_saldo + ' empresas');
+    for (const e of conc.saldo.empresas.filter((x) => x.saldo > 0).slice(0, 8)) {
+      console.log('        ' + String(e.saldo).padStart(5) + '   ' +
+        String(e.certificado).padStart(5) + ' cert / ' + String(e.facturado).padStart(5) +
+        ' fact   ' + String(e.nombre || e.codigo).slice(0, 34));
+    }
+  } catch (e) {
+    console.log('');
+    console.log('  sin saldo acumulado: ' + e.message);
+    console.log('  (se siembra con: node scripts/sembrar-historia.mjs --meses 8)');
   }
 
   await writeFile(new URL('../data/conciliacion.json', import.meta.url), JSON.stringify(conc, null, 2));
