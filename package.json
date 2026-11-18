@@ -8,6 +8,7 @@
     "corte": "node scripts/extraer-corte.mjs",
     "dump": "node scripts/extraer-corte.mjs --dump",
     "validar": "node scripts/validar-corte.mjs",
-    "probar": "node pruebas/congelado.mjs && node pruebas/conciliacion.mjs && node pruebas/corte-offline.mjs && node pruebas/alertas-cartera.mjs && node pruebas/nit.mjs"
+    "probar": "node pruebas/congelado.mjs && node pruebas/conciliacion.mjs && node pruebas/corte-offline.mjs && node pruebas/alertas-cartera.mjs && node pruebas/nit.mjs",
+    "corte-vercel": "node scripts/traer-de-vercel.mjs"
   }
 }
