@@ -137,6 +137,42 @@ export function cartera(facturas, terceros, hoy) {
 }
 
 /**
+ * Lo facturado mes a mes, de todo lo que BPM vende.
+ *
+ * OJO con leer esto como ingreso de la plataforma: incluye tramites INVIMA,
+ * asesorias presenciales, apto medico y lo que sea que BPM facture. No es
+ * comparable con el valor a precio de lista del tablero, que solo cuenta
+ * certificaciones. Ponerlos uno al lado del otro sin decirlo haria pensar
+ * que falta plata donde solo hay dos cosas distintas.
+ *
+ * "cobrado" es lo facturado menos lo que sigue pendiente HOY, no lo que
+ * entro ese mes: una factura de septiembre pagada en octubre cuenta como
+ * cobrada en septiembre. Es la unica lectura posible con lo que la API
+ * entrega, y por eso va dicho en el propio dato.
+ */
+export function facturadoPorMes(facturas) {
+  const meses = {};
+  for (const f of facturas) {
+    const mes = String(f.date || '').slice(0, 7);
+    if (!/^\d{4}-\d{2}$/.test(mes)) continue;
+    const e = meses[mes] || { facturado: 0, saldo: 0, facturas: 0, por_codigo: {} };
+    e.facturado += num(f.total);
+    e.saldo += num(f.balance);
+    e.facturas++;
+    for (const it of (f.items || [])) {
+      const cod = String(it.code ?? '?');
+      const c = e.por_codigo[cod] || { cantidad: 0, valor: 0 };
+      c.cantidad += num(it.quantity);
+      c.valor += num(it.total ?? num(it.price) * num(it.quantity));
+      e.por_codigo[cod] = c;
+    }
+    meses[mes] = e;
+  }
+  for (const e of Object.values(meses)) e.cobrado = e.facturado - e.saldo;
+  return meses;
+}
+
+/**
  * La conciliación por empresa.
  *
  * @param empresas  las del corte: { codigo, nombre, nit, certificados }

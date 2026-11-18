@@ -141,4 +141,27 @@ console.log('-- la cartera no puede llegar a la vista de Equipo --');
 }
 
 console.log('');
+
+
+console.log('-- lo facturado mes a mes --');
+{
+  const { facturadoPorMes } = await import('../scripts/conciliacion.mjs');
+  const f = [
+    { date: '2026-10-05', total: 100000, balance: 0,
+      items: [{ code: '21002', quantity: 5, price: 20000, total: 100000 }] },
+    { date: '2026-10-20', total: 50000, balance: 50000,
+      items: [{ code: '20001', quantity: 1, price: 50000, total: 50000 }] },
+    { date: '2026-09-01', total: 30000, balance: 0, items: [] },
+    { date: '', total: 999, balance: 0, items: [] },
+  ];
+  const r = facturadoPorMes(f);
+  iguales(r['2026-10'].facturado, 150000, 'suma lo facturado del mes');
+  iguales(r['2026-10'].cobrado, 100000, 'y lo cobrado es lo facturado menos el saldo de hoy');
+  iguales(r['2026-10'].facturas, 2, 'cuenta las facturas');
+  iguales(r['2026-10'].por_codigo['21002'].cantidad, 5, 'y guarda el desglose por código');
+  iguales(Object.keys(r).sort(), ['2026-09', '2026-10'], 'una factura sin fecha no inventa un mes');
+}
+
+console.log('');
+
 if (fallos) { console.log('  ' + fallos + ' fallo(s)\n'); process.exit(1); }

@@ -810,8 +810,32 @@ function renderKpis(){
      d:cmp('cert'), s:ant(x=>nf(x.cert)), pie:pie()},
     {l:'Personas distintas certificadas', v:nf(m.personas),
      d:cmp('personas'), s:ant(x=>nf(x.personas)), pie:pie()},
-    {l:'Ingreso del mes · ventas pagadas', ausente:true, soloGerencia:true,
-     s:'Lo produce BPM. El tablero lo lee, no lo calcula. Pendiente del cruce con Siigo.'},
+    /* Esta tarjeta llevaba desde el primer dia diciendo "pendiente del cruce
+       con Siigo". Ya no lo esta: lo facturado sale de las facturas de venta
+       de Siigo, del mes que este seleccionado.
+
+       Y va rotulada como FACTURADO, no como ingreso de la plataforma, porque
+       incluye tramites INVIMA, asesorias presenciales y apto medico. Ponerla
+       al lado del valor a precio de lista sin decirlo haria leer que falta
+       plata donde solo hay dos cosas que miden cosas distintas. */
+    (function(){
+      /* CORTE es la global que usa renderKpis; aqui no hay ningun "c" en
+         alcance y ponerlo compila igual pero revienta en pantalla. */
+      const fpm = CORTE.cartera && CORTE.cartera.facturado_por_mes;
+      const fm = fpm && fpm[m.id];
+      if (!fm) return {l:'Facturado en el mes · Siigo', ausente:true, soloGerencia:true,
+        s:'Pendiente de que corra la lectura de Siigo.'};
+      const fp = p && fpm[p.id];
+      return {
+        l:'Facturado en el mes · Siigo', v:cop(fm.facturado), soloGerencia:true,
+        d: fp && fp.facturado ? fm.facturado/fp.facturado-1 : null,
+        s: fp ? cop(fp.facturado)+' el mes anterior' : null,
+        pie:'Todo lo que BPM facturó: certificaciones, trámites INVIMA, asesorías '+
+            'presenciales y apto médico. No es comparable con el valor a precio de '+
+            'lista de al lado, que solo cuenta certificaciones. '+
+            (fm.saldo>0 ? 'De este mes siguen sin cobrar '+cop(fm.saldo)+'.' : 'Está todo cobrado.'),
+      };
+    })(),
     /* La Dirección fijó que la tarifa real es la del CUADRE 2026, pestaña
        EMPRESAS, no la configurada en la plataforma. Mientras no se haga ese
        cruce, el campo se rotula por lo que de verdad es. */

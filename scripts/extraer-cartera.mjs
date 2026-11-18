@@ -21,7 +21,7 @@
  */
 import { mkdir, writeFile } from 'node:fs/promises';
 import { crearCliente, faltaConfiguracion } from './siigo.mjs';
-import { cartera } from './conciliacion.mjs';
+import { cartera, facturadoPorMes } from './conciliacion.mjs';
 
 const args = process.argv.slice(2);
 const valor = (f, d) => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : d; };
@@ -59,6 +59,14 @@ c.generado_en = new Date().toISOString();
 c.ventana = { desde, hasta, meses: MESES };
 c.facturas_revisadas = vigentes.length;
 c.fuente = 'api.siigo.com · facturas de venta';
+/* Lo facturado mes a mes sale gratis: ya estan todas las facturas en
+   memoria. Es lo que llena la tarjeta de ingreso del tablero, que llevaba
+   desde el primer dia diciendo "pendiente del cruce con Siigo". */
+c.facturado_por_mes = facturadoPorMes(vigentes);
+c.nota_facturado =
+  'Incluye todo lo que BPM factura: certificaciones, tramites INVIMA, ' +
+  'asesorias presenciales y apto medico. No es comparable con el valor a ' +
+  'precio de lista del tablero, que solo cuenta certificaciones.';
 c.tiempos_ms = { total: Date.now() - t0 };
 
 /* Comprobaciones antes de publicar, no después. Una cartera que no cuadra
@@ -85,6 +93,12 @@ await writeFile(new URL('../data/cartera.json', import.meta.url), JSON.stringify
 
 const cop = (n) => '$' + Math.round(n).toLocaleString('es-CO');
 console.log('');
+const mesActual = hasta.slice(0, 7);
+const fm = c.facturado_por_mes[mesActual];
+if (fm) {
+  console.log('  facturado ' + mesActual + ' : ' + cop(fm.facturado) +
+    ' · cobrado ' + cop(fm.cobrado) + ' · pendiente ' + cop(fm.saldo));
+}
 console.log('  por cobrar      : ' + cop(c.total) + ' · ' + c.terceros + ' terceros');
 for (const [k, v] of Object.entries(c.por_antiguedad)) {
   if (v) console.log('      ' + k.padEnd(12) + cop(v));
