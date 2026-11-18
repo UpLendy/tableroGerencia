@@ -309,5 +309,25 @@ console.log('\n-- las que van dentro de la factura a consumidor final --');
   iguales(c.resumen.sin_nit, 1, 'sin inflar el conteo de las que hay que corregir');
 }
 
+{
+  /* Cada empresa tiene que caer en exactamente un estado, y el resumen tiene
+     que sumarlos todos. Añadir un estado nuevo y olvidarlo en el resumen fue
+     un error real; esto lo caza sin depender de que alguien se acuerde. */
+  const emp = [
+    { codigo: 'a', nombre: 'CUADRA', nit: '800244387', certificados: 10 },
+    { codigo: 'b', nombre: 'SIN DOC', nit: null, certificados: 5 },
+    { codigo: 'c', nombre: 'GESA', nit: null, certificados: 3 },
+    { codigo: 'd', nombre: 'NO ESTA', nit: '999999999', certificados: 2 },
+  ];
+  const fs = [factura('800244387', [{ code: '21002', quantity: 10, price: 10500 }])];
+  const c = conciliar(emp, comprasPorTercero(fs), new Map([['800244387', 'ARCOS']]));
+  const r = c.resumen;
+  const suma = r.cuadran + r.difieren + r.no_comparables + r.certifican_sin_facturar +
+               r.sin_factura_en_el_periodo + r.sin_nit + r.nit_no_resuelto +
+               (r.via_consumidor_final || 0);
+  iguales(suma, r.total, 'los estados del resumen suman el total de empresas');
+  iguales(c.empresas.length, r.total, 'y hay una fila por empresa');
+}
+
 console.log(fallos ? `\n  ${fallos} FALLO(S)\n` : '\n  todo bien\n');
 process.exit(fallos ? 1 : 0);

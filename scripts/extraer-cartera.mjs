@@ -168,8 +168,12 @@ try {
      haría que alguien llamara a un cliente a reclamarle algo que no debe. */
   const malos = [];
   const r = conc.resumen;
+  /* Todos los estados posibles tienen que estar en esta suma. Si se agrega
+     uno nuevo y se olvida aqui, esta comprobacion lo caza y no se publica,
+     que es justo lo que paso al añadir via_consumidor_final. */
   const suma = r.cuadran + r.difieren + r.no_comparables + r.certifican_sin_facturar +
-               r.sin_factura_en_el_periodo + r.sin_nit + r.nit_no_resuelto;
+               r.sin_factura_en_el_periodo + r.sin_nit + r.nit_no_resuelto +
+               (r.via_consumidor_final || 0);
   if (suma !== r.total) malos.push(`los estados suman ${suma} y hay ${r.total} empresas`);
   if (conc.empresas.some((e) => e.estado === 'cuadra' && e.diferencia !== 0))
     malos.push('hay una empresa marcada como que cuadra con diferencia distinta de cero');
