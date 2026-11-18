@@ -30,3 +30,13 @@ export async function leerCartera() {
   try { return await leerDato('cartera.json'); }
   catch { return null; }
 }
+
+/**
+ * El cruce contra Siigo, si está publicado. Mismo criterio que la cartera:
+ * lo produce otro proceso y que no haya corrido todavía no es motivo para
+ * dejar al tablero sin pintar.
+ */
+export async function leerConciliacion() {
+  try { return await leerDato('conciliacion.json'); }
+  catch { return null; }
+}

@@ -21,7 +21,8 @@
  */
 import { mkdir, writeFile } from 'node:fs/promises';
 import { crearCliente, faltaConfiguracion } from './siigo.mjs';
-import { cartera, facturadoPorMes } from './conciliacion.mjs';
+import { cartera, facturadoPorMes, comprasPorTercero, conciliar } from './conciliacion.mjs';
+import { readFile } from 'node:fs/promises';
 
 const args = process.argv.slice(2);
 const valor = (f, d) => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : d; };
@@ -90,6 +91,82 @@ if (fallos.length) {
 
 await mkdir(new URL('../data', import.meta.url), { recursive: true });
 await writeFile(new URL('../data/cartera.json', import.meta.url), JSON.stringify(c, null, 2));
+
+/* ------------------------------------------------------- la conciliación
+   El cruce vive aquí y no en el corte porque las facturas ya están en
+   memoria: sale sin una sola llamada más a Siigo. Lo único que necesita del
+   otro lado son las empresas con su NIT, que lee del corte publicado.
+
+   Se calcula sobre el ÚLTIMO MES CERRADO, no sobre el mes en curso. La
+   facturación va detrás de la certificación, así que cruzar un mes a medias
+   daría un descuadre que no existe: el mismo error de comparar un periodo
+   incompleto contra uno completo que la Dirección ya nos señaló una vez.
+
+   Si el corte no está o no tiene meses cerrados, no se escribe nada y se
+   dice. Un cruce a medias es peor que ninguno: alguien lo leería. */
+try {
+  let corte = null;
+  try { corte = JSON.parse(await readFile(new URL('../data/corte.json', import.meta.url), 'utf8')); }
+  catch { throw new Error('no hay data/corte.json todavía'); }
+
+  const cerrados = (corte.meses || []).filter((m) => m.cerrado).map((m) => m.id).sort();
+  const periodo = cerrados[cerrados.length - 1];
+  if (!periodo) throw new Error('el corte no tiene ningún mes cerrado');
+
+  /* Las certificaciones del mes cerrado salen del corte, que para un mes
+     cerrado ya trae la cifra congelada y no la que la plataforma reporte
+     hoy. Cruzar contra la de hoy sería cruzar contra un número que ya se
+     movió. */
+  const empresas = (corte.empresas || [])
+    .map((e) => ({ codigo: e.codigo, nombre: e.nombre, nit: e.nit,
+                   certificados: Number((e.meses || {})[periodo] || 0) }))
+    .filter((e) => e.certificados > 0);
+  if (!empresas.length) throw new Error('ninguna empresa certificó en ' + periodo);
+
+  /* Solo las facturas de ese mes: la ventana de la cartera son dos años. */
+  const delMes = vigentes.filter((f) => String(f.date || '').slice(0, 7) === periodo);
+  const conc = conciliar(empresas, comprasPorTercero(delMes), terceros);
+  conc.periodo = periodo;
+  conc.generado_en = new Date().toISOString();
+  conc.facturas_del_periodo = delMes.length;
+  conc.fuente = 'api.siigo.com · facturas de venta, cruzadas contra el corte';
+  conc.nota_periodo =
+    'Se cruza el último mes cerrado, no el mes en curso: la facturación va ' +
+    'detrás de la certificación y un mes a medias daría un descuadre falso.';
+
+  /* Comprobaciones antes de publicar. Un cruce que no cuadra consigo mismo
+     haría que alguien llamara a un cliente a reclamarle algo que no debe. */
+  const malos = [];
+  const r = conc.resumen;
+  const suma = r.cuadran + r.difieren + r.no_comparables + r.certifican_sin_facturar +
+               r.sin_factura_en_el_periodo + r.sin_nit + r.nit_no_resuelto;
+  if (suma !== r.total) malos.push(`los estados suman ${suma} y hay ${r.total} empresas`);
+  if (conc.empresas.some((e) => e.estado === 'cuadra' && e.diferencia !== 0))
+    malos.push('hay una empresa marcada como que cuadra con diferencia distinta de cero');
+  if (conc.empresas.some((e) => e.estado === 'no_comparable_por_paquetes' && e.diferencia !== null))
+    malos.push('hay un no comparable con diferencia calculada, que no se puede saber');
+  if (malos.length) {
+    console.error('\n✗ La conciliación no cuadra consigo misma. No se publica:\n');
+    for (const f of malos) console.error('   ' + f);
+    console.error('');
+    process.exit(1);
+  }
+
+  await writeFile(new URL('../data/conciliacion.json', import.meta.url), JSON.stringify(conc, null, 2));
+  console.log('');
+  console.log('  conciliación ' + periodo + ' · ' + r.total + ' empresas');
+  console.log('      cuadran                  ' + r.cuadran);
+  console.log('      difieren                 ' + r.difieren);
+  console.log('      no comparables (paquete) ' + r.no_comparables);
+  console.log('      certifican sin facturar  ' + r.certifican_sin_facturar);
+  console.log('      sin factura en el mes    ' + r.sin_factura_en_el_periodo);
+  console.log('      sin NIT / no resuelto    ' + r.sin_nit + ' / ' + r.nit_no_resuelto);
+  console.log('      solo en Siigo            ' + r.solo_en_siigo);
+} catch (e) {
+  console.log('');
+  console.log('  sin conciliación: ' + e.message);
+  console.log('  (la cartera sí quedó publicada)');
+}
 
 const cop = (n) => '$' + Math.round(n).toLocaleString('es-CO');
 console.log('');

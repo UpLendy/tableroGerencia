@@ -35,6 +35,9 @@ export const UMBRALES = {
   carteraVencidaGrave: 40,
   carteraConcentracion: 30,       // % de lo que se debe, en un solo cliente
   carteraConcentracionGrave: 45,
+  certSinFacturar: 30,            // certificaciones del mes cerrado sin factura
+  certSinFacturarGrave: 150,
+  empresasSinNit: 5,              // empresas que el cruce no puede resolver
 };
 
 const nf = (n) => Number(n).toLocaleString('es-CO');
@@ -434,12 +437,77 @@ export function alertasDeCartera(cartera, umbrales = {}) {
   return A;
 }
 
+/* ----------------------------------------------------------- el cruce
+ * Dos alertas, y las dos de gerencia: una nombra plata sin facturar y la
+ * otra señala registros que hay que corregir.
+ *
+ * El cruce es del último mes CERRADO. Eso importa para leer las cifras: no
+ * dicen cómo va el mes, dicen qué pasó en uno que ya terminó y cuya
+ * facturación ya tuvo tiempo de salir.
+ * --------------------------------------------------------------------- */
+export function alertasDeConciliacion(conc, umbrales = {}) {
+  const U = { ...UMBRALES, ...umbrales };
+  const A = [];
+  if (!conc || !conc.resumen || !Array.isArray(conc.empresas)) return A;
+  const periodo = conc.periodo || 'sin-periodo';
+
+  /* Lo certificado que no aparece facturado. Solo cuenta hacia un lado: que
+     se facture de más es otra conversación y no se mezcla aquí.
+     Los no comparables por paquete quedan fuera a propósito: no se sabe
+     cuántas certificaciones trae un paquete, así que sumarlos sería inventar. */
+  const faltantes = conc.empresas
+    .filter((e) => e.estado === 'certifica_sin_facturar' ||
+                   (e.estado === 'difiere' && Number(e.diferencia) < 0))
+    .map((e) => ({ ...e, sinFacturar: Number(e.certificados) - Number(e.unidades || 0) }))
+    .filter((e) => e.sinFacturar > 0)
+    .sort((a, b) => b.sinFacturar - a.sinFacturar);
+  const total = faltantes.reduce((a, e) => a + e.sinFacturar, 0);
+
+  if (total >= U.certSinFacturar) {
+    const peor = faltantes[0];
+    A.push({
+      id: `cruce-sin-facturar-${periodo}`,
+      severidad: total >= U.certSinFacturarGrave ? 'critica' : 'atencion',
+      para: 'gerencia',
+      titulo: `${nf(total)} certificaciones de ${periodo} no aparecen facturadas`,
+      detalle: `En ${nf(faltantes.length)} empresa${faltantes.length === 1 ? '' : 's'}. ` +
+        `La mayor es ${peor.nombre || peor.codigo}: certificó ${nf(peor.certificados)} ` +
+        `y en Siigo figuran ${nf(peor.unidades || 0)}.`,
+      cifra: total,
+      seccion: 'cruce',
+      accion: 'Revisar con Siigo si falta facturar o si se facturó en otro mes.',
+    });
+  }
+
+  /* Lo que el cruce no puede resolver. No es una diferencia de negocio: es
+     un dato mal escrito, y se arregla en otro sitio y por otra persona. */
+  const porCorregir = Number(conc.resumen.sin_nit || 0) + Number(conc.resumen.nit_no_resuelto || 0);
+  if (porCorregir >= U.empresasSinNit) {
+    A.push({
+      id: `cruce-datos-${periodo}`,
+      severidad: 'atencion',
+      para: 'gerencia',
+      titulo: `${nf(porCorregir)} empresas quedan fuera del cruce por su documento`,
+      detalle: `${nf(conc.resumen.sin_nit || 0)} sin NIT en la plataforma y ` +
+        `${nf(conc.resumen.nit_no_resuelto || 0)} con uno que no existe en Siigo. ` +
+        'Mientras no se corrijan, lo que certifiquen no se puede cruzar.',
+      cifra: porCorregir,
+      seccion: 'cruce',
+      accion: 'Corregir el documento de esas empresas en la plataforma de formación.',
+    });
+  }
+
+  return A;
+}
+
 /* Adjunta la cartera al corte y suma sus alertas, ordenadas con las demás.
    Lo hacen los dos endpoints, así que vive aquí y no duplicado en cada uno. */
-export function adjuntarCartera(corte, cartera) {
-  if (!corte || !cartera) return corte;
-  corte.cartera = cartera;
-  const nuevas = alertasDeCartera(cartera);
+export function adjuntarCartera(corte, cartera, conciliacion) {
+  if (!corte) return corte;
+  if (cartera) corte.cartera = cartera;
+  if (conciliacion) corte.conciliacion = conciliacion;
+  const nuevas = [...(cartera ? alertasDeCartera(cartera) : []),
+                  ...(conciliacion ? alertasDeConciliacion(conciliacion) : [])];
   if (nuevas.length) {
     const orden = { critica: 0, atencion: 1, aviso: 2 };
     corte.alertas = [...(Array.isArray(corte.alertas) ? corte.alertas : []), ...nuevas]

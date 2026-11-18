@@ -54,8 +54,8 @@ jobs:
 
       - name: Publicar si cambió
         run: |
-          if git diff --quiet -- data/cartera.json \
-             && [ -z "$(git ls-files --others --exclude-standard -- data/cartera.json)" ]; then
+          if git diff --quiet -- data/cartera.json data/conciliacion.json \
+             && [ -z "$(git ls-files --others --exclude-standard -- data/cartera.json data/conciliacion.json)" ]; then
             echo "La cartera no cambió. No se publica nada."
             exit 0
           fi
@@ -67,16 +67,20 @@ jobs:
           # commit que toca este mismo archivo solo puede dar conflicto. Se
           # pone el archivo encima de lo último que haya en el remoto.
           cp data/cartera.json /tmp/cartera.json
+          # La conciliación puede no existir: necesita un corte con algún mes
+          # cerrado, y la primera vez puede no haberlo.
+          cp data/conciliacion.json /tmp/conciliacion.json 2>/dev/null || true
 
           for i in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
             cp /tmp/cartera.json data/cartera.json
-            if git diff --quiet -- data/cartera.json; then
+            cp /tmp/conciliacion.json data/conciliacion.json 2>/dev/null || true
+            if git diff --quiet -- data/cartera.json data/conciliacion.json; then
               echo "Nada cambió respecto a lo publicado. No se publica."
               exit 0
             fi
-            git add data/cartera.json
+            git add data/cartera.json data/conciliacion.json
             git commit -m "Cartera $(date -u +%Y-%m-%d)"
             # El otro flujo también empuja a main. Si publicó mientras tanto,
             # este push se cae y el ciclo vuelve a empezar sobre lo que haya

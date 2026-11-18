@@ -90,6 +90,12 @@ export function despojarParaEquipo(corte) {
      nombre propio. No se despoja por campos, se quita el bloque. */
   delete c.cartera;
 
+  /* ------------------------------------------------------------- cruce
+     El cruce dice, empresa por empresa, cuánto se le facturó y cuánto
+     queda por cobrarle. Es lo mismo que la cartera con otra forma, así
+     que se va entero por la misma razón. */
+  delete c.conciliacion;
+
   /* --------------------------------------------- deriva de meses cerrados
      La deriva en certificaciones o personas es volumen y se queda: al equipo
      le sirve saber que un mes informado se movió. La de dinero, no. */

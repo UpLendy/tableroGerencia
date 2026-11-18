@@ -1,7 +1,7 @@
 /* Pruebas de las alertas de cartera. Lo que se comprueba no es que corran,
    sino que no griten cuando no hay motivo, que no salgan hacia el Equipo, y
    que no afirmen nada que la cartera no diga. */
-import { alertasDeCartera, adjuntarCartera, UMBRALES } from '../scripts/alertas.mjs';
+import { alertasDeCartera, alertasDeConciliacion, adjuntarCartera, UMBRALES } from '../scripts/alertas.mjs';
 import { despojarParaEquipo } from '../scripts/vista.mjs';
 
 let fallos = 0;
@@ -112,6 +112,91 @@ console.log('\n-- y no se le escapan al Equipo --');
     'ni las alertas que salieron de ella');
   cierto(corte.alertas.some((a) => /cartera-/.test(a.id)),
     'pero Gerencia sí las conserva');
+}
+
+/* ===================================================== el cruce con Siigo */
+
+const emp = (codigo, cert, unidades, estado, extra = {}) => ({
+  codigo, nombre: codigo.toUpperCase() + ' SAS', certificados: cert,
+  unidades, diferencia: estado === 'no_comparable_por_paquetes' ? null : unidades - cert,
+  estado, ...extra,
+});
+const cruce = (empresas, resumen = {}) => ({
+  regla: 'conciliacion-v1', periodo: '2026-10', empresas,
+  resumen: { total: empresas.length, cuadran: 0, difieren: 0, no_comparables: 0,
+             certifican_sin_facturar: 0, sin_factura_en_el_periodo: 0,
+             sin_nit: 0, nit_no_resuelto: 0, solo_en_siigo: 0, ...resumen },
+});
+
+console.log('\n-- el cruce: cuándo calla --');
+iguales(alertasDeConciliacion(null).length, 0, 'sin cruce no dice nada');
+iguales(alertasDeConciliacion({}).length, 0, 'un cruce sin resumen no dice nada');
+iguales(alertasDeConciliacion(cruce([emp('a', 100, 100, 'cuadra')])).length, 0,
+  'si todo cuadra, ninguna alerta');
+iguales(alertasDeConciliacion(cruce([emp('a', 100, 90, 'difiere')])).length, 0,
+  '10 sin facturar está por debajo del umbral: no avisa');
+
+console.log('\n-- el cruce: lo que no se facturó --');
+{
+  const a = alertasDeConciliacion(cruce([emp('a', 100, 60, 'difiere')]));
+  iguales(a.map((x) => x.id), ['cruce-sin-facturar-2026-10'], '40 sin facturar sí avisa');
+  cierto(a[0].titulo.includes('40'), 'y dice cuántas');
+  iguales(a[0].severidad, 'atencion', 'por debajo del umbral grave, es atención');
+}
+iguales(alertasDeConciliacion(cruce([emp('a', 400, 100, 'difiere')]))[0].severidad,
+  'critica', '300 sin facturar es crítica');
+{
+  /* Facturar de MÁS no es lo mismo que no facturar, y no se mezcla. */
+  const a = alertasDeConciliacion(cruce([emp('a', 100, 500, 'difiere')]));
+  iguales(a.length, 0, 'que se facture de más no dispara la alerta de no facturado');
+}
+{
+  /* Un paquete no se sabe cuántas certificaciones trae: sumarlo sería
+     inventar el número que falta. */
+  const a = alertasDeConciliacion(cruce([emp('a', 400, 0, 'no_comparable_por_paquetes')]));
+  iguales(a.length, 0, 'los no comparables por paquete no se suman');
+}
+{
+  const a = alertasDeConciliacion(cruce([
+    emp('chica', 50, 10, 'difiere'), emp('grande', 300, 0, 'certifica_sin_facturar')]));
+  cierto(a[0].detalle.includes('GRANDE'), 'nombra a la empresa con más sin facturar');
+  cierto(a[0].titulo.includes('340'), 'y suma las dos');
+}
+
+console.log('\n-- el cruce: lo que hay que corregir --');
+iguales(alertasDeConciliacion(cruce([], { total: 0, sin_nit: 2, nit_no_resuelto: 2 })).length, 0,
+  '4 empresas por corregir está por debajo del umbral');
+{
+  const a = alertasDeConciliacion(cruce([], { total: 0, sin_nit: 17, nit_no_resuelto: 3 }));
+  iguales(a.map((x) => x.id), ['cruce-datos-2026-10'], '20 sí avisa');
+  cierto(a[0].titulo.includes('20'), 'con el total');
+  cierto(a[0].detalle.includes('17') && a[0].detalle.includes('3'),
+    'y separa las que no tienen NIT de las que lo tienen mal');
+}
+
+console.log('\n-- el cruce: a quién llega --');
+{
+  const a = alertasDeConciliacion(cruce([emp('a', 400, 0, 'certifica_sin_facturar')],
+    { sin_nit: 10, nit_no_resuelto: 10 }));
+  cierto(a.length === 2 && a.every((x) => x.para === 'gerencia'),
+    'las dos son de gerencia');
+  cierto(a.every((x) => x.seccion === 'cruce' && x.accion), 'con sección y acción');
+}
+{
+  const corte = { meses: [{ id: '2026-11' }], alertas: [], empresas: [], serie: [], corte: '2026-11-18' };
+  adjuntarCartera(corte, cartera({ vencidoPct: 50, concPct: 50 }),
+    cruce([emp('a', 400, 0, 'certifica_sin_facturar')]));
+  cierto(!!corte.conciliacion, 'el bloque del cruce queda adjunto');
+  iguales(corte.alertas.filter((x) => /^cruce-/.test(x.id)).length, 1, 'y su alerta entra');
+  const eq = despojarParaEquipo(JSON.parse(JSON.stringify(corte)));
+  iguales(eq.conciliacion, undefined, 'el Equipo no recibe el cruce');
+  iguales(eq.alertas.filter((x) => /^cruce-/.test(x.id)).length, 0, 'ni sus alertas');
+}
+{
+  const corte = { meses: [], alertas: [], empresas: [], serie: [], corte: '2026-11-18' };
+  adjuntarCartera(corte, cartera({ vencidoPct: 5, concPct: 5 }));
+  iguales([corte.conciliacion, corte.alertas.length], [undefined, 0],
+    'sin cruce no adjunta ni inventa alertas');
 }
 
 console.log(fallos ? `\n  ${fallos} FALLO(S)\n` : '\n  todo bien\n');
