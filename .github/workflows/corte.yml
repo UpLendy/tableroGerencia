@@ -1,7 +1,17 @@
-name: Corte automático
+name: Corte automático (en reserva)
 
-# Se corre cada noche a las 04:37 hora de Bogotá (09:37 UTC).
-# También se puede lanzar a mano desde Actions indicando el periodo.
+# Cada noche a las 04:37 hora de Bogotá (09:37 UTC), y a mano desde Actions.
+#
+# OJO, esto es inestable y por eso existe /api/publicar en Vercel. Imunify360,
+# el escudo del hosting de virtual.bpmsas.co, devuelve 403 a las IPs de
+# GitHub Actions antes de que Laravel conteste, pero NO siempre: los runners
+# toman IPs distintas en cada corrida y algunas pasan. El 18 de noviembre esta
+# corrida pasó después de días cayéndose.
+#
+# Mientras Vercel no esté configurado, este es el único que puede publicar, y
+# por eso sigue encendido. Cuando /api/publicar haya publicado bien una vez,
+# se comenta el schedule de aquí y manda Vercel, que sí alcanza la plataforma
+# de forma consistente.
 on:
   schedule:
     - cron: "37 9 * * *"
@@ -26,6 +36,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
+        with:
+          # Por defecto el checkout es superficial y eso vuelve impredecible
+          # cualquier cosa que toque la historia al publicar.
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4.1.0
         with:
@@ -64,12 +78,32 @@ jobs:
           fi
           git config user.name  "corte-automatico"
           git config user.email "corte-automatico@users.noreply.github.com"
-          git add data/corte.json data/meses-cerrados.json
-          git commit -m "Corte automático $(date -u +%Y-%m-%d)"
-          # El flujo de la cartera tambien empuja a main. Si publica mientras
-          # tanto, este push se cae; se reintenta sobre lo que haya llegado.
+
+          # Nada de rebase. El corte se regenera entero en cada corrida, así
+          # que no hay dos versiones que fusionar: hay una buena, la recién
+          # generada, y lo único que importa es que quede encima de lo último
+          # que haya en el remoto. Rebasar un commit que toca estos mismos
+          # archivos solo puede producir un conflicto, y un rebase a medias
+          # deja el reintento roto desde el primer intento.
+          cp data/corte.json /tmp/corte.json
+          cp data/meses-cerrados.json /tmp/meses-cerrados.json
+
           for i in 1 2 3; do
-            git pull --rebase origin main && git push && exit 0
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/corte.json data/corte.json
+            cp /tmp/meses-cerrados.json data/meses-cerrados.json
+            if git diff --quiet -- data/corte.json data/meses-cerrados.json; then
+              echo "Nada cambió respecto a lo publicado. No se publica."
+              exit 0
+            fi
+            git add data/corte.json data/meses-cerrados.json
+            git commit -m "Corte automático $(date -u +%Y-%m-%d)"
+            # El flujo de la cartera también empuja a main. Si publicó mientras
+            # tanto, este push se cae y el ciclo vuelve a empezar sobre lo que
+            # haya llegado, que es lo correcto: nunca se le pisa el trabajo.
+            git push && exit 0
+            echo "El remoto se movió; se reintenta sobre lo nuevo."
             sleep 5
           done
-          echo "No se pudo publicar despues de tres intentos"; exit 1
+          echo "No se pudo publicar después de tres intentos"; exit 1

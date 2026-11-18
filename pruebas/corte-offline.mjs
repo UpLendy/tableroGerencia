@@ -9,6 +9,7 @@
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { armarCorte } from '../scripts/mapeo.mjs';
 import { congelar, deriva, registroVacio, ARCHIVO } from '../scripts/congelado.mjs';
+import { construir } from '../scripts/construir.mjs';
 
 const dir = new URL('../muestras/', import.meta.url);
 let archivos;
@@ -34,12 +35,27 @@ try {
   console.log('  registro de meses cerrados: ' + Object.keys(registro.meses).length + ' mes(es)');
 } catch { console.log('  sin registro de meses cerrados'); }
 
-const preliminar = armarCorte(muestras, {}, {});
-const laDeriva = deriva(registro, preliminar);
-const corte = armarCorte(muestras, {}, {}, {
-  cerrados: registro,
-  ...(laDeriva.length ? { deriva_meses_cerrados: { desde: preliminar.corte, cambios: laDeriva } } : {}),
-});
+/* Pasa por construir.mjs a proposito: es el mismo camino que recorren el
+   comando de terminal y la funcion de Vercel que publica el corte diario.
+   Si esa orquestacion se rompe, tiene que notarse aqui y no en produccion. */
+const armado = construir({ muestras, registro });
+const corte = armado.corte;
+const laDeriva = armado.deriva;
+
+/* Y se comprueba que construir hace lo mismo que hacia el codigo suelto: si
+   alguien cambia uno de los dos lados, esto lo delata. */
+{
+  const preliminar = armarCorte(muestras, {}, {});
+  const derivaSuelta = deriva(registro, preliminar);
+  const igual = JSON.stringify(derivaSuelta) === JSON.stringify(laDeriva);
+  console.log((igual ? '  ok   ' : '  FALLA ') +
+    'construir.mjs calcula la misma deriva que el camino suelto');
+  if (!igual) process.exitCode = 1;
+  const fugas = armado.fugas.length;
+  console.log((fugas === 0 ? '  ok   ' : '  FALLA ') +
+    'la vista de Equipo no deja escapar nada' + (fugas ? ' (' + fugas + ' fuga/s)' : ''));
+  if (fugas) process.exitCode = 1;
+}
 
 console.log('\n  corte ' + corte.corte + ' · regla ' + corte.regla);
 console.log('');
