@@ -389,6 +389,41 @@ console.log('\n-- la serie de unidades facturadas por mes --');
   iguales(m.size, 0, 'una factura sin fecha no entra en ninguna serie');
 }
 
+console.log('\n-- el saldo: quien queda fuera y por que --');
+{
+  const historia = { meses: { '2026-10': { por_empresa: { gesa: 78, sinnit: 107, mort: 49, merc: 54, sani: 4, normal: 100 } } } };
+  const unidades = new Map([
+    ['901216537', { '2026-11': 60 }],   // la factura del grupo Sanilab
+    ['900111222', { '2026-11': 100 }],
+  ]);
+  const empresas = [
+    { codigo: 'gesa', nombre: 'GESA GESTIONES', nit: '9017939810' },
+    { codigo: 'sinnit', nombre: 'Bioservicios S.A.S', nit: null },
+    { codigo: 'mort', nombre: 'COMPAÑIA LECHERA DE EL MORTIÑO', nit: '8320084649' },
+    { codigo: 'merc', nombre: 'MERCADOS  UNO A', nit: '793998765' },
+    { codigo: 'sani', nombre: 'SANILAB IPS SAS', nit: '901216537' },
+    { codigo: 'normal', nombre: 'NORMAL SAS', nit: '900111222' },
+  ];
+  const terceros = new Map([['901216537', 'No aplica'], ['900111222', 'NORMAL SAS']]);
+  const r = saldoAcumulado({ historia, unidades, empresas, terceros, hasta: '2026-10', meses: 1 });
+  const de = (c) => r.empresas.find((x) => x.codigo === c);
+
+  iguales(de('gesa'), undefined, 'GESA no entra: va en la factura a consumidor final');
+  iguales(r.resumen.fuera_via_consumidor_final, 1, 'y se cuenta aparte');
+  iguales(de('sinnit'), undefined, 'la que no tiene NIT no entra: la pintaria como la peor deudora');
+  iguales(r.resumen.fuera_sin_nit, 1, 'y tambien se cuenta aparte');
+
+  /* Mortiño, Mercados y Sanilab son un solo grupo de facturacion: su
+     certificado se suma y la factura del grupo se cuenta UNA vez. */
+  const grupo = r.empresas.find((x) => x.nit_siigo === '901216537');
+  iguales(grupo.certificado, 107, 'el grupo suma las certificaciones de las tres');
+  iguales(grupo.facturado, 60, 'y cuenta su factura una sola vez, no tres');
+  iguales(grupo.saldo, 47, 'con el saldo del grupo entero');
+
+  iguales(de('normal').saldo, 0, 'una empresa normal sigue saliendo como siempre');
+  iguales(r.resumen.saldo, 47, 'el total solo cuenta lo comparable');
+}
+
 console.log('\n-- el saldo acumulado --');
 {
   /* El fallo que casi se publica: la plataforma guarda el NIT con digito de

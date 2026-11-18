@@ -60,6 +60,32 @@ export const VIA_CONSUMIDOR_FINAL = {
   nombres: ['punto empleo', 'normandy', 'gesa'],
 };
 
+/**
+ * Empresas que se facturan bajo el NIT de OTRA empresa. Confirmado por BPM
+ * el 18 de noviembre: "a Sanilab le facturamos Mortino, Sanilab y Mercados
+ * 1A". No son errores de dato: su consumo sale en la factura del grupo.
+ *
+ * Esto explica por que Mortino y Mercados Uno A aparecian con un NIT que no
+ * existe en Siigo: no tienen factura propia que buscar.
+ *
+ * La clave es el nombre o el codigo de la empresa en la plataforma; el valor,
+ * el NIT bajo el que se le factura.
+ */
+export const GRUPOS_FACTURACION = [
+  /* 901216537 es el NIT de Sanilab IPS en Siigo. Conviene que BPM lo
+     confirme: en el maestro de Siigo ese tercero figura sin nombre util
+     ("No aplica"), asi que el emparejamiento se apoya solo en el NIT. */
+  { nombres: ['mortiño', 'mortino'], nit: '901216537' },
+  { nombres: ['mercados  uno a', 'mercados uno a'], nit: '901216537' },
+];
+
+const grupoDe = (emp) => {
+  const n = String(emp.nombre || '').toLowerCase();
+  const g = GRUPOS_FACTURACION.find((x) =>
+    x.codigos?.includes(String(emp.codigo)) || x.nombres.some((y) => n.includes(y)));
+  return g ? g.nit : null;
+};
+
 const esViaConsumidorFinal = (emp) => {
   if (VIA_CONSUMIDOR_FINAL.codigos.includes(String(emp.codigo))) return true;
   const n = String(emp.nombre || '').toLowerCase();
@@ -310,14 +336,33 @@ export function saldoAcumulado({ historia, unidades, empresas, terceros, hasta, 
   const conDatos = mesesServicio.filter((m) => historia?.meses?.[m]);
 
   const filas = [];
-  let sinNit = 0;
+  const aparte = { via_consumidor_final: [], sin_nit: [], en_grupo: [] };
   for (const e of (empresas || [])) {
     const cod = String(e.codigo);
+
+    /* Las que van en la factura a consumidor final no tienen factura propia:
+       contarlas aqui las haria aparecer debiendo todo lo que certifican. */
+    if (esViaConsumidorFinal(e)) {
+      aparte.via_consumidor_final.push({ codigo: cod, nombre: e.nombre });
+      continue;
+    }
+
+    /* Las que se facturan bajo el NIT de otra empresa suman al saldo de esa
+       otra, no al suyo. Se dejan fuera del listado individual y su certificado
+       se acumula contra el grupo. */
+    const grupo = grupoDe(e);
+
     /* Mismo camino que el cruce: se prueba el documento tal cual y sin el
        digito de verificacion contra el maestro de Siigo. */
-    const nit = terceros ? resolverNit(e.nit, terceros) : digitos(e.nit);
-    if (!nit && e.nit) sinNit++;
-    const serie = (nit && unidades.get(nit)) || {};
+    const nit = grupo || (terceros ? resolverNit(e.nit, terceros) : digitos(e.nit));
+    if (!nit) {
+      /* Sin NIT no hay con que comparar. Dejarla dentro con cero facturado la
+         pintaria como la peor deudora de la lista, que es lo que pasaba. */
+      aparte.sin_nit.push({ codigo: cod, nombre: e.nombre, nit_en_plataforma: e.nit || null });
+      continue;
+    }
+    if (grupo) aparte.en_grupo.push({ codigo: cod, nombre: e.nombre, facturada_bajo: grupo });
+    const serie = unidades.get(nit) || {};
     let cert = 0, fact = 0;
     const detalle = {};
     for (const m of conDatos) {
@@ -327,8 +372,23 @@ export function saldoAcumulado({ historia, unidades, empresas, terceros, hasta, 
       detalle[m] = { certificado: c, facturado_al_mes_siguiente: f };
     }
     if (cert === 0 && fact === 0) continue;
+    /* Se deduplica por el tercero de Siigo, venga de la tabla de grupos o no.
+       Dos empresas de la plataforma que resuelven al mismo NIT son el mismo
+       cliente, y su serie de facturas es una sola. Deduplicar solo las del
+       grupo dejaba fuera a la empresa titular —Sanilab misma— que creaba una
+       segunda fila y hacia contar su factura dos veces. */
+    const ya = filas.find((f) => f.nit_siigo === nit);
+    if (ya) {
+      /* Se suma el certificado, y el facturado NO se vuelve a sumar porque es
+         la misma serie de facturas. */
+      ya.certificado += cert;
+      ya.saldo = ya.certificado - ya.facturado;
+      ya.agrupa = [...(ya.agrupa || []), e.nombre];
+      for (const m of conDatos) ya.por_mes[m].certificado += detalle[m].certificado;
+      continue;
+    }
     filas.push({
-      codigo: cod, nombre: e.nombre, nit: e.nit || null,
+      codigo: cod, nombre: e.nombre, nit: e.nit || null, nit_siigo: nit,
       certificado: cert, facturado: fact, saldo: cert - fact, por_mes: detalle,
     });
   }
@@ -343,13 +403,16 @@ export function saldoAcumulado({ historia, unidades, empresas, terceros, hasta, 
           'vuelve a cero era cadencia; uno que se queda arriba es facturacion ' +
           'que no se hizo.',
     empresas: filas,
+    /* Las que quedan fuera del saldo, y por que. No es lo mismo una empresa
+       que no tiene factura propia que una a la que no le encontramos el NIT:
+       la primera esta bien, la segunda hay que corregirla. */
+    fuera: aparte,
     resumen: {
       empresas: filas.length,
       con_saldo: deben.length,
-      /* Las que no se pudieron emparejar con Siigo salen con su certificado y
-         cero facturado, lo que las haria parecer deudoras sin serlo. Se
-         cuentan aparte para que el total se pueda leer con eso delante. */
-      sin_nit_resuelto: sinNit,
+      fuera_via_consumidor_final: aparte.via_consumidor_final.length,
+      fuera_sin_nit: aparte.sin_nit.length,
+      agrupadas: aparte.en_grupo.length,
       certificado: filas.reduce((a, f) => a + f.certificado, 0),
       facturado: filas.reduce((a, f) => a + f.facturado, 0),
       saldo: deben.reduce((a, f) => a + f.saldo, 0),
