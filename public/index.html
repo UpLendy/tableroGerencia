@@ -576,14 +576,14 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     </div>
     <div class="grid kpis" style="margin-bottom:14px">
       <div class="kpi">
-        <div class="kl">Empresas que se pudieron cruzar</div>
-        <div class="kv" id="cruComp">—</div>
-        <div class="kd"><span id="cruCompSub"></span></div>
+        <div class="kl">Sin facturar, acumulado</div>
+        <div class="kv" id="salTotal">—</div>
+        <div class="kd"><span id="salTotalSub"></span></div>
       </div>
       <div class="kpi">
-        <div class="kl">Sin facturar · ya descontado el mes vencido</div>
-        <div class="kv" id="cruFalta">—</div>
-        <div class="kd"><span id="cruFaltaSub"></span></div>
+        <div class="kl">El más atrasado</div>
+        <div class="kv" id="salPeor">—</div>
+        <div class="kd"><span id="salPeorSub"></span></div>
       </div>
       <div class="kpi">
         <div class="kl">Fuera del cruce por su documento</div>
@@ -593,12 +593,21 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
     </div>
     <div class="grid">
       <div class="chartcard">
-        <div class="ct">Dónde no coinciden</div>
-        <div class="cs" id="cruCs"></div>
-        <div class="tw" id="tablaCru"></div>
-        <div class="al aviso" id="cruNeto" hidden style="margin-top:16px">
+        <div class="ct">Cuánto lleva cada cliente sin que se le facture</div>
+        <div class="cs" id="salCs"></div>
+        <div class="tw" id="tablaSal"></div>
+        <div class="al aviso" id="salNota" hidden style="margin-top:16px">
           <div class="al-sev">Cómo leerlo</div>
-          <div><div class="al-d" id="cruNetoTxt"></div></div>
+          <div><div class="al-d" id="salNotaTxt"></div></div>
+        </div>
+        <button class="ghost" style="margin-top:14px" onclick="verTablaMes(this)">Ver el detalle del último mes cerrado</button>
+        <div id="cajaMes" hidden style="margin-top:14px">
+          <div class="cs" id="cruCs"></div>
+          <div class="tw" id="tablaCru"></div>
+          <div class="al aviso" id="cruNeto" hidden style="margin-top:16px">
+            <div class="al-sev">Cómo leerlo</div>
+            <div><div class="al-d" id="cruNetoTxt"></div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -864,6 +873,86 @@ function renderSalud(){
     </div>`).join('');
 }
 
+/* --------------------------------------------- saldo acumulado */
+function renderSaldo(k){
+  const s = k && k.saldo;
+  if(!s || !s.resumen){
+    $('salTotal').textContent = emdash;
+    $('salTotalSub').textContent = 'el saldo acumulado aún no se ha calculado';
+    $('salPeor').textContent = emdash; $('salPeorSub').textContent = '';
+    $('tablaSal').innerHTML = ''; $('salNota').hidden = true;
+    return;
+  }
+  const r = s.resumen;
+  const n = (s.meses||[]).length;
+
+  $('salTotal').textContent = nf(r.saldo);
+  $('salTotalSub').textContent = 'certificaciones, en ' + nf(r.con_saldo) +
+    ' empresa' + (r.con_saldo===1?'':'s') + ' · ' + nf(n) + ' meses mirados';
+
+  /* El que más atrasado va NO es el que más debe. Ese es el punto de medirlo
+     en meses: un cliente pequeño al que no se le factura hace medio año pesa
+     poco en unidades y mucho en que nadie lo esté mirando. */
+  const deben = (s.empresas||[]).filter(e => Number(e.saldo) > 0);
+  const peor = deben[0];
+  $('salPeor').textContent = peor ? (nf(peor.meses_sin_facturar) + ' meses') : emdash;
+  $('salPeorSub').textContent = peor
+    ? esc(cortar(peor.nombre || peor.codigo, 26)) + ' · ' + nf(peor.saldo) + ' sin facturar'
+    : 'ninguna empresa con saldo';
+
+  $('salCs').textContent = n
+    ? 'Certificado de cada mes contra lo facturado al mes siguiente, de ' +
+      (s.meses[0]||'') + ' a ' + (s.meses[n-1]||'') + '. Ordenado por meses de atraso, no por tamaño.'
+    : '';
+
+  $('tablaSal').innerHTML = deben.length ? `<table><thead><tr>
+      <th>Cliente</th><th class="n">Meses</th><th class="n">Sin facturar</th>
+      <th class="n">Certificó</th><th class="n">Facturado</th></tr></thead><tbody>` +
+    deben.map(e => {
+      const m = Number(e.meses_sin_facturar);
+      /* Se colorea el atraso, no el tamaño: dos meses ya es una factura que
+         nadie emitió, pese quien pese. */
+      const cl = m >= 2 ? 'dn' : 'flat';
+      return `<tr>
+        <td title="${esc(e.agrupa ? 'Incluye: ' + e.agrupa.join(', ') : ('NIT ' + (e.nit||'—')))}">${
+          esc(cortar(e.nombre||e.codigo,34))}${e.agrupa ? ' <span style="color:var(--s2)">·grupo</span>' : ''}</td>
+        <td class="n"><span class="${cl}">${nf(m)}</span></td>
+        <td class="n">${nf(e.saldo)}</td>
+        <td class="n">${nf(e.certificado)}</td>
+        <td class="n">${nf(e.facturado)}</td>
+      </tr>`;
+    }).join('') + '</tbody></table>'
+    : '<div class="al-vacio">Ninguna empresa arrastra certificaciones sin facturar.</div>';
+
+  /* Lo que queda fuera. Decirlo importa: son clientes de los que NO sabemos
+     si se les facturó, y eso no es lo mismo que saber que están al día. */
+  /* La misma cifra arriba y abajo. Antes la tarjeta mostraba las del mes de
+     octubre y la nota las de seis meses: 21 y 33 a diez centimetros, que
+     parece un error aunque las dos sean ciertas. Manda la del saldo, que es
+     la vista principal. */
+  const fuera = Number(r.fuera_sin_nit||0);
+  $('cruFuera').textContent = nf(fuera);
+  $('cruFueraSub').textContent = fuera
+    ? 'no se pueden emparejar con Siigo en ' + nf(n) + ' meses'
+    : 'ninguna';
+  $('cruFuera').style.color = fuera ? 'var(--warn)' : '';
+  const partes = [];
+  if (fuera) partes.push('De las ' + nf(fuera) + ' que quedan fuera por su documento no sabemos ' +
+    'si se les facturó o no, que no es lo mismo que saber que están al día.');
+  if (r.fuera_via_consumidor_final) partes.push(nf(r.fuera_via_consumidor_final) +
+    ' van dentro de la factura a consumidor final y no tienen factura propia.');
+  if (r.agrupadas) partes.push(nf(r.agrupadas) + ' se facturan bajo el NIT de otra empresa y ' +
+    'se cuentan junto a ella.');
+  $('salNota').hidden = !partes.length;
+  $('salNotaTxt').textContent = partes.join(' ');
+}
+
+function verTablaMes(b){
+  const c = $('cajaMes');
+  c.hidden = !c.hidden;
+  b.textContent = c.hidden ? 'Ver el detalle del último mes cerrado' : 'Ocultar el detalle del mes';
+}
+
 /* ------------------------------------------------ cruce con Siigo */
 function renderCruce(){
   const k = CORTE.conciliacion;
@@ -873,18 +962,17 @@ function renderCruce(){
   const r = k.resumen;
 
   const mes = (k.periodo||'').replace(/^(\d{4})-(\d{2})$/, (_,a,b)=>MESESES[+b-1]+' de '+a);
-  $('cruNote').textContent = mes + ' · el último mes cerrado · ' +
-    nf(k.facturas_del_periodo) + ' facturas de ese mes en Siigo';
+  /* El encabezado describe la vista principal, que es el acumulado. El mes
+     se describe en su propio bloque, abajo. */
+  const ms = (k.saldo && k.saldo.meses) || [];
+  $('cruNote').textContent = ms.length
+    ? 'Acumulado de ' + nf(ms.length) + ' meses, hasta ' + mes
+    : mes + ' · el último mes cerrado';
 
+  /* El saldo acumulado es la vista principal; esta funcion ya solo llena el
+     detalle del mes, que vive detras de un boton. */
+  renderSaldo(k);
   const comparadas = r.cuadran + r.difieren;
-  $('cruComp').textContent = nf(comparadas) + ' de ' + nf(r.total);
-  /* Las que van dentro de la factura a consumidor final no son un problema:
-     no tienen factura propia que buscar. Se dicen aquí para que la resta
-     cuadre y nadie las busque. */
-  $('cruCompSub').textContent = nf(r.cuadran) + ' coinciden, ' + nf(r.difieren) + ' no' +
-    (r.via_consumidor_final
-      ? ' · ' + nf(r.via_consumidor_final) + ' van en la factura a consumidor final'
-      : '');
 
   /* Lo que falta por facturar DESPUÉS de aplicar el mes vencido. Lo calcula
      el servidor y aquí solo se lee: cuando esta pantalla lo contaba por su
@@ -895,19 +983,8 @@ function renderCruce(){
     .sort((a,b) => Number(b.sin_facturar) - Number(a.sin_facturar));
   const totalFalta = Number(k.resumen.sin_facturar) || 0;
   const valorFalta = Number(k.resumen.valor_sin_facturar) || 0;
-  $('cruFalta').textContent = valorFalta ? cop(valorFalta) : nf(totalFalta);
-  $('cruFaltaSub').textContent = totalFalta
-    ? nf(totalFalta) + ' certificaciones en ' + nf(faltan.length) + ' empresa' +
-      (faltan.length===1?'':'s') +
-      (faltan[0] ? ' · la mayor, ' + esc(cortar(faltan[0].nombre || faltan[0].codigo, 22)) : '')
-    : 'ninguna';
-  $('cruFalta').style.color = totalFalta > 0 ? 'var(--bad)' : '';
 
-  const fuera = Number(r.sin_nit||0) + Number(r.nit_no_resuelto||0);
-  $('cruFuera').textContent = nf(fuera);
-  $('cruFueraSub').textContent = fuera
-    ? nf(r.sin_nit||0) + ' sin NIT, ' + nf(r.nit_no_resuelto||0) + ' con uno que no está en Siigo'
-    : 'ninguna';
+
 
   /* Solo las que no coinciden. Listar las diecinueve que cuadran no aporta
      nada: lo que hay que mirar es dónde falla. */
@@ -915,9 +992,11 @@ function renderCruce(){
     .filter(e => e.estado === 'difiere' || e.estado === 'certifica_sin_facturar')
     .sort((a,b) => Math.abs(Number(b.diferencia||0)) - Math.abs(Number(a.diferencia||0)));
   $('cruCs').textContent = malas.length
-    ? 'Las ' + nf(malas.length) + ' empresas donde la cuenta no da. Las de uno o dos suelen ser ' +
-      'certificaciones de fin de mes facturadas al mes siguiente.'
-    : 'Todas las empresas comparables coinciden.';
+    ? 'Solo ' + mes + ': ' + nf(comparadas) + ' empresas comparables, ' + nf(r.cuadran) +
+      ' coinciden y ' + nf(malas.length) + ' no. En el mes son ' + nf(totalFalta) +
+      ' certificaciones sin facturar' + (valorFalta ? ' (' + cop(valorFalta) + ')' : '') +
+      '. Esta vista es sensible a la cadencia de facturación; el saldo de arriba no.'
+    : 'Todas las empresas comparables coinciden en ' + mes + '.';
 
   const tarifa = t => (t||[]).length ? (t||[]).map(cop).join(' · ') : emdash;
   const haySig = malas.some(e => e.unidades_mes_siguiente !== undefined);
