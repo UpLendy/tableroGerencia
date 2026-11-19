@@ -190,9 +190,30 @@
       "codigo": "e1529e",
       "nombre": "OUTSOURCING SEASIN LIMITADA",
       "certificados": 22,
-      "estado": "sin_nit",
+      "nit": "900229503",
+      "nombre_siigo": "SERVICIOS DE ASEO, CAFETERIA, MANTENIMIENTO INSTITUCIONAL, OUTSOURCING SEASIN LIMITADA",
+      "unidades": 24,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
+      "diferencia": 2,
+      "valor_facturado": 432000,
+      "tarifa": [
+        18000
+      ],
+      "saldo": 432000,
+      "estado": "difiere",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 32,
+        "2026-09": 0,
+        "2026-10": 24,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "044787",
@@ -295,9 +316,30 @@
       "codigo": "a6824d",
       "nombre": "GRUPO EMPRESARIAL PUERTO DE BARRANQUILLA S.A",
       "certificados": 17,
-      "estado": "sin_nit",
+      "nit": "800186891",
+      "nombre_siigo": "SOCIEDAD PORTUARIA REGIONAL DE BARRANQUILLA S.A",
+      "unidades": 24,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
+      "diferencia": 7,
+      "valor_facturado": 348000,
+      "tarifa": [
+        14500
+      ],
+      "saldo": 348000,
+      "estado": "difiere",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 24,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "cc43d6",
@@ -455,35 +497,6 @@
       }
     },
     {
-      "codigo": "c4d643",
-      "nombre": "AXDA COLOMBIA SAS",
-      "certificados": 10,
-      "nit": "901935596",
-      "nombre_siigo": "AXDA COLOMBIA SAS",
-      "unidades": 10,
-      "paquetes": 0,
-      "unidades_mes_siguiente": 0,
-      "certificado_mes_anterior": 0,
-      "diferencia": 0,
-      "valor_facturado": 160000,
-      "tarifa": [
-        16000
-      ],
-      "saldo": 160000,
-      "estado": "cuadra",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0,
-      "facturado_por_mes": {
-        "2026-05": 0,
-        "2026-06": 0,
-        "2026-07": 0,
-        "2026-08": 0,
-        "2026-09": 0,
-        "2026-10": 10,
-        "2026-11": 0
-      }
-    },
-    {
       "codigo": "04379a",
       "nombre": "⁠E&D cafés  S.A.S.",
       "certificados": 10,
@@ -499,6 +512,35 @@
         17500
       ],
       "saldo": 175000,
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 10,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "c4d643",
+      "nombre": "AXDA COLOMBIA SAS",
+      "certificados": 10,
+      "nit": "901935596",
+      "nombre_siigo": "AXDA COLOMBIA SAS",
+      "unidades": 10,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
+      "diferencia": 0,
+      "valor_facturado": 160000,
+      "tarifa": [
+        16000
+      ],
+      "saldo": 160000,
       "estado": "cuadra",
       "sin_facturar": 0,
       "valor_sin_facturar": 0,
@@ -545,9 +587,31 @@
       "codigo": "444ba5",
       "nombre": "PRICESMART EL POBLADO",
       "certificados": 8,
-      "estado": "sin_nit",
+      "nit": "900319753",
+      "nombre_siigo": "PRICESMART COLOMBIA S.A.S.",
+      "unidades": 44,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 6,
+      "certificado_mes_anterior": 48,
+      "facturado_corresponde_al_mes_anterior": true,
+      "diferencia": 36,
+      "valor_facturado": 572000,
+      "tarifa": [
+        13000
+      ],
+      "saldo": 0,
+      "estado": "difiere",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 21,
+        "2026-06": 42,
+        "2026-07": 100,
+        "2026-08": 13,
+        "2026-09": 1,
+        "2026-10": 44,
+        "2026-11": 6
+      }
     },
     {
       "codigo": "1689a7",
@@ -641,9 +705,30 @@
       "codigo": "9b149c",
       "nombre": "Produempak EFC",
       "certificados": 6,
-      "estado": "sin_nit",
+      "nit": "900445797",
+      "nombre_siigo": "PRODUEMPAK S.A.S",
+      "unidades": 16,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 11,
+      "diferencia": 10,
+      "valor_facturado": 232000,
+      "tarifa": [
+        14500
+      ],
+      "saldo": 87000,
+      "estado": "difiere",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 15,
+        "2026-06": 14,
+        "2026-07": 12,
+        "2026-08": 17,
+        "2026-09": 11,
+        "2026-10": 16,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "eb8357",
@@ -718,7 +803,7 @@
       "tarifa": [
         15500
       ],
-      "saldo": 1112800,
+      "saldo": 77500,
       "estado": "cuadra",
       "sin_facturar": 0,
       "valor_sin_facturar": 0,
@@ -736,17 +821,59 @@
       "codigo": "c19b6a",
       "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
       "certificados": 5,
-      "estado": "sin_nit",
+      "nit": "900192134",
+      "nombre_siigo": "INDUSTRIAS LA CABAÑA S.A.S",
+      "unidades": 5,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 4,
+      "diferencia": 0,
+      "valor_facturado": 80000,
+      "tarifa": [
+        16000
+      ],
+      "saldo": 0,
+      "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 8,
+        "2026-10": 5,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "39a3fe",
       "nombre": "VICTORIA C SAS",
       "certificados": 5,
-      "estado": "sin_nit",
+      "nit": "901132651",
+      "nombre_siigo": "VICTORIA C. S.A.S",
+      "unidades": 5,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
+      "diferencia": 0,
+      "valor_facturado": 77500,
+      "tarifa": [
+        15500
+      ],
+      "saldo": 0,
+      "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 2,
+        "2026-06": 1,
+        "2026-07": 4,
+        "2026-08": 2,
+        "2026-09": 0,
+        "2026-10": 5,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "692cd9",
@@ -811,7 +938,10 @@
       "codigo": "4a81fb",
       "nombre": "Grupo Éxito",
       "certificados": 4,
-      "estado": "sin_nit",
+      "nit": "890900608",
+      "nombre_siigo": "ALMACENES EXITO S.A",
+      "unidades": 0,
+      "estado": "sin_factura_en_el_periodo",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
     },
@@ -819,9 +949,30 @@
       "codigo": "b459c8",
       "nombre": "EMBOTELLADORA CAPRI LTDA",
       "certificados": 4,
-      "estado": "sin_nit",
+      "nit": "800032071",
+      "nombre_siigo": "EMBOTELLADORA CAPRI LTDA EN REORGANIZACION",
+      "unidades": 4,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 3,
+      "diferencia": 0,
+      "valor_facturado": 66000,
+      "tarifa": [
+        16500
+      ],
+      "saldo": 0,
+      "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 1,
+        "2026-06": 0,
+        "2026-07": 74,
+        "2026-08": 79,
+        "2026-09": 3,
+        "2026-10": 4,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "7f6fc3",
@@ -864,9 +1015,30 @@
       "codigo": "7b14f4",
       "nombre": "Dr. Leonardo Palacios",
       "certificados": 3,
-      "estado": "sin_nit",
+      "nit": "1063562627",
+      "nombre_siigo": "LEONARDO PALACIOS ARRIETA",
+      "unidades": 3,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
+      "diferencia": 0,
+      "valor_facturado": 48000,
+      "tarifa": [
+        16000
+      ],
+      "saldo": 48000,
+      "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 4,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 3,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "721afa",
@@ -934,7 +1106,7 @@
       "nombre_siigo": "FLORIUS S.A.S",
       "unidades": 2,
       "paquetes": 0,
-      "unidades_mes_siguiente": 0,
+      "unidades_mes_siguiente": 5,
       "certificado_mes_anterior": 0,
       "diferencia": 0,
       "valor_facturado": 40000,
@@ -952,7 +1124,7 @@
         "2026-08": 0,
         "2026-09": 0,
         "2026-10": 2,
-        "2026-11": 0
+        "2026-11": 5
       }
     },
     {
@@ -1070,7 +1242,7 @@
       "tarifa": [
         14000
       ],
-      "saldo": 14000,
+      "saldo": 0,
       "estado": "difiere",
       "sin_facturar": 0,
       "valor_sin_facturar": 0,
@@ -1088,17 +1260,59 @@
       "codigo": "be428a",
       "nombre": "CAMARON PAISA",
       "certificados": 2,
-      "estado": "sin_nit",
+      "nit": "1041202955",
+      "nombre_siigo": "ANDRES FELIPE LOPEZ GONZALEZ",
+      "unidades": 2,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 4,
+      "diferencia": 0,
+      "valor_facturado": 33000,
+      "tarifa": [
+        16500
+      ],
+      "saldo": 33000,
+      "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 3,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 3,
+        "2026-10": 2,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "adafe6",
       "nombre": "CERCAFE COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
       "certificados": 2,
-      "estado": "sin_nit",
+      "nit": "816003954",
+      "nombre_siigo": "COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
+      "unidades": 2,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
+      "diferencia": 0,
+      "valor_facturado": 36000,
+      "tarifa": [
+        18000
+      ],
+      "saldo": 36000,
+      "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 1,
+        "2026-08": 2,
+        "2026-09": 0,
+        "2026-10": 2,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "e76e26",
@@ -1133,15 +1347,41 @@
       "codigo": "701bc2",
       "nombre": "ALMACAFÉ ARMENIA",
       "certificados": 1,
-      "estado": "sin_nit",
+      "nit": "860010973",
+      "nombre_siigo": "ALMACENES GENERALES DE DEPOSITOS DE CAFE S A ALMACAFE",
+      "unidades": 9,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 1,
+      "certificado_mes_anterior": 7,
+      "posible_desfase": true,
+      "diferencia_si_mes_vencido": 0,
+      "diferencia": 8,
+      "valor_facturado": 175500,
+      "tarifa": [
+        19500
+      ],
+      "saldo": 0,
+      "estado": "difiere",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 1,
+        "2026-06": 2,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 3,
+        "2026-10": 9,
+        "2026-11": 1
+      }
     },
     {
       "codigo": "4w32sa",
       "nombre": "Waytic S.A.S",
       "certificados": 1,
-      "estado": "sin_nit",
+      "nit": "1053827666",
+      "nombre_siigo": "ANDRES FERNANDO SALAZAR MARIN",
+      "unidades": 0,
+      "estado": "sin_factura_en_el_periodo",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
     },
@@ -1149,31 +1389,98 @@
       "codigo": "af42d4",
       "nombre": "INVERSIONES PAYSANDU  S.A.S",
       "certificados": 1,
-      "estado": "sin_nit",
+      "nit": "810006450",
+      "nombre_siigo": "INVERSIONES PAYSANDU S.A.S",
+      "unidades": 1,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
+      "diferencia": 0,
+      "valor_facturado": 14500,
+      "tarifa": [
+        14500
+      ],
+      "saldo": 0,
+      "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 1,
+        "2026-06": 9,
+        "2026-07": 9,
+        "2026-08": 4,
+        "2026-09": 6,
+        "2026-10": 1,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "bd17d3",
       "nombre": "PAPELES Y NEGOCIOS",
       "certificados": 1,
-      "estado": "sin_nit",
+      "nit": "811039091",
+      "nombre_siigo": "PAPELES Y NEGOCIOS S.A",
+      "unidades": 9,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 1,
+      "certificado_mes_anterior": 9,
+      "facturado_corresponde_al_mes_anterior": true,
+      "posible_desfase": true,
+      "diferencia_si_mes_vencido": 0,
+      "diferencia": 8,
+      "valor_facturado": 148500,
+      "tarifa": [
+        16500
+      ],
+      "saldo": 0,
+      "estado": "difiere",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 1,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 9,
+        "2026-11": 1
+      }
     },
     {
       "codigo": "ac3f36",
       "nombre": "HOTEL HILTON GARDEN INN",
       "certificados": 1,
-      "estado": "sin_nit",
+      "nit": "900694108",
+      "nombre_siigo": "GRUPO SLAM SAS",
+      "unidades": 1,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 0,
+      "diferencia": 0,
+      "valor_facturado": 14500,
+      "tarifa": [
+        14500
+      ],
+      "saldo": 14500,
+      "estado": "cuadra",
       "sin_facturar": 0,
-      "valor_sin_facturar": 0
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 3,
+        "2026-06": 0,
+        "2026-07": 4,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 1,
+        "2026-11": 0
+      }
     },
     {
       "codigo": "c777a6",
       "nombre": "Super Admini Andrés",
       "certificados": 1,
-      "estado": "sin_nit",
+      "dni": "102369789661066",
+      "estado": "nit_no_resuelto",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
     }
@@ -1222,12 +1529,6 @@
       "valor": 585000
     },
     {
-      "nit": "900319753",
-      "nombre": "PRICESMART COLOMBIA S.A.S.",
-      "unidades": 44,
-      "valor": 572000
-    },
-    {
       "nit": "1054865619",
       "nombre": "NICOLE RESTREPO SERNA",
       "unidades": 8,
@@ -1238,12 +1539,6 @@
       "nombre": "BEATRIZ ELENA BUITRAGO SALAZAR",
       "unidades": 5,
       "valor": 500000
-    },
-    {
-      "nit": "900229503",
-      "nombre": "SERVICIOS DE ASEO, CAFETERIA, MANTENIMIENTO INSTITUCIONAL, OUTSOURCING SEASIN LIMITADA",
-      "unidades": 24,
-      "valor": 432000
     },
     {
       "nit": "1053871160",
@@ -1274,12 +1569,6 @@
       "nombre": "LAURA MURILLO HERNANDEZ",
       "unidades": 8,
       "valor": 360000
-    },
-    {
-      "nit": "800186891",
-      "nombre": "SOCIEDAD PORTUARIA REGIONAL DE BARRANQUILLA S.A",
-      "unidades": 24,
-      "valor": 348000
     },
     {
       "nit": "901853250",
@@ -1318,27 +1607,21 @@
       "valor": 270000
     },
     {
-      "nit": "900445797",
-      "nombre": "PRODUEMPAK S.A.S",
-      "unidades": 16,
-      "valor": 232000
-    },
-    {
       "nit": "810001366",
       "nombre": "BIOSERVICIOS S.A.S",
       "unidades": 14,
       "valor": 231000
     },
     {
-      "nit": "901226431",
-      "nombre": "MERCAPLAZA RAMIREZ GONZALEZ S.A.S",
-      "unidades": 1,
-      "valor": 200000
-    },
-    {
       "nit": "10246343",
       "nombre": "LUIS ALCIDES SALAZAR BUENO",
       "unidades": 2,
+      "valor": 200000
+    },
+    {
+      "nit": "901226431",
+      "nombre": "MERCAPLAZA RAMIREZ GONZALEZ S.A.S",
+      "unidades": 1,
       "valor": 200000
     },
     {
@@ -1360,12 +1643,6 @@
       "valor": 176000
     },
     {
-      "nit": "860010973",
-      "nombre": "ALMACENES GENERALES DE DEPOSITOS DE CAFE S A ALMACAFE",
-      "unidades": 9,
-      "valor": 175500
-    },
-    {
       "nit": "901930329",
       "nombre": "PANDA BAMBOO SAS",
       "unidades": 2,
@@ -1376,12 +1653,6 @@
       "nombre": "GRUPO MLT SINCE 2004 SAS",
       "unidades": 15,
       "valor": 150000
-    },
-    {
-      "nit": "811039091",
-      "nombre": "PAPELES Y NEGOCIOS S.A",
-      "unidades": 9,
-      "valor": 148500
     },
     {
       "nit": "1055750374",
@@ -1396,8 +1667,8 @@
       "valor": 140000
     },
     {
-      "nit": "901147428",
-      "nombre": "ATRACCIONES MECANICAS S.A.S",
+      "nit": "1075316605",
+      "nombre": "JACOBO ARANGO TABARES",
       "unidades": 1,
       "valor": 100000
     },
@@ -1408,68 +1679,14 @@
       "valor": 100000
     },
     {
-      "nit": "1075316605",
-      "nombre": "JACOBO ARANGO TABARES",
+      "nit": "901147428",
+      "nombre": "ATRACCIONES MECANICAS S.A.S",
       "unidades": 1,
       "valor": 100000
     },
     {
-      "nit": "901938278",
-      "nombre": "GRUPO GASTRONOMICO DGM S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "65795368",
-      "nombre": "DIANA RAMIREZ CASTRO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1053827372",
-      "nombre": "JUAN ALEJANDRO GONZALEZ CASTAÑO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "901360781",
-      "nombre": "COSTIFOOD S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1053853162",
-      "nombre": "TATIANA QUIRAMA GIRALDO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "900631190",
-      "nombre": "ALIMENTOS Y BEBIDAS ALYCA S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "25109229",
-      "nombre": "MARIA MELIDA TABORDA MURILLO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1076668475",
-      "nombre": "NICOLAS ANGULO AGUILAR",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "901849901",
-      "nombre": "HOGAR CORAZÓN CUERPO Y MENTE ACTIVA S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "24731045",
-      "nombre": "MARIA GLADIS CASTRO QUICENO",
+      "nit": "1053817691",
+      "nombre": "MARIA PAULINA ARANGO BOTERO",
       "unidades": 1,
       "valor": 100000
     },
@@ -1480,8 +1697,62 @@
       "valor": 100000
     },
     {
-      "nit": "1053817691",
-      "nombre": "MARIA PAULINA ARANGO BOTERO",
+      "nit": "901849901",
+      "nombre": "HOGAR CORAZÓN CUERPO Y MENTE ACTIVA S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1076668475",
+      "nombre": "NICOLAS ANGULO AGUILAR",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "65795368",
+      "nombre": "DIANA RAMIREZ CASTRO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901938278",
+      "nombre": "GRUPO GASTRONOMICO DGM S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "24731045",
+      "nombre": "MARIA GLADIS CASTRO QUICENO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "25109229",
+      "nombre": "MARIA MELIDA TABORDA MURILLO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "900631190",
+      "nombre": "ALIMENTOS Y BEBIDAS ALYCA S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1053853162",
+      "nombre": "TATIANA QUIRAMA GIRALDO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901360781",
+      "nombre": "COSTIFOOD S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1053827372",
+      "nombre": "JUAN ALEJANDRO GONZALEZ CASTAÑO",
       "unidades": 1,
       "valor": 100000
     },
@@ -1498,22 +1769,10 @@
       "valor": 90000
     },
     {
-      "nit": "900192134",
-      "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
-      "unidades": 5,
-      "valor": 80000
-    },
-    {
       "nit": "860035200",
       "nombre": "ATALAYA 1 SECURITY GROUP LTDA",
       "unidades": 4,
       "valor": 80000
-    },
-    {
-      "nit": "901132651",
-      "nombre": "VICTORIA C. S.A.S",
-      "unidades": 5,
-      "valor": 77500
     },
     {
       "nit": "901954951",
@@ -1528,12 +1787,6 @@
       "valor": 70000
     },
     {
-      "nit": "800032071",
-      "nombre": "EMBOTELLADORA CAPRI LTDA EN REORGANIZACION",
-      "unidades": 4,
-      "valor": 66000
-    },
-    {
       "nit": "892301141",
       "nombre": "C.I. INVERSIONES ELCER S.A.S.",
       "unidades": 3,
@@ -1546,28 +1799,10 @@
       "valor": 48060
     },
     {
-      "nit": "1063562627",
-      "nombre": "LEONARDO PALACIOS ARRIETA",
-      "unidades": 3,
-      "valor": 48000
-    },
-    {
       "nit": "900064238",
       "nombre": "TOSTADORA EL NOGAL SAS",
       "unidades": 2,
       "valor": 40000
-    },
-    {
-      "nit": "816003954",
-      "nombre": "COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
-      "unidades": 2,
-      "valor": 36000
-    },
-    {
-      "nit": "1041202955",
-      "nombre": "ANDRES FELIPE LOPEZ GONZALEZ",
-      "unidades": 2,
-      "valor": 33000
     },
     {
       "nit": "800042175",
@@ -1582,14 +1817,14 @@
       "valor": 30000
     },
     {
-      "nit": "901517118",
-      "nombre": "PHF SAS",
+      "nit": "901455816",
+      "nombre": "M&S VITAMINS SAS",
       "unidades": 1,
       "valor": 20000
     },
     {
-      "nit": "901455816",
-      "nombre": "M&S VITAMINS SAS",
+      "nit": "901517118",
+      "nombre": "PHF SAS",
       "unidades": 1,
       "valor": 20000
     },
@@ -1612,18 +1847,6 @@
       "valor": 16000
     },
     {
-      "nit": "810006450",
-      "nombre": "INVERSIONES PAYSANDU S.A.S",
-      "unidades": 1,
-      "valor": 14500
-    },
-    {
-      "nit": "900694108",
-      "nombre": "GRUPO SLAM SAS",
-      "unidades": 1,
-      "valor": 14500
-    },
-    {
       "nit": "901806035",
       "nombre": "EL GURU NUTRICIONAL S.A.S",
       "unidades": 1,
@@ -1632,16 +1855,16 @@
   ],
   "resumen": {
     "total": 57,
-    "cuadran": 19,
-    "difieren": 14,
+    "cuadran": 27,
+    "difieren": 20,
     "no_comparables": 0,
     "certifican_sin_facturar": 0,
-    "sin_factura_en_el_periodo": 1,
-    "sin_nit": 19,
-    "nit_no_resuelto": 2,
+    "sin_factura_en_el_periodo": 3,
+    "sin_nit": 2,
+    "nit_no_resuelto": 3,
     "via_consumidor_final": 2,
-    "solo_en_siigo": 74,
-    "posible_desfase": 3,
+    "solo_en_siigo": 60,
+    "posible_desfase": 5,
     "sin_facturar": 45,
     "valor_sin_facturar": 553500
   },
@@ -1653,94 +1876,9 @@
         "certificados": 39
       },
       {
-        "codigo": "e1529e",
-        "nombre": "OUTSOURCING SEASIN LIMITADA",
-        "certificados": 22
-      },
-      {
-        "codigo": "a6824d",
-        "nombre": "GRUPO EMPRESARIAL PUERTO DE BARRANQUILLA S.A",
-        "certificados": 17
-      },
-      {
-        "codigo": "444ba5",
-        "nombre": "PRICESMART EL POBLADO",
-        "certificados": 8
-      },
-      {
-        "codigo": "9b149c",
-        "nombre": "Produempak EFC",
-        "certificados": 6
-      },
-      {
-        "codigo": "c19b6a",
-        "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
-        "certificados": 5
-      },
-      {
-        "codigo": "39a3fe",
-        "nombre": "VICTORIA C SAS",
-        "certificados": 5
-      },
-      {
-        "codigo": "4a81fb",
-        "nombre": "Grupo Éxito",
-        "certificados": 4
-      },
-      {
-        "codigo": "b459c8",
-        "nombre": "EMBOTELLADORA CAPRI LTDA",
-        "certificados": 4
-      },
-      {
         "codigo": "5a73a4",
         "nombre": "Bioservicios S.A.S",
         "certificados": 3
-      },
-      {
-        "codigo": "7b14f4",
-        "nombre": "Dr. Leonardo Palacios",
-        "certificados": 3
-      },
-      {
-        "codigo": "be428a",
-        "nombre": "CAMARON PAISA",
-        "certificados": 2
-      },
-      {
-        "codigo": "adafe6",
-        "nombre": "CERCAFE COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
-        "certificados": 2
-      },
-      {
-        "codigo": "701bc2",
-        "nombre": "ALMACAFÉ ARMENIA",
-        "certificados": 1
-      },
-      {
-        "codigo": "4w32sa",
-        "nombre": "Waytic S.A.S",
-        "certificados": 1
-      },
-      {
-        "codigo": "af42d4",
-        "nombre": "INVERSIONES PAYSANDU  S.A.S",
-        "certificados": 1
-      },
-      {
-        "codigo": "bd17d3",
-        "nombre": "PAPELES Y NEGOCIOS",
-        "certificados": 1
-      },
-      {
-        "codigo": "ac3f36",
-        "nombre": "HOTEL HILTON GARDEN INN",
-        "certificados": 1
-      },
-      {
-        "codigo": "c777a6",
-        "nombre": "Super Admini Andrés",
-        "certificados": 1
       }
     ],
     "nit_no_resuelto": [
@@ -1755,6 +1893,12 @@
         "nombre": "MERCADOS  UNO A",
         "certificados": 2,
         "dni": "793998765"
+      },
+      {
+        "codigo": "c777a6",
+        "nombre": "Super Admini Andrés",
+        "certificados": 1,
+        "dni": "102369789661066"
       }
     ]
   },
@@ -1769,9 +1913,9 @@
     "2026-11"
   ],
   "periodo_siguiente": "2026-11",
-  "facturas_del_siguiente": 96,
+  "facturas_del_siguiente": 101,
   "periodo": "2026-10",
-  "generado_en": "2026-11-18T20:37:36.794Z",
+  "generado_en": "2026-11-19T19:30:44.622Z",
   "facturas_del_periodo": 225,
   "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
   "nota_periodo": "Se cruza el último mes cerrado, no el mes en curso: la facturación va detrás de la certificación y un mes a medias daría un descuadre falso.",
@@ -1788,293 +1932,85 @@
     "nota": "Certificado de cada mes contra lo facturado al mes siguiente, porque a las empresas se les factura a mes vencido. Un saldo que vuelve a cero era cadencia; uno que se queda arriba es facturacion que no se hizo.",
     "empresas": [
       {
-        "codigo": "8ac087",
-        "nombre": "ARCOS DORADOS COLOMBIA S.A.S.",
-        "nit": "8002443871",
-        "nit_siigo": "800244387",
-        "certificado": 1756,
-        "facturado": 1331,
-        "saldo": 425,
+        "codigo": "a3eda9",
+        "nombre": "Sedial Group",
+        "nit": "9002177843",
+        "nit_siigo": "900217784",
+        "certificado": 4,
+        "facturado": 0,
+        "saldo": 4,
         "por_mes": {
           "2026-05": {
-            "certificado": 307,
+            "certificado": 4,
             "facturado_al_mes_siguiente": 0
           },
           "2026-06": {
-            "certificado": 261,
+            "certificado": 0,
             "facturado_al_mes_siguiente": 0
           },
           "2026-07": {
-            "certificado": 276,
-            "facturado_al_mes_siguiente": 795
-          },
-          "2026-08": {
-            "certificado": 213,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-09": {
-            "certificado": 349,
-            "facturado_al_mes_siguiente": 207
-          },
-          "2026-10": {
-            "certificado": 350,
-            "facturado_al_mes_siguiente": 329
-          }
-        }
-      },
-      {
-        "codigo": "603a8e",
-        "nombre": "ROYAL FILMS S.A.S",
-        "nit": "8901056523",
-        "nit_siigo": "890105652",
-        "certificado": 498,
-        "facturado": 281,
-        "saldo": 217,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 64,
-            "facturado_al_mes_siguiente": 55
-          },
-          "2026-06": {
-            "certificado": 56,
-            "facturado_al_mes_siguiente": 40
-          },
-          "2026-07": {
-            "certificado": 61,
+            "certificado": 0,
             "facturado_al_mes_siguiente": 0
           },
           "2026-08": {
-            "certificado": 133,
+            "certificado": 0,
             "facturado_al_mes_siguiente": 0
           },
           "2026-09": {
-            "certificado": 94,
-            "facturado_al_mes_siguiente": 186
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
           },
           "2026-10": {
-            "certificado": 90,
+            "certificado": 0,
             "facturado_al_mes_siguiente": 0
           }
-        }
+        },
+        "meses_sin_facturar": 6
       },
       {
-        "codigo": "1ba628",
-        "nombre": "RECISERVICIOS LA COSTA S.A.S",
-        "nit": "9011641451",
-        "nit_siigo": "901164145",
-        "certificado": 222,
-        "facturado": 126,
-        "saldo": 96,
+        "codigo": "4a81fb",
+        "nombre": "Grupo Éxito",
+        "nit": "890900608",
+        "nit_siigo": "890900608",
+        "certificado": 48,
+        "facturado": 0,
+        "saldo": 48,
         "por_mes": {
           "2026-05": {
-            "certificado": 65,
-            "facturado_al_mes_siguiente": 39
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
           },
           "2026-06": {
-            "certificado": 47,
-            "facturado_al_mes_siguiente": 40
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
           },
           "2026-07": {
-            "certificado": 45,
+            "certificado": 1,
             "facturado_al_mes_siguiente": 0
           },
           "2026-08": {
-            "certificado": 24,
-            "facturado_al_mes_siguiente": 22
-          },
-          "2026-09": {
-            "certificado": 27,
-            "facturado_al_mes_siguiente": 25
-          },
-          "2026-10": {
-            "certificado": 14,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "2b5b45",
-        "nombre": "Cinépolis .",
-        "nit": "900185315",
-        "nit_siigo": "900185315",
-        "certificado": 270,
-        "facturado": 205,
-        "saldo": 65,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 38,
-            "facturado_al_mes_siguiente": 28
-          },
-          "2026-06": {
-            "certificado": 70,
-            "facturado_al_mes_siguiente": 53
-          },
-          "2026-07": {
-            "certificado": 92,
-            "facturado_al_mes_siguiente": 65
-          },
-          "2026-08": {
-            "certificado": 22,
-            "facturado_al_mes_siguiente": 21
-          },
-          "2026-09": {
-            "certificado": 39,
-            "facturado_al_mes_siguiente": 31
-          },
-          "2026-10": {
-            "certificado": 9,
-            "facturado_al_mes_siguiente": 7
-          }
-        }
-      },
-      {
-        "codigo": "1689a7",
-        "nombre": "ECO VIDA INTEGRAL",
-        "nit": "9007613749",
-        "nit_siigo": "900761374",
-        "certificado": 124,
-        "facturado": 69,
-        "saldo": 55,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 39,
-            "facturado_al_mes_siguiente": 16
-          },
-          "2026-06": {
-            "certificado": 19,
-            "facturado_al_mes_siguiente": 18
-          },
-          "2026-07": {
-            "certificado": 21,
+            "certificado": 36,
             "facturado_al_mes_siguiente": 0
           },
-          "2026-08": {
-            "certificado": 11,
-            "facturado_al_mes_siguiente": 10
-          },
           "2026-09": {
-            "certificado": 27,
-            "facturado_al_mes_siguiente": 25
-          },
-          "2026-10": {
             "certificado": 7,
             "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "dad4ef",
-        "nombre": "DISTRIBUIDORA DE VINOS Y LICORES S.A.S.",
-        "nit": "890916575",
-        "nit_siigo": "890916575",
-        "certificado": 208,
-        "facturado": 174,
-        "saldo": 34,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-06": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-07": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-08": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 25
-          },
-          "2026-09": {
-            "certificado": 46,
-            "facturado_al_mes_siguiente": 149
-          },
-          "2026-10": {
-            "certificado": 162,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "23375f",
-        "nombre": "OSYA OCUPACIONAL IPS S.A.S",
-        "nit": "9006411565",
-        "nit_siigo": "900641156",
-        "certificado": 132,
-        "facturado": 108,
-        "saldo": 24,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 24,
-            "facturado_al_mes_siguiente": 40
-          },
-          "2026-06": {
-            "certificado": 40,
-            "facturado_al_mes_siguiente": 15
-          },
-          "2026-07": {
-            "certificado": 15,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-08": {
-            "certificado": 15,
-            "facturado_al_mes_siguiente": 35
-          },
-          "2026-09": {
-            "certificado": 19,
-            "facturado_al_mes_siguiente": 18
-          },
-          "2026-10": {
-            "certificado": 19,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "692cd9",
-        "nombre": "DISTRIMARCAS AGENTE COMERCIAL SAS",
-        "nit": "9004208881",
-        "nit_siigo": "900420888",
-        "certificado": 48,
-        "facturado": 32,
-        "saldo": 16,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 15,
-            "facturado_al_mes_siguiente": 6
-          },
-          "2026-06": {
-            "certificado": 6,
-            "facturado_al_mes_siguiente": 4
-          },
-          "2026-07": {
-            "certificado": 4,
-            "facturado_al_mes_siguiente": 11
-          },
-          "2026-08": {
-            "certificado": 11,
-            "facturado_al_mes_siguiente": 7
-          },
-          "2026-09": {
-            "certificado": 8,
-            "facturado_al_mes_siguiente": 4
           },
           "2026-10": {
             "certificado": 4,
             "facturado_al_mes_siguiente": 0
           }
-        }
+        },
+        "meses_sin_facturar": 6
       },
       {
-        "codigo": "8340e0",
-        "nombre": "ALADINO SALAS DE JUEGOS",
-        "nit": "810000870",
-        "nit_siigo": "810000870",
-        "certificado": 92,
-        "facturado": 81,
-        "saldo": 11,
+        "codigo": "4w32sa",
+        "nombre": "Waytic S.A.S",
+        "nit": "1053827666",
+        "nit_siigo": "1053827666",
+        "certificado": 1,
+        "facturado": 0,
+        "saldo": 1,
         "por_mes": {
           "2026-05": {
             "certificado": 0,
@@ -2082,25 +2018,170 @@
           },
           "2026-06": {
             "certificado": 0,
-            "facturado_al_mes_siguiente": 73
+            "facturado_al_mes_siguiente": 0
           },
           "2026-07": {
-            "certificado": 86,
-            "facturado_al_mes_siguiente": 1
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
           },
           "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-10": {
             "certificado": 1,
-            "facturado_al_mes_siguiente": 2
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 6
+      },
+      {
+        "codigo": "e5a3fc",
+        "nombre": "Mallplaza cc",
+        "nit": "9011209433",
+        "nit_siigo": "901120943",
+        "certificado": 1,
+        "facturado": 0,
+        "saldo": 1,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 6
+      },
+      {
+        "codigo": "7415b1",
+        "nombre": "RECUPERAR REGIONAL CENTRO",
+        "nit": "9004422012",
+        "nit_siigo": "900442201",
+        "certificado": 1,
+        "facturado": 0,
+        "saldo": 1,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 6
+      },
+      {
+        "codigo": "7b14f4",
+        "nombre": "Dr. Leonardo Palacios",
+        "nit": "10635626279",
+        "nit_siigo": "1063562627",
+        "certificado": 7,
+        "facturado": 3,
+        "saldo": 4,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 4,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
           },
           "2026-09": {
             "certificado": 0,
-            "facturado_al_mes_siguiente": 5
+            "facturado_al_mes_siguiente": 3
           },
           "2026-10": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 3.4
+      },
+      {
+        "codigo": "c2779c",
+        "nombre": "ÜMAN TEMPORAL SERVICES SAS",
+        "nit": "9006706251",
+        "nit_siigo": "900670625",
+        "certificado": 11,
+        "facturado": 5,
+        "saldo": 6,
+        "por_mes": {
+          "2026-05": {
             "certificado": 5,
             "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-08": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 3
+          },
+          "2026-09": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
           }
-        }
+        },
+        "meses_sin_facturar": 3.3
       },
       {
         "codigo": "7f6fc3",
@@ -2135,7 +2216,803 @@
             "certificado": 3,
             "facturado_al_mes_siguiente": 0
           }
-        }
+        },
+        "meses_sin_facturar": 3.3
+      },
+      {
+        "codigo": "1689a7",
+        "nombre": "ECO VIDA INTEGRAL",
+        "nit": "9007613749",
+        "nit_siigo": "900761374",
+        "certificado": 124,
+        "facturado": 69,
+        "saldo": 55,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 39,
+            "facturado_al_mes_siguiente": 16
+          },
+          "2026-06": {
+            "certificado": 19,
+            "facturado_al_mes_siguiente": 18
+          },
+          "2026-07": {
+            "certificado": 21,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 11,
+            "facturado_al_mes_siguiente": 10
+          },
+          "2026-09": {
+            "certificado": 27,
+            "facturado_al_mes_siguiente": 25
+          },
+          "2026-10": {
+            "certificado": 7,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 2.7
+      },
+      {
+        "codigo": "be428a",
+        "nombre": "CAMARON PAISA",
+        "nit": "10412029556",
+        "nit_siigo": "1041202955",
+        "certificado": 9,
+        "facturado": 5,
+        "saldo": 4,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 3
+          },
+          "2026-09": {
+            "certificado": 4,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-10": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 2.7
+      },
+      {
+        "codigo": "ac3f36",
+        "nombre": "HOTEL HILTON GARDEN INN",
+        "nit": "900694108",
+        "nit_siigo": "900694108",
+        "certificado": 9,
+        "facturado": 5,
+        "saldo": 4,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 4
+          },
+          "2026-07": {
+            "certificado": 5,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-10": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 2.7
+      },
+      {
+        "codigo": "603a8e",
+        "nombre": "ROYAL FILMS S.A.S",
+        "nit": "8901056523",
+        "nit_siigo": "890105652",
+        "certificado": 498,
+        "facturado": 281,
+        "saldo": 217,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 64,
+            "facturado_al_mes_siguiente": 55
+          },
+          "2026-06": {
+            "certificado": 56,
+            "facturado_al_mes_siguiente": 40
+          },
+          "2026-07": {
+            "certificado": 61,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 133,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 94,
+            "facturado_al_mes_siguiente": 186
+          },
+          "2026-10": {
+            "certificado": 90,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 2.6
+      },
+      {
+        "codigo": "1ba628",
+        "nombre": "RECISERVICIOS LA COSTA S.A.S",
+        "nit": "9011641451",
+        "nit_siigo": "901164145",
+        "certificado": 222,
+        "facturado": 126,
+        "saldo": 96,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 65,
+            "facturado_al_mes_siguiente": 39
+          },
+          "2026-06": {
+            "certificado": 47,
+            "facturado_al_mes_siguiente": 40
+          },
+          "2026-07": {
+            "certificado": 45,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 24,
+            "facturado_al_mes_siguiente": 22
+          },
+          "2026-09": {
+            "certificado": 27,
+            "facturado_al_mes_siguiente": 25
+          },
+          "2026-10": {
+            "certificado": 14,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 2.6
+      },
+      {
+        "codigo": "eb8357",
+        "nombre": "LOGISTICA CIRCULAR S.A.S",
+        "nit": "9017305936",
+        "nit_siigo": "901730593",
+        "certificado": 21,
+        "facturado": 12,
+        "saldo": 9,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 5,
+            "facturado_al_mes_siguiente": 5
+          },
+          "2026-06": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-07": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 4,
+            "facturado_al_mes_siguiente": 4
+          },
+          "2026-09": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-10": {
+            "certificado": 5,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 2.6
+      },
+      {
+        "codigo": "a6824d",
+        "nombre": "GRUPO EMPRESARIAL PUERTO DE BARRANQUILLA S.A",
+        "nit": "8001868916",
+        "nit_siigo": "800186891",
+        "certificado": 41,
+        "facturado": 24,
+        "saldo": 17,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 21,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 24
+          },
+          "2026-10": {
+            "certificado": 17,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 2.5
+      },
+      {
+        "codigo": "f767b5",
+        "nombre": "COMERCIALIZADORA MALTA  SAS",
+        "nit": "9004565572",
+        "nit_siigo": "900456557",
+        "certificado": 33,
+        "facturado": 21,
+        "saldo": 12,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 15
+          },
+          "2026-07": {
+            "certificado": 27,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 6
+          },
+          "2026-09": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 2.2
+      },
+      {
+        "codigo": "692cd9",
+        "nombre": "DISTRIMARCAS AGENTE COMERCIAL SAS",
+        "nit": "9004208881",
+        "nit_siigo": "900420888",
+        "certificado": 48,
+        "facturado": 32,
+        "saldo": 16,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 15,
+            "facturado_al_mes_siguiente": 6
+          },
+          "2026-06": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 4
+          },
+          "2026-07": {
+            "certificado": 4,
+            "facturado_al_mes_siguiente": 11
+          },
+          "2026-08": {
+            "certificado": 11,
+            "facturado_al_mes_siguiente": 7
+          },
+          "2026-09": {
+            "certificado": 8,
+            "facturado_al_mes_siguiente": 4
+          },
+          "2026-10": {
+            "certificado": 4,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 2
+      },
+      {
+        "codigo": "c7d780",
+        "nombre": "HARISSA FOODS",
+        "nit": "901437119",
+        "nit_siigo": "901437119",
+        "certificado": 11,
+        "facturado": 8,
+        "saldo": 3,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-07": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-09": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 5
+          },
+          "2026-10": {
+            "certificado": 5,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 1.6
+      },
+      {
+        "codigo": "8ac087",
+        "nombre": "ARCOS DORADOS COLOMBIA S.A.S.",
+        "nit": "8002443871",
+        "nit_siigo": "800244387",
+        "certificado": 1756,
+        "facturado": 1331,
+        "saldo": 425,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 307,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 261,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 276,
+            "facturado_al_mes_siguiente": 795
+          },
+          "2026-08": {
+            "certificado": 213,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 349,
+            "facturado_al_mes_siguiente": 207
+          },
+          "2026-10": {
+            "certificado": 350,
+            "facturado_al_mes_siguiente": 329
+          }
+        },
+        "meses_sin_facturar": 1.5
+      },
+      {
+        "codigo": "e76e26",
+        "nombre": "ASTEMPRO LTDA",
+        "nit": "900818593",
+        "nit_siigo": "900818593",
+        "certificado": 20,
+        "facturado": 15,
+        "saldo": 5,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 4,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-07": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 6
+          },
+          "2026-08": {
+            "certificado": 7,
+            "facturado_al_mes_siguiente": 6
+          },
+          "2026-09": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-10": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 1.5
+      },
+      {
+        "codigo": "2b5b45",
+        "nombre": "Cinépolis .",
+        "nit": "900185315",
+        "nit_siigo": "900185315",
+        "certificado": 270,
+        "facturado": 205,
+        "saldo": 65,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 38,
+            "facturado_al_mes_siguiente": 28
+          },
+          "2026-06": {
+            "certificado": 70,
+            "facturado_al_mes_siguiente": 53
+          },
+          "2026-07": {
+            "certificado": 92,
+            "facturado_al_mes_siguiente": 65
+          },
+          "2026-08": {
+            "certificado": 22,
+            "facturado_al_mes_siguiente": 21
+          },
+          "2026-09": {
+            "certificado": 39,
+            "facturado_al_mes_siguiente": 31
+          },
+          "2026-10": {
+            "certificado": 9,
+            "facturado_al_mes_siguiente": 7
+          }
+        },
+        "meses_sin_facturar": 1.4
+      },
+      {
+        "codigo": "2e62ce",
+        "nombre": "PRO-SER COLOMBIA  SAS",
+        "nit": "9009220800",
+        "nit_siigo": "900922080",
+        "certificado": 37,
+        "facturado": 29,
+        "saldo": 8,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 7,
+            "facturado_al_mes_siguiente": 5
+          },
+          "2026-06": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 6
+          },
+          "2026-07": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 6
+          },
+          "2026-08": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 10
+          },
+          "2026-09": {
+            "certificado": 10,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-10": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 1.3
+      },
+      {
+        "codigo": "af291e",
+        "nombre": "ASEOS COLOMBIANOS ASEOCOLBA SA",
+        "nit": "800146077",
+        "nit_siigo": "800146077",
+        "certificado": 5,
+        "facturado": 4,
+        "saldo": 1,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-10": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 2
+          }
+        },
+        "meses_sin_facturar": 1.2
+      },
+      {
+        "codigo": "23375f",
+        "nombre": "OSYA OCUPACIONAL IPS S.A.S",
+        "nit": "9006411565",
+        "nit_siigo": "900641156",
+        "certificado": 132,
+        "facturado": 108,
+        "saldo": 24,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 24,
+            "facturado_al_mes_siguiente": 40
+          },
+          "2026-06": {
+            "certificado": 40,
+            "facturado_al_mes_siguiente": 15
+          },
+          "2026-07": {
+            "certificado": 15,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 15,
+            "facturado_al_mes_siguiente": 35
+          },
+          "2026-09": {
+            "certificado": 19,
+            "facturado_al_mes_siguiente": 18
+          },
+          "2026-10": {
+            "certificado": 19,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 1.1
+      },
+      {
+        "codigo": "dad4ef",
+        "nombre": "DISTRIBUIDORA DE VINOS Y LICORES S.A.S.",
+        "nit": "890916575",
+        "nit_siigo": "890916575",
+        "certificado": 208,
+        "facturado": 174,
+        "saldo": 34,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 25
+          },
+          "2026-09": {
+            "certificado": 46,
+            "facturado_al_mes_siguiente": 149
+          },
+          "2026-10": {
+            "certificado": 162,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 1
+      },
+      {
+        "codigo": "39a3fe",
+        "nombre": "VICTORIA C SAS",
+        "nit": "9011326511",
+        "nit_siigo": "901132651",
+        "certificado": 14,
+        "facturado": 12,
+        "saldo": 2,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-06": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 4
+          },
+          "2026-07": {
+            "certificado": 4,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-08": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 5
+          },
+          "2026-10": {
+            "certificado": 5,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 0.9
+      },
+      {
+        "codigo": "d85ce6",
+        "nombre": "FASALACT SAS",
+        "nit": "900589003",
+        "nit_siigo": "900589003",
+        "certificado": 42,
+        "facturado": 37,
+        "saldo": 5,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 3
+          },
+          "2026-06": {
+            "certificado": 4,
+            "facturado_al_mes_siguiente": 7
+          },
+          "2026-07": {
+            "certificado": 9,
+            "facturado_al_mes_siguiente": 6
+          },
+          "2026-08": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 5
+          },
+          "2026-09": {
+            "certificado": 5,
+            "facturado_al_mes_siguiente": 16
+          },
+          "2026-10": {
+            "certificado": 17,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 0.7
+      },
+      {
+        "codigo": "8340e0",
+        "nombre": "ALADINO SALAS DE JUEGOS",
+        "nit": "810000870",
+        "nit_siigo": "810000870",
+        "certificado": 92,
+        "facturado": 81,
+        "saldo": 11,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 73
+          },
+          "2026-07": {
+            "certificado": 86,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-08": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 5
+          },
+          "2026-10": {
+            "certificado": 5,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 0.7
+      },
+      {
+        "codigo": "701bc2",
+        "nombre": "ALMACAFÉ ARMENIA",
+        "nit": "860010973",
+        "nit_siigo": "860010973",
+        "certificado": 17,
+        "facturado": 15,
+        "saldo": 2,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-06": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 3
+          },
+          "2026-09": {
+            "certificado": 10,
+            "facturado_al_mes_siguiente": 9
+          },
+          "2026-10": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 1
+          }
+        },
+        "agrupa": [
+          "ALMACENES GENERALES DE DEPOSITO DE CAFE S A ALMACAFE"
+        ],
+        "meses_sin_facturar": 0.7
+      },
+      {
+        "codigo": "99b3d6",
+        "nombre": "SURTIALIADOS SAS",
+        "nit": "900269636",
+        "nit_siigo": "900269636",
+        "certificado": 43,
+        "facturado": 40,
+        "saldo": 3,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 8
+          },
+          "2026-08": {
+            "certificado": 9,
+            "facturado_al_mes_siguiente": 20
+          },
+          "2026-09": {
+            "certificado": 22,
+            "facturado_al_mes_siguiente": 12
+          },
+          "2026-10": {
+            "certificado": 12,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 0.4
       },
       {
         "codigo": "044787",
@@ -2174,322 +3051,8 @@
         "agrupa": [
           "MERCADOS  UNO A",
           "SANILAB IPS SAS"
-        ]
-      },
-      {
-        "codigo": "eb8357",
-        "nombre": "LOGISTICA CIRCULAR S.A.S",
-        "nit": "9017305936",
-        "nit_siigo": "901730593",
-        "certificado": 21,
-        "facturado": 12,
-        "saldo": 9,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 5,
-            "facturado_al_mes_siguiente": 5
-          },
-          "2026-06": {
-            "certificado": 1,
-            "facturado_al_mes_siguiente": 1
-          },
-          "2026-07": {
-            "certificado": 3,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-08": {
-            "certificado": 4,
-            "facturado_al_mes_siguiente": 4
-          },
-          "2026-09": {
-            "certificado": 3,
-            "facturado_al_mes_siguiente": 2
-          },
-          "2026-10": {
-            "certificado": 5,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "2e62ce",
-        "nombre": "PRO-SER COLOMBIA  SAS",
-        "nit": "9009220800",
-        "nit_siigo": "900922080",
-        "certificado": 37,
-        "facturado": 29,
-        "saldo": 8,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 7,
-            "facturado_al_mes_siguiente": 5
-          },
-          "2026-06": {
-            "certificado": 6,
-            "facturado_al_mes_siguiente": 6
-          },
-          "2026-07": {
-            "certificado": 6,
-            "facturado_al_mes_siguiente": 6
-          },
-          "2026-08": {
-            "certificado": 6,
-            "facturado_al_mes_siguiente": 10
-          },
-          "2026-09": {
-            "certificado": 10,
-            "facturado_al_mes_siguiente": 2
-          },
-          "2026-10": {
-            "certificado": 2,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "4a1320",
-        "nombre": "EMPRESA POWER SERVICES LTDA",
-        "nit": "900008662",
-        "nit_siigo": "900008662",
-        "certificado": 133,
-        "facturado": 126,
-        "saldo": 7,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 5,
-            "facturado_al_mes_siguiente": 19
-          },
-          "2026-06": {
-            "certificado": 19,
-            "facturado_al_mes_siguiente": 43
-          },
-          "2026-07": {
-            "certificado": 44,
-            "facturado_al_mes_siguiente": 36
-          },
-          "2026-08": {
-            "certificado": 36,
-            "facturado_al_mes_siguiente": 19
-          },
-          "2026-09": {
-            "certificado": 19,
-            "facturado_al_mes_siguiente": 9
-          },
-          "2026-10": {
-            "certificado": 10,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "c2779c",
-        "nombre": "ÜMAN TEMPORAL SERVICES SAS",
-        "nit": "9006706251",
-        "nit_siigo": "900670625",
-        "certificado": 11,
-        "facturado": 5,
-        "saldo": 6,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 5,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-06": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-07": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 2
-          },
-          "2026-08": {
-            "certificado": 3,
-            "facturado_al_mes_siguiente": 3
-          },
-          "2026-09": {
-            "certificado": 3,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-10": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "d85ce6",
-        "nombre": "FASALACT SAS",
-        "nit": "900589003",
-        "nit_siigo": "900589003",
-        "certificado": 42,
-        "facturado": 37,
-        "saldo": 5,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 1,
-            "facturado_al_mes_siguiente": 3
-          },
-          "2026-06": {
-            "certificado": 4,
-            "facturado_al_mes_siguiente": 7
-          },
-          "2026-07": {
-            "certificado": 9,
-            "facturado_al_mes_siguiente": 6
-          },
-          "2026-08": {
-            "certificado": 6,
-            "facturado_al_mes_siguiente": 5
-          },
-          "2026-09": {
-            "certificado": 5,
-            "facturado_al_mes_siguiente": 16
-          },
-          "2026-10": {
-            "certificado": 17,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "e76e26",
-        "nombre": "ASTEMPRO LTDA",
-        "nit": "900818593",
-        "nit_siigo": "900818593",
-        "certificado": 20,
-        "facturado": 15,
-        "saldo": 5,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 4,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-06": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 2
-          },
-          "2026-07": {
-            "certificado": 2,
-            "facturado_al_mes_siguiente": 6
-          },
-          "2026-08": {
-            "certificado": 7,
-            "facturado_al_mes_siguiente": 6
-          },
-          "2026-09": {
-            "certificado": 6,
-            "facturado_al_mes_siguiente": 1
-          },
-          "2026-10": {
-            "certificado": 1,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "a3eda9",
-        "nombre": "Sedial Group",
-        "nit": "9002177843",
-        "nit_siigo": "900217784",
-        "certificado": 4,
-        "facturado": 0,
-        "saldo": 4,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 4,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-06": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-07": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-08": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-09": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-10": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "99b3d6",
-        "nombre": "SURTIALIADOS SAS",
-        "nit": "900269636",
-        "nit_siigo": "900269636",
-        "certificado": 43,
-        "facturado": 40,
-        "saldo": 3,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-06": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-07": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 8
-          },
-          "2026-08": {
-            "certificado": 9,
-            "facturado_al_mes_siguiente": 20
-          },
-          "2026-09": {
-            "certificado": 22,
-            "facturado_al_mes_siguiente": 12
-          },
-          "2026-10": {
-            "certificado": 12,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "c7d780",
-        "nombre": "HARISSA FOODS",
-        "nit": "901437119",
-        "nit_siigo": "901437119",
-        "certificado": 11,
-        "facturado": 8,
-        "saldo": 3,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 2,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-06": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 2
-          },
-          "2026-07": {
-            "certificado": 2,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-08": {
-            "certificado": 1,
-            "facturado_al_mes_siguiente": 1
-          },
-          "2026-09": {
-            "certificado": 1,
-            "facturado_al_mes_siguiente": 5
-          },
-          "2026-10": {
-            "certificado": 5,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
+        ],
+        "meses_sin_facturar": 0.4
       },
       {
         "codigo": "c57e9b",
@@ -2524,7 +3087,80 @@
             "certificado": 7,
             "facturado_al_mes_siguiente": 0
           }
-        }
+        },
+        "meses_sin_facturar": 0.4
+      },
+      {
+        "codigo": "9626c1",
+        "nombre": "CELEMA CENTRAL LECHERA DE MANIZALES",
+        "nit": "9000838631",
+        "nit_siigo": "900083863",
+        "certificado": 33,
+        "facturado": 31,
+        "saldo": 2,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 27,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 4,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 31
+          },
+          "2026-09": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 0.4
+      },
+      {
+        "codigo": "4a1320",
+        "nombre": "EMPRESA POWER SERVICES LTDA",
+        "nit": "900008662",
+        "nit_siigo": "900008662",
+        "certificado": 133,
+        "facturado": 126,
+        "saldo": 7,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 5,
+            "facturado_al_mes_siguiente": 19
+          },
+          "2026-06": {
+            "certificado": 19,
+            "facturado_al_mes_siguiente": 43
+          },
+          "2026-07": {
+            "certificado": 44,
+            "facturado_al_mes_siguiente": 36
+          },
+          "2026-08": {
+            "certificado": 36,
+            "facturado_al_mes_siguiente": 19
+          },
+          "2026-09": {
+            "certificado": 19,
+            "facturado_al_mes_siguiente": 9
+          },
+          "2026-10": {
+            "certificado": 10,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 0.3
       },
       {
         "codigo": "e7c194",
@@ -2559,42 +3195,8 @@
             "certificado": 18,
             "facturado_al_mes_siguiente": 0
           }
-        }
-      },
-      {
-        "codigo": "af291e",
-        "nombre": "ASEOS COLOMBIANOS ASEOCOLBA SA",
-        "nit": "800146077",
-        "nit_siigo": "800146077",
-        "certificado": 5,
-        "facturado": 4,
-        "saldo": 1,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 1,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-06": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-07": {
-            "certificado": 1,
-            "facturado_al_mes_siguiente": 1
-          },
-          "2026-08": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-09": {
-            "certificado": 1,
-            "facturado_al_mes_siguiente": 1
-          },
-          "2026-10": {
-            "certificado": 2,
-            "facturado_al_mes_siguiente": 2
-          }
-        }
+        },
+        "meses_sin_facturar": 0.2
       },
       {
         "codigo": "2ca4f9",
@@ -2629,42 +3231,8 @@
             "certificado": 2,
             "facturado_al_mes_siguiente": 0
           }
-        }
-      },
-      {
-        "codigo": "63b7c5",
-        "nombre": "FLORIUS  S.A.S.",
-        "nit": "9011789157",
-        "nit_siigo": "9011789157",
-        "certificado": 2,
-        "facturado": 2,
-        "saldo": 0,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-06": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-07": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-08": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-09": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 2
-          },
-          "2026-10": {
-            "certificado": 2,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
+        },
+        "meses_sin_facturar": 0
       },
       {
         "codigo": "e14b95",
@@ -2699,77 +3267,8 @@
             "certificado": 2,
             "facturado_al_mes_siguiente": 0
           }
-        }
-      },
-      {
-        "codigo": "c4d643",
-        "nombre": "AXDA COLOMBIA SAS",
-        "nit": "901935596",
-        "nit_siigo": "901935596",
-        "certificado": 10,
-        "facturado": 10,
-        "saldo": 0,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-06": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-07": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-08": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-09": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 10
-          },
-          "2026-10": {
-            "certificado": 10,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "15daa2",
-        "nombre": "MULTIGRASAS DE COLOMBIA SAS",
-        "nit": "901426815",
-        "nit_siigo": "901426815",
-        "certificado": 1,
-        "facturado": 1,
-        "saldo": 0,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 1
-          },
-          "2026-06": {
-            "certificado": 1,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-07": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-08": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-09": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-10": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
+        },
+        "meses_sin_facturar": 0
       },
       {
         "codigo": "04379a",
@@ -2804,16 +3303,17 @@
             "certificado": 10,
             "facturado_al_mes_siguiente": 0
           }
-        }
+        },
+        "meses_sin_facturar": 0
       },
       {
-        "codigo": "e1ba56",
-        "nombre": "CARIBE THIEL  S.A.S",
-        "nit": "9020309724",
-        "nit_siigo": "902030972",
-        "certificado": 0,
-        "facturado": 1,
-        "saldo": -1,
+        "codigo": "c4d643",
+        "nombre": "AXDA COLOMBIA SAS",
+        "nit": "901935596",
+        "nit_siigo": "901935596",
+        "certificado": 10,
+        "facturado": 10,
+        "saldo": 0,
         "por_mes": {
           "2026-05": {
             "certificado": 0,
@@ -2832,30 +3332,31 @@
             "facturado_al_mes_siguiente": 0
           },
           "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 10
+          },
+          "2026-10": {
+            "certificado": 10,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 0
+      },
+      {
+        "codigo": "15daa2",
+        "nombre": "MULTIGRASAS DE COLOMBIA SAS",
+        "nit": "901426815",
+        "nit_siigo": "901426815",
+        "certificado": 1,
+        "facturado": 1,
+        "saldo": 0,
+        "por_mes": {
+          "2026-05": {
             "certificado": 0,
             "facturado_al_mes_siguiente": 1
           },
-          "2026-10": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "9a107d",
-        "nombre": "MANEL FOODS S.A.S.",
-        "nit": "901412787",
-        "nit_siigo": "901412787",
-        "certificado": 17,
-        "facturado": 18,
-        "saldo": -1,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
           "2026-06": {
-            "certificado": 0,
+            "certificado": 1,
             "facturado_al_mes_siguiente": 0
           },
           "2026-07": {
@@ -2864,122 +3365,198 @@
           },
           "2026-08": {
             "certificado": 0,
-            "facturado_al_mes_siguiente": 12
+            "facturado_al_mes_siguiente": 0
           },
           "2026-09": {
-            "certificado": 11,
-            "facturado_al_mes_siguiente": 6
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
           },
           "2026-10": {
-            "certificado": 6,
+            "certificado": 0,
             "facturado_al_mes_siguiente": 0
           }
-        }
+        },
+        "meses_sin_facturar": 0
       },
       {
-        "codigo": "dadd5b",
-        "nombre": "SERVICIOS TEMPORALES DE COLOMBIA  - TEMPOCOLBA",
-        "nit": "8020102166",
-        "nit_siigo": "802010216",
-        "certificado": 14,
-        "facturado": 15,
-        "saldo": -1,
+        "codigo": "bd17d3",
+        "nombre": "PAPELES Y NEGOCIOS",
+        "nit": "811039091",
+        "nit_siigo": "811039091",
+        "certificado": 11,
+        "facturado": 11,
+        "saldo": 0,
         "por_mes": {
           "2026-05": {
             "certificado": 0,
-            "facturado_al_mes_siguiente": 0
+            "facturado_al_mes_siguiente": 1
           },
           "2026-06": {
-            "certificado": 0,
+            "certificado": 1,
             "facturado_al_mes_siguiente": 0
           },
           "2026-07": {
-            "certificado": 7,
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 9,
             "facturado_al_mes_siguiente": 9
           },
-          "2026-08": {
-            "certificado": 3,
-            "facturado_al_mes_siguiente": 2
-          },
-          "2026-09": {
-            "certificado": 2,
-            "facturado_al_mes_siguiente": 2
-          },
           "2026-10": {
-            "certificado": 2,
-            "facturado_al_mes_siguiente": 2
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 1
           }
-        }
+        },
+        "meses_sin_facturar": 0
       },
       {
-        "codigo": "b92576",
-        "nombre": "SERVICIOS AUXILIARES DE MANTENIMIENTO Y LIMPIEZA-SAMYL COLOMBIA SAS",
-        "nit": "900558491",
-        "nit_siigo": "900558491",
-        "certificado": 8,
-        "facturado": 10,
+        "codigo": "2c6b61",
+        "nombre": "CONSORCIO 1A",
+        "nit": "9019019514",
+        "nit_siigo": "901901951",
+        "certificado": 5,
+        "facturado": 5,
+        "saldo": 0,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 5
+          },
+          "2026-09": {
+            "certificado": 5,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 0
+      },
+      {
+        "codigo": "f6a145",
+        "nombre": "COMERCIALIZADORA DE FRUTAS Y VERDURAS  ROMERO Y ROMERO S A S",
+        "nit": "9004147278",
+        "nit_siigo": "9004147278",
+        "certificado": 18,
+        "facturado": 18,
+        "saldo": 0,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 15
+          },
+          "2026-08": {
+            "certificado": 15,
+            "facturado_al_mes_siguiente": 3
+          },
+          "2026-09": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": 0
+      },
+      {
+        "codigo": "72a1cc",
+        "nombre": "AGROINDUSTRIAL SAN JOSE S.A \"AGRINSA\"",
+        "nit": "800035120",
+        "nit_siigo": "800035120",
+        "certificado": 45,
+        "facturado": 46,
+        "saldo": -1,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 42
+          },
+          "2026-08": {
+            "certificado": 42,
+            "facturado_al_mes_siguiente": 4
+          },
+          "2026-09": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": -0.1
+      },
+      {
+        "codigo": "e1529e",
+        "nombre": "OUTSOURCING SEASIN LIMITADA",
+        "nit": "900229503",
+        "nit_siigo": "900229503",
+        "certificado": 54,
+        "facturado": 56,
         "saldo": -2,
         "por_mes": {
           "2026-05": {
             "certificado": 0,
-            "facturado_al_mes_siguiente": 3
-          },
-          "2026-06": {
-            "certificado": 2,
-            "facturado_al_mes_siguiente": 7
-          },
-          "2026-07": {
-            "certificado": 6,
             "facturado_al_mes_siguiente": 0
           },
-          "2026-08": {
+          "2026-06": {
             "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 32
+          },
+          "2026-08": {
+            "certificado": 32,
             "facturado_al_mes_siguiente": 0
           },
           "2026-09": {
             "certificado": 0,
-            "facturado_al_mes_siguiente": 0
+            "facturado_al_mes_siguiente": 24
           },
           "2026-10": {
-            "certificado": 0,
+            "certificado": 22,
             "facturado_al_mes_siguiente": 0
           }
-        }
-      },
-      {
-        "codigo": "7016fa",
-        "nombre": "SUCROAL S.A",
-        "nit": "8913009598",
-        "nit_siigo": "891300959",
-        "certificado": 88,
-        "facturado": 95,
-        "saldo": -7,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 6,
-            "facturado_al_mes_siguiente": 31
-          },
-          "2026-06": {
-            "certificado": 8,
-            "facturado_al_mes_siguiente": 12
-          },
-          "2026-07": {
-            "certificado": 12,
-            "facturado_al_mes_siguiente": 8
-          },
-          "2026-08": {
-            "certificado": 8,
-            "facturado_al_mes_siguiente": 19
-          },
-          "2026-09": {
-            "certificado": 29,
-            "facturado_al_mes_siguiente": 25
-          },
-          "2026-10": {
-            "certificado": 25,
-            "facturado_al_mes_siguiente": 0
-          }
-        }
+        },
+        "meses_sin_facturar": -0.2
       },
       {
         "codigo": "cc43d6",
@@ -3014,112 +3591,152 @@
             "certificado": 15,
             "facturado_al_mes_siguiente": 15
           }
-        }
+        },
+        "meses_sin_facturar": -0.3
       },
       {
-        "codigo": "3b0e79",
-        "nombre": "EL GURU NUTRICIONAL SAS",
-        "nit": "901806035",
-        "nit_siigo": "901806035",
-        "certificado": 0,
-        "facturado": 14,
-        "saldo": -14,
+        "codigo": "9a107d",
+        "nombre": "MANEL FOODS S.A.S.",
+        "nit": "901412787",
+        "nit_siigo": "901412787",
+        "certificado": 17,
+        "facturado": 18,
+        "saldo": -1,
         "por_mes": {
           "2026-05": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 2
-          },
-          "2026-06": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 5
-          },
-          "2026-07": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 4
-          },
-          "2026-08": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 2
-          },
-          "2026-09": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 1
-          },
-          "2026-10": {
             "certificado": 0,
             "facturado_al_mes_siguiente": 0
-          }
-        }
-      },
-      {
-        "codigo": "66accf",
-        "nombre": "FARMACIAS DE SIMILARES COLOMBIA SAS",
-        "nit": "901817612",
-        "nit_siigo": "901817612",
-        "certificado": 70,
-        "facturado": 88,
-        "saldo": -18,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 1,
-            "facturado_al_mes_siguiente": 7
           },
           "2026-06": {
-            "certificado": 7,
-            "facturado_al_mes_siguiente": 17
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
           },
           "2026-07": {
-            "certificado": 17,
-            "facturado_al_mes_siguiente": 5
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
           },
           "2026-08": {
-            "certificado": 5,
-            "facturado_al_mes_siguiente": 11
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 12
           },
           "2026-09": {
             "certificado": 11,
-            "facturado_al_mes_siguiente": 29
+            "facturado_al_mes_siguiente": 6
           },
           "2026-10": {
-            "certificado": 29,
-            "facturado_al_mes_siguiente": 19
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 0
           }
-        }
+        },
+        "meses_sin_facturar": -0.4
       },
       {
-        "codigo": "721afa",
-        "nombre": "U T ZZZ ZOE",
-        "nit": "901902595",
-        "nit_siigo": "901902595",
-        "certificado": 11,
-        "facturado": 34,
-        "saldo": -23,
+        "codigo": "dadd5b",
+        "nombre": "SERVICIOS TEMPORALES DE COLOMBIA  - TEMPOCOLBA",
+        "nit": "8020102166",
+        "nit_siigo": "802010216",
+        "certificado": 14,
+        "facturado": 15,
+        "saldo": -1,
         "por_mes": {
           "2026-05": {
-            "certificado": 6,
+            "certificado": 0,
             "facturado_al_mes_siguiente": 0
           },
           "2026-06": {
-            "certificado": 3,
+            "certificado": 0,
             "facturado_al_mes_siguiente": 0
           },
           "2026-07": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 32
+            "certificado": 7,
+            "facturado_al_mes_siguiente": 9
           },
           "2026-08": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 2
           },
           "2026-09": {
-            "certificado": 0,
+            "certificado": 2,
             "facturado_al_mes_siguiente": 2
           },
           "2026-10": {
             "certificado": 2,
+            "facturado_al_mes_siguiente": 2
+          }
+        },
+        "meses_sin_facturar": -0.4
+      },
+      {
+        "codigo": "7016fa",
+        "nombre": "SUCROAL S.A",
+        "nit": "8913009598",
+        "nit_siigo": "891300959",
+        "certificado": 88,
+        "facturado": 95,
+        "saldo": -7,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 31
+          },
+          "2026-06": {
+            "certificado": 8,
+            "facturado_al_mes_siguiente": 12
+          },
+          "2026-07": {
+            "certificado": 12,
+            "facturado_al_mes_siguiente": 8
+          },
+          "2026-08": {
+            "certificado": 8,
+            "facturado_al_mes_siguiente": 19
+          },
+          "2026-09": {
+            "certificado": 29,
+            "facturado_al_mes_siguiente": 25
+          },
+          "2026-10": {
+            "certificado": 25,
             "facturado_al_mes_siguiente": 0
           }
-        }
+        },
+        "meses_sin_facturar": -0.5
+      },
+      {
+        "codigo": "9b149c",
+        "nombre": "Produempak EFC",
+        "nit": "900445797-6",
+        "nit_siigo": "900445797",
+        "certificado": 65,
+        "facturado": 70,
+        "saldo": -5,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 14,
+            "facturado_al_mes_siguiente": 14
+          },
+          "2026-06": {
+            "certificado": 14,
+            "facturado_al_mes_siguiente": 12
+          },
+          "2026-07": {
+            "certificado": 14,
+            "facturado_al_mes_siguiente": 17
+          },
+          "2026-08": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 11
+          },
+          "2026-09": {
+            "certificado": 11,
+            "facturado_al_mes_siguiente": 16
+          },
+          "2026-10": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": -0.5
       },
       {
         "codigo": "d4d8c7",
@@ -3154,7 +3771,152 @@
             "certificado": 23,
             "facturado_al_mes_siguiente": 0
           }
-        }
+        },
+        "meses_sin_facturar": -1.2
+      },
+      {
+        "codigo": "66accf",
+        "nombre": "FARMACIAS DE SIMILARES COLOMBIA SAS",
+        "nit": "901817612",
+        "nit_siigo": "901817612",
+        "certificado": 70,
+        "facturado": 88,
+        "saldo": -18,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 7
+          },
+          "2026-06": {
+            "certificado": 7,
+            "facturado_al_mes_siguiente": 17
+          },
+          "2026-07": {
+            "certificado": 17,
+            "facturado_al_mes_siguiente": 5
+          },
+          "2026-08": {
+            "certificado": 5,
+            "facturado_al_mes_siguiente": 11
+          },
+          "2026-09": {
+            "certificado": 11,
+            "facturado_al_mes_siguiente": 29
+          },
+          "2026-10": {
+            "certificado": 29,
+            "facturado_al_mes_siguiente": 19
+          }
+        },
+        "meses_sin_facturar": -1.5
+      },
+      {
+        "codigo": "b92576",
+        "nombre": "SERVICIOS AUXILIARES DE MANTENIMIENTO Y LIMPIEZA-SAMYL COLOMBIA SAS",
+        "nit": "900558491",
+        "nit_siigo": "900558491",
+        "certificado": 8,
+        "facturado": 10,
+        "saldo": -2,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 3
+          },
+          "2026-06": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 7
+          },
+          "2026-07": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": -1.5
+      },
+      {
+        "codigo": "adafe6",
+        "nombre": "CERCAFE COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
+        "nit": "8160039545",
+        "nit_siigo": "816003954",
+        "certificado": 4,
+        "facturado": 5,
+        "saldo": -1,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-07": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-08": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-10": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": -1.5
+      },
+      {
+        "codigo": "c19b6a",
+        "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
+        "nit": "9001921346",
+        "nit_siigo": "900192134",
+        "certificado": 9,
+        "facturado": 13,
+        "saldo": -4,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 8
+          },
+          "2026-09": {
+            "certificado": 4,
+            "facturado_al_mes_siguiente": 5
+          },
+          "2026-10": {
+            "certificado": 5,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": -2.7
       },
       {
         "codigo": "d53a9f",
@@ -3189,7 +3951,296 @@
             "certificado": 16,
             "facturado_al_mes_siguiente": 65
           }
-        }
+        },
+        "meses_sin_facturar": -3.1
+      },
+      {
+        "codigo": "b459c8",
+        "nombre": "EMBOTELLADORA CAPRI LTDA",
+        "nit": "8000320712",
+        "nit_siigo": "800032071",
+        "certificado": 88,
+        "facturado": 160,
+        "saldo": -72,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 74
+          },
+          "2026-07": {
+            "certificado": 75,
+            "facturado_al_mes_siguiente": 79
+          },
+          "2026-08": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 3
+          },
+          "2026-09": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 4
+          },
+          "2026-10": {
+            "certificado": 4,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": -4.9
+      },
+      {
+        "codigo": "3e129c",
+        "nombre": "HELADERIA LAS MAS FRESAS",
+        "nit": "11935481610",
+        "nit_siigo": "1193548161",
+        "certificado": 11,
+        "facturado": 23,
+        "saldo": -12,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 11
+          },
+          "2026-07": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 9
+          },
+          "2026-08": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 3
+          },
+          "2026-09": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": -6.5
+      },
+      {
+        "codigo": "721afa",
+        "nombre": "U T ZZZ ZOE",
+        "nit": "901902595",
+        "nit_siigo": "901902595",
+        "certificado": 11,
+        "facturado": 34,
+        "saldo": -23,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 6,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 3,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 32
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-10": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": -12.5
+      },
+      {
+        "codigo": "63b7c5",
+        "nombre": "FLORIUS  S.A.S.",
+        "nit": "9011789157",
+        "nit_siigo": "9011789157",
+        "certificado": 2,
+        "facturado": 7,
+        "saldo": -5,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-10": {
+            "certificado": 2,
+            "facturado_al_mes_siguiente": 5
+          }
+        },
+        "meses_sin_facturar": -15
+      },
+      {
+        "codigo": "444ba5",
+        "nombre": "PRICESMART EL POBLADO",
+        "nit": "900319753",
+        "nit_siigo": "900319753",
+        "certificado": 56,
+        "facturado": 206,
+        "saldo": -150,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 42
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 100
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 13
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-09": {
+            "certificado": 48,
+            "facturado_al_mes_siguiente": 44
+          },
+          "2026-10": {
+            "certificado": 8,
+            "facturado_al_mes_siguiente": 6
+          }
+        },
+        "meses_sin_facturar": -16.1
+      },
+      {
+        "codigo": "e1ba56",
+        "nombre": "CARIBE THIEL  S.A.S",
+        "nit": "9020309724",
+        "nit_siigo": "902030972",
+        "certificado": 0,
+        "facturado": 1,
+        "saldo": -1,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": null
+      },
+      {
+        "codigo": "3b0e79",
+        "nombre": "EL GURU NUTRICIONAL SAS",
+        "nit": "901806035",
+        "nit_siigo": "901806035",
+        "certificado": 0,
+        "facturado": 14,
+        "saldo": -14,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 5
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 4
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 2
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": null
+      },
+      {
+        "codigo": "af42d4",
+        "nombre": "INVERSIONES PAYSANDU  S.A.S",
+        "nit": "810006450",
+        "nit_siigo": "810006450",
+        "certificado": 1,
+        "facturado": 29,
+        "saldo": -28,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 9
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 9
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 4
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 6
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 1
+          },
+          "2026-10": {
+            "certificado": 1,
+            "facturado_al_mes_siguiente": 0
+          }
+        },
+        "meses_sin_facturar": -168
       }
     ],
     "fuera": {
@@ -3235,139 +4286,14 @@
           "nit_en_plataforma": null
         },
         {
-          "codigo": "e1529e",
-          "nombre": "OUTSOURCING SEASIN LIMITADA",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "a6824d",
-          "nombre": "GRUPO EMPRESARIAL PUERTO DE BARRANQUILLA S.A",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "444ba5",
-          "nombre": "PRICESMART EL POBLADO",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "9b149c",
-          "nombre": "Produempak EFC",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "c19b6a",
-          "nombre": "INDUSTRIAS LA CABAÑA S.A.S",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "39a3fe",
-          "nombre": "VICTORIA C SAS",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "4a81fb",
-          "nombre": "Grupo Éxito",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "b459c8",
-          "nombre": "EMBOTELLADORA CAPRI LTDA",
-          "nit_en_plataforma": null
-        },
-        {
           "codigo": "5a73a4",
           "nombre": "Bioservicios S.A.S",
           "nit_en_plataforma": null
         },
         {
-          "codigo": "7b14f4",
-          "nombre": "Dr. Leonardo Palacios",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "be428a",
-          "nombre": "CAMARON PAISA",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "adafe6",
-          "nombre": "CERCAFE COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "701bc2",
-          "nombre": "ALMACAFÉ ARMENIA",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "4w32sa",
-          "nombre": "Waytic S.A.S",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "af42d4",
-          "nombre": "INVERSIONES PAYSANDU  S.A.S",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "bd17d3",
-          "nombre": "PAPELES Y NEGOCIOS",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "ac3f36",
-          "nombre": "HOTEL HILTON GARDEN INN",
-          "nit_en_plataforma": null
-        },
-        {
           "codigo": "c777a6",
           "nombre": "Super Admini Andrés",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "f767b5",
-          "nombre": "COMERCIALIZADORA MALTA  SAS",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "2c6b61",
-          "nombre": "CONSORCIO 1A",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "72a1cc",
-          "nombre": "AGROINDUSTRIAL SAN JOSE S.A \"AGRINSA\"",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "3e129c",
-          "nombre": "HELADERIA LAS MAS FRESAS",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "f3bad2",
-          "nombre": "ALMACENES GENERALES DE DEPOSITO DE CAFE S A ALMACAFE",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "f6a145",
-          "nombre": "COMERCIALIZADORA DE FRUTAS Y VERDURAS  ROMERO Y ROMERO S A S",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "e5a3fc",
-          "nombre": "Mallplaza cc",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "7415b1",
-          "nombre": "RECUPERAR REGIONAL CENTRO",
-          "nit_en_plataforma": null
-        },
-        {
-          "codigo": "9626c1",
-          "nombre": "CELEMA CENTRAL LECHERA DE MANIZALES",
-          "nit_en_plataforma": null
+          "nit_en_plataforma": "102369789661066"
         }
       ],
       "en_grupo": [
@@ -3384,14 +4310,14 @@
       ]
     },
     "resumen": {
-      "empresas": 40,
-      "con_saldo": 23,
+      "empresas": 64,
+      "con_saldo": 35,
       "fuera_via_consumidor_final": 2,
-      "fuera_sin_nit": 33,
+      "fuera_sin_nit": 8,
       "agrupadas": 2,
-      "certificado": 4545,
-      "facturado": 3666,
-      "saldo": 1018
+      "certificado": 5126,
+      "facturado": 4429,
+      "saldo": 1116
     }
   }
 }
