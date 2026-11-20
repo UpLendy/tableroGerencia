@@ -1,10 +1,10 @@
 {
   "regla": "conciliacion-v1",
   "corte": "2026-11-20",
-  "total": 78493634.87,
-  "terceros": 96,
+  "total": 78374634.87,
+  "terceros": 95,
   "por_antiguedad": {
-    "hasta 30": 40731745.54,
+    "hasta 30": 40612745.54,
     "31 a 60": 7848709.77,
     "61 a 90": 1229760,
     "mas de 90": 28683419.56,
@@ -624,20 +624,6 @@
         "31 a 60": 0,
         "61 a 90": 0,
         "mas de 90": 126000,
-        "sin fecha": 0
-      }
-    },
-    {
-      "nit": "901331542",
-      "nombre": "UNION TEMPORAL OPERACION NEVADOS",
-      "saldo": 119000,
-      "facturas": 1,
-      "mas_vieja_dias": 7,
-      "por_antiguedad": {
-        "hasta 30": 119000,
-        "31 a 60": 0,
-        "61 a 90": 0,
-        "mas de 90": 0,
         "sin fecha": 0
       }
     },
@@ -1463,7 +1449,7 @@
       "mas_vieja_dias": 91
     }
   ],
-  "generado_en": "2026-11-20T15:38:56.514Z",
+  "generado_en": "2026-11-20T15:46:00.517Z",
   "ventana": {
     "desde": "2024-11-01",
     "hasta": "2026-11-20",
@@ -1474,7 +1460,7 @@
   "facturado_por_mes": {
     "2026-11": {
       "facturado": 52784402.54,
-      "saldo": 29283382.54,
+      "saldo": 29164382.54,
       "facturas": 106,
       "por_codigo": {
         "20001": {
@@ -1502,7 +1488,7 @@
           "valor": 100000
         }
       },
-      "cobrado": 23501020
+      "cobrado": 23620020
     },
     "2026-10": {
       "facturado": 76316367.97999999,
@@ -2275,7 +2261,7 @@
       "por_codigo": {
         "20001": {
           "cantidad": 16,
-          "valor": 40754025.199999996
+          "valor": 40754025.2
         },
         "20007": {
           "cantidad": 2,
@@ -2391,6 +2377,6 @@
   },
   "nota_facturado": "Incluye todo lo que BPM factura: certificaciones, tramites INVIMA, asesorias presenciales y apto medico. No es comparable con el valor a precio de lista del tablero, que solo cuenta certificaciones.",
   "tiempos_ms": {
-    "total": 72769
+    "total": 74313
   }
 }
