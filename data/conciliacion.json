@@ -1613,15 +1613,15 @@
       "valor": 231000
     },
     {
-      "nit": "10246343",
-      "nombre": "LUIS ALCIDES SALAZAR BUENO",
-      "unidades": 2,
-      "valor": 200000
-    },
-    {
       "nit": "901226431",
       "nombre": "MERCAPLAZA RAMIREZ GONZALEZ S.A.S",
       "unidades": 1,
+      "valor": 200000
+    },
+    {
+      "nit": "10246343",
+      "nombre": "LUIS ALCIDES SALAZAR BUENO",
+      "unidades": 2,
       "valor": 200000
     },
     {
@@ -1667,8 +1667,8 @@
       "valor": 140000
     },
     {
-      "nit": "1075316605",
-      "nombre": "JACOBO ARANGO TABARES",
+      "nit": "901147428",
+      "nombre": "ATRACCIONES MECANICAS S.A.S",
       "unidades": 1,
       "valor": 100000
     },
@@ -1679,38 +1679,8 @@
       "valor": 100000
     },
     {
-      "nit": "901147428",
-      "nombre": "ATRACCIONES MECANICAS S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1053817691",
-      "nombre": "MARIA PAULINA ARANGO BOTERO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "902059437",
-      "nombre": "ROCKET LAB S.A.S.",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "901849901",
-      "nombre": "HOGAR CORAZÓN CUERPO Y MENTE ACTIVA S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1076668475",
-      "nombre": "NICOLAS ANGULO AGUILAR",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "65795368",
-      "nombre": "DIANA RAMIREZ CASTRO",
+      "nit": "1075316605",
+      "nombre": "JACOBO ARANGO TABARES",
       "unidades": 1,
       "valor": 100000
     },
@@ -1721,8 +1691,38 @@
       "valor": 100000
     },
     {
+      "nit": "65795368",
+      "nombre": "DIANA RAMIREZ CASTRO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1076668475",
+      "nombre": "NICOLAS ANGULO AGUILAR",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "902059437",
+      "nombre": "ROCKET LAB S.A.S.",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1053817691",
+      "nombre": "MARIA PAULINA ARANGO BOTERO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
       "nit": "24731045",
       "nombre": "MARIA GLADIS CASTRO QUICENO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901849901",
+      "nombre": "HOGAR CORAZÓN CUERPO Y MENTE ACTIVA S.A.S",
       "unidades": 1,
       "valor": 100000
     },
@@ -1817,14 +1817,14 @@
       "valor": 30000
     },
     {
-      "nit": "901455816",
-      "nombre": "M&S VITAMINS SAS",
+      "nit": "901517118",
+      "nombre": "PHF SAS",
       "unidades": 1,
       "valor": 20000
     },
     {
-      "nit": "901517118",
-      "nombre": "PHF SAS",
+      "nit": "901455816",
+      "nombre": "M&S VITAMINS SAS",
       "unidades": 1,
       "valor": 20000
     },
@@ -1913,9 +1913,9 @@
     "2026-11"
   ],
   "periodo_siguiente": "2026-11",
-  "facturas_del_siguiente": 101,
+  "facturas_del_siguiente": 106,
   "periodo": "2026-10",
-  "generado_en": "2026-11-19T19:30:44.622Z",
+  "generado_en": "2026-11-20T15:38:56.540Z",
   "facturas_del_periodo": 225,
   "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
   "nota_periodo": "Se cruza el último mes cerrado, no el mes en curso: la facturación va detrás de la certificación y un mes a medias daría un descuadre falso.",
