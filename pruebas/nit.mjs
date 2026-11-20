@@ -48,6 +48,20 @@ console.log('\n-- los particulares no son una empresa --');
   iguales(c.map((e) => e.codigo), ['abc123'], 'la fila de particulares no entra');
 }
 
+console.log('\n-- los que no son una empresa --');
+{
+  /* La plataforma le pone user_enter_code a usuarios que no son empresas: la
+     bolsa de independientes y, como salio el 19 de noviembre, una cuenta de
+     super administrador con una certificacion suelta. Si entran, cuentan como
+     cliente y ademas ensucian la lista de documentos por corregir. */
+  const c = empresas([
+    fila('bpmsas', 'Bolsa de independientes', 900, null),
+    fila('c777a6', 'Super Admini Andrés', 1, '102369789661066'),
+    fila('abc123', 'EMPRESA DE VERDAD SAS', 50, '900111222'),
+  ]);
+  iguales(c.map((e) => e.codigo), ['abc123'], 'solo entra la empresa de verdad');
+}
+
 console.log('\n-- empresas unificadas --');
 {
   /* El mismo código en dos meses con el mismo documento: un solo NIT. */

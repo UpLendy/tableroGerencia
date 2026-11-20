@@ -13,7 +13,24 @@ export const UNIFICAR = {
   '8ac087': { nombre: 'ARCOS DORADOS COLOMBIA S.A.S.', codigos: ['8ac087', '637b9c'] },
   'cc43d6': { nombre: 'Integrativa Agropecuaria S.A.S.', codigos: ['cc43d6', '0d090b'] },
 };
-const SIN_EMPRESA = 'bpmsas';
+/** Códigos que tienen user_enter_code en la plataforma pero NO son una
+ *  empresa, así que no pueden contar como cliente ni entrar en la lista de
+ *  documentos por corregir.
+ *
+ *  El origen es que MetricsService agrupa por user_enter_code sin mirar el
+ *  rol del usuario: cualquiera que tenga ese campo sale como empresa. El
+ *  arreglo de fondo es filtrar por rol en la plataforma; mientras tanto se
+ *  excluyen aquí, uno por uno y con su razón escrita.
+ *
+ *  No se detectan por el nombre. Hoy funcionaría buscar "admin", y el día que
+ *  entre una empresa que se llame "Administradora algo" la borraríamos sin
+ *  que nadie se entere. */
+const NO_SON_EMPRESA = new Map([
+  ['bpmsas', 'bolsa de usuarios independientes que en algún momento quedaron ' +
+             'bajo esa empresa; son más de 10.000 registros y no se pueden mover'],
+  ['c777a6', 'cuenta de super administrador, con una certificación suelta de ' +
+             'octubre de 2026 y un documento de 15 dígitos'],
+]);
 const DUENO = {};
 for (const [jefe, g] of Object.entries(UNIFICAR)) for (const c of g.codigos) DUENO[c] = jefe;
 
@@ -75,7 +92,7 @@ export function armarEmpresas(certPorMes) {
       // La API mete a los particulares como una fila mas, con codigo
       // '(particular)' y nombre nulo. No es una empresa: si entra, aparece
       // como el cliente mayor y arruina el calculo de concentracion.
-      if (!row.codigo || row.codigo === '(particular)' || row.codigo === SIN_EMPRESA) continue;
+      if (!row.codigo || row.codigo === '(particular)' || NO_SON_EMPRESA.has(row.codigo)) continue;
       const jefe = DUENO[row.codigo] || row.codigo;
       if (!acc.has(jefe)) {
         acc.set(jefe, {
