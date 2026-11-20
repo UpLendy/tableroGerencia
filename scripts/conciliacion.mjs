@@ -43,6 +43,11 @@ export const CODIGOS = { individual: ['21002'], paquete: ['21007'] };
 
 export const CONSUMIDOR_FINAL = '222222222';
 
+/* Por debajo de esto, un saldo no es un problema de facturacion sino el
+   resto de una division: una empresa que certifica dos al mes y lleva dos
+   sin facturar sale con «seis meses de atraso» y son dos certificaciones. */
+export const UMBRAL_MENUDO = 5;
+
 /**
  * Empresas que NO se facturan aparte: su consumo va dentro de la factura a
  * consumidor final. Confirmado por BPM el 18 de noviembre de 2026, y dicho
@@ -75,9 +80,16 @@ export const GRUPOS_FACTURACION = [
   /* 901216537 es el NIT de Sanilab IPS en Siigo. Conviene que BPM lo
      confirme: en el maestro de Siigo ese tercero figura sin nombre util
      ("No aplica"), asi que el emparejamiento se apoya solo en el NIT. */
-  { nombres: ['mortiño', 'mortino'], nit: '901216537' },
-  { nombres: ['mercados  uno a', 'mercados uno a'], nit: '901216537' },
+  { nombres: ['mortiño', 'mortino'], nit: '901216537', grupo: 'Grupo Sanilab' },
+  { nombres: ['mercados  uno a', 'mercados uno a'], nit: '901216537', grupo: 'Grupo Sanilab' },
 ];
+
+/* La fila de un grupo tomaba el nombre de la primera empresa que apareciera,
+   de modo que el renglon se llamaba «Compañia Lechera de El Mortiño» cuando
+   quien factura es Sanilab, y quien lo leyera iria a buscar a Siigo una
+   factura que no esta a ese nombre. Se nombra por quien factura. */
+const NOMBRE_DE_GRUPO = new Map(
+  GRUPOS_FACTURACION.filter((g) => g.grupo).map((g) => [g.nit, g.grupo]));
 
 const grupoDe = (emp) => {
   const n = String(emp.nombre || '').toLowerCase();
@@ -384,6 +396,10 @@ export function saldoAcumulado({ historia, unidades, empresas, terceros, hasta, 
       ya.certificado += cert;
       ya.saldo = ya.certificado - ya.facturado;
       ya.agrupa = [...(ya.agrupa || []), e.nombre];
+      /* En cuanto hay mas de una, el renglon deja de ser de una empresa y
+         pasa a ser del grupo: se nombra por quien emite la factura. */
+      const g = NOMBRE_DE_GRUPO.get(nit);
+      if (g) ya.nombre = g;
       for (const m of conDatos) ya.por_mes[m].certificado += detalle[m].certificado;
       continue;
     }
@@ -430,6 +446,26 @@ export function saldoAcumulado({ historia, unidades, empresas, terceros, hasta, 
        que no tiene factura propia que una a la que no le encontramos el NIT:
        la primera esta bien, la segunda hay que corregirla. */
     fuera: aparte,
+    /* «35 empresas con saldo» suena a treinta y cinco problemas y no lo es:
+       cinco concentran el 77 % y diecisiete tienen cinco certificaciones o
+       menos, cuarenta y cinco entre todas. Sin esto, la cifra de la tarjeta
+       empuja a repartir la atencion a partes iguales entre cosas que no se
+       parecen. El umbral es bajo a proposito: no dice «esto no importa»,
+       dice «esto no es donde esta el problema». */
+    concentracion: (() => {
+      const orden = [...deben].sort((a, b) => b.saldo - a.saldo);
+      const total = orden.reduce((a, f) => a + f.saldo, 0);
+      const cabeza = orden.slice(0, 5);
+      const menudas = orden.filter((f) => f.saldo <= UMBRAL_MENUDO);
+      return {
+        umbral_menudo: UMBRAL_MENUDO,
+        mayores: cabeza.length,
+        saldo_mayores: cabeza.reduce((a, f) => a + f.saldo, 0),
+        pct_mayores: total ? Number((cabeza.reduce((a, f) => a + f.saldo, 0) / total * 100).toFixed(1)) : null,
+        menudas: menudas.length,
+        saldo_menudas: menudas.reduce((a, f) => a + f.saldo, 0),
+      };
+    })(),
     resumen: {
       empresas: filas.length,
       con_saldo: deben.length,

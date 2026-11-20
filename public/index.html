@@ -924,10 +924,21 @@ function renderSaldo(k){
     ? esc(cortar(peor.nombre || peor.codigo, 26)) + ' · ' + nf(peor.saldo) + ' sin facturar'
     : 'ninguna empresa con saldo';
 
-  $('salCs').textContent = n
+  /* «35 empresas» suena a treinta y cinco problemas. Decir dónde está de
+     verdad el saldo evita que la atención se reparta a partes iguales entre
+     un cliente de 425 certificaciones y uno de una. El dato viejo no trae
+     este bloque, así que la frase larga solo sale cuando se puede. */
+  const cc = s.concentracion;
+  $('salCs').textContent = (n
     ? 'Certificado de cada mes contra lo facturado al mes siguiente, de ' +
       (s.meses[0]||'') + ' a ' + (s.meses[n-1]||'') + '. Ordenado por meses de atraso, no por tamaño.'
-    : '';
+    : '') +
+    (cc && cc.mayores && hayNum(cc.pct_mayores)
+      ? ' Las ' + nf(cc.mayores) + ' mayores concentran el ' + pc(cc.pct_mayores, 0) +
+        ' del saldo' +
+        (cc.menudas ? '; otras ' + nf(cc.menudas) + ' tienen ' + nf(cc.umbral_menudo) +
+          ' o menos y suman ' + nf(cc.saldo_menudas) + ' entre todas.' : '.')
+      : '');
 
   $('tablaSal').innerHTML = deben.length ? `<table><thead><tr>
       <th>Cliente</th><th class="n">Meses</th><th class="n">Sin facturar</th>

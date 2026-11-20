@@ -468,6 +468,17 @@ export function fichaDelCorte(c) {
       L.push(
         `- Fuera: ${nf(sr.fuera_via_consumidor_final)} vía consumidor final, ${nf(sr.fuera_sin_nit)} sin NIT resoluble y ${nf(sr.agrupadas)} agrupadas bajo el NIT de otra empresa.`,
       );
+      /* Sin esto, preguntado por «cuantas empresas tienen saldo», el modelo
+         contesta 35 y la cifra se lee como 35 problemas del mismo tamano. */
+      const cc = s.concentracion;
+      if (cc && cc.mayores) {
+        L.push(
+          `- DONDE ESTA EL SALDO: las ${nf(cc.mayores)} mayores concentran ${nf(cc.saldo_mayores)} de las ${nf(sr.saldo)} ` +
+            `certificaciones (${pc(cc.pct_mayores)}), y otras ${nf(cc.menudas)} empresas tienen ${nf(cc.umbral_menudo)} o menos ` +
+            `y suman ${nf(cc.saldo_menudas)} entre todas. Si te preguntan cuántas empresas tienen saldo, di el número pero ` +
+            `di también esto: no son ${nf(sr.con_saldo)} problemas del mismo tamaño.`,
+        );
+      }
       L.push(
         `- ESTA es la medida buena del atraso de facturación, no la del mes suelto: a una empresa que se factura tarde ` +
           `el mes suelto la muestra descuadrada un mes y cuadrada al siguiente, mientras el saldo acumulado la deja en cero sola. ` +

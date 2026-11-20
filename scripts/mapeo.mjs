@@ -30,6 +30,9 @@ const NO_SON_EMPRESA = new Map([
              'bajo esa empresa; son más de 10.000 registros y no se pueden mover'],
   ['c777a6', 'cuenta de super administrador, con una certificación suelta de ' +
              'octubre de 2026 y un documento de 15 dígitos'],
+  ['4w32sa', 'empresa de pruebas, confirmado por UpLendy el 20 de noviembre de ' +
+             '2026. Una certificación de octubre y un documento de diez dígitos, ' +
+             'que es una cédula y no un NIT'],
 ]);
 const DUENO = {};
 for (const [jefe, g] of Object.entries(UNIFICAR)) for (const c of g.codigos) DUENO[c] = jefe;

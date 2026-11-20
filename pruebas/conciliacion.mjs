@@ -2,7 +2,7 @@
    forma real que devuelve Siigo. Lo que se comprueba no es que el código
    corra, sino que NO afirme cosas que no puede saber. */
 import { resolverNit, comprasPorTercero, conciliar, cartera, CONSUMIDOR_FINAL,
-         unidadesPorTerceroYMes, saldoAcumulado } from '../scripts/conciliacion.mjs';
+         unidadesPorTerceroYMes, saldoAcumulado, UMBRAL_MENUDO } from '../scripts/conciliacion.mjs';
 
 let fallos = 0;
 const iguales = (a, b, q) => {
@@ -552,6 +552,46 @@ console.log('\n-- pero los meses siguen mandando sobre el tamano --');
   const deben = r.empresas.filter((e) => e.saldo > 0);
   iguales(deben[0].nombre, 'Vieja y chica',
     'la que lleva mas meses va primero aunque deba quinientas veces menos');
+}
+
+console.log('\n-- donde esta el saldo, no solo cuantas empresas --');
+{
+  /* «35 empresas con saldo» se lee como 35 problemas iguales. Con el dato
+     del 20 de noviembre, cinco concentraban el 77 % y diecisiete tenian
+     cinco o menos, cuarenta y cinco entre todas. */
+  const por = (cod, n) => [cod, n];
+  const h = new Map([['grande', 400], ['media', 50], ['a', 2], ['b', 1], ['c', 1]]);
+  const historia = { meses: { '2026-10': { por_empresa: Object.fromEntries(h) } } };
+  const empresas = [...h.keys()].map((k, i) => ({ codigo: k, nombre: k.toUpperCase(), nit: '80000000' + i }));
+  const t = new Map(empresas.map((e) => [e.nit, e.nombre]));
+  const r = saldoAcumulado({ historia, unidades: new Map(), empresas, terceros: t, hasta: '2026-10', meses: 1 });
+  const cc = r.concentracion;
+  iguales(cc.mayores, 5, 'mide las cinco mayores');
+  iguales(cc.saldo_mayores, 454, 'que aqui son todas, y suman 454');
+  iguales(cc.umbral_menudo, UMBRAL_MENUDO, 'el umbral de lo menudo viaja con el dato');
+  iguales(cc.menudas, 3, 'tres empresas por debajo del umbral');
+  iguales(cc.saldo_menudas, 4, 'y suman cuatro certificaciones entre las tres');
+  iguales(cc.pct_mayores, 100, 'el porcentaje se calcula sobre el saldo total');
+}
+
+console.log('\n-- la fila de un grupo se nombra por quien factura --');
+{
+  /* Se llamaba «Compañia Lechera de El Mortiño» cuando quien emite la
+     factura es Sanilab, y quien fuera a buscarla a Siigo no la encontraria
+     a ese nombre. */
+  const historia = { meses: { '2026-10': { por_empresa: { mort: 21, merc: 2, sani: 4 } } } };
+  const empresas = [
+    { codigo: 'mort', nombre: 'COMPAÑIA LECHERA DE EL MORTIÑO  S.A.S', nit: '8320084649' },
+    { codigo: 'merc', nombre: 'MERCADOS  UNO A', nit: '793998765' },
+    { codigo: 'sani', nombre: 'SANILAB IPS SAS', nit: '901216537' },
+  ];
+  const terceros = new Map([['901216537', 'No aplica']]);
+  const r = saldoAcumulado({ historia, unidades: new Map(), empresas, terceros, hasta: '2026-10', meses: 1 });
+  const fila = r.empresas.find((e) => e.nit_siigo === '901216537');
+  iguales(fila.nombre, 'Grupo Sanilab', 'la fila del grupo se llama por quien emite la factura');
+  iguales(fila.certificado, 27, 'y suma lo que certifican las tres');
+  iguales((fila.agrupa || []).length >= 2, true, 'guardando de quienes se compone');
+  iguales(r.empresas.filter((e) => e.nit_siigo === '901216537').length, 1, 'y es una sola fila, no tres');
 }
 
 console.log(fallos ? `\n  ${fallos} FALLO(S)\n` : '\n  todo bien\n');
