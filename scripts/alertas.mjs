@@ -38,6 +38,11 @@ export const UMBRALES = {
   certSinFacturar: 30,            // certificaciones del mes cerrado sin factura
   certSinFacturarGrave: 150,
   empresasSinNit: 5,              // empresas que el cruce no puede resolver
+  /* La lectura de Siigo corre una vez al día. Treinta horas es una corrida
+     perdida contando el margen de que se retrase; cincuenta y cuatro son
+     dos, y entonces ya no es un tropiezo sino que algo está roto. */
+  datoViejoHoras: 30,
+  datoMuyViejoHoras: 54,
 };
 
 const nf = (n) => Number(n).toLocaleString('es-CO');
@@ -508,15 +513,76 @@ export function alertasDeConciliacion(conc, umbrales = {}) {
 
 /* Adjunta la cartera al corte y suma sus alertas, ordenadas con las demás.
    Lo hacen los dos endpoints, así que vive aquí y no duplicado en cada uno. */
+
+/* ------------------------------------------------------------ frescura
+   El 20 de noviembre la lectura automática de Siigo no corrió, y lo único
+   que lo decía era un «Al 19 de noviembre» en gris claro al lado de un
+   título. Nadie lee eso. El tablero existe para que la Dirección no decida
+   con cifras viejas creyéndolas de hoy, de modo que un dato viejo tiene que
+   gritar igual que grita cualquier otro problema.
+
+   Solo se mide la cartera y el cruce, que son lo único que sale de archivo:
+   las certificaciones, las empresas y los vencimientos se leen de la
+   plataforma en cada carga, y si esa lectura falla la página ya lo dice por
+   su cuenta. Decir «el tablero está viejo» cuando solo lo está una parte
+   haría que se desconfiara de todo, que es el error contrario. */
+export function alertasDeFrescura(cartera, conciliacion, ahora = Date.now()) {
+  const a = [];
+  const fuentes = [
+    ['la cartera', cartera, 'cobrar'],
+    ['el cruce contra lo facturado', conciliacion, 'cruce'],
+  ].filter(([, x]) => x && x.generado_en);
+  if (!fuentes.length) return a;
+
+  /* Se avisa por la más vieja de las dos y una sola vez: son el mismo
+     proceso y la misma causa, y dos alertas para un fallo son ruido. */
+  const conEdad = fuentes.map(([que, x, seccion]) => {
+    const t = Date.parse(x.generado_en);
+    return { que, seccion, corte: x.corte, t, horas: Number.isFinite(t) ? (ahora - t) / 36e5 : null };
+  }).filter((x) => x.horas !== null && x.horas >= 0);
+  if (!conEdad.length) return a;
+
+  const peor = conEdad.reduce((m, x) => (x.horas > m.horas ? x : m));
+  if (peor.horas < UMBRALES.datoViejoHoras) return a;
+
+  const dias = Math.floor(peor.horas / 24);
+  const cuanto = dias >= 1
+    ? `${nf(dias)} día${dias === 1 ? '' : 's'}`
+    : `${nf(Math.floor(peor.horas))} horas`;
+  const grave = peor.horas >= UMBRALES.datoMuyViejoHoras;
+
+  a.push({
+    id: `dato-viejo-${peor.corte || 'sin-fecha'}`,
+    severidad: grave ? 'critica' : 'atencion',
+    para: 'gerencia',
+    titulo: `Las cifras de Siigo llevan ${cuanto} sin refrescarse`,
+    detalle:
+      `Lo último que se leyó de Siigo es del ${peor.corte}. Lo que hay por cobrar y el ` +
+      `cruce contra lo facturado son de entonces, no de hoy. El resto del tablero ` +
+      `—certificaciones, empresas, vencimientos— sí se lee en vivo y está al día.` +
+      (grave ? ' Han fallado al menos dos lecturas seguidas.' : ''),
+    cifra: Math.round(peor.horas),
+    seccion: peor.seccion,
+    accion: 'Revisar que la lectura automática de Siigo esté corriendo; mientras tanto, no dar estas cifras por actuales.',
+  });
+  return a;
+}
+
 export function adjuntarCartera(corte, cartera, conciliacion) {
   if (!corte) return corte;
   if (cartera) corte.cartera = cartera;
   if (conciliacion) corte.conciliacion = conciliacion;
   const nuevas = [...(cartera ? alertasDeCartera(cartera) : []),
                   ...(conciliacion ? alertasDeConciliacion(conciliacion) : [])];
-  if (nuevas.length) {
+  /* La de dato viejo va primera dentro de su severidad, y no por capricho:
+     dice que las cifras con las que estan hechas las demas pueden no ser de
+     hoy. Leer «Cencosud debe el 36 %» antes de saber que ese 36 % es de
+     anteayer es el orden equivocado. El sort de JavaScript es estable, asi
+     que basta ponerla delante. */
+  const frescura = alertasDeFrescura(cartera, conciliacion);
+  if (nuevas.length || frescura.length) {
     const orden = { critica: 0, atencion: 1, aviso: 2 };
-    corte.alertas = [...(Array.isArray(corte.alertas) ? corte.alertas : []), ...nuevas]
+    corte.alertas = [...frescura, ...(Array.isArray(corte.alertas) ? corte.alertas : []), ...nuevas]
       .sort((a, b) => orden[a.severidad] - orden[b.severidad]);
   }
   return corte;

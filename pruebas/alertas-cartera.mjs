@@ -1,7 +1,7 @@
 /* Pruebas de las alertas de cartera. Lo que se comprueba no es que corran,
    sino que no griten cuando no hay motivo, que no salgan hacia el Equipo, y
    que no afirmen nada que la cartera no diga. */
-import { alertasDeCartera, alertasDeConciliacion, adjuntarCartera, UMBRALES } from '../scripts/alertas.mjs';
+import { alertasDeCartera, alertasDeConciliacion, alertasDeFrescura, adjuntarCartera, UMBRALES } from '../scripts/alertas.mjs';
 import { despojarParaEquipo } from '../scripts/vista.mjs';
 
 let fallos = 0;
@@ -230,6 +230,62 @@ console.log('\n-- el cruce: a quién llega --');
   adjuntarCartera(corte, cartera({ vencidoPct: 5, concPct: 5 }));
   iguales([corte.conciliacion, corte.alertas.length], [undefined, 0],
     'sin cruce no adjunta ni inventa alertas');
+}
+
+console.log('\n-- el dato viejo --');
+{
+  /* El 20 de noviembre la lectura de Siigo no corrió y el tablero no dijo
+     nada: la fecha estaba, en gris, al lado de un título. Esto es para que
+     la próxima vez grite. Lo primero que hay que probar, sin embargo, es
+     que NO grite el resto de los días. */
+  const ahora = Date.parse('2026-11-20T15:00:00Z');
+  const hace = (h) => ({ corte: '2026-11-20', generado_en: new Date(ahora - h * 36e5).toISOString() });
+
+  iguales(alertasDeFrescura(hace(2), hace(2), ahora).length, 0, 'un dato de hace dos horas no dice nada');
+  iguales(alertasDeFrescura(hace(25), hace(25), ahora).length, 0, 'ni uno de ayer dentro de la corrida diaria');
+  iguales(alertasDeFrescura(UMBRALES.datoViejoHoras - 1 && hace(UMBRALES.datoViejoHoras - 1), null, ahora).length, 0,
+    'justo por debajo del umbral, callado');
+
+  const una = alertasDeFrescura(hace(UMBRALES.datoViejoHoras + 1), null, ahora);
+  iguales(una.length, 1, 'pasada una corrida perdida, avisa');
+  iguales(una[0].severidad, 'atencion', 'y es de atención, no crítica');
+  cierto(una[0].para === 'gerencia', 'va a Gerencia');
+  cierto(/sí se lee en vivo/.test(una[0].detalle),
+    'y aclara que el resto del tablero no está viejo, que es el error contrario');
+  cierto(una[0].seccion === 'cobrar', 'enlaza a la sección donde está el dato viejo');
+
+  const dos = alertasDeFrescura(hace(UMBRALES.datoMuyViejoHoras + 1), null, ahora);
+  iguales(dos[0].severidad, 'critica', 'con dos corridas perdidas, crítica');
+  cierto(/dos lecturas seguidas/.test(dos[0].detalle), 'y lo dice');
+
+  /* Las dos fuentes son el mismo proceso: dos alertas para un fallo es ruido. */
+  const ambas = alertasDeFrescura(hace(40), hace(60), ahora);
+  iguales(ambas.length, 1, 'cartera y cruce viejos a la vez dan una sola alerta');
+  iguales(ambas[0].severidad, 'critica', 'y manda la más vieja de las dos');
+
+  iguales(alertasDeFrescura(null, null, ahora).length, 0, 'sin datos no inventa una alerta');
+  iguales(alertasDeFrescura({ corte: 'x' }, null, ahora).length, 0, 'sin fecha de generación tampoco');
+  iguales(alertasDeFrescura({ corte: 'x', generado_en: 'mañana' }, null, ahora).length, 0,
+    'una fecha que no se entiende no produce una alerta inventada');
+  iguales(alertasDeFrescura(hace(-5), null, ahora).length, 0,
+    'un reloj adelantado no produce un dato "de hace menos cero horas"');
+
+  /* Y que de verdad llegue al corte, que es lo que ve la Dirección. */
+  const corte = {};
+  adjuntarCartera(corte, hace(72), null);
+  cierto((corte.alertas || []).some((x) => /sin refrescarse/.test(x.titulo)),
+    'adjuntarCartera la pone en el corte');
+
+  /* Y va delante de las demás de su severidad: dice que las cifras con las
+     que están hechas esas otras pueden no ser de hoy. */
+  const conOtras = { alertas: [
+    { severidad: 'critica', titulo: 'otra crítica anterior' },
+    { severidad: 'atencion', titulo: 'una de atención' },
+  ] };
+  adjuntarCartera(conOtras, hace(72), null);
+  cierto(/sin refrescarse/.test(conOtras.alertas[0].titulo),
+    'y la pone delante de las demás críticas, no detrás');
+  iguales(conOtras.alertas.length, 3, 'sin perder ninguna por el camino');
 }
 
 console.log(fallos ? `\n  ${fallos} FALLO(S)\n` : '\n  todo bien\n');
