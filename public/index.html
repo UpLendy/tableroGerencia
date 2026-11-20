@@ -51,6 +51,18 @@
 .al-d{font-size:12px;color:var(--ink2);margin-top:3px;line-height:1.5}
 .al-a{font-size:11.5px;color:var(--ink3);margin-top:6px}
 .al-a b{color:var(--ink2);font-weight:600}
+.al-ir{margin-top:8px}
+.al-ir button{appearance:none;border:0;background:none;font:inherit;font-size:11.5px;
+  font-weight:700;color:var(--s1);padding:0;cursor:pointer;text-align:left}
+.al-ir button:hover{text-decoration:underline}
+/* El salto tiene que decir dónde aterrizó: en el móvil, que es donde se leen
+   las alertas, una sección más abajo es indistinguible de la anterior. */
+section.resaltada{border-radius:13px;animation:resaltar 1.9s ease-out}
+@keyframes resaltar{
+  0%{background:var(--card2);box-shadow:0 0 0 8px var(--card2)}
+  70%{background:var(--card2);box-shadow:0 0 0 8px var(--card2)}
+  100%{background:transparent;box-shadow:none}}
+@media (prefers-reduced-motion:reduce){section.resaltada{animation:none}}
 .al-vacio{background:var(--goodbg);border:1px solid var(--good);color:var(--good);
   border-radius:11px;padding:13px 15px;font-size:12.5px}
 
@@ -354,7 +366,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
 <div class="wrap" id="contenido" hidden>
 
   <!-- ============ 1 · ÍNDICE DE SALUD ============ -->
-  <section>
+  <section id="sec-salud">
     <div class="shead">
       <h2>Índice de salud del negocio</h2>
       <span class="note">Vigente al corte · no cambia con el selector de periodo</span>
@@ -374,7 +386,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
   </section>
 
   <!-- ============ 2 · KPI ============ -->
-  <section>
+  <section id="sec-volumen">
     <div class="shead">
       <h2>Volumen y precio</h2>
       <span class="note" id="kpiNote">Octubre 2026 · variación contra septiembre</span>
@@ -415,7 +427,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
   </section>
 
   <!-- ============ 4 · VENCIMIENTOS ============ -->
-  <section>
+  <section id="sec-vencimientos">
     <div class="shead"><h2>Vencimientos · próximos 30 días</h2></div>
     <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr))">
       <div class="chartcard">
@@ -481,7 +493,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
   </section>
 
   <!-- ============ 6 · EMPRESAS ============ -->
-  <section>
+  <section id="sec-empresas">
     <div class="shead">
       <h2>Cartera de empresas</h2>
       <span class="note" id="empNote">Octubre 2026</span>
@@ -614,7 +626,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
   </section>
 
   <!-- ============ 6b · INGENIEROS ============ -->
-  <section>
+  <section id="sec-tramites">
     <div class="shead">
       <h2>Carga de los ingenieros</h2>
       <span class="note">Plataforma de trámites · <span id="trPeriodo">—</span></span>
@@ -639,7 +651,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
   </section>
 
   <!-- ============ 6c · ALIMENTIA ============ -->
-  <section>
+  <section id="sec-alimentia">
     <div class="shead">
       <h2>Uso diario de Alimentia</h2>
       <span class="note">Diligenciamiento por empresa · <span id="alPeriodo">—</span></span>
@@ -657,7 +669,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
   </section>
 
   <!-- ============ 7 · PRECIO Y CATÁLOGO ============ -->
-  <section data-solo="gerencia">
+  <section id="sec-cursos" data-solo="gerencia">
     <div class="shead">
       <h2>Precio y catálogo de cursos</h2>
       <span class="note" id="curEnc">—</span>
@@ -671,7 +683,7 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
   </section>
 
   <!-- ============ 8 · CALIDAD DEL DATO ============ -->
-  <section>
+  <section id="sec-calidad">
     <div class="shead">
       <h2>Calidad del dato</h2>
       <span class="note" id="calEnc">—</span>
@@ -1492,6 +1504,48 @@ function renderSerie(){
 }
 
 /* ------------------------------------------------------- alertas */
+/* Cada alerta ya venía con el nombre de la sección que tiene su detalle, y la
+   pantalla tiraba ese dato a la basura: la Dirección leía «45 certificaciones
+   sin facturar» y se quedaba sin saber de quiénes, porque no había por dónde
+   bajar. El dato estaba; faltaba el puente. */
+const ANCLAS = {
+  salud:'sec-salud', volumen:'sec-volumen', vencimientos:'sec-vencimientos',
+  empresas:'sec-empresas', tramites:'sec-tramites', alimentia:'sec-alimentia',
+  cursos:'sec-cursos', calidad:'sec-calidad', cobrar:'secCobrar', cruce:'secCruce',
+};
+/* El enlace dice qué va a encontrar, no «ver más»: desde una alerta de cartera
+   lo que hay abajo son nombres de quien debe, y conviene anunciarlo. */
+const QUE_HAY_ABAJO = {
+  cobrar:'Ver quién debe', cruce:'Ver las empresas', empresas:'Ver las empresas',
+  vencimientos:'Ver los vencimientos', tramites:'Ver la carga de cada uno',
+  alimentia:'Ver las empresas', cursos:'Ver los cursos', calidad:'Ver el detalle',
+  volumen:'Ver el volumen del mes', salud:'Ver el índice',
+};
+
+/** La sección de una alerta, solo si está en la página y visible para el rol. */
+function seccionDe(clave){
+  const s = document.getElementById(ANCLAS[clave] || '');
+  return s && !s.hidden ? s : null;
+}
+
+/* No se llama irA: ese nombre ya era del selector de mes, más abajo, y al
+   declararse después ganaba. El enlace de una alerta acababa pidiéndole a la
+   plataforma el periodo «cobrar». Lo cazó la prueba de nombres repetidos. */
+function verSeccion(clave){
+  const s = seccionDe(clave);
+  if(!s) return;
+  /* Si el detalle está plegado se despliega: aterrizar sobre un botón que hay
+     que volver a encontrar es la mitad del problema que esto viene a resolver.
+     El texto del botón es el estado: «Ver…» cerrado, «Ocultar…» abierto. */
+  s.querySelectorAll('button.ghost').forEach(b=>{
+    if(/^Ver\b/.test((b.textContent||'').trim())) b.click();
+  });
+  s.scrollIntoView({behavior:'smooth', block:'start'});
+  s.classList.remove('resaltada');
+  void s.offsetWidth;
+  s.classList.add('resaltada');
+  setTimeout(()=>s.classList.remove('resaltada'), 2000);
+}
 /**
  * Lo que el tablero habria tenido que salir a decirle a alguien. Cada alerta
  * trae una accion: una alerta sin que hacer es ruido con formato.
@@ -1514,6 +1568,10 @@ function renderAlertas(){
           `<div><div class="al-t">${esc(a.titulo)}</div>`+
           (a.detalle?`<div class="al-d">${esc(a.detalle)}</div>`:'')+
           (a.accion?`<div class="al-a"><b>Qué hacer:</b> ${esc(a.accion)}</div>`:'')+
+          (seccionDe(a.seccion)
+            ? `<div class="al-ir"><button type="button" onclick="verSeccion('${esc(a.seccion)}')">`+
+              `${esc(QUE_HAY_ABAJO[a.seccion]||'Ver el detalle')} &rarr;</button></div>`
+            : '')+
           `</div></div>`;
       }).join('')
     : '<div class="al-vacio">Ningún umbral superado en este corte.</div>';
@@ -2129,8 +2187,11 @@ function pintar(opts){
   construirSelector();
 
   renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy();
-  renderAlertas(); renderEmp(); renderCursos(); renderCalidad(); renderSerie(); renderRecompra();
+  renderEmp(); renderCursos(); renderCalidad(); renderSerie(); renderRecompra();
   renderTramites(); renderAlimentia(); renderCobrar(); renderCruce();
+  /* Al final a propósito: cada alerta enlaza a su sección y para saber si esa
+     sección existe y es visible para este rol hay que haberla pintado ya. */
+  renderAlertas();
 
   $('cargando').hidden=true;
   $('contenido').hidden=false;
