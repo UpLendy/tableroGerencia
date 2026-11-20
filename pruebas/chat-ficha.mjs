@@ -65,6 +65,43 @@ cierto(/## Lista COMPLETA de las/.test(fichaGerencia), 'la ficha anuncia la list
 }
 cierto(/sin una sola certificación en/.test(fichaGerencia),
   'la ficha trae la lista de empresas sin movimiento en el último mes');
+
+console.log('\n-- un cliente nuevo no es una empresa perdida --');
+{
+  /* El fallo: de las 21 empresas con cero en octubre, diez habian empezado
+     en noviembre. Preguntado por «las que no se movieron en octubre», el
+     modelo las daba por perdidas. */
+  const ids = [...new Set(completo.empresas.flatMap((e) => Object.keys(e.meses || {})))].sort();
+  const n = (e, m) => Number((e.meses || {})[m] || 0);
+  const mesUlt = ids[ids.length - 1];
+  const nuevas = completo.empresas.filter((e) => ids.slice(0, -1).every((m) => n(e, m) === 0) && n(e, mesUlt) > 0);
+  const paradas = completo.empresas.filter((e) => n(e, mesUlt) === 0 && ids.some((m) => n(e, m) > 0));
+
+  cierto(nuevas.length > 0, `hay ${nuevas.length} empresas que empezaron en ${mesUlt}`);
+  cierto(nuevas.every((e) => fichaGerencia.includes(`${e.nombre}`)), 'todas aparecen');
+  cierto(nuevas.every((e) => {
+    const l = fichaGerencia.split('\n').find((x) => x.startsWith('- ' + e.nombre + ' '));
+    return l && /no aparece antes de/.test(l);
+  }), 'y su renglón dice que antes no aparecían, sin llamarlas clientes nuevos');
+  cierto(paradas.every((e) => {
+    const l = fichaGerencia.split('\n').find((x) => x.startsWith('- ' + e.nombre + ' '));
+    return l && /sin certificar desde/.test(l);
+  }), 'y el de las que sí dejaron de certificar dice desde cuándo');
+  cierto(/## Empresas que aparecen por primera vez dentro de la ventana/.test(fichaGerencia),
+    'además va la lista hecha, para no tener que deducirla de la tabla');
+  cierto(/Nunca presentes como empresa perdida a una que todavía no había aparecido/.test(fichaGerencia),
+    'y la instrucción explícita de no confundirlas');
+  cierto(/no prueba que sea un cliente nuevo/.test(fichaGerencia),
+    'y la advertencia de que la ventana de tres meses no basta para llamarla cliente nuevo');
+
+  /* Una empresa que estuvo desde el principio y sigue activa no lleva marca:
+     etiquetarlo todo es lo mismo que no etiquetar nada. */
+  const siempre = completo.empresas.filter((e) => n(e, ids[0]) > 0 && n(e, mesUlt) > 0);
+  cierto(siempre.length > 0 && siempre.every((e) => {
+    const l = fichaGerencia.split('\n').find((x) => x.startsWith('- ' + e.nombre + ' '));
+    return l && !/no aparece antes de|sin certificar desde/.test(l);
+  }), 'las que llevan activas toda la ventana no llevan ninguna marca');
+}
 cierto(/mes parcial/.test(fichaGerencia),
   'y advierte que el cero del mes en curso no es todavía un abandono');
 

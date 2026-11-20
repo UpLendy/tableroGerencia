@@ -284,13 +284,57 @@ export function fichaDelCorte(c) {
         `aquí y tienes que nombrarlas. Si son muchas, nombra las de más peso y di cuántas ` +
         `son en total; nunca contestes que no sabes cuáles son.`,
     );
+    /* Un cero no dice por que es cero. De las 21 empresas con cero en
+       octubre, diez no es que dejaran de certificar: es que empezaron en
+       noviembre y en octubre todavia no eran clientes. Preguntado por «las
+       que no se movieron», el modelo las metia en la misma lista, que es
+       una respuesta gravemente equivocada dicha con total soltura. El dato
+       estaba —son las tres columnas— pero inferirlo no es cosa suya: va
+       escrito al lado de cada una. */
+    const primero = (e) => ids.find((m) => cuantas(e, m) > 0) || null;
+    const ultimo = (e) => [...ids].reverse().find((m) => cuantas(e, m) > 0) || null;
+    const marca = (e) => {
+      const t = [];
+      const pri = primero(e), ult = ultimo(e);
+      /* «Cliente nuevo» seria pasarse: la ventana son tres meses, y una
+         empresa que certifico en 2025 y volvio ahora apareceria como nueva
+         sin serlo. Se dice lo que se sabe —que antes de ese mes no aparece
+         en estos datos— y se deja claro hasta donde llega la vista. */
+      if (pri && pri !== ids[0]) t.push(`no aparece antes de ${pri} en esta ventana`);
+      if (ult && ult !== mesUlt) t.push(`sin certificar desde ${ult}`);
+      if (!pri) t.push('sin una sola certificación en toda la ventana');
+      return t.length ? ` [${t.join(' · ')}]` : '';
+    };
+
     ordenadas.forEach((e) =>
       L.push(
         `- ${e.nombre}${e.nit ? ` (NIT ${e.nit})` : ' (sin NIT en la plataforma)'}` +
           `${e.unificada ? ' [códigos unificados]' : ''}: ` +
-          ids.map((m) => `${m}=${nf(cuantas(e, m))}`).join(', '),
+          ids.map((m) => `${m}=${nf(cuantas(e, m))}`).join(', ') + marca(e),
       ),
     );
+
+    /* Y la lista hecha, para que no tenga que armarla leyendo la tabla. */
+    const nuevas = ordenadas.filter((e) => { const pri = primero(e); return pri && pri !== ids[0]; });
+    if (nuevas.length) {
+      L.push(
+        `\n## Empresas que aparecen por primera vez dentro de la ventana: ${nf(nuevas.length)}\n` +
+          `Su primer mes con certificaciones aquí no es el primero de la ventana. En los meses ` +
+          `anteriores su cero NO significa que dejaran de certificar: significa que en estos datos ` +
+          `todavía no aparecían. Es la distinción que hay que hacer siempre que te pregunten por las ` +
+          `empresas «que no se movieron» en un mes: separa las que dejaron de certificar de las que ` +
+          `aún no aparecían, y dilo. Nunca presentes como empresa perdida a una que todavía no había ` +
+          `aparecido.\n` +
+          `OJO con la otra mitad: la ventana solo cubre ${ids.join(', ')}. Que una empresa aparezca ` +
+          `por primera vez en ${ids[1] || ids[0]} no prueba que sea un cliente nuevo; puede llevar años ` +
+          `certificando y haber pasado estos meses sin hacerlo. Si te preguntan si es cliente nuevo, ` +
+          `di que con esta ventana no se puede afirmar, y que la serie mensual del tablero es lo que ` +
+          `habría que mirar.`,
+      );
+      nuevas.forEach((e) =>
+        L.push(`- ${e.nombre}: su primer mes aquí es ${primero(e)}, con ${nf(cuantas(e, primero(e)))}`),
+      );
+    }
 
     /* Preguntado por las empresas que no se movieron, el modelo no solo no
        tenia la lista: tampoco tenia por que saber que un cero en el mes en
