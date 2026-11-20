@@ -83,6 +83,29 @@ if (c.total < 0) fallos.push('la cartera da negativa');
 if (c.mayores.some((m) => m.saldo <= 0)) fallos.push('hay un tercero con saldo cero o negativo en la lista');
 if (c.terceros > 0 && !c.total) fallos.push('hay terceros con saldo pero el total es cero');
 
+/* El detalle por tercero dejó de ser informativo el día que la pantalla
+   empezó a pintar las listas por tramo: ahora es lo que la Gerencia lee para
+   decidir a quién llama. Si no suma lo mismo que las barras de arriba, las
+   dos cifras se contradicen en la misma tarjeta y gana la que esté más
+   cerca del ojo. Que no se publique. */
+const cent = (x) => Math.round(Number(x) || 0);
+if (c.detalle) {
+  if (c.detalle.length !== c.terceros) {
+    fallos.push(`hay ${c.terceros} terceros con saldo pero el detalle trae ${c.detalle.length}`);
+  }
+  const sumaDetalle = c.detalle.reduce((a, d) => a + (Number(d.saldo) || 0), 0);
+  if (cent(sumaDetalle) !== cent(c.total)) {
+    fallos.push(`el total dice ${c.total} y el detalle por tercero suma ${sumaDetalle}`);
+  }
+  for (const [k, v] of Object.entries(c.por_antiguedad)) {
+    const suma = c.detalle.reduce((a, d) => a + (Number((d.por_antiguedad || {})[k]) || 0), 0);
+    if (cent(suma) !== cent(v)) {
+      fallos.push(`el tramo «${k}» dice ${v} y los terceros de ese tramo suman ${suma}`);
+    }
+  }
+  if (c.detalle.some((d) => !d.nit)) fallos.push('hay un tercero sin NIT en el detalle');
+}
+
 if (fallos.length) {
   console.error('\n✗ La cartera no cuadra consigo misma. No se publica:\n');
   for (const f of fallos) console.error('   ' + f);

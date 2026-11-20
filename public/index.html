@@ -287,8 +287,14 @@ th{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercas
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 tbody tr:hover{background:var(--card2)}
 .tw{max-height:360px;overflow:auto}
+/* Una cifra y su contexto en la misma celda: cuatro columnas no caben en un
+   telefono y la ultima se salia de la pantalla. Tres columnas si caben. */
+.sub{display:block;font-size:10.5px;font-weight:400;color:var(--ink3);margin-top:1px}
 /* Una tabla angosta no se puede comprimir más: se desliza dentro de su tarjeta. */
 .chartcard table{min-width:340px}
+/* La de cuentas por cobrar es la excepción: bajó a tres columnas justamente
+   para caber en un teléfono, y el mínimo de 340 px la volvía a sacar. */
+#tablaCob table{min-width:0}
 #trEtapas,#alTabla,#curTabla{overflow-x:auto;-webkit-overflow-scrolling:touch}
 [hidden]{display:none!important}
 
@@ -568,8 +574,14 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
         <div class="ct">Cuánto lleva esperando cada peso</div>
         <div class="cs" id="cobCs"></div>
         <div class="bars" id="cobBars"></div>
-        <button class="ghost" style="margin-top:14px" onclick="verTablaCob(this)">Ver los mayores deudores</button>
-        <div class="tw" id="tablaCob" hidden style="margin-top:14px"></div>
+        <button class="ghost" style="margin-top:14px" onclick="verTablaCob(this)">Ver quién debe</button>
+        <!-- El filtro va fuera de .tw a proposito: .tw hace scroll con sus
+             360 px de alto y si los botones fueran dentro se irian con el. -->
+        <div id="cajaCob" hidden style="margin-top:14px">
+          <div class="seg" id="cobFiltro" style="margin-bottom:10px"></div>
+          <div class="cs" id="cobFiltroNota" style="margin-bottom:10px"></div>
+          <div class="tw" id="tablaCob"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -1105,17 +1117,31 @@ function renderCobrar(){
                 'sin fecha':'Sin fecha en la factura'};
   const tramos = orden.filter(k => Number(ant[k]) > 0);
   const tope = Math.max(...tramos.map(k => Number(ant[k])), 1);
-  /* Quien mas debe entre los que tienen factura vencida. El saldo es el TOTAL
-     de ese cliente, no solo la parte vencida: el desglose por tramo lo tengo
-     de toda la cartera, no por tercero, y no se inventa. La frase lo dice. */
-  const moroso = (c.mayores || []).filter(m => hayNum(m.mas_vieja_dias) && m.mas_vieja_dias > 90)
-    .reduce((a,m) => (!a || m.saldo > a.saldo) ? m : a, null);
+  /* Quien mas debe de lo vencido. Esto decia el saldo TOTAL del cliente
+     porque el desglose por tramo solo existia para la cartera entera; desde
+     que el corte publica cartera.detalle existe por tercero, asi que ahora
+     se dice la parte vencida, que es la cifra por la que se pregunta. Si el
+     corte es viejo y no trae detalle, se vuelve a lo de antes y la frase lo
+     dice: no se afirma una parte vencida que no se tiene. */
+  const universo = (c.detalle && c.detalle.length) ? c.detalle : (c.mayores || []);
+  const vencidoDe = m => Number((m.por_antiguedad || {})['mas de 90']) || 0;
+  const hayDetalle = universo.some(m => m.por_antiguedad);
+  const moroso = hayDetalle
+    ? universo.filter(m => vencidoDe(m) > 0)
+        .reduce((a,m) => (!a || vencidoDe(m) > vencidoDe(a)) ? m : a, null)
+    : universo.filter(m => hayNum(m.mas_vieja_dias) && m.mas_vieja_dias > 90)
+        .reduce((a,m) => (!a || m.saldo > a.saldo) ? m : a, null);
   $('cobCs').textContent = 'Cada peso en el tramo de los días que lleva su factura sin pagarse.';
   $('cobBars').innerHTML = tramos.map((k,i) => {
     const v = Number(ant[k]);
     const pie = k === 'mas de 90' && moroso
-      ? 'Quien más debe de los vencidos: ' + esc(corto(quien(moroso))) + ', ' +
-        esc(cop(moroso.saldo)) + ' en total y hasta ' + nf(moroso.mas_vieja_dias) + ' días de atraso.'
+      ? 'Quien más debe de lo vencido: ' + esc(corto(quien(moroso))) + ', ' +
+        (!hayDetalle
+          ? esc(cop(moroso.saldo)) + ' en total'
+          : vencidoDe(moroso) === Number(moroso.saldo)
+            ? esc(cop(moroso.saldo)) + ', todo vencido'
+            : esc(cop(vencidoDe(moroso))) + ' de los ' + esc(cop(moroso.saldo)) + ' que debe') +
+        ', hasta ' + nf(moroso.mas_vieja_dias) + ' días de atraso.'
       : (c.total ? pc(v / c.total * 100, 0) + ' del total' : '');
     return `<div class="bar">
       <div class="bt"><span>${esc(etiq[k] || k)}</span><b>${esc(cop(v))}</b></div>
@@ -1124,26 +1150,106 @@ function renderCobrar(){
     </div>`;
   }).join('');
 
-  $('tablaCob').innerHTML = `<table><thead><tr>
-      <th>Cliente</th><th class="n">Debe</th><th class="n">Facturas</th>
-      <th class="n">La más vieja</th></tr></thead><tbody>` +
-    (c.mayores || []).map(m => {
+  pintarTablaCob();
+}
+
+/* ------------------------------------------- cartera: lista por tramo */
+/* BPM pidió por escrito dos listas: lo que lleva más de 90 días y lo que
+   está por pasar de 60. La pantalla mostraba quince deudores de noventa y
+   cinco, de modo que ninguna de las dos se podía leer aquí. Ahora el corte
+   publica cartera.detalle con el desglose por tercero, así que la parte
+   vencida de cada cliente se puede decir sin inventarla. */
+const TRAMOS_COB = [
+  { k:'mas de 90', t:'Más de 90 días',
+    nota:'Lleva más de tres meses sin cobrarse. Aquí la decisión es qué se gestiona y qué se da por perdido.' },
+  { k:'61 a 90', t:'De 61 a 90 días',
+    nota:'A un mes de entrar en lo vencido.' },
+  { k:'31 a 60', t:'De 31 a 60 días',
+    nota:'Están por pasar de 60. Es el tramo donde una llamada todavía cambia el resultado.' },
+  { k:'hasta 30', t:'Hasta 30 días',
+    nota:'Dentro del plazo normal.' },
+  { k:'sin fecha', t:'Sin fecha',
+    nota:'Su factura no trae fecha en Siigo, así que no se les puede medir la edad.' },
+];
+let TRAMO_COB = null;   /* null = todos */
+
+/** Cambia el tramo que se está mirando. La llama el filtro desde el HTML. */
+function filtrarCob(k){
+  TRAMO_COB = k || null;
+  pintarTablaCob();
+}
+
+function pintarTablaCob(){
+  const c = CORTE.cartera || {};
+  /* detalle es la lista entera; mayores son quince. Un corte publicado antes
+     de que se empezara a guardar el detalle solo trae los quince, y entonces
+     se muestra eso y se calla el filtro en vez de fingir que hay más. */
+  const todos = (c.detalle && c.detalle.length) ? c.detalle : (c.mayores || []);
+  const conTramo = todos.some(d => d.por_antiguedad);
+  const enTramo = (d,k) => Number((d.por_antiguedad||{})[k]) || 0;
+
+  const quien = m => (!m.nombre || /^no aplica$/i.test(m.nombre.trim()))
+    ? 'NIT ' + m.nit : m.nombre;
+
+  /* Solo se ofrecen los tramos en los que hay alguien: un botón que lleva a
+     una tabla vacía es una promesa rota. */
+  const hay = conTramo ? TRAMOS_COB.filter(t => todos.some(d => enTramo(d,t.k) > 0)) : [];
+  $('cobFiltro').hidden = !hay.length;
+  $('cobFiltro').innerHTML = !hay.length ? '' :
+    [`<button type="button" aria-pressed="${TRAMO_COB===null}" onclick="filtrarCob('')">`+
+     `Todos <span class="pz">${nf(todos.length)}</span></button>`]
+    .concat(hay.map(t => {
+      const n = todos.filter(d => enTramo(d,t.k) > 0).length;
+      return `<button type="button" aria-pressed="${TRAMO_COB===t.k}" onclick="filtrarCob('${esc(t.k)}')">`+
+             `${esc(t.t)} <span class="pz">${nf(n)}</span></button>`;
+    })).join('');
+
+  const def = TRAMOS_COB.find(t => t.k === TRAMO_COB) || null;
+  const filas = (def ? todos.filter(d => enTramo(d,def.k) > 0) : todos.slice())
+    .sort((a,b) => def ? enTramo(b,def.k) - enTramo(a,def.k) : b.saldo - a.saldo);
+  const suma = filas.reduce((s,d) => s + (def ? enTramo(d,def.k) : Number(d.saldo)||0), 0);
+
+  $('cobFiltroNota').innerHTML =
+    `<b>${nf(filas.length)} cliente${filas.length===1?'':'s'} · ${esc(cop(suma))}</b>` +
+    (def ? ' en este tramo. ' + esc(def.nota)
+         : (conTramo ? ' por cobrar en total. Toca un tramo para ver quiénes lo componen.'
+                     : ' por cobrar. Este corte no guardó el desglose por cliente; se muestran los mayores.'));
+
+  /* Tres columnas, no cuatro: en un telefono la cuarta se sale de la pantalla
+     y lo que se pierde es justo los dias de atraso, que es por lo que se mira
+     esta tabla. Lo que era columna propia baja a segunda linea de su celda. */
+  const cab = `<th>Cliente</th><th class="n">${def ? 'En este tramo' : 'Debe'}</th>`+
+              `<th class="n">La más vieja</th>`;
+
+  $('tablaCob').innerHTML = `<table><thead><tr>${cab}</tr></thead><tbody>` +
+    filas.map(m => {
       const d = m.mas_vieja_dias;
       const cl = hayNum(d) && d > 90 ? ' style="color:var(--bad);font-weight:600"' : '';
+      /* Bajo la cifra, lo que antes era otra columna. Dentro de un tramo solo
+         se escribe cuando el cliente ademas debe en otros: si lo del tramo es
+         todo lo que debe, la linea no diria nada y en una lista de cuarenta y
+         siete filas esa nada se repite cuarenta y siete veces. Las pocas que
+         la llevan son justo las interesantes. */
+      const sub = def
+        ? (enTramo(m,def.k) === Number(m.saldo) ? '' : 'de ' + cop(m.saldo) + ' que debe')
+        : nf(m.facturas) + ' factura' + (m.facturas === 1 ? '' : 's');
+      const medio = `<td class="n">${esc(cop(def ? enTramo(m,def.k) : m.saldo))}`+
+                    (sub ? `<span class="sub">${esc(sub)}</span>` : '') + `</td>`;
       return `<tr>
-        <td title="NIT ${esc(m.nit)}">${esc(corto(quien(m)))}</td>
-        <td class="n">${esc(cop(m.saldo))}</td>
-        <td class="n">${nf(m.facturas)}</td>
+        <td title="NIT ${esc(m.nit)}">${esc(cortar(quien(m)))}</td>
+        ${medio}
         <td class="n"${cl}>${hayNum(d) ? nf(d) + ' días' : emdash}</td>
       </tr>`;
     }).join('') + '</tbody></table>';
 }
 
+
 function verTablaCob(b){
-  const t = $('tablaCob');
+  const t = $('cajaCob');
   t.hidden = !t.hidden;
-  const n = ((CORTE.cartera || {}).mayores || []).length;
-  b.textContent = t.hidden ? 'Ver los ' + n + ' mayores deudores' : 'Ocultar la tabla';
+  const c = CORTE.cartera || {};
+  const n = ((c.detalle && c.detalle.length) ? c.detalle : (c.mayores || [])).length;
+  b.textContent = t.hidden ? 'Ver los ' + n + ' clientes que deben' : 'Ocultar la lista';
 }
 
 /* ------------------------------------------------------ kpi */
