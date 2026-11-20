@@ -716,7 +716,7 @@
       "tarifa": [
         14500
       ],
-      "saldo": 87000,
+      "saldo": 0,
       "estado": "difiere",
       "sin_facturar": 0,
       "valor_sin_facturar": 0,
@@ -1128,15 +1128,6 @@
       }
     },
     {
-      "codigo": "7d089c",
-      "nombre": "MERCADOS  UNO A",
-      "certificados": 2,
-      "dni": "793998765",
-      "estado": "nit_no_resuelto",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
       "codigo": "e14b95",
       "nombre": "COLOMBIA HELADOS SAS",
       "certificados": 2,
@@ -1164,6 +1155,15 @@
         "2026-10": 2,
         "2026-11": 0
       }
+    },
+    {
+      "codigo": "7d089c",
+      "nombre": "MERCADOS  UNO A",
+      "certificados": 2,
+      "dni": "793998765",
+      "estado": "nit_no_resuelto",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
     },
     {
       "codigo": "2e62ce",
@@ -1375,17 +1375,6 @@
       }
     },
     {
-      "codigo": "4w32sa",
-      "nombre": "Waytic S.A.S",
-      "certificados": 1,
-      "nit": "1053827666",
-      "nombre_siigo": "ANDRES FERNANDO SALAZAR MARIN",
-      "unidades": 0,
-      "estado": "sin_factura_en_el_periodo",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0
-    },
-    {
       "codigo": "af42d4",
       "nombre": "INVERSIONES PAYSANDU  S.A.S",
       "certificados": 1,
@@ -1476,11 +1465,18 @@
       }
     },
     {
+      "codigo": "4w32sa",
+      "nombre": "Waytic S.A.S",
+      "certificados": 1,
+      "estado": "sin_nit",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0
+    },
+    {
       "codigo": "c777a6",
       "nombre": "Super Admini Andrés",
       "certificados": 1,
-      "dni": "102369789661066",
-      "estado": "nit_no_resuelto",
+      "estado": "sin_nit",
       "sin_facturar": 0,
       "valor_sin_facturar": 0
     }
@@ -1685,20 +1681,8 @@
       "valor": 100000
     },
     {
-      "nit": "901938278",
-      "nombre": "GRUPO GASTRONOMICO DGM S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "65795368",
-      "nombre": "DIANA RAMIREZ CASTRO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1053827372",
-      "nombre": "JUAN ALEJANDRO GONZALEZ CASTAÑO",
+      "nit": "900631190",
+      "nombre": "ALIMENTOS Y BEBIDAS ALYCA S.A.S",
       "unidades": 1,
       "valor": 100000
     },
@@ -1709,38 +1693,26 @@
       "valor": 100000
     },
     {
+      "nit": "1053817691",
+      "nombre": "MARIA PAULINA ARANGO BOTERO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
       "nit": "1053853162",
       "nombre": "TATIANA QUIRAMA GIRALDO",
       "unidades": 1,
       "valor": 100000
     },
     {
-      "nit": "900631190",
-      "nombre": "ALIMENTOS Y BEBIDAS ALYCA S.A.S",
+      "nit": "1053827372",
+      "nombre": "JUAN ALEJANDRO GONZALEZ CASTAÑO",
       "unidades": 1,
       "valor": 100000
     },
     {
-      "nit": "25109229",
-      "nombre": "MARIA MELIDA TABORDA MURILLO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1076668475",
-      "nombre": "NICOLAS ANGULO AGUILAR",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "902059437",
-      "nombre": "ROCKET LAB S.A.S.",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1053817691",
-      "nombre": "MARIA PAULINA ARANGO BOTERO",
+      "nit": "901938278",
+      "nombre": "GRUPO GASTRONOMICO DGM S.A.S",
       "unidades": 1,
       "valor": 100000
     },
@@ -1751,8 +1723,32 @@
       "valor": 100000
     },
     {
+      "nit": "902059437",
+      "nombre": "ROCKET LAB S.A.S.",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "25109229",
+      "nombre": "MARIA MELIDA TABORDA MURILLO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
       "nit": "901849901",
       "nombre": "HOGAR CORAZÓN CUERPO Y MENTE ACTIVA S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1076668475",
+      "nombre": "NICOLAS ANGULO AGUILAR",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "65795368",
+      "nombre": "DIANA RAMIREZ CASTRO",
       "unidades": 1,
       "valor": 100000
     },
@@ -1817,14 +1813,14 @@
       "valor": 30000
     },
     {
-      "nit": "901517118",
-      "nombre": "PHF SAS",
+      "nit": "901455816",
+      "nombre": "M&S VITAMINS SAS",
       "unidades": 1,
       "valor": 20000
     },
     {
-      "nit": "901455816",
-      "nombre": "M&S VITAMINS SAS",
+      "nit": "901517118",
+      "nombre": "PHF SAS",
       "unidades": 1,
       "valor": 20000
     },
@@ -1859,9 +1855,9 @@
     "difieren": 20,
     "no_comparables": 0,
     "certifican_sin_facturar": 0,
-    "sin_factura_en_el_periodo": 3,
-    "sin_nit": 2,
-    "nit_no_resuelto": 3,
+    "sin_factura_en_el_periodo": 2,
+    "sin_nit": 4,
+    "nit_no_resuelto": 2,
     "via_consumidor_final": 2,
     "solo_en_siigo": 60,
     "posible_desfase": 5,
@@ -1879,6 +1875,16 @@
         "codigo": "5a73a4",
         "nombre": "Bioservicios S.A.S",
         "certificados": 3
+      },
+      {
+        "codigo": "4w32sa",
+        "nombre": "Waytic S.A.S",
+        "certificados": 1
+      },
+      {
+        "codigo": "c777a6",
+        "nombre": "Super Admini Andrés",
+        "certificados": 1
       }
     ],
     "nit_no_resuelto": [
@@ -1893,12 +1899,6 @@
         "nombre": "MERCADOS  UNO A",
         "certificados": 2,
         "dni": "793998765"
-      },
-      {
-        "codigo": "c777a6",
-        "nombre": "Super Admini Andrés",
-        "certificados": 1,
-        "dni": "102369789661066"
       }
     ]
   },
@@ -1915,7 +1915,7 @@
   "periodo_siguiente": "2026-11",
   "facturas_del_siguiente": 106,
   "periodo": "2026-10",
-  "generado_en": "2026-11-20T15:46:00.547Z",
+  "generado_en": "2026-11-20T19:08:41.341Z",
   "facturas_del_periodo": 225,
   "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
   "nota_periodo": "Se cruza el último mes cerrado, no el mes en curso: la facturación va detrás de la certificación y un mes a medias daría un descuadre falso.",
@@ -2070,42 +2070,6 @@
           },
           "2026-10": {
             "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          }
-        },
-        "meses_sin_facturar": 6
-      },
-      {
-        "codigo": "4w32sa",
-        "nombre": "Waytic S.A.S",
-        "nit": "1053827666",
-        "nit_siigo": "1053827666",
-        "certificado": 1,
-        "facturado": 0,
-        "saldo": 1,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-06": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-07": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-08": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-09": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-10": {
-            "certificado": 1,
             "facturado_al_mes_siguiente": 0
           }
         },
@@ -2980,7 +2944,7 @@
       },
       {
         "codigo": "044787",
-        "nombre": "COMPAÑIA LECHERA DE EL MORTIÑO  S.A.S",
+        "nombre": "Grupo Sanilab",
         "nit": "8320084649",
         "nit_siigo": "901216537",
         "certificado": 148,
@@ -4171,6 +4135,42 @@
         "meses_sin_facturar": null
       },
       {
+        "codigo": "ea6e74",
+        "nombre": "C.I. INTEGRAL DE SERVICIOS S.A.S B.I.C.",
+        "nit": "9002330266",
+        "nit_siigo": "900233026",
+        "certificado": 0,
+        "facturado": 4,
+        "saldo": -4,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-09": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-10": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 4
+          }
+        },
+        "meses_sin_facturar": null
+      },
+      {
         "codigo": "3b0e79",
         "nombre": "EL GURU NUTRICIONAL SAS",
         "nit": "901806035",
@@ -4291,9 +4291,14 @@
           "nit_en_plataforma": null
         },
         {
+          "codigo": "4w32sa",
+          "nombre": "Waytic S.A.S",
+          "nit_en_plataforma": null
+        },
+        {
           "codigo": "c777a6",
           "nombre": "Super Admini Andrés",
-          "nit_en_plataforma": "102369789661066"
+          "nit_en_plataforma": null
         }
       ],
       "en_grupo": [
@@ -4309,15 +4314,23 @@
         }
       ]
     },
+    "concentracion": {
+      "umbral_menudo": 5,
+      "mayores": 5,
+      "saldo_mayores": 858,
+      "pct_mayores": 77,
+      "menudas": 16,
+      "saldo_menudas": 44
+    },
     "resumen": {
       "empresas": 64,
-      "con_saldo": 35,
+      "con_saldo": 34,
       "fuera_via_consumidor_final": 2,
-      "fuera_sin_nit": 8,
+      "fuera_sin_nit": 9,
       "agrupadas": 2,
-      "certificado": 5126,
-      "facturado": 4429,
-      "saldo": 1116
+      "certificado": 5125,
+      "facturado": 4433,
+      "saldo": 1115
     }
   }
 }

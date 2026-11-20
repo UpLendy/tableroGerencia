@@ -1,11 +1,11 @@
 {
   "regla": "conciliacion-v1",
   "corte": "2026-11-20",
-  "total": 78374634.87,
-  "terceros": 95,
+  "total": 78197634.87,
+  "terceros": 93,
   "por_antiguedad": {
-    "hasta 30": 40612745.54,
-    "31 a 60": 7848709.77,
+    "hasta 30": 40525745.54,
+    "31 a 60": 7758709.77,
     "61 a 90": 1229760,
     "mas de 90": 28683419.56,
     "sin fecha": 0
@@ -432,11 +432,11 @@
       }
     },
     {
-      "nit": "890800975",
-      "nombre": "FUNDACION OBRAS SOCIALES BETANIA",
+      "nit": "901898087",
+      "nombre": "PRODUCIMOS EMOCIONES E INDULGENCIAS SAS",
       "saldo": 238000,
       "facturas": 1,
-      "mas_vieja_dias": 1,
+      "mas_vieja_dias": 14,
       "por_antiguedad": {
         "hasta 30": 238000,
         "31 a 60": 0,
@@ -446,11 +446,11 @@
       }
     },
     {
-      "nit": "901898087",
-      "nombre": "PRODUCIMOS EMOCIONES E INDULGENCIAS SAS",
+      "nit": "890800975",
+      "nombre": "FUNDACION OBRAS SOCIALES BETANIA",
       "saldo": 238000,
       "facturas": 1,
-      "mas_vieja_dias": 14,
+      "mas_vieja_dias": 1,
       "por_antiguedad": {
         "hasta 30": 238000,
         "31 a 60": 0,
@@ -628,11 +628,11 @@
       }
     },
     {
-      "nit": "901749078",
-      "nombre": "SUPER POLLO AL CARBON MALL PLAZA S.A.S",
+      "nit": "860007627",
+      "nombre": "COMPAÑIA DE JESUS",
       "saldo": 119000,
       "facturas": 1,
-      "mas_vieja_dias": 7,
+      "mas_vieja_dias": 16,
       "por_antiguedad": {
         "hasta 30": 119000,
         "31 a 60": 0,
@@ -642,11 +642,11 @@
       }
     },
     {
-      "nit": "860007627",
-      "nombre": "COMPAÑIA DE JESUS",
+      "nit": "901749078",
+      "nombre": "SUPER POLLO AL CARBON MALL PLAZA S.A.S",
       "saldo": 119000,
       "facturas": 1,
-      "mas_vieja_dias": 16,
+      "mas_vieja_dias": 7,
       "por_antiguedad": {
         "hasta 30": 119000,
         "31 a 60": 0,
@@ -782,20 +782,6 @@
       }
     },
     {
-      "nit": "900456557",
-      "nombre": "COMERCIALIZADORA MALTA SAS",
-      "saldo": 90000,
-      "facturas": 1,
-      "mas_vieja_dias": 51,
-      "por_antiguedad": {
-        "hasta 30": 0,
-        "31 a 60": 90000,
-        "61 a 90": 0,
-        "mas de 90": 0,
-        "sin fecha": 0
-      }
-    },
-    {
       "nit": "901258048",
       "nombre": "PROTEGENTE S.A.S",
       "saldo": 90000,
@@ -820,20 +806,6 @@
         "31 a 60": 0,
         "61 a 90": 0,
         "mas de 90": 90000,
-        "sin fecha": 0
-      }
-    },
-    {
-      "nit": "900445797",
-      "nombre": "PRODUEMPAK S.A.S",
-      "saldo": 87000,
-      "facturas": 1,
-      "mas_vieja_dias": 21,
-      "por_antiguedad": {
-        "hasta 30": 87000,
-        "31 a 60": 0,
-        "61 a 90": 0,
-        "mas de 90": 0,
         "sin fecha": 0
       }
     },
@@ -992,20 +964,6 @@
       }
     },
     {
-      "nit": "802010216",
-      "nombre": "SERVICIOS TEMPORALES DE COLOMBIA TEMPOCOLBA SOCIEDAD POR ACCIONES SIMPLIFICADA",
-      "saldo": 56000,
-      "facturas": 2,
-      "mas_vieja_dias": 50,
-      "por_antiguedad": {
-        "hasta 30": 28000,
-        "31 a 60": 28000,
-        "61 a 90": 0,
-        "mas de 90": 0,
-        "sin fecha": 0
-      }
-    },
-    {
       "nit": "800146077",
       "nombre": "ASEOS COLOMBIANOS ASEO COLBA SA",
       "saldo": 56000,
@@ -1016,6 +974,20 @@
         "31 a 60": 0,
         "61 a 90": 0,
         "mas de 90": 28000,
+        "sin fecha": 0
+      }
+    },
+    {
+      "nit": "802010216",
+      "nombre": "SERVICIOS TEMPORALES DE COLOMBIA TEMPOCOLBA SOCIEDAD POR ACCIONES SIMPLIFICADA",
+      "saldo": 56000,
+      "facturas": 2,
+      "mas_vieja_dias": 50,
+      "por_antiguedad": {
+        "hasta 30": 28000,
+        "31 a 60": 28000,
+        "61 a 90": 0,
+        "mas de 90": 0,
         "sin fecha": 0
       }
     },
@@ -1449,7 +1421,7 @@
       "mas_vieja_dias": 91
     }
   ],
-  "generado_en": "2026-11-20T15:46:00.517Z",
+  "generado_en": "2026-11-20T19:08:41.317Z",
   "ventana": {
     "desde": "2024-11-01",
     "hasta": "2026-11-20",
@@ -1492,7 +1464,7 @@
     },
     "2026-10": {
       "facturado": 76316367.97999999,
-      "saldo": 16289072.77,
+      "saldo": 16202072.77,
       "facturas": 225,
       "por_codigo": {
         "20001": {
@@ -1524,11 +1496,11 @@
           "valor": 6383160
         }
       },
-      "cobrado": 60027295.20999999
+      "cobrado": 60114295.20999999
     },
     "2026-09": {
       "facturado": 81175967,
-      "saldo": 3549260,
+      "saldo": 3459260,
       "facturas": 182,
       "por_codigo": {
         "20001": {
@@ -1556,7 +1528,7 @@
           "valor": 5117000
         }
       },
-      "cobrado": 77626707
+      "cobrado": 77716707
     },
     "2026-08": {
       "facturado": 84085936.5,
@@ -1669,7 +1641,7 @@
         },
         "20001": {
           "cantidad": 6517,
-          "valor": 92589932.27
+          "valor": 92589932.27000001
         },
         "20002": {
           "cantidad": 8,
@@ -2287,7 +2259,7 @@
       "cobrado": 58473903.199999996
     },
     "2024-12": {
-      "facturado": 96952197.00999999,
+      "facturado": 96952197.01,
       "saldo": 0,
       "facturas": 135,
       "por_codigo": {
@@ -2332,7 +2304,7 @@
           "valor": 170000
         }
       },
-      "cobrado": 96952197.00999999
+      "cobrado": 96952197.01
     },
     "2024-11": {
       "facturado": 55597715,
@@ -2377,6 +2349,6 @@
   },
   "nota_facturado": "Incluye todo lo que BPM factura: certificaciones, tramites INVIMA, asesorias presenciales y apto medico. No es comparable con el valor a precio de lista del tablero, que solo cuenta certificaciones.",
   "tiempos_ms": {
-    "total": 74313
+    "total": 38743
   }
 }
