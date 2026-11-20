@@ -76,10 +76,72 @@ export const ESENCIALES = new Set([
   'certificaciones', 'certificaciones_prev', 'serie', 'vencimientos', 'calidad-dato',
 ]);
 
+/* ------------------------------------------------------------- memoria
+   La plataforma admite 60 peticiones por minuto y por IP, y todas salen de
+   la misma IP de Vercel. Cada clic en el selector de mes dispara doce
+   llamadas a formación, de modo que tres meses seguidos rozan el límite y
+   el cuarto se lleva un 429 en mitad de una demostración.
+
+   Buena parte de esas doce se repiten sin necesidad. Tres no dependen del
+   mes —vencimientos, cursos, calidad-dato— y se volvían a pedir idénticas
+   en cada clic. Y al pasar de noviembre a octubre, las certificaciones de
+   octubre ya se habían traído un segundo antes como «mes anterior»: misma
+   ruta, mismos parámetros, misma respuesta.
+
+   Así que se guarda por ruta y parámetros, no por nombre: lo que decide si
+   dos llamadas son la misma es lo que se le pide al servidor, no cómo lo
+   llame el corte. Noventa segundos, que es más corto que el tiempo que se
+   tarda en mirar un mes y menos de lo que tarda la plataforma en cambiar
+   de dato.
+
+   Se guarda la PROMESA, no el resultado: lo que ahoga a la plataforma son
+   doce llamadas saliendo a la vez, y si se esperara a tener la respuesta
+   para empezar a compartirla, las simultáneas saldrían todas igual. */
+const MEMORIA = new Map();
+const MEMORIA_MS = Number(process.env.CACHE_MS || 90000);
+const MEMORIA_TOPE = 200;
+
+const llave = (base, ruta, params) => {
+  const p = Object.entries(params || {})
+    .filter(([, v]) => v !== undefined && v !== null && v !== '')
+    .sort(([a], [b]) => (a < b ? -1 : 1))
+    .map(([k, v]) => `${k}=${v}`)
+    .join('&');
+  return `${base}|${ruta}|${p}`;
+};
+
+/** Vacía la memoria. Para las pruebas y para quien quiera forzar lectura. */
+export function olvidar() { MEMORIA.clear(); }
+
+/** Qué hay guardado ahora mismo. Solo para pruebas y diagnóstico. */
+export function memoria() {
+  return { entradas: MEMORIA.size, ms: MEMORIA_MS, llaves: [...MEMORIA.keys()] };
+}
+
 /** Una llamada, con el sobre validado. Lanza con un mensaje legible. */
 const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
 
-export async function pedir({ base, token, ruta, params, timeoutMs = 90000, intentos = 2, reglaEsperada }) {
+export async function pedir({ base, token, ruta, params, timeoutMs = 90000, intentos = 2, reglaEsperada, sinMemoria = false }) {
+  const k = llave(base, ruta, params);
+  if (!sinMemoria) {
+    const v = MEMORIA.get(k);
+    if (v && Date.now() - v.t < MEMORIA_MS) return v.p;
+    if (v) MEMORIA.delete(k);
+  }
+
+  const p = pedirConReintento({ base, token, ruta, params, timeoutMs, intentos, reglaEsperada });
+
+  if (!sinMemoria) {
+    /* Una respuesta que falló no se guarda: si no, un 429 pasajero dejaría
+       esa ruta rota durante el minuto y medio siguiente. */
+    p.catch(() => { if (MEMORIA.get(k)?.p === p) MEMORIA.delete(k); });
+    if (MEMORIA.size >= MEMORIA_TOPE) MEMORIA.delete(MEMORIA.keys().next().value);
+    MEMORIA.set(k, { t: Date.now(), p });
+  }
+  return p;
+}
+
+async function pedirConReintento({ base, token, ruta, params, timeoutMs, intentos, reglaEsperada }) {
   let ultimo;
   for (let i = 0; i < intentos; i++) {
     try {

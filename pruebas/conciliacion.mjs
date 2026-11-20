@@ -511,5 +511,48 @@ console.log('\n-- el saldo acumulado --');
   iguales(r.empresas[0].facturado, 100, 'se mira la factura del mes siguiente, no la del mismo mes');
 }
 
+console.log('\n-- a igual atraso, primero el que mas pesa --');
+{
+  /* El tope de la ventana son seis meses, de modo que ahi se amontona todo
+     lo que no se ha facturado nunca. Con cinco empresas empatadas a seis, el
+     desempate decidia quien encabeza la tabla y quien sale en la tarjeta de
+     «el que mas atrasado va»: con el dato del 20 de noviembre salia Sedial
+     Group, con 4 certificaciones, y Grupo Exito, con 48, quedaba debajo. */
+  const historia = { meses: { '2026-10': { por_empresa: { chica: 1, grande: 48, media: 4 } } } };
+  const unidades = new Map();
+  const empresas = [
+    { codigo: 'chica',  nombre: 'Chica',   nit: '800000001' },
+    { codigo: 'grande', nombre: 'Grande',  nit: '800000002' },
+    { codigo: 'media',  nombre: 'Mediana', nit: '800000003' },
+  ];
+  const t = new Map([['800000001','A'],['800000002','B'],['800000003','C']]);
+  const r = saldoAcumulado({ historia, unidades, empresas, terceros: t, hasta: '2026-10', meses: 1 });
+  const deben = r.empresas.filter((e) => e.saldo > 0);
+  iguales(deben.map((e) => e.nombre), ['Grande', 'Mediana', 'Chica'],
+    'con el mismo atraso, mandan las unidades: primero la de 48, al final la de 1');
+}
+
+console.log('\n-- pero los meses siguen mandando sobre el tamano --');
+{
+  /* Ojo con el tamano de los numeros aqui: meses_sin_facturar es el saldo
+     medido en meses del volumen de ESA empresa, asi que una de 500 con la
+     mitad sin facturar lleva un mes, y una de una certificacion al mes con
+     dos sin facturar lleva dos. La grande tiene que quedar debajo. */
+  const historia = { meses: {
+    '2026-09': { por_empresa: { vieja: 1 } },
+    '2026-10': { por_empresa: { vieja: 1, nueva: 500 } },
+  } };
+  const unidades = new Map([['800000002', { '2026-11': 250 }]]);
+  const empresas = [
+    { codigo: 'vieja', nombre: 'Vieja y chica',  nit: '800000001' },
+    { codigo: 'nueva', nombre: 'Nueva y grande', nit: '800000002' },
+  ];
+  const t = new Map([['800000001','A'],['800000002','B']]);
+  const r = saldoAcumulado({ historia, unidades, empresas, terceros: t, hasta: '2026-10', meses: 2 });
+  const deben = r.empresas.filter((e) => e.saldo > 0);
+  iguales(deben[0].nombre, 'Vieja y chica',
+    'la que lleva mas meses va primero aunque deba quinientas veces menos');
+}
+
 console.log(fallos ? `\n  ${fallos} FALLO(S)\n` : '\n  todo bien\n');
 process.exit(fallos ? 1 : 0);

@@ -405,8 +405,18 @@ export function saldoAcumulado({ historia, unidades, empresas, terceros, hasta, 
   }
 
   /* Se ordena por meses, no por unidades: lo urgente no es lo mas grande,
-     es lo que lleva mas tiempo sin facturarse. */
-  filas.sort((a, b) => (b.meses_sin_facturar ?? -99) - (a.meses_sin_facturar ?? -99));
+     es lo que lleva mas tiempo sin facturarse.
+
+     Pero los meses empatan mucho, porque el tope de la ventana son seis y
+     ahi caen todos los que no se han facturado nunca. Con cinco empresas a
+     seis meses, el desempate decidia cual encabeza la tabla y cual sale en
+     la tarjeta de «el que mas atrasado va», y salia la que viniera primero:
+     Grupo Exito, con 48 certificaciones sin facturar, quedaba entre cuatro
+     de una sola. A igual atraso manda el tamano. */
+  filas.sort((a, b) =>
+    ((b.meses_sin_facturar ?? -99) - (a.meses_sin_facturar ?? -99)) ||
+    (b.saldo - a.saldo) ||
+    String(a.nombre || '').localeCompare(String(b.nombre || ''), 'es'));
   const deben = filas.filter((f) => f.saldo > 0);
   return {
     meses: conDatos,
