@@ -876,35 +876,6 @@
       }
     },
     {
-      "codigo": "692cd9",
-      "nombre": "DISTRIMARCAS AGENTE COMERCIAL SAS",
-      "certificados": 4,
-      "nit": "900420888",
-      "nombre_siigo": "DISTRIMARCAS AGENTE COMERCIAL SAS",
-      "unidades": 4,
-      "paquetes": 0,
-      "unidades_mes_siguiente": 0,
-      "certificado_mes_anterior": 8,
-      "diferencia": 0,
-      "valor_facturado": 62000,
-      "tarifa": [
-        15500
-      ],
-      "saldo": 0,
-      "estado": "cuadra",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0,
-      "facturado_por_mes": {
-        "2026-05": 15,
-        "2026-06": 6,
-        "2026-07": 4,
-        "2026-08": 11,
-        "2026-09": 7,
-        "2026-10": 4,
-        "2026-11": 0
-      }
-    },
-    {
       "codigo": "ba0a51",
       "nombre": "SANILAB IPS SAS",
       "certificados": 4,
@@ -931,6 +902,35 @@
         "2026-08": 33,
         "2026-09": 28,
         "2026-10": 27,
+        "2026-11": 0
+      }
+    },
+    {
+      "codigo": "692cd9",
+      "nombre": "DISTRIMARCAS AGENTE COMERCIAL SAS",
+      "certificados": 4,
+      "nit": "900420888",
+      "nombre_siigo": "DISTRIMARCAS AGENTE COMERCIAL SAS",
+      "unidades": 4,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 0,
+      "certificado_mes_anterior": 8,
+      "diferencia": 0,
+      "valor_facturado": 62000,
+      "tarifa": [
+        15500
+      ],
+      "saldo": 0,
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 15,
+        "2026-06": 6,
+        "2026-07": 4,
+        "2026-08": 11,
+        "2026-09": 7,
+        "2026-10": 4,
         "2026-11": 0
       }
     },
@@ -1099,35 +1099,6 @@
       }
     },
     {
-      "codigo": "63b7c5",
-      "nombre": "FLORIUS  S.A.S.",
-      "certificados": 2,
-      "nit": "9011789157",
-      "nombre_siigo": "FLORIUS S.A.S",
-      "unidades": 2,
-      "paquetes": 0,
-      "unidades_mes_siguiente": 5,
-      "certificado_mes_anterior": 0,
-      "diferencia": 0,
-      "valor_facturado": 40000,
-      "tarifa": [
-        20000
-      ],
-      "saldo": 40000,
-      "estado": "cuadra",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0,
-      "facturado_por_mes": {
-        "2026-05": 0,
-        "2026-06": 0,
-        "2026-07": 0,
-        "2026-08": 0,
-        "2026-09": 0,
-        "2026-10": 2,
-        "2026-11": 5
-      }
-    },
-    {
       "codigo": "e14b95",
       "nombre": "COLOMBIA HELADOS SAS",
       "certificados": 2,
@@ -1154,6 +1125,35 @@
         "2026-09": 3,
         "2026-10": 2,
         "2026-11": 0
+      }
+    },
+    {
+      "codigo": "63b7c5",
+      "nombre": "FLORIUS  S.A.S.",
+      "certificados": 2,
+      "nit": "9011789157",
+      "nombre_siigo": "FLORIUS S.A.S",
+      "unidades": 2,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 5,
+      "certificado_mes_anterior": 0,
+      "diferencia": 0,
+      "valor_facturado": 40000,
+      "tarifa": [
+        20000
+      ],
+      "saldo": 40000,
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 0,
+        "2026-09": 0,
+        "2026-10": 2,
+        "2026-11": 5
       }
     },
     {
@@ -1675,12 +1675,6 @@
       "valor": 100000
     },
     {
-      "nit": "1075316605",
-      "nombre": "JACOBO ARANGO TABARES",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
       "nit": "900631190",
       "nombre": "ALIMENTOS Y BEBIDAS ALYCA S.A.S",
       "unidades": 1,
@@ -1749,6 +1743,12 @@
     {
       "nit": "65795368",
       "nombre": "DIANA RAMIREZ CASTRO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1075316605",
+      "nombre": "JACOBO ARANGO TABARES",
       "unidades": 1,
       "valor": 100000
     },
@@ -1913,9 +1913,9 @@
     "2026-11"
   ],
   "periodo_siguiente": "2026-11",
-  "facturas_del_siguiente": 106,
+  "facturas_del_siguiente": 110,
   "periodo": "2026-10",
-  "generado_en": "2026-11-20T19:08:41.341Z",
+  "generado_en": "2026-11-21T18:01:00.814Z",
   "facturas_del_periodo": 225,
   "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
   "nota_periodo": "Se cruza el último mes cerrado, no el mes en curso: la facturación va detrás de la certificación y un mes a medias daría un descuadre falso.",
@@ -2977,8 +2977,8 @@
           }
         },
         "agrupa": [
-          "MERCADOS  UNO A",
-          "SANILAB IPS SAS"
+          "SANILAB IPS SAS",
+          "MERCADOS  UNO A"
         ],
         "meses_sin_facturar": 0.4
       },
