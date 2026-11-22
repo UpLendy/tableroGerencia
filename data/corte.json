@@ -1,6 +1,6 @@
 {
-  "corte": "2026-11-21",
-  "generado_en": "2026-11-21T16:56:18.480Z",
+  "corte": "2026-11-22",
+  "generado_en": "2026-11-22T17:23:25.725Z",
   "regla": "virtual-metrics-v1",
   "fuente": "virtual.bpmsas.co · capa de métricas",
   "meses": [
@@ -84,21 +84,21 @@
       "id": "2026-11",
       "lbl": "Noviembre 2026",
       "corto": "noviembre",
-      "cert": 1583,
-      "personas": 1531,
-      "ingreso": 30514000,
+      "cert": 1619,
+      "personas": 1563,
+      "ingreso": 31234000,
       "porCurso": [
         {
           "course_id": "5e0a8954872f0000f4004647",
           "nombre": "Manipulación de alimentos",
           "precio": 20000,
-          "certificados": 1154
+          "certificados": 1179
         },
         {
           "course_id": "69cafe131c643a704603cec2",
           "nombre": "Manipulación de alimentos - Arcos Dorados",
           "precio": 20000,
-          "certificados": 194
+          "certificados": 203
         },
         {
           "course_id": "6aa8407f4d530241fb09ecd2",
@@ -110,7 +110,7 @@
           "course_id": "640017b02a2ca9a7b2044c9a",
           "nombre": "Manipulación de alimentos con enfoque en bebidas alcohólicas",
           "precio": 20000,
-          "certificados": 15
+          "certificados": 17
         },
         {
           "course_id": "5f639daf5ca6f4512b166e22",
@@ -151,8 +151,8 @@
       ],
       "ingresoBPM": null,
       "canal": {
-        "emp": 1055,
-        "par": 528
+        "emp": 1075,
+        "par": 544
       },
       "activasCodigos": 54,
       "activas": 52,
@@ -171,7 +171,7 @@
       ],
       "unificada": true,
       "meses": {
-        "2026-11": 278,
+        "2026-11": 289,
         "2026-10": 353,
         "2026-09": 349
       },
@@ -195,7 +195,7 @@
       "codigo": "603a8e",
       "nombre": "ROYAL FILMS S.A.S",
       "meses": {
-        "2026-11": 86,
+        "2026-11": 89,
         "2026-10": 91,
         "2026-09": 94
       },
@@ -222,6 +222,16 @@
       "nit": "901022172"
     },
     {
+      "codigo": "2b5b45",
+      "nombre": "Cinépolis .",
+      "meses": {
+        "2026-11": 35,
+        "2026-10": 9,
+        "2026-09": 39
+      },
+      "nit": "900185315"
+    },
+    {
       "codigo": "721afa",
       "nombre": "U T ZZZ ZOE",
       "meses": {
@@ -230,16 +240,6 @@
         "2026-09": 0
       },
       "nit": "901902595"
-    },
-    {
-      "codigo": "2b5b45",
-      "nombre": "Cinépolis .",
-      "meses": {
-        "2026-11": 31,
-        "2026-10": 9,
-        "2026-09": 39
-      },
-      "nit": "900185315"
     },
     {
       "codigo": "cc43d6",
@@ -341,6 +341,16 @@
       "nit": "900589003"
     },
     {
+      "codigo": "2ca4f9",
+      "nombre": "R & A FOOD SAS BRAZZEIRO",
+      "meses": {
+        "2026-11": 10,
+        "2026-10": 2,
+        "2026-09": 0
+      },
+      "nit": "901103672"
+    },
+    {
       "codigo": "9fec23",
       "nombre": "SECURICOL SEGURIDAD PRIVADA LIMITADA",
       "meses": {
@@ -369,16 +379,6 @@
         "2026-09": 0
       },
       "nit": "9002177843"
-    },
-    {
-      "codigo": "2ca4f9",
-      "nombre": "R & A FOOD SAS BRAZZEIRO",
-      "meses": {
-        "2026-11": 9,
-        "2026-10": 2,
-        "2026-09": 0
-      },
-      "nit": "901103672"
     },
     {
       "codigo": "1689a7",
@@ -591,6 +591,16 @@
       "nit": "9009220800"
     },
     {
+      "codigo": "15daa2",
+      "nombre": "MULTIGRASAS DE COLOMBIA SAS",
+      "meses": {
+        "2026-11": 2,
+        "2026-10": 0,
+        "2026-09": 0
+      },
+      "nit": "901426815"
+    },
+    {
       "codigo": "c7d780",
       "nombre": "HARISSA FOODS",
       "meses": {
@@ -639,16 +649,6 @@
         "2026-09": 0
       },
       "nit": "8301317261"
-    },
-    {
-      "codigo": "15daa2",
-      "nombre": "MULTIGRASAS DE COLOMBIA SAS",
-      "meses": {
-        "2026-11": 1,
-        "2026-10": 0,
-        "2026-09": 0
-      },
-      "nit": "901426815"
     },
     {
       "codigo": "8340e0",
@@ -1034,8 +1034,8 @@
     },
     {
       "periodo": "2025-11",
-      "certificados": 1276,
-      "personas": 1250,
+      "certificados": 1274,
+      "personas": 1249,
       "empresas_activas": 38
     },
     {
@@ -1107,40 +1107,33 @@
     },
     {
       "periodo": "2026-11",
-      "certificados": 1583,
-      "personas": 1531,
+      "certificados": 1619,
+      "personas": 1563,
       "empresas_activas": 54
-    }
-  ],
-  "serie_realineada": [
-    {
-      "periodo": "2026-11",
-      "serie": 1553,
-      "resumen": 1583
     }
   ],
   "yoy": {
     "acum": {
       "lbl": "Enero – noviembre",
-      "a2026": 18371,
-      "a2025": 16978
+      "a2026": 18407,
+      "a2025": 16976
     },
     "mes": {
       "lbl": "Noviembre",
-      "a2026": 1583,
-      "a2025": 1276
+      "a2026": 1619,
+      "a2025": 1274
     }
   },
   "venc": {
-    "corte": "2026-11-21",
+    "corte": "2026-11-22",
     "ventana_dias": 30,
-    "total": 1265,
-    "emp": 732,
-    "par": 533,
+    "total": 1273,
+    "emp": 746,
+    "par": 527,
     "por_semana": [
       {
         "semana": "2026-W47",
-        "vencen": 79
+        "vencen": 27
       },
       {
         "semana": "2026-W48",
@@ -1160,7 +1153,7 @@
       },
       {
         "semana": "2026-W52",
-        "vencen": 35
+        "vencen": 95
       }
     ],
     "por_empresa": [
@@ -1172,7 +1165,7 @@
       {
         "codigo": "2b5b45",
         "nombre": "Cinépolis .",
-        "vencen": 129
+        "vencen": 133
       },
       {
         "codigo": "603a8e",
@@ -1182,7 +1175,7 @@
       {
         "codigo": "8ac087",
         "nombre": "ARCOS DORADOS COLOMBIA  S.A.S.",
-        "vencen": 60
+        "vencen": 57
       },
       {
         "codigo": "d4d8c7",
@@ -1195,19 +1188,19 @@
         "vencen": 28
       },
       {
+        "codigo": "6ac898",
+        "nombre": "MERCADOS BM SAS",
+        "vencen": 23
+      },
+      {
         "codigo": "9626c1",
         "nombre": "CELEMA CENTRAL LECHERA DE MANIZALES",
         "vencen": 23
       },
       {
-        "codigo": "6ac898",
-        "nombre": "MERCADOS BM SAS",
-        "vencen": 19
-      },
-      {
-        "codigo": "2ca4f9",
-        "nombre": "R & A FOOD SAS BRAZZEIRO",
-        "vencen": 17
+        "codigo": "2c6b61",
+        "nombre": "CONSORCIO 1A",
+        "vencen": 16
       },
       {
         "codigo": "d85ce6",
@@ -1219,16 +1212,16 @@
   "recompra": {
     "periodo": "2026-11",
     "dias_gracia_tarde": 90,
-    "elegibles": 1275,
+    "elegibles": 1274,
     "renovaron_a_tiempo": 0,
-    "renovaron_tarde": 52,
-    "no_renovaron": 1223,
-    "tasa_recompra": 0.0408,
+    "renovaron_tarde": 56,
+    "no_renovaron": 1218,
+    "tasa_recompra": 0.044,
     "dias_promedio_de_atraso": 6,
     "ventana_abierta": true,
     "ventana_cierra": "2027-02-28",
     "ventana_dias_totales": 119,
-    "ventana_dias_corridos": 20,
+    "ventana_dias_corridos": 21,
     "en_revision": null
   },
   "recompra_cerrada": {
@@ -1254,14 +1247,14 @@
   "atribucion": {
     "desde": "2026-11-01",
     "hasta": "2026-11-30",
-    "registros_periodo": 1297,
-    "con_atribucion": 35,
-    "sin_atribucion": 1262,
-    "cobertura": 0.027,
+    "registros_periodo": 1319,
+    "con_atribucion": 36,
+    "sin_atribucion": 1283,
+    "cobertura": 0.0273,
     "por_fuente": [
       {
         "fuente": "adwords",
-        "registros": 34
+        "registros": 35
       },
       {
         "fuente": "chatgpt.com",
@@ -1271,7 +1264,7 @@
     "por_campana": [
       {
         "campana": 20852239193,
-        "registros": 33
+        "registros": 34
       },
       {
         "campana": "Google Ads — Manipulación",
@@ -1286,10 +1279,10 @@
   "cursos": {
     "ventana": "ultimos_12m",
     "periodo": null,
-    "desde": "2025-11-21",
-    "hasta": "2026-11-21",
+    "desde": "2025-11-22",
+    "hasta": "2026-11-22",
     "total_cursos": 23,
-    "certificados_en_la_ventana": 20000,
+    "certificados_en_la_ventana": 19984,
     "cursos_con_certificaciones_sin_precio": 1,
     "cursos": [
       {
@@ -1299,9 +1292,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados": 16810,
+        "certificados": 16784,
         "alerta_sin_precio": false,
-        "certificados_ultimos_12m": 16810
+        "certificados_ultimos_12m": 16784
       },
       {
         "course_id": "69cafe131c643a704603cec2",
@@ -1310,9 +1303,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados": 1689,
+        "certificados": 1698,
         "alerta_sin_precio": false,
-        "certificados_ultimos_12m": 1689
+        "certificados_ultimos_12m": 1698
       },
       {
         "course_id": "6aa8407f4d530241fb09ecd2",
@@ -1332,9 +1325,9 @@
         "tipo": null,
         "privado": false,
         "activo": true,
-        "certificados": 353,
+        "certificados": 354,
         "alerta_sin_precio": false,
-        "certificados_ultimos_12m": 353
+        "certificados_ultimos_12m": 354
       },
       {
         "course_id": "5f639daf5ca6f4512b166e22",
@@ -1558,7 +1551,7 @@
     {
       "n": "Registros de curso cuyo course_id no existe en courses",
       "d": "No tienen precio asociado, de modo que no entran en el ingreso estimado ni en el cruce contra Siigo.",
-      "r": "4.998 de 159.162 · 3.14 %",
+      "r": "4.998 de 159.193 · 3.14 %",
       "p": 7.5,
       "peso": "alta"
     },
@@ -1586,35 +1579,35 @@
     {
       "n": "Registros de curso cuyo user_id no existe en users",
       "d": "Se cuentan en el total pero no se pueden atribuir a una empresa ni a un canal. Descuadran el total contra la suma por empresa.",
-      "r": "10 de 159.162 · 0.01 %",
+      "r": "10 de 159.193 · 0.01 %",
       "p": 0.1,
       "peso": "critica"
     },
     {
       "n": "Certificaciones completas y pagadas sin cert_date",
       "d": "No caen en ningún periodo. Desaparecen del corte mensual, de la serie histórica y del cruce contable, sin aparecer como error en ninguna parte.",
-      "r": "0 de 117.120 · 0.00 %",
+      "r": "0 de 117.155 · 0.00 %",
       "p": 0,
       "peso": "critica"
     },
     {
       "n": "cert_date que no es una fecha Y-m-d válida",
       "d": "Los rangos de MongoDB respetan el tipo: un valor que no es texto con formato Y-m-d queda fuera de todas las consultas de periodo en silencio.",
-      "r": "0 de 117.120 · 0.00 %",
+      "r": "0 de 117.155 · 0.00 %",
       "p": 0,
       "peso": "critica"
     },
     {
       "n": "Usuarios sin created_at",
       "d": "No entran en el conteo de registros del periodo, de modo que la cobertura de atribución sale inflada.",
-      "r": "0 de 157.226 · 0.00 %",
+      "r": "0 de 157.248 · 0.00 %",
       "p": 0,
       "peso": "media"
     },
     {
       "n": "Usuarios con created_at guardado como texto",
       "d": "Los rangos de fecha no los alcanzan. La atribución de origen los ignora en silencio y puede devolver cero sin fallar.",
-      "r": "0 de 157.226 · 0.00 %",
+      "r": "0 de 157.248 · 0.00 %",
       "p": 0,
       "peso": "alta"
     },
@@ -1633,13 +1626,13 @@
     "como_se_calcula": "El puntaje parte de 100 y cada verificación lo multiplica por (1 - peso/100 × min(1, tasa / umbral)). Peso y umbral van explícitos en cada verificación para que el cálculo sea auditable y reproducible."
   },
   "universo": {
-    "user_course": 159162,
-    "users": 157226,
+    "user_course": 159193,
+    "users": 157248,
     "courses": 23
   },
   "tramites": {
     "regla": "tramites-metrics-v1",
-    "generado_en": "2026-11-21T16:56:18.188Z",
+    "generado_en": "2026-11-22T17:23:24.972Z",
     "periodo": "2026-11",
     "ingenieros": {
       "activos": 14,
@@ -1675,7 +1668,7 @@
           "solicitudes_abiertas": 15,
           "solicitudes_recibidas_periodo": 0,
           "solicitudes_cerradas_periodo": 3,
-          "citas_periodo": 11,
+          "citas_periodo": 12,
           "avance_promedio": 33,
           "dias_mediana_cierre": 15
         },
@@ -1802,7 +1795,7 @@
       ],
       "que_mide_la_carga": "Solicitudes INVIMA abiertas. No incluye visitas en sitio —asesorías, auditorías, seguimientos, capacitaciones—, que la plataforma registra como citas y no como carga.",
       "sin_carga_con_citas": 3,
-      "citas_periodo_total": 58
+      "citas_periodo_total": 59
     },
     "etapas": {
       "medidas": 10,
@@ -1811,7 +1804,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "INICIO DE TRÁMITE PROVEEDOR",
-          "dias_abierta": 162.9,
+          "dias_abierta": 163.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1819,7 +1812,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 162.9,
+          "dias_abierta": 163.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1827,7 +1820,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "ELABORACIÓN DE FORMULARIOS",
-          "dias_abierta": 162.9,
+          "dias_abierta": 163.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1835,7 +1828,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "ELABORACIÓN ANTICIPO",
-          "dias_abierta": 162.9,
+          "dias_abierta": 163.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1843,7 +1836,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "REVISIÓN / APROBACIÓN FORMULARIOS",
-          "dias_abierta": 162.9,
+          "dias_abierta": 163.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1851,7 +1844,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "PAGO ANTICIPO",
-          "dias_abierta": 162.9,
+          "dias_abierta": 163.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1859,7 +1852,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "RADICADO INVIMA",
-          "dias_abierta": 162.9,
+          "dias_abierta": 163.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1867,7 +1860,7 @@
         {
           "proceso": "Pendiente por asignar-1780073348381-C",
           "etapa": "ENVÍO INFORME RESOLUCIÓN",
-          "dias_abierta": 162.9,
+          "dias_abierta": 163.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1875,7 +1868,7 @@
         {
           "proceso": "Pendiente por asignar-1780606741235-C",
           "etapa": "TIEMPO DE RESPUESTA RESOLUCIÓN INVMAGIL",
-          "dias_abierta": 162,
+          "dias_abierta": 163.1,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1883,7 +1876,7 @@
         {
           "proceso": "Pendiente por asignar-1780606741235-C",
           "etapa": "ENVÍO INFORME RESOLUCIÓN",
-          "dias_abierta": 162,
+          "dias_abierta": 163.1,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1891,7 +1884,7 @@
         {
           "proceso": "Pendiente por asignar-1780606741235-C",
           "etapa": "RADICADO INVIMA",
-          "dias_abierta": 162,
+          "dias_abierta": 163.1,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1899,7 +1892,7 @@
         {
           "proceso": "Pendiente por asignar-1782242832311-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 148,
+          "dias_abierta": 149,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1907,7 +1900,7 @@
         {
           "proceso": "Pendiente por asignar-1782495656404-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 148,
+          "dias_abierta": 149,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1915,7 +1908,7 @@
         {
           "proceso": "Pendiente por asignar-1782495737392-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 148,
+          "dias_abierta": 149,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1923,7 +1916,7 @@
         {
           "proceso": "Pendiente por asignar-1782495670128-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 148,
+          "dias_abierta": 149,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1931,7 +1924,7 @@
         {
           "proceso": "Pendiente por asignar-1782495726560-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 148,
+          "dias_abierta": 149,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1939,7 +1932,7 @@
         {
           "proceso": "Pendiente por asignar-1782241508525-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 148,
+          "dias_abierta": 149,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1947,7 +1940,7 @@
         {
           "proceso": "Pendiente por asignar-1782505657176-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 147.9,
+          "dias_abierta": 148.9,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1955,7 +1948,7 @@
         {
           "proceso": "Pendiente por asignar-1782495635730-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 147.7,
+          "dias_abierta": 148.7,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -1963,7 +1956,7 @@
         {
           "proceso": "Pendiente por asignar-1782833001399-C",
           "etapa": "VERIFICACIÓN DOCUMENTAL",
-          "dias_abierta": 144.1,
+          "dias_abierta": 145.1,
           "mediana_de_la_etapa": 0,
           "sin_asignar": false,
           "excede": true
@@ -2095,14 +2088,14 @@
   },
   "alimentia": {
     "regla": "alimentia-metrics-v2",
-    "generado_en": "2026-11-21T16:56:18.423Z",
+    "generado_en": "2026-11-22T17:23:25.168Z",
     "periodo": "2026-11",
-    "dias_del_periodo": 21,
+    "dias_del_periodo": 22,
     "empresas": 2,
     "con_obligacion": 2,
-    "esperados": 379,
+    "esperados": 398,
     "entregados": 4,
-    "cumplimiento": 0.0106,
+    "cumplimiento": 0.0101,
     "sin_un_solo_registro": 1,
     "detalle": [
       {
@@ -2114,8 +2107,8 @@
         "fecha_alta": "2026-11-03",
         "sedes": 1,
         "formatos_habilitados": 10,
-        "dias_contados": 19,
-        "esperados": 190,
+        "dias_contados": 20,
+        "esperados": 200,
         "entregados": 0,
         "cumplimiento": 0,
         "ultimo_diligenciamiento": null
@@ -2129,10 +2122,10 @@
         "fecha_alta": "2026-09-11",
         "sedes": 1,
         "formatos_habilitados": 9,
-        "dias_contados": 21,
-        "esperados": 189,
+        "dias_contados": 22,
+        "esperados": 198,
         "entregados": 4,
-        "cumplimiento": 0.0212,
+        "cumplimiento": 0.0202,
         "ultimo_diligenciamiento": "2026-11-05"
       }
     ],
@@ -2152,10 +2145,10 @@
         "company_id": "a5897837-e91f-49f7-b20e-8b1b4f143649",
         "nombre": "Café Kumanday sas",
         "nit": "901868260-2",
-        "cumplimiento": 0.0212,
+        "cumplimiento": 0.0202,
         "entregados": 4,
         "ultimo_diligenciamiento": "2026-11-05",
-        "dias_sin_diligenciar": 16,
+        "dias_sin_diligenciar": 17,
         "nunca_empezo": false
       }
     ],
@@ -2166,17 +2159,17 @@
     "demo_excluidas": 3
   },
   "salud": {
-    "total": 76,
+    "total": 75,
     "comp": [
       {
         "n": "Producción",
         "v": 100,
-        "d": "Noviembre 2026 contra el mismo mes del año anterior: 2.261 proyectadas contra 1.276, +77,2 %. Se mapea 0–20 % de crecimiento a 50–100 puntos. Noviembre 2026 lleva 21 de 30 días y va en 1.583 certificaciones observadas; el índice proyecta a 2.261 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
+        "d": "Noviembre 2026 contra el mismo mes del año anterior: 2.208 proyectadas contra 1.274, +73,3 %. Se mapea 0–20 % de crecimiento a 50–100 puntos. Noviembre 2026 lleva 22 de 30 días y va en 1.619 certificaciones observadas; el índice proyecta a 2.208 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
       },
       {
         "n": "Reposición",
-        "v": 89,
-        "d": "Certificaciones del mes sobre vencimientos de los próximos 30 días, medidos el 2026-11-21: 2.261 proyectadas / 1.265 = 1,79. Paridad (1,00) vale 50 puntos. Noviembre 2026 lleva 21 de 30 días y va en 1.583 certificaciones observadas; el índice proyecta a 2.261 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
+        "v": 87,
+        "d": "Certificaciones del mes sobre vencimientos de los próximos 30 días, medidos el 2026-11-22: 2.208 proyectadas / 1.273 = 1,73. Paridad (1,00) vale 50 puntos. Noviembre 2026 lleva 22 de 30 días y va en 1.619 certificaciones observadas; el índice proyecta a 2.208 al ritmo actual, porque comparar un mes a medias contra uno completo da un derrumbe falso. El comparativo anual de más abajo muestra lo observado sin proyectar: por eso las dos cifras difieren."
       },
       {
         "n": "Calidad del dato",
@@ -2185,17 +2178,17 @@
       },
       {
         "n": "Diversificación",
-        "v": 47,
-        "d": "Un solo cliente concentra el 26,4 % del canal empresa. Cada punto de concentración descuenta dos puntos del componente."
+        "v": 46,
+        "d": "Un solo cliente concentra el 26,9 % del canal empresa. Cada punto de concentración descuenta dos puntos del componente."
       }
     ]
   },
-  "precioMedioObservado": 19276,
+  "precioMedioObservado": 19292,
   "meses_cerrados": [
     "2026-10"
   ],
   "deriva_meses_cerrados": {
-    "desde": "2026-11-21",
+    "desde": "2026-11-22",
     "cambios": [
       {
         "periodo": "2026-10",
@@ -2224,7 +2217,7 @@
     ]
   },
   "meses_cerrados_que_cambiaron": {
-    "desde": "2026-11-21",
+    "desde": "2026-11-22",
     "cambios": [
       {
         "periodo": "2026-10",
@@ -2304,9 +2297,9 @@
       "para": "todos",
       "id": "vencimientos-2026-11",
       "severidad": "atencion",
-      "titulo": "1.265 certificados vencen en los próximos 30 días",
-      "detalle": "732 vinculados a empresa, que se contactan en bloque, y 533 particulares, que son uno a uno.",
-      "cifra": 1265,
+      "titulo": "1.273 certificados vencen en los próximos 30 días",
+      "detalle": "746 vinculados a empresa, que se contactan en bloque, y 527 particulares, que son uno a uno.",
+      "cifra": 1273,
       "seccion": "vencimientos",
       "accion": "Lanzar el contacto del canal corporativo antes de que venzan."
     },
@@ -2315,7 +2308,7 @@
       "id": "vencimientos-pico-2026-11-2026-W48",
       "severidad": "atencion",
       "titulo": "328 vencimientos concentrados en la semana 2026-W48",
-      "detalle": "Es el 25,9 % de toda la cola en una sola semana.",
+      "detalle": "Es el 25,8 % de toda la cola en una sola semana.",
       "cifra": 328,
       "seccion": "vencimientos",
       "accion": "Preparar la capacidad de esa semana con anticipación."
@@ -2334,9 +2327,9 @@
       "para": "todos",
       "id": "empresa-caida-2026-11-centro-aseo",
       "severidad": "atencion",
-      "titulo": "Centro Aseo cayó 96,2 %",
+      "titulo": "Centro Aseo cayó 96,4 %",
       "detalle": "39 en octubre contra 1 en noviembre, comparado por ritmo diario.",
-      "cifra": -96.2,
+      "cifra": -96.4,
       "seccion": "empresas",
       "accion": "Averiguar si es estacional o si se fueron."
     },
@@ -2344,9 +2337,9 @@
       "para": "todos",
       "id": "empresa-caida-2026-11-farmacias-de-similares-colombia-sas",
       "severidad": "atencion",
-      "titulo": "FARMACIAS DE SIMILARES COLOMBIA SAS cayó 69,5 %",
+      "titulo": "FARMACIAS DE SIMILARES COLOMBIA SAS cayó 70,8 %",
       "detalle": "29 en octubre contra 6 en noviembre, comparado por ritmo diario.",
-      "cifra": -69.5,
+      "cifra": -70.8,
       "seccion": "empresas",
       "accion": "Averiguar si es estacional o si se fueron."
     },
@@ -2354,9 +2347,9 @@
       "para": "todos",
       "id": "empresa-caida-2026-11-compa-ia-lechera-de-el-morti-o-s-a-s",
       "severidad": "atencion",
-      "titulo": "COMPAÑIA LECHERA DE EL MORTIÑO  S.A.S cayó 57,8 %",
+      "titulo": "COMPAÑIA LECHERA DE EL MORTIÑO  S.A.S cayó 59,7 %",
       "detalle": "21 en octubre contra 6 en noviembre, comparado por ritmo diario.",
-      "cifra": -57.8,
+      "cifra": -59.7,
       "seccion": "empresas",
       "accion": "Averiguar si es estacional o si se fueron."
     },
@@ -2374,9 +2367,9 @@
       "para": "todos",
       "id": "alimentia-detenida-2026-11-a5897837-e91f-49f7-b20e-8b1b4f143649",
       "severidad": "atencion",
-      "titulo": "Café Kumanday sas lleva 16 días sin diligenciar",
+      "titulo": "Café Kumanday sas lleva 17 días sin diligenciar",
       "detalle": "Venía registrando y se detuvo: es señal temprana de abandono.",
-      "cifra": 16,
+      "cifra": 17,
       "seccion": "alimentia",
       "accion": "Llamar antes de que se vaya."
     },
@@ -2394,9 +2387,9 @@
       "para": "gerencia",
       "id": "vencimientos-valor-2026-11",
       "severidad": "aviso",
-      "titulo": "La recompra en juego vale $24.384.140",
-      "detalle": "A precio observado de $19.276 por certificación.",
-      "cifra": 24384140,
+      "titulo": "La recompra en juego vale $24.558.716",
+      "detalle": "A precio observado de $19.292 por certificación.",
+      "cifra": 24558716,
       "seccion": "vencimientos",
       "accion": "Decidir si se prioriza el canal corporativo o el particular."
     },
@@ -2404,33 +2397,33 @@
       "para": "todos",
       "id": "alimentia-cumplimiento-2026-11",
       "severidad": "aviso",
-      "titulo": "Cumplimiento de Alimentia en 1,1 %",
+      "titulo": "Cumplimiento de Alimentia en 1,0 %",
       "detalle": "Lo esperado cuenta los siete días de la semana, incluidos domingos y festivos. Una empresa que no opera a diario aparecerá con cumplimiento bajo sin estarlo. Falta que la Dirección defina qué días son exigibles.",
-      "cifra": 1.1,
+      "cifra": 1,
       "seccion": "alimentia",
       "accion": "Definir qué días son exigibles antes de leer esta cifra como mala."
     }
   ],
   "tiempos_ms": {
-    "certificaciones": 7446,
-    "certificaciones_prev": 621,
-    "certificaciones_prev2": 695,
-    "empresas": 8303,
-    "empresas_prev": 913,
-    "recompra": 1019,
-    "recompra_cerrada": 964,
-    "serie": 966,
-    "vencimientos": 5641,
-    "atribucion": 846,
-    "cursos": 1255,
-    "calidad-dato": 3947,
-    "tr_carga": 465,
-    "tr_tiempos": 470,
-    "tr_retrabajo": 589,
-    "tr_duracion": 580,
-    "al_diligenciamiento": 697,
-    "al_caida": 699,
-    "total": 9047
+    "certificaciones": 8522,
+    "certificaciones_prev": 8045,
+    "certificaciones_prev2": 8270,
+    "empresas": 9402,
+    "empresas_prev": 9310,
+    "recompra": 1163,
+    "recompra_cerrada": 1277,
+    "serie": 2588,
+    "vencimientos": 6123,
+    "atribucion": 1078,
+    "cursos": 1198,
+    "calidad-dato": 4467,
+    "tr_carga": 306,
+    "tr_tiempos": 291,
+    "tr_retrabajo": 313,
+    "tr_duracion": 267,
+    "al_diligenciamiento": 498,
+    "al_caida": 499,
+    "total": 10004
   },
   "meses_cerrados_registrados": 1
 }
