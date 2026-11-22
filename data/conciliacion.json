@@ -1813,12 +1813,6 @@
       "valor": 30000
     },
     {
-      "nit": "901455816",
-      "nombre": "M&S VITAMINS SAS",
-      "unidades": 1,
-      "valor": 20000
-    },
-    {
       "nit": "901517118",
       "nombre": "PHF SAS",
       "unidades": 1,
@@ -1827,6 +1821,12 @@
     {
       "nit": "810006204",
       "nombre": "CORPORACION CLUB SOCIAL DRIVE IN CERRITOS",
+      "unidades": 1,
+      "valor": 20000
+    },
+    {
+      "nit": "901455816",
+      "nombre": "M&S VITAMINS SAS",
       "unidades": 1,
       "valor": 20000
     },
@@ -1913,9 +1913,9 @@
     "2026-11"
   ],
   "periodo_siguiente": "2026-11",
-  "facturas_del_siguiente": 110,
+  "facturas_del_siguiente": 116,
   "periodo": "2026-10",
-  "generado_en": "2026-11-21T18:01:00.814Z",
+  "generado_en": "2026-11-22T18:33:27.589Z",
   "facturas_del_periodo": 225,
   "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
   "nota_periodo": "Se cruza el último mes cerrado, no el mes en curso: la facturación va detrás de la certificación y un mes a medias daría un descuadre falso.",
