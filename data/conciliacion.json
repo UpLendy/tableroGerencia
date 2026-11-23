@@ -1195,36 +1195,6 @@
       }
     },
     {
-      "codigo": "dadd5b",
-      "nombre": "SERVICIOS TEMPORALES DE COLOMBIA  - TEMPOCOLBA",
-      "certificados": 2,
-      "nit": "802010216",
-      "nombre_siigo": "SERVICIOS TEMPORALES DE COLOMBIA TEMPOCOLBA SOCIEDAD POR ACCIONES SIMPLIFICADA",
-      "unidades": 2,
-      "paquetes": 0,
-      "unidades_mes_siguiente": 2,
-      "certificado_mes_anterior": 2,
-      "facturado_corresponde_al_mes_anterior": true,
-      "diferencia": 0,
-      "valor_facturado": 28000,
-      "tarifa": [
-        14000
-      ],
-      "saldo": 28000,
-      "estado": "cuadra",
-      "sin_facturar": 0,
-      "valor_sin_facturar": 0,
-      "facturado_por_mes": {
-        "2026-05": 0,
-        "2026-06": 0,
-        "2026-07": 0,
-        "2026-08": 9,
-        "2026-09": 2,
-        "2026-10": 2,
-        "2026-11": 2
-      }
-    },
-    {
       "codigo": "af291e",
       "nombre": "ASEOS COLOMBIANOS ASEOCOLBA SA",
       "certificados": 2,
@@ -1253,6 +1223,36 @@
         "2026-08": 1,
         "2026-09": 0,
         "2026-10": 1,
+        "2026-11": 2
+      }
+    },
+    {
+      "codigo": "dadd5b",
+      "nombre": "SERVICIOS TEMPORALES DE COLOMBIA  - TEMPOCOLBA",
+      "certificados": 2,
+      "nit": "802010216",
+      "nombre_siigo": "SERVICIOS TEMPORALES DE COLOMBIA TEMPOCOLBA SOCIEDAD POR ACCIONES SIMPLIFICADA",
+      "unidades": 2,
+      "paquetes": 0,
+      "unidades_mes_siguiente": 2,
+      "certificado_mes_anterior": 2,
+      "facturado_corresponde_al_mes_anterior": true,
+      "diferencia": 0,
+      "valor_facturado": 28000,
+      "tarifa": [
+        14000
+      ],
+      "saldo": 28000,
+      "estado": "cuadra",
+      "sin_facturar": 0,
+      "valor_sin_facturar": 0,
+      "facturado_por_mes": {
+        "2026-05": 0,
+        "2026-06": 0,
+        "2026-07": 0,
+        "2026-08": 9,
+        "2026-09": 2,
+        "2026-10": 2,
         "2026-11": 2
       }
     },
@@ -1300,7 +1300,7 @@
       "tarifa": [
         18000
       ],
-      "saldo": 36000,
+      "saldo": 0,
       "estado": "cuadra",
       "sin_facturar": 0,
       "valor_sin_facturar": 0,
@@ -1808,7 +1808,7 @@
     },
     {
       "nit": "9004581672",
-      "nombre": "MAAZ ALTERNATIVA SAS",
+      "nombre": "MAAZ ALTERNATIVAS S.A.S",
       "unidades": 2,
       "valor": 30000
     },
@@ -1915,7 +1915,7 @@
   "periodo_siguiente": "2026-11",
   "facturas_del_siguiente": 116,
   "periodo": "2026-10",
-  "generado_en": "2026-11-22T18:33:27.589Z",
+  "generado_en": "2026-11-23T22:42:25.038Z",
   "facturas_del_periodo": 225,
   "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
   "nota_periodo": "Se cruza el último mes cerrado, no el mes en curso: la facturación va detrás de la certificación y un mes a medias daría un descuadre falso.",
