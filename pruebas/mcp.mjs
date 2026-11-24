@@ -10,7 +10,7 @@
    Y la primera de todas: que sin token no se conteste nada. El tablero lleva
    meses separando lo que ve Dirección de lo que ve el Equipo; un MCP abierto
    seria la puerta de atrás a todo eso. */
-import { responder, resultado, tokenValido, VERSION, ERR, SERVIDOR } from '../scripts/mcp.mjs';
+import { responder, resultado, tokenValido, dialecto, VERSION, VERSION_ANTERIOR, ERR, SERVIDOR } from '../scripts/mcp.mjs';
 import { secciones, HERRAMIENTAS } from '../api/mcp.mjs';
 import { fichaDelCorte } from '../api/chat.mjs';
 import { adjuntarCartera, adjuntarTrello } from '../scripts/alertas.mjs';
@@ -63,7 +63,10 @@ console.log('\n-- las cabeceras tienen que coincidir con el cuerpo --');
   iguales(sinV.estado, 400, 'sin MCP-Protocol-Version: 400');
   iguales(sinV.cuerpo.error.code, ERR.cabecera, 'con el código de cabecera');
 
-  const mal = responder(pet('tools/list'), cabs('tools/list', { 'MCP-Protocol-Version': '2025-11-25' }), ctx());
+  /* La discrepancia solo tiene sentido dentro del dialecto moderno: en el
+     anterior la versión no viaja en el cuerpo, asi que no hay nada que
+     comparar. Se prueba al reves que antes: cabecera moderna, cuerpo viejo. */
+  const mal = responder(pet('tools/list', {}, VERSION_ANTERIOR), cabs('tools/list'), ctx());
   iguales(mal.estado, 400, 'si la cabecera dice una versión y el cuerpo otra: 400');
   iguales(mal.cuerpo.error.code, ERR.cabecera, 'y es error de cabecera, no de versión');
 
@@ -77,11 +80,58 @@ console.log('\n-- las cabeceras tienen que coincidir con el cuerpo --');
 
 console.log('\n-- una versión que no hablamos --');
 {
-  const r = responder(pet('tools/list', {}, '2025-11-25'),
-    cabs('tools/list', { 'MCP-Protocol-Version': '2025-11-25' }), ctx());
+  const r = responder(pet('tools/list', {}, '2024-01-01'),
+    cabs('tools/list', { 'MCP-Protocol-Version': '2024-01-01' }), ctx());
   iguales(r.estado, 400, '400');
   iguales(r.cuerpo.error.code, ERR.version, 'con el código de versión no soportada');
-  iguales(r.cuerpo.error.data.supported, [VERSION], 'y la lista de las que sí, que es lo que el cliente necesita');
+  iguales(r.cuerpo.error.data.supported, [VERSION, VERSION_ANTERIOR],
+    'y la lista de las que sí, que es lo que el cliente necesita');
+}
+
+console.log('\n-- el dialecto anterior, que es el que habla el conector --');
+{
+  /* Registrado de un intento real: initialize, version 2025-11-25 en la
+     cabecera, nada de Mcp-Method, y la version ausente del cuerpo. El
+     servidor estricto lo rechazaba y desde fuera se veia como «no se pudo
+     conectar», que es el peor mensaje posible porque culpa al sitio
+     equivocado. */
+  const viejas = { 'MCP-Protocol-Version': VERSION_ANTERIOR };
+  iguales(dialecto({ method: 'initialize' }, {}), VERSION_ANTERIOR,
+    'un initialize es del dialecto anterior, diga lo que diga la cabecera');
+  iguales(dialecto({ method: 'tools/list' }, {}), VERSION_ANTERIOR,
+    'y sin Mcp-Method tampoco puede ser el moderno');
+  iguales(dialecto({ method: 'tools/list' }, cabs('tools/list')), VERSION,
+    'con su cabecera completa, moderno');
+
+  const ini = responder({ jsonrpc: '2.0', id: 1, method: 'initialize', params: {} }, viejas, ctx());
+  iguales(ini.estado, 200, 'initialize contesta 200');
+  iguales(ini.cuerpo.result.protocolVersion, VERSION_ANTERIOR,
+    'con la versión como campo suelto, que es como era entonces');
+  iguales(ini.cuerpo.result.serverInfo, SERVIDOR, 'y serverInfo arriba, no dentro de _meta');
+  cierto(/piso no es un total/.test(ini.cuerpo.result.instructions),
+    'con las mismas instrucciones que el saludo moderno, no otras');
+
+  const av = responder({ jsonrpc: '2.0', method: 'notifications/initialized', params: {} }, viejas, ctx());
+  iguales(av.estado, 202, 'el aviso de que ya está iniciado: 202 y sin cuerpo');
+
+  const l = responder({ jsonrpc: '2.0', id: 2, method: 'tools/list', params: {} }, viejas, ctx());
+  iguales(l.cuerpo.result.tools.map((t) => t.name), ['corte', 'alertas'], 'lista las herramientas');
+  cierto(!('resultType' in l.cuerpo.result),
+    'sin resultType, que en esa revisión no existía');
+
+  const c = responder({ jsonrpc: '2.0', id: 3, method: 'tools/call',
+    params: { name: 'corte', arguments: {} } }, viejas, ctx());
+  iguales(c.ejecutar, { id: 3, nombre: 'corte', argumentos: {} }, 'y llama a la herramienta');
+  cierto(c.antiguo === true, 'marcando que la respuesta va en el dialecto anterior');
+
+  const r = resultado(3, 'texto', false, true);
+  cierto(!('resultType' in r.result), 'cuyo resultado tampoco lleva resultType');
+  iguales(r.result.content, [{ type: 'text', text: 'texto' }], 'pero sí el contenido igual');
+
+  /* Y lo que no se relaja: sin token no se contesta en ningún dialecto. */
+  const sin = responder({ jsonrpc: '2.0', id: 1, method: 'initialize', params: {} },
+    viejas, ctx({ autorizado: false }));
+  iguales(sin.estado, 401, 'el dialecto anterior no es una puerta sin llave');
 }
 
 console.log('\n-- el saludo, que ya no es initialize --');
@@ -89,7 +139,8 @@ console.log('\n-- el saludo, que ya no es initialize --');
   const r = responder(pet('server/discover'), cabs('server/discover'), ctx());
   iguales(r.estado, 200, '200');
   iguales(r.cuerpo.result.resultType, 'complete', 'con resultType, que esta versión exige');
-  iguales(r.cuerpo.result.supportedVersions, [VERSION], 'las versiones van en un array, no en un campo suelto');
+  iguales(r.cuerpo.result.supportedVersions, [VERSION, VERSION_ANTERIOR],
+    'las versiones van en un array, y estan las dos que hablamos');
   cierto(r.cuerpo.result.capabilities && r.cuerpo.result.capabilities.tools, 'declara que tiene herramientas');
   iguales(r.cuerpo.result._meta['io.modelcontextprotocol/serverInfo'], SERVIDOR,
     'y quién es el servidor, que va dentro de _meta y no arriba');

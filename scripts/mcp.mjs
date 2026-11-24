@@ -21,8 +21,22 @@
  * ------------------------------------------------------------------------- */
 
 export const VERSION = '2026-07-28';
-export const VERSIONES = [VERSION];
+/* La revision anterior sigue viva: el conector de Claude habla esa, con
+   initialize, sin Mcp-Method y sin la version dentro de _meta. Soportar las
+   dos no es cortesia, es la diferencia entre que conecte y que no. */
+export const VERSION_ANTERIOR = '2025-11-25';
+export const VERSIONES = [VERSION, VERSION_ANTERIOR];
 export const SERVIDOR = { name: 'tablero-gerencial-bpm', version: '1.0.0' };
+
+/* Lo que el modelo del otro lado lee antes de llamar a nada. */
+export const INSTRUCCIONES =
+        'Datos de gestión de BPM Consulting SAS BIC, leídos de su plataforma de formación, ' +
+        'de Siigo y de Trello. Cada herramienta devuelve texto ya redactado con las ' +
+        'advertencias que le corresponden a cada cifra: un mes en curso va a medias y no se ' +
+        'compara contra uno cerrado, la cartera es bruta y no la neta de contabilidad, y lo ' +
+        'que se declara como un piso no es un total. Repite esas advertencias al dar la cifra ' +
+        'y no las omitas por brevedad. Si un dato no está en lo que devuelve una herramienta, ' +
+        'dilo en vez de estimarlo.';
 
 /* Códigos del propio protocolo, no inventados. */
 export const ERR = {
@@ -49,6 +63,16 @@ const cab = (h, n) => {
  *   @param cabeceras las cabeceras de la petición
  *   @param ctx       { herramientas, autorizado, origenValido }
  */
+/** Que dialecto habla quien llama. Lo decide lo que manda, no lo que dice. */
+export function dialecto(cuerpo, cabeceras = {}) {
+  const v = cab(cabeceras, 'MCP-Protocol-Version');
+  if (v === VERSION) return VERSION;
+  if (v === VERSION_ANTERIOR) return VERSION_ANTERIOR;
+  if (cuerpo && cuerpo.method === 'initialize') return VERSION_ANTERIOR;
+  if (!cab(cabeceras, 'Mcp-Method')) return VERSION_ANTERIOR;
+  return VERSION;
+}
+
 export function responder(cuerpo, cabeceras = {}, ctx = {}) {
   const { herramientas = {}, autorizado = false, origenValido = true } = ctx;
 
@@ -67,10 +91,17 @@ export function responder(cuerpo, cabeceras = {}, ctx = {}) {
   const id = cuerpo.id;
   const meta = metaDe(cuerpo);
   const esAviso = id === undefined;
+  const moderno = dialecto(cuerpo, cabeceras) === VERSION;
 
   /* La versión va en dos sitios y MUST coincidir. Que coincida no es una
      formalidad: si la cabecera dice una cosa y el cuerpo otra, hay algo en
      medio reescribiendo peticiones y eso es justo lo que no se quiere. */
+  if (!moderno) {
+    /* En la revision anterior no existen Mcp-Method, Mcp-Name ni la version
+       dentro de _meta. Exigirlas alli seria rechazar a un cliente que esta
+       hablando correctamente su propio idioma. */
+    return responderAntiguo(cuerpo, id, esAviso, herramientas);
+  }
   const vCab = cab(cabeceras, 'MCP-Protocol-Version');
   const vCuerpo = meta['io.modelcontextprotocol/protocolVersion'];
   if (!vCab || !vCuerpo) {
@@ -99,14 +130,7 @@ export function responder(cuerpo, cabeceras = {}, ctx = {}) {
       resultType: 'complete',
       supportedVersions: VERSIONES,
       capabilities: { tools: {} },
-      instructions:
-        'Datos de gestión de BPM Consulting SAS BIC, leídos de su plataforma de formación, ' +
-        'de Siigo y de Trello. Cada herramienta devuelve texto ya redactado con las ' +
-        'advertencias que le corresponden a cada cifra: un mes en curso va a medias y no se ' +
-        'compara contra uno cerrado, la cartera es bruta y no la neta de contabilidad, y lo ' +
-        'que se declara como un piso no es un total. Repite esas advertencias al dar la cifra ' +
-        'y no las omitas por brevedad. Si un dato no está en lo que devuelve una herramienta, ' +
-        'dilo en vez de estimarlo.',
+      instructions: INSTRUCCIONES,
       _meta: { 'io.modelcontextprotocol/serverInfo': SERVIDOR },
       ttlMs: 3600000, cacheScope: 'public',
     } } };
@@ -149,10 +173,48 @@ export function responder(cuerpo, cabeceras = {}, ctx = {}) {
   return { estado: 404, cuerpo: rpcError(id, ERR.metodo, `Método no implementado: ${cuerpo.method}`) };
 }
 
+/* ------------------------------------------------------ revision anterior
+   initialize en vez de server/discover, la version como campo suelto, y el
+   resultado sin resultType: el cliente de entonces trata su ausencia como
+   «completo», que es justo lo que queremos decir. */
+function responderAntiguo(cuerpo, id, esAviso, herramientas) {
+  if (cuerpo.method === 'initialize') {
+    return { estado: 200, cuerpo: { jsonrpc: '2.0', id, result: {
+      protocolVersion: VERSION_ANTERIOR,
+      capabilities: { tools: { listChanged: false } },
+      serverInfo: SERVIDOR,
+      instructions: INSTRUCCIONES,
+    } } };
+  }
+  if (cuerpo.method === 'notifications/initialized' || esAviso) {
+    return { estado: 202, cuerpo: null };
+  }
+  if (cuerpo.method === 'tools/list') {
+    return { estado: 200, cuerpo: { jsonrpc: '2.0', id, result: {
+      tools: Object.values(herramientas).map((h) => ({
+        name: h.name, description: h.description,
+        inputSchema: h.inputSchema || { type: 'object', additionalProperties: false },
+      })),
+    } } };
+  }
+  if (cuerpo.method === 'tools/call') {
+    const nombre = cuerpo.params && cuerpo.params.name;
+    if (!herramientas[nombre]) {
+      return { estado: 200, cuerpo: rpcError(id, ERR.parametros, `No existe la herramienta ${nombre}`) };
+    }
+    return { estado: 200, antiguo: true,
+      ejecutar: { id, nombre, argumentos: (cuerpo.params && cuerpo.params.arguments) || {} } };
+  }
+  return { estado: 404, cuerpo: rpcError(id, ERR.metodo, `Metodo no implementado: ${cuerpo.method}`) };
+}
+
 /** El resultado de una herramienta, ya con la forma que pide el protocolo. */
-export const resultado = (id, texto, mal = false) => ({
+export const resultado = (id, texto, mal = false, antiguo = false) => ({
   jsonrpc: '2.0', id,
-  result: { resultType: 'complete', content: [{ type: 'text', text: String(texto) }], isError: mal },
+  result: {
+    ...(antiguo ? {} : { resultType: 'complete' }),
+    content: [{ type: 'text', text: String(texto) }], isError: mal,
+  },
 });
 
 /** Comparación de tokens que no se delata por el tiempo que tarda. */

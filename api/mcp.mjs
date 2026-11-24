@@ -161,11 +161,18 @@ const origenValido = (req) => {
   try { return new URL(o).host === h; } catch { return false; }
 };
 
+/* El campo de cabeceras de Claude manda el valor tal cual se escribe, y ahi
+   es facil dejarse el «Bearer» o pegar un salto de linea. Se acepta con
+   esquema y sin el, y se recorta: rechazar por un espacio seria hacer
+   perder media tarde a alguien por nada. */
 const tokenDe = (req) => {
-  const a = req.headers.authorization || '';
-  const m = /^Bearer\s+(.+)$/i.exec(a);
-  if (m) return m[1].trim();
-  return req.headers['x-tablero-token'] || null;
+  const a = String(req.headers.authorization || '').trim();
+  if (a) {
+    const m = /^Bearer\s+(.+)$/i.exec(a);
+    return (m ? m[1] : a).trim();
+  }
+  const x = req.headers['x-tablero-token'];
+  return x ? String(x).trim() : null;
 };
 
 export default async function handler(req, res) {
@@ -201,6 +208,11 @@ export default async function handler(req, res) {
     agente: h['user-agent'] || null,
     origen: h.origin || null,
     trae_token: Boolean(h.authorization || h['x-tablero-token']),
+    /* Solo las longitudes. Con esto se distingue «no llega» de «llega mal
+       copiado» de «no coincide», que son tres arreglos distintos, y no se
+       escribe ni un caracter del token en ningun registro. */
+    largo_recibido: (tokenDe(req) || '').length,
+    largo_esperado: String(process.env.MCP_TOKEN || '').length,
   }));
 
   const d = responder(cuerpo, req.headers || {}, {
@@ -224,12 +236,12 @@ export default async function handler(req, res) {
     adjuntarCartera(corte, cartera, conciliacion);
     adjuntarTrello(corte, trello);
     const texto = HERRAMIENTAS[d.ejecutar.nombre].correr(corte, d.ejecutar.argumentos);
-    return res.status(200).json(resultado(d.ejecutar.id, texto, false));
+    return res.status(200).json(resultado(d.ejecutar.id, texto, false, d.antiguo === true));
   } catch (e) {
     /* Que una herramienta falle no es un error del protocolo: es un
        resultado con isError, y el modelo del otro lado puede decirlo. */
     console.error('[mcp]', e);
     return res.status(200).json(resultado(d.ejecutar.id,
-      'No se pudo leer el tablero en este momento: ' + e.message, true));
+      'No se pudo leer el tablero en este momento: ' + e.message, true, d.antiguo === true));
   }
 }
