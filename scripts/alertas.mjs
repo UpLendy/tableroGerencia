@@ -97,7 +97,13 @@ export function generarAlertas(c, umbrales = {}) {
       const esDinero = x.campo === 'ingreso';
       const fmt = esDinero ? cop : nf;
       añadir({
-        id: `mes-cerrado-deriva-${x.periodo}-${x.campo}-${ahora}`,
+        /* Sin el valor dentro. La cabecera de este archivo promete que el id
+           es estable entre cortes, justo para que el envio a Trello no cree
+           una tarjeta nueva cada noche por el mismo problema, y meter la
+           cifra en el id rompia esa promesa: la deriva de octubre cambia de
+           un peso y el identificador cambia con ella. La cifra va en el
+           detalle, que es lo que se actualiza. */
+        id: `mes-cerrado-deriva-${x.periodo}-${x.campo}`,
         severidad: Math.abs(x.diferencia) > 5 ? 'critica' : 'atencion',
         para: esDinero ? 'gerencia' : 'todos',
         titulo: `${x.periodo} se cerró con ${fmt(antes)} y la plataforma hoy reporta ${fmt(ahora)}`,

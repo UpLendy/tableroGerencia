@@ -1,7 +1,7 @@
 /* Pruebas de las alertas de cartera. Lo que se comprueba no es que corran,
    sino que no griten cuando no hay motivo, que no salgan hacia el Equipo, y
    que no afirmen nada que la cartera no diga. */
-import { alertasDeCartera, alertasDeConciliacion, alertasDeFrescura, adjuntarCartera, UMBRALES } from '../scripts/alertas.mjs';
+import { alertasDeCartera, alertasDeConciliacion, alertasDeFrescura, adjuntarCartera, generarAlertas, UMBRALES } from '../scripts/alertas.mjs';
 import { despojarParaEquipo } from '../scripts/vista.mjs';
 
 let fallos = 0;
@@ -283,6 +283,43 @@ console.log('\n-- lo vencido no se diluye con la facturación nueva --');
   const viejoAlto = cartera({ vencidoPct: UMBRALES.carteraVencida + 1, concPct: 5 });
   iguales(alertasDeCartera(viejoAlto).filter((a) => /más de 90 días/.test(a.titulo)).length, 1,
     'y esa regla sigue funcionando sola');
+}
+
+console.log('\n-- el identificador de una alerta no cambia porque cambie su cifra --');
+{
+  /* La cabecera de alertas.mjs promete que el id es estable entre cortes,
+     «lo que permite que el envio a Trello no cree una tarjeta nueva cada
+     noche por el mismo problema». Tres alertas lo incumplian: la deriva de
+     meses cerrados llevaba el valor metido en el id, de modo que un peso de
+     diferencia era una tarjeta nueva. No molestaba mientras nadie usara los
+     id; con Trello conectado seria un generador de duplicados. */
+  const ids = (a) => a.map((x) => x.id).sort();
+
+  const k1 = cartera({ vencidoPct: 50, concPct: 50, total: 100e6, dias: 400 });
+  const k2 = cartera({ vencidoPct: 50, concPct: 50, total: 137e6, dias: 418 });
+  iguales(ids(alertasDeCartera(k1)), ids(alertasDeCartera(k2)),
+    'las alertas de cartera conservan su id aunque cambien las cifras y los días');
+
+  /* generarAlertas se planta si no hay al menos un mes, asi que el corte de
+     mentira lleva uno aunque esta prueba solo mire la deriva. */
+  const deriva = (v) => ({
+    corte: '2026-11-24',
+    meses: [{ id: '2026-11', lbl: 'noviembre', cert: 100, personas: 90,
+              canal: { emp: 90, par: 10 }, ingreso: 1e6, ingresoBPM: null,
+              activas: 5, registradas: 10 }],
+    serie: [],
+    deriva_meses_cerrados: { cambios: [
+      { periodo: '2026-10', campo: 'ingreso', cerrado: 35976000, ahora: v },
+      { periodo: '2026-10', campo: 'cert', cerrado: 1848, ahora: 1847 },
+    ] },
+  });
+  const a1 = ids(generarAlertas(deriva(35956000)));
+  const a2 = ids(generarAlertas(deriva(35955000)));
+  iguales(a1, a2, 'y la deriva de un mes cerrado conserva el suyo aunque se mueva el valor');
+  cierto(a1.some((x) => /^mes-cerrado-deriva-2026-10-ingreso$/.test(x)),
+    'su id es el periodo y el campo, sin la cifra dentro');
+  cierto(!a1.some((x) => /\d{6,}/.test(x)),
+    'ningún id lleva una cifra larga pegada, que es la señal de que depende del valor');
 }
 
 console.log('\n-- el dato viejo --');
