@@ -50,6 +50,11 @@ export const UMBRALES = {
      dos, y entonces ya no es un tropiezo sino que algo está roto. */
   datoViejoHoras: 30,
   datoMuyViejoHoras: 54,
+  /* Una tarjeta un día tarde no es noticia; el ruido mata la alerta. Se avisa
+     a partir de una semana de atraso, y pasa a crítica a las tres. */
+  trelloVencidaDias: 7,
+  trelloVencidaDiasGrave: 21,
+  trelloColumnaParadaDias: 14,
 };
 
 const nf = (n) => Number(n).toLocaleString('es-CO');
@@ -640,6 +645,83 @@ export function alertasDeFrescura(cartera, conciliacion, ahora = Date.now()) {
     accion: 'Revisar que la lectura automática de Siigo esté corriendo; mientras tanto, no dar estas cifras por actuales.',
   });
   return a;
+}
+
+/* ---------------------------------------------------------------- Trello
+   Las tarjetas de Trello son el trabajo del equipo, y las columnas llevan
+   nombre de persona. Es la misma clase de dato que la carga de los
+   ingenieros, así que estas alertas son de Gerencia y el bloque entero se
+   le quita al Equipo en vista.mjs. */
+export function alertasDeTrello(trello, umbrales = {}) {
+  const U = { ...UMBRALES, ...umbrales };
+  const a = [];
+  if (!trello || !trello.resumen) return a;
+
+  /* Lo vencido de verdad: más de una semana. Una tarjeta de ayer no. */
+  const tarde = (trello.vencidas || []).filter((v) => Number(v.dias) >= U.trelloVencidaDias);
+  if (tarde.length) {
+    const peor = tarde[0];
+    const grave = Number(peor.dias) >= U.trelloVencidaDiasGrave;
+    /* Si una sola columna concentra lo atrasado, eso es lo que hay que decir:
+       no es que el equipo vaya tarde, es que una columna no se está mirando. */
+    const porColumna = new Map();
+    for (const v of tarde) porColumna.set(v.columna, (porColumna.get(v.columna) || 0) + 1);
+    const mayor = [...porColumna.entries()].sort((x, y) => y[1] - x[1])[0];
+    const concentrada = mayor && mayor[1] / tarde.length >= 0.4;
+
+    a.push({
+      id: `trello-vencidas-${String(trello.generado_en || '').slice(0, 7)}`,
+      severidad: grave ? 'critica' : 'atencion',
+      para: 'gerencia',
+      titulo: `${nf(tarde.length)} tarjeta${tarde.length === 1 ? '' : 's'} de Trello llevan más de ${nf(U.trelloVencidaDias)} días vencidas`,
+      /* El orden importa. Si media docena de columnas tienen una tarjeta
+         tarde cada una, eso es el equipo yendo justo; si la mitad están en
+         una sola columna, eso es otra cosa y es lo primero que hay que
+         decir. La más atrasada va después, porque es una anécdota al lado
+         de dónde se acumula el atraso. */
+      detalle:
+        (concentrada
+          ? `${nf(mayor[1])} de las ${nf(tarde.length)} están en una sola columna, «${mayor[0]}». `
+          : `Repartidas entre ${nf(porColumna.size)} columnas. `) +
+        `La más atrasada lleva ${nf(peor.dias)} días, en «${peor.columna}»: ${String(peor.nombre).slice(0, 70)}. ` +
+        (trello.resumen.sin_fecha
+          ? `Es un piso y no un total: ${nf(trello.resumen.sin_fecha)} tarjetas no llevan fecha, así que de esas no se puede saber si van tarde.`
+          : ''),
+      cifra: tarde.length,
+      seccion: 'trello',
+      accion: 'Revisar con quien corresponda; si ya están hechas, cerrarlas para que dejen de contar.',
+    });
+  }
+
+  /* Una columna entera sin tocarse. Una tarjeta quieta no dice nada; que
+     NINGUNA de las seis se haya movido en un mes, sí. */
+  for (const p of trello.columnas_paradas || []) {
+    if (Number(p.dias) < U.trelloColumnaParadaDias) continue;
+    a.push({
+      id: `trello-columna-parada-${String(p.columna).toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40)}`,
+      severidad: 'atencion',
+      para: 'gerencia',
+      titulo: `Nadie toca «${p.columna}» desde hace ${nf(p.dias)} días`,
+      detalle: `Sus ${nf(p.tarjetas)} tarjetas llevan todas quietas, en ${p.tablero}. ` +
+        'No es una tarjeta olvidada: es la columna entera.',
+      cifra: Number(p.dias),
+      seccion: 'trello',
+      accion: 'Decidir si esa columna sigue viva o si lo que hay dentro ya no aplica.',
+    });
+  }
+  return a;
+}
+
+export function adjuntarTrello(corte, trello) {
+  if (!corte || !trello) return corte;
+  corte.trello = trello;
+  const nuevas = alertasDeTrello(trello);
+  if (nuevas.length) {
+    const orden = { critica: 0, atencion: 1, aviso: 2 };
+    corte.alertas = [...(Array.isArray(corte.alertas) ? corte.alertas : []), ...nuevas]
+      .sort((a, b) => orden[a.severidad] - orden[b.severidad]);
+  }
+  return corte;
 }
 
 export function adjuntarCartera(corte, cartera, conciliacion) {

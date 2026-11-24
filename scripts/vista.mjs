@@ -90,6 +90,14 @@ export function despojarParaEquipo(corte) {
      nombre propio. No se despoja por campos, se quita el bloque. */
   delete c.cartera;
 
+  /* ------------------------------------------------------------ Trello
+     Las columnas de Trello llevan nombre de persona —Ana, Sebas, Tomás— y
+     lo que cuentan es cuánto trabajo tiene cada quien y qué lleva tarde.
+     Es exactamente lo que de trámites se decidió que no viajara al Equipo:
+     el reparto desigual es un hecho del equipo, pero quién carga con qué es
+     de Gerencia. Se va el bloque entero, por la misma razón. */
+  delete c.trello;
+
   /* ------------------------------------------------------------- cruce
      El cruce dice, empresa por empresa, cuánto se le facturó y cuánto
      queda por cobrarle. Es lo mismo que la cartera con otra forma, así
