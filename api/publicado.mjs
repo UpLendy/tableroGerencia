@@ -15,8 +15,8 @@
  * ------------------------------------------------------------------------- */
 import { rolDe, veTodo } from '../scripts/sesion.mjs';
 import { despojarParaEquipo } from '../scripts/vista.mjs';
-import { leerDato, leerCartera, leerConciliacion } from '../scripts/datos.mjs';
-import { adjuntarCartera } from '../scripts/alertas.mjs';
+import { leerDato, leerCartera, leerConciliacion, leerTrello } from '../scripts/datos.mjs';
+import { adjuntarCartera, adjuntarTrello } from '../scripts/alertas.mjs';
 
 export const config = { includeFiles: ['data/**'] };
 
@@ -33,11 +33,12 @@ export default async function handler(req, res) {
     /* La cartera la produce otro proceso y vive en otro archivo, porque dos
        flujos escribiendo el mismo archivo se pisan al empujar. Se une aquí,
        al servir, y si todavía no está publicada el tablero sale igual. */
-    const [cartera, conciliacion] = await Promise.all([leerCartera(), leerConciliacion()]);
+    const [cartera, conciliacion, trello] = await Promise.all([leerCartera(), leerConciliacion(), leerTrello()]);
 
     if (veTodo(rol)) {
       const c = await leer('corte.json');
       adjuntarCartera(c, cartera, conciliacion);
+      adjuntarTrello(c, trello);
       c.origen = 'archivo';
       return res.status(200).json(c);
     }
@@ -47,6 +48,7 @@ export default async function handler(req, res) {
        desfasado del primero. */
     const completo = await leer('corte.json');
     adjuntarCartera(completo, cartera, conciliacion);
+    adjuntarTrello(completo, trello);
     const c = despojarParaEquipo(completo);
     c.origen = 'archivo';
     return res.status(200).json(c);

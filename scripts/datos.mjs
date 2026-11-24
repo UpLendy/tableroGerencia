@@ -40,3 +40,11 @@ export async function leerConciliacion() {
   try { return await leerDato('conciliacion.json'); }
   catch { return null; }
 }
+
+/**
+ * Lo que se leyó de Trello, si está publicado. Mismo criterio que la cartera.
+ */
+export async function leerTrello() {
+  try { return await leerDato('trello.json'); }
+  catch { return null; }
+}

@@ -293,8 +293,9 @@ tbody tr:hover{background:var(--card2)}
 /* Una tabla angosta no se puede comprimir más: se desliza dentro de su tarjeta. */
 .chartcard table{min-width:340px}
 /* La de cuentas por cobrar es la excepción: bajó a tres columnas justamente
-   para caber en un teléfono, y el mínimo de 340 px la volvía a sacar. */
-#tablaCob table{min-width:0}
+   para caber en un teléfono, y el mínimo de 340 px la volvía a sacar. La de
+   Trello, igual. */
+#tablaCob table,#tablaTr table{min-width:0}
 #trEtapas,#alTabla,#curTabla{overflow-x:auto;-webkit-overflow-scrolling:touch}
 [hidden]{display:none!important}
 
@@ -633,6 +634,43 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
             <div><div class="al-d" id="cruNetoTxt"></div></div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6d · TRELLO ============ -->
+  <!-- Va oculta y solo aparece si el corte trae el bloque. A la vista de
+       Equipo el servidor se lo quita antes de enviarlo, porque las columnas
+       llevan nombre de persona: no hace falta comprobar el rol aqui. -->
+  <section id="sec-trello" hidden>
+    <div class="shead">
+      <h2>Trello · el trabajo del equipo</h2>
+      <span class="note" id="trNota">—</span>
+    </div>
+    <div class="grid kpis" style="margin-bottom:14px">
+      <div class="kpi">
+        <div class="kl">Tarjetas pendientes</div>
+        <div class="kv" id="trVivas">—</div>
+        <div class="kd"><span id="trVivasSub"></span></div>
+      </div>
+      <div class="kpi">
+        <div class="kl">Vencidas</div>
+        <div class="kv" id="trVencidas">—</div>
+        <div class="kd"><span id="trVencidasSub"></span></div>
+      </div>
+      <div class="kpi">
+        <div class="kl">Columnas que nadie toca</div>
+        <div class="kv" id="trParadas">—</div>
+        <div class="kd"><span id="trParadasSub"></span></div>
+      </div>
+    </div>
+    <div class="grid" id="trTableros"></div>
+    <div class="grid">
+      <div class="chartcard">
+        <div class="ct">Lo que va tarde</div>
+        <div class="cs" id="trVenCs"></div>
+        <button class="ghost" onclick="verTablaTr(this)">Ver las tarjetas vencidas</button>
+        <div class="tw" id="tablaTr" hidden style="margin-top:14px"></div>
       </div>
     </div>
   </section>
@@ -1620,6 +1658,103 @@ function renderSerie(){
     `Promedio de ${nf(prom)} certificaciones al mes. El mejor fue ${mejor.periodo} con ${nf(mejor.certificados)}.`;
 }
 
+
+/* ------------------------------------------------------- Trello */
+/**
+ * El trabajo del equipo, leído de Trello. Dos decisiones que se ven aquí:
+ *
+ *  · Las barras son de un solo tono. Su largo dice cuántas tarjetas tiene
+ *    cada columna y nada más; darle un color a cada una haría creer que el
+ *    color significa algo. Lo vencido se dice con el número, al lado.
+ *
+ *  · El reparto va por columna y se nombra como está. En un tablero las
+ *    columnas son personas y en el otro son temas, y de 285 tarjetas solo
+ *    una tenía miembro asignado. Clasificarlas sería inventar.
+ */
+function verTablaTr(b){
+  const t = $('tablaTr');
+  t.hidden = !t.hidden;
+  const n = ((CORTE.trello || {}).vencidas || []).length;
+  b.textContent = t.hidden ? 'Ver las ' + nf(n) + ' tarjetas vencidas' : 'Ocultar la lista';
+}
+
+function renderTrello(){
+  const t = CORTE.trello;
+  const sec = $('sec-trello');
+  if(!t || !t.resumen){ sec.hidden = true; return; }
+  sec.hidden = false;
+  const r = t.resumen;
+
+  $('trNota').textContent = 'Leído el ' + fechaLarga(String(t.generado_en||'').slice(0,10)) +
+    ' · ' + nf(r.tableros) + ' tablero' + (r.tableros===1?'':'s');
+
+  $('trVivas').textContent = nf(r.vivas);
+  $('trVivasSub').textContent = (t.tableros||[]).map(x => cortar(x.nombre,22) + ' ' + nf(x.vivas)).join(' · ');
+
+  $('trVencidas').textContent = nf(r.vencidas);
+  /* Lo vencido se colorea solo si lo hay: un número siempre en rojo deja de
+     mirarse, que es lo mismo que decidimos con la cartera vencida. */
+  $('trVencidas').style.color = r.vencidas > 0 ? 'var(--bad)' : '';
+  const peor = (t.vencidas||[])[0];
+  $('trVencidasSub').textContent = peor
+    ? 'la más atrasada, ' + nf(peor.dias) + ' días'
+    : 'ninguna va tarde';
+
+  $('trParadas').textContent = nf(r.columnas_paradas);
+  $('trParadasSub').textContent = (t.columnas_paradas||[]).length
+    ? (t.columnas_paradas||[]).map(x => cortar(x.columna,24) + ' (' + nf(x.dias) + 'd)').join(' · ')
+    : 'todas se han movido en los últimos ' + nf(t.dias_quieta) + ' días';
+
+  /* Una tarjeta por tablero con el reparto de sus columnas. */
+  $('trTableros').innerHTML = (t.tableros||[]).map(x => {
+    const cols = x.columnas || [];
+    const tope = Math.max(...cols.map(c => c.vivas), 1);
+    const parada = (nombre) => (t.columnas_paradas||[]).some(p => p.columna === nombre && p.tablero === x.nombre);
+    return `<div class="chartcard">
+      <div class="ct">${esc(x.nombre)}</div>
+      <div class="cs">${nf(x.vivas)} pendientes · ${nf(x.vencidas)} vencidas${
+        x.sin_fecha ? ' · ' + nf(x.sin_fecha) + ' sin fecha de vencimiento' : ''}${
+        (x.excluidas||[]).length ? ' · ' + nf((x.excluidas||[]).reduce((a,e)=>a+e.tarjetas,0)) + ' de historial fuera de la cuenta' : ''}</div>
+      <div class="bars">${cols.map(c => `<div class="bar">
+        <div class="bt"><span>${esc(cortar(c.nombre,34))}</span><b>${nf(c.vivas)}</b></div>
+        <div class="track"><div class="fill" style="width:${(c.vivas/tope*100).toFixed(1)}%;background:var(--s1)"></div></div>
+        <div class="bd">${[
+          c.vencidas ? `<span style="color:var(--bad);font-weight:600">${nf(c.vencidas)} vencidas</span>` : '',
+          /* Si la mayoría de la columna no lleva fecha, su «0 vencidas» no
+             significa que vaya al día: significa que no se puede saber. Ana
+             tiene 44 tarjetas, 35 sin fecha y ninguna vencida, y pintarlo
+             como una columna limpia sería el mismo error que dar por buena
+             una tasa de renovación de una cohorte abierta. */
+          c.sin_fecha
+            ? (c.sin_fecha / c.vivas >= 0.5
+                ? `<b>no se puede saber si van tarde: ${nf(c.sin_fecha)} de ${nf(c.vivas)} sin fecha</b>`
+                : `${nf(c.sin_fecha)} sin fecha`)
+            : '',
+          parada(c.nombre) ? `<b>nadie la toca hace ${nf(c.dias_mas_quieta)} días</b>` : '',
+        ].filter(Boolean).join(' · ')}</div>
+      </div>`).join('')}</div>
+    </div>`;
+  }).join('');
+
+  /* La advertencia del piso va donde se lee la cifra, no en una nota aparte:
+     si 53 tarjetas no llevan fecha, "61 vencidas" es un suelo. */
+  $('trVenCs').textContent =
+    'Con fecha de vencimiento pasada y sin marcar como hechas. ' +
+    (r.sin_fecha
+      ? 'Es un piso y no un total: ' + nf(r.sin_fecha) + ' tarjetas no llevan fecha, así que de esas no se puede saber si van tarde.'
+      : 'Todas las tarjetas llevan fecha.');
+
+  const v = t.vencidas || [];
+  $('tablaTr').innerHTML = v.length ? `<table><thead><tr>
+      <th class="n">Días</th><th>Tarjeta</th><th>Dónde</th></tr></thead><tbody>` +
+    v.map(x => `<tr>
+      <td class="n" style="color:var(--bad);font-weight:600">${nf(x.dias)}</td>
+      <td>${esc(cortar(x.nombre,60))}</td>
+      <td>${esc(cortar(x.columna,26))}</td>
+    </tr>`).join('') + '</tbody></table>'
+    : '<div class="al-vacio">Ninguna tarjeta va tarde.</div>';
+}
+
 /* ------------------------------------------------------- alertas */
 /* Cada alerta ya venía con el nombre de la sección que tiene su detalle, y la
    pantalla tiraba ese dato a la basura: la Dirección leía «45 certificaciones
@@ -1629,6 +1764,7 @@ const ANCLAS = {
   salud:'sec-salud', volumen:'sec-volumen', vencimientos:'sec-vencimientos',
   empresas:'sec-empresas', tramites:'sec-tramites', alimentia:'sec-alimentia',
   cursos:'sec-cursos', calidad:'sec-calidad', cobrar:'secCobrar', cruce:'secCruce',
+  trello:'sec-trello',
 };
 /* El enlace dice qué va a encontrar, no «ver más»: desde una alerta de cartera
    lo que hay abajo son nombres de quien debe, y conviene anunciarlo. */
@@ -1636,7 +1772,7 @@ const QUE_HAY_ABAJO = {
   cobrar:'Ver quién debe', cruce:'Ver las empresas', empresas:'Ver las empresas',
   vencimientos:'Ver los vencimientos', tramites:'Ver la carga de cada uno',
   alimentia:'Ver las empresas', cursos:'Ver los cursos', calidad:'Ver el detalle',
-  volumen:'Ver el volumen del mes', salud:'Ver el índice',
+  volumen:'Ver el volumen del mes', salud:'Ver el índice', trello:'Ver qué va tarde',
 };
 
 /** La sección de una alerta, solo si está en la página y visible para el rol. */
@@ -2305,7 +2441,7 @@ function pintar(opts){
 
   renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy();
   renderEmp(); renderCursos(); renderCalidad(); renderSerie(); renderRecompra();
-  renderTramites(); renderAlimentia(); renderCobrar(); renderCruce();
+  renderTramites(); renderAlimentia(); renderCobrar(); renderCruce(); renderTrello();
   /* Al final a propósito: cada alerta enlaza a su sección y para saber si esa
      sección existe y es visible para este rol hay que haberla pintado ya. */
   renderAlertas();

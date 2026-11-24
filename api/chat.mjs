@@ -18,8 +18,8 @@ import { traerTodasLasFuentes } from '../scripts/llamadas.mjs';
 import { armarCorte } from '../scripts/mapeo.mjs';
 import { despojarParaEquipo } from '../scripts/vista.mjs';
 import { rolDe, veTodo } from '../scripts/sesion.mjs';
-import { leerCartera, leerConciliacion } from '../scripts/datos.mjs';
-import { adjuntarCartera } from '../scripts/alertas.mjs';
+import { leerCartera, leerConciliacion, leerTrello } from '../scripts/datos.mjs';
+import { adjuntarCartera, adjuntarTrello } from '../scripts/alertas.mjs';
 
 export const config = { maxDuration: 60 };
 
@@ -505,6 +505,59 @@ export function fichaDelCorte(c) {
     }
   }
 
+  /* Trello es el trabajo del equipo. Va aqui porque la Direccion pregunta
+     por el: que lleva tarde y quien lo tiene. A Equipo no llega porque
+     despojarParaEquipo borra el bloque antes de armar la ficha. */
+  if (c.trello && c.trello.resumen) {
+    const t = c.trello, r = t.resumen;
+    L.push(`\n## Trello · el trabajo del equipo (leído el ${String(t.generado_en || '').slice(0, 10)})`);
+    L.push(
+      `- ${nf(r.vivas)} tarjetas pendientes en ${nf(r.tableros)} tablero(s): ` +
+        t.tableros.map((x) => `${x.nombre} ${nf(x.vivas)}`).join(' · ') + '.',
+    );
+    L.push(
+      `- ${nf(r.vencidas)} están vencidas (fecha pasada y sin marcar como hechas). ` +
+        `OJO: es un PISO y no un total, porque ${nf(r.sin_fecha)} tarjetas no llevan fecha de vencimiento ` +
+        `y de esas no se puede saber si van tarde. Si te preguntan cuántas van tarde, da la cifra y di esto.`,
+    );
+    if (r.excluidas)
+      L.push(`- No se cuentan ${nf(r.excluidas)} tarjetas que están en columnas de historial o de trabajo ya hecho.`);
+
+    /* El reparto por columna ES la carga por persona en el tablero donde las
+       columnas son gente. No se clasifica: se nombra la columna tal cual. */
+    for (const x of t.tableros) {
+      L.push(`\n### ${x.nombre}: ${nf(x.vivas)} pendientes, ${nf(x.vencidas)} vencidas`);
+      L.push(
+        `En este tablero el responsable es el NOMBRE DE LA COLUMNA, no un miembro asignado. ` +
+          `Si la columna se llama como una persona, esa es su carga.`,
+      );
+      x.columnas.forEach((col) =>
+        L.push(
+          `- ${col.nombre}: ${nf(col.vivas)} pendientes` +
+            (col.vencidas ? `, ${nf(col.vencidas)} vencidas` : '') +
+            (col.sin_fecha ? `, ${nf(col.sin_fecha)} sin fecha` : '') +
+            (col.dias_mas_quieta ? ` · la más quieta lleva ${nf(col.dias_mas_quieta)} días` : ''),
+        ),
+      );
+    }
+
+    if ((t.columnas_paradas || []).length) {
+      L.push(`\n### Columnas que nadie toca`);
+      L.push(`Todas sus tarjetas llevan quietas más de ${nf(t.dias_quieta)} días. No es una tarjeta olvidada: es la columna entera.`);
+      t.columnas_paradas.forEach((x) =>
+        L.push(`- ${x.columna} (${x.tablero}): ${nf(x.tarjetas)} tarjetas, ${nf(x.dias)} días sin tocarse`),
+      );
+    }
+
+    if ((t.vencidas || []).length) {
+      L.push(`\n### Las tarjetas vencidas (${nf(t.vencidas.length)}), de más a menos atrasada`);
+      L.push(`Lista completa. Si preguntan qué va tarde o qué tiene pendiente alguien, se responde con esto.`);
+      t.vencidas.forEach((v) =>
+        L.push(`- ${nf(v.dias)} días · ${v.columna} (${v.tablero}): ${v.nombre}`),
+      );
+    }
+  }
+
   if (c.calidadResumen) {
     L.push(`\n## Calidad del dato: ${nf(c.calidadResumen.puntaje)} de 100 (regla ${c.calidadResumen.regla}, estado ${c.calidadResumen.estado})`);
     Object.values(c.calidad || {}).forEach((q) => L.push(`- ${q.n}: ${q.r}${q.p ? ` · descuenta ${q.p} %` : ''}`));
@@ -604,8 +657,9 @@ export default async function handler(req, res) {
        quien debe ni a quien falta facturarle. Se pega antes del reparto por
        rol, de modo que despojarParaEquipo siga siendo el que decide. */
     try {
-      const [cartera, conciliacion] = await Promise.all([leerCartera(), leerConciliacion()]);
+      const [cartera, conciliacion, trello] = await Promise.all([leerCartera(), leerConciliacion(), leerTrello()]);
       adjuntarCartera(completo, cartera, conciliacion);
+      adjuntarTrello(completo, trello);
     } catch (e) {
       console.error('[chat] cartera/conciliacion no disponibles:', e.message);
     }
