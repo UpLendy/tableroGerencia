@@ -184,6 +184,25 @@ export default async function handler(req, res) {
       error: { code: ERR.parse, message: 'El cuerpo no es JSON' } });
   }
 
+  /* Qué llega de verdad. Un cliente que habla una revisión anterior manda
+     otras cabeceras y otro método, y desde fuera eso se ve igual que un
+     servidor caído: «no se pudo conectar». Esto lo deja escrito en los
+     registros. Nunca el token: solo si venía y cuánto medía. */
+  const h = req.headers || {};
+  console.log('[mcp] entra', JSON.stringify({
+    metodo: cuerpo && cuerpo.method,
+    version_cabecera: h['mcp-protocol-version'] || null,
+    version_cuerpo: (cuerpo && cuerpo.params && cuerpo.params._meta
+      && cuerpo.params._meta['io.modelcontextprotocol/protocolVersion']) || null,
+    mcp_method: h['mcp-method'] || null,
+    mcp_name: h['mcp-name'] || null,
+    sesion: h['mcp-session-id'] || null,
+    accept: h.accept || null,
+    agente: h['user-agent'] || null,
+    origen: h.origin || null,
+    trae_token: Boolean(h.authorization || h['x-tablero-token']),
+  }));
+
   const d = responder(cuerpo, req.headers || {}, {
     herramientas: HERRAMIENTAS,
     autorizado: tokenValido(tokenDe(req), process.env.MCP_TOKEN),
@@ -191,6 +210,7 @@ export default async function handler(req, res) {
   });
 
   if (!d.ejecutar) {
+    if (d.estado >= 400) console.log('[mcp] sale', d.estado, JSON.stringify(d.cuerpo && d.cuerpo.error));
     if (d.cuerpo === null) return res.status(d.estado).end();
     return res.status(d.estado).json(d.cuerpo);
   }
