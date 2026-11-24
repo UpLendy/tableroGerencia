@@ -11,8 +11,10 @@
    meses separando lo que ve Dirección de lo que ve el Equipo; un MCP abierto
    seria la puerta de atrás a todo eso. */
 import { responder, resultado, tokenValido, VERSION, ERR, SERVIDOR } from '../scripts/mcp.mjs';
-import { secciones } from '../api/mcp.mjs';
+import { secciones, HERRAMIENTAS } from '../api/mcp.mjs';
 import { fichaDelCorte } from '../api/chat.mjs';
+import { adjuntarCartera, adjuntarTrello } from '../scripts/alertas.mjs';
+import { readFileSync } from 'node:fs';
 
 let fallos = 0;
 const cierto = (v, q) => { console.log((v ? '  ok   ' : '  FALLA ') + q); if (!v) fallos++; };
@@ -181,6 +183,46 @@ console.log('\n-- partir la ficha en secciones --');
   const necesarias = ['Meses del corte', 'CÓMO COMPARAR', 'Serie mensual'];
   necesarias.forEach((n) => cierto(reales.some((x) => x.startsWith(n)),
     `la ficha sigue trayendo la sección «${n}», de la que tira corte_del_mes`));
+}
+
+console.log('\n-- ninguna herramienta devuelve vacío en silencio --');
+{
+  /* Las herramientas no redactan: recortan la ficha por sus títulos. Si
+     alguien renombra un título —cosa que ya pasó dos veces en este
+     proyecto— la herramienta seguiría respondiendo, pero con nada dentro,
+     y el modelo del otro lado diría que no tiene el dato. Un fallo mudo.
+     Esto lo convierte en una prueba roja. */
+  const leer = (f) => { try { return JSON.parse(readFileSync('data/' + f, 'utf8')); } catch { return null; } };
+  const corte = leer('corte.json');
+  if (!corte) {
+    console.log('  (sin data/corte.json: esta comprobación necesita datos publicados)');
+  } else {
+    adjuntarCartera(corte, leer('cartera.json'), leer('conciliacion.json'));
+    adjuntarTrello(corte, leer('trello.json'));
+    for (const h of Object.values(HERRAMIENTAS)) {
+      const texto = String(h.correr(corte) || '');
+      cierto(texto.trim().length > 40,
+        `«${h.name}» devuelve algo (${texto.length.toLocaleString('es-CO')} caracteres)`);
+    }
+    /* Y que cada una devuelva lo SUYO, no la ficha entera por accidente. */
+    const todo = fichaDelCorte(corte).length;
+    cierto(Object.values(HERRAMIENTAS).every((h) => String(h.correr(corte)).length < todo * 0.6),
+      'y ninguna devuelve la ficha entera, que sería no haber recortado nada');
+  }
+}
+
+console.log('\n-- las herramientas se describen para que el modelo elija bien --');
+{
+  for (const h of Object.values(HERRAMIENTAS)) {
+    cierto(h.name && h.title && h.description && h.inputSchema,
+      `«${h.name}» tiene nombre, título, descripción y esquema`);
+    cierto(/^[A-Za-z0-9_.-]{1,128}$/.test(h.name),
+      `y su nombre respeta el formato que pide la norma`);
+  }
+  cierto(HERRAMIENTAS.cuentas_por_cobrar.description.includes('BRUTA'),
+    'la de cartera avisa en su propia descripción de que es bruta y no la neta');
+  cierto(/no es una tasa/.test(HERRAMIENTAS.vencimientos.description),
+    'y la de renovación, de que una cohorte abierta no da una tasa');
 }
 
 console.log(fallos ? `\n${fallos} FALLAS\n` : '\nTodo en orden\n');

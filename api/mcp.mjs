@@ -50,7 +50,7 @@ const tomar = (mapa, prefijos) => {
   return partes.filter(Boolean).join('\n\n');
 };
 
-const HERRAMIENTAS = {
+export const HERRAMIENTAS = {
   corte_del_mes: {
     name: 'corte_del_mes',
     title: 'El corte del mes',
@@ -62,6 +62,72 @@ const HERRAMIENTAS = {
     correr: (corte) => tomar(secciones(fichaDelCorte(corte)), [
       'Meses del corte', 'CÓMO COMPARAR', 'Índice de salud', 'Comparativo', 'Serie mensual',
     ]),
+  },
+  empresas: {
+    name: 'empresas',
+    title: 'Las empresas y su volumen',
+    description:
+      'La lista completa de empresas clientes con cuántas certificaciones hizo cada una, mes ' +
+      'a mes, su NIT, cuáles dejaron de certificar y cuáles aparecen por primera vez. Usar ' +
+      'para cualquier pregunta sobre qué empresas hicieron o dejaron de hacer algo.',
+    inputSchema: { type: 'object', additionalProperties: false },
+    correr: (corte) => tomar(secciones(fichaDelCorte(corte)), [
+      'Lista COMPLETA', 'Empresas que aparecen', 'Empresas sin una sola',
+    ]),
+  },
+  cuentas_por_cobrar: {
+    name: 'cuentas_por_cobrar',
+    title: 'Lo que deben los clientes',
+    description:
+      'La cartera leída de Siigo: cuánto hay por cobrar, repartido por antigüedad, y la lista ' +
+      'completa de clientes con saldo. Es cartera BRUTA, sin descontar anticipos ni saldos a ' +
+      'favor, así que no es la cartera neta de contabilidad.',
+    inputSchema: { type: 'object', additionalProperties: false },
+    correr: (corte) => tomar(secciones(fichaDelCorte(corte)), ['Cuentas por cobrar']) ||
+      'La lectura de Siigo no está disponible en este corte.',
+  },
+  sin_facturar: {
+    name: 'sin_facturar',
+    title: 'Certificado contra facturado',
+    description:
+      'Qué se certificó y qué se facturó, del mes cerrado y acumulado en seis meses, con las ' +
+      'empresas a las que falta facturarles y cuántos meses llevan. El saldo acumulado es la ' +
+      'medida buena del atraso; el mes suelto confunde cadencia con facturación no hecha.',
+    inputSchema: { type: 'object', additionalProperties: false },
+    correr: (corte) => tomar(secciones(fichaDelCorte(corte)),
+      ['Certificado contra facturado', 'Saldo acumulado']) ||
+      'El cruce contra Siigo no está disponible en este corte.',
+  },
+  trello: {
+    name: 'trello',
+    title: 'El trabajo del equipo',
+    description:
+      'Las tarjetas de Trello de BPM: cuántas hay pendientes, cuáles llevan tiempo vencidas y ' +
+      'en qué columna, y qué columnas no toca nadie. En estos tableros el responsable es el ' +
+      'nombre de la columna, no un miembro asignado.',
+    inputSchema: { type: 'object', additionalProperties: false },
+    correr: (corte) => tomar(secciones(fichaDelCorte(corte)), ['Trello']) ||
+      'La lectura de Trello no está disponible en este corte.',
+  },
+  vencimientos: {
+    name: 'vencimientos',
+    title: 'Certificados que vencen y renovación',
+    description:
+      'Cuántos certificados vencen en los próximos treinta días, de qué empresas, y la tasa ' +
+      'de renovación que se puede afirmar. La tasa de una cohorte cuya ventana sigue abierta ' +
+      'no es una tasa y no debe presentarse como tal.',
+    inputSchema: { type: 'object', additionalProperties: false },
+    correr: (corte) => tomar(secciones(fichaDelCorte(corte)), ['Vencimientos', 'Renovación']),
+  },
+  operacion: {
+    name: 'operacion',
+    title: 'Trámites, Alimentia y calidad del dato',
+    description:
+      'La plataforma de trámites INVIMA (carga de ingenieros, duración, etapas), el uso de ' +
+      'Alimentia por empresa, y la calidad del dato del tablero con lo que la descuenta.',
+    inputSchema: { type: 'object', additionalProperties: false },
+    correr: (corte) => tomar(secciones(fichaDelCorte(corte)),
+      ['Plataforma de trámites', 'Alimentia', 'Calidad del dato', 'Universo']),
   },
   alertas: {
     name: 'alertas',
