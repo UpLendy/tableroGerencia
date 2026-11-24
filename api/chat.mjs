@@ -383,7 +383,26 @@ export function fichaDelCorte(c) {
     if (d) L.push(`- Procesos abiertos hoy ${nf(d.abiertos)}, cerrados en el periodo ${nf(d.cerrados)}. Mediana hasta cerrar ${nf(d.dias_mediana)} días, el 10 % más lento pasa de ${nf(d.dias_p90)}.`);
     if (rt) L.push(`- Retrabajo: ${nf(rt.eliminadas)} etapas deshechas de ${nf(rt.iniciadas)} iniciadas.`);
     if (e) {
-      L.push(`- Etapas: ${nf(e.etapas_sin_registro)} de ${nf((e.detalle || []).length)} no registran duración (se abren y cierran en el mismo instante, de modo que su cero NO significa rapidez sino ausencia de registro). Solo ${nf(e.etapas_con_duracion_real)} mide tiempo real.`);
+      /* Decía «5 de 10 no registran duración. Solo 0 mide tiempo real», y
+         puesto así parece que el tablero se contradice: si cinco no
+         registran, cinco deberían. Las dos cifras eran ciertas y faltaba la
+         de en medio, que es la que lo explica: hay etapas que registran a
+         veces, y una mediana de cero sobre un registro intermitente no es
+         una mediana de nada. */
+      {
+        const total = (e.detalle || []).length;
+        const nunca = Number(e.etapas_sin_registro) || 0;
+        const siempre = Number(e.etapas_con_duracion_real) || 0;
+        const aVeces = Math.max(0, total - nunca - siempre);
+        L.push(
+          `- Etapas: de ${nf(total)}, ${nf(nunca)} NUNCA registran duración —se abren y cierran en el mismo ` +
+            `instante, así que su cero no significa rapidez sino ausencia de registro—, ${nf(aVeces)} lo ` +
+            `registran A VECES y ${nf(siempre)} lo hacen SIEMPRE. ` +
+            (siempre === 0
+              ? 'Ninguna mide el tiempo de forma fiable, de modo que las medianas de esta sección no se pueden afirmar como duraciones reales.'
+              : 'Solo esas miden tiempo real.'),
+        );
+      }
       (e.detalle || []).forEach((x) =>
         L.push(`  · ${x.nombre}: mediana ${nf(x.dias_mediana)} d, máximo ${nf(x.dias_max)} d, ${nf(x.completadas)} completadas${x.no_registra ? ' [no registra duración]' : x.registro_mixto ? ' [registro mixto]' : ''}`),
       );
