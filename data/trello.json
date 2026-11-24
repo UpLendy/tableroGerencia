@@ -1,15 +1,15 @@
 {
   "regla": "trello-v1",
-  "generado_en": "2026-11-24T15:02:18.313Z",
+  "generado_en": "2026-11-24T18:32:53.443Z",
   "dias_quieta": 14,
   "tableros": [
     {
       "id": "gvFNfzLH",
-      "nombre": "Tablero oficina 2 ",
+      "nombre": "Tablero oficina 2",
       "url": "https://trello.com/b/gvFNfzLH/tablero-oficina-2",
-      "vivas": 152,
+      "vivas": 153,
       "vencidas": 53,
-      "sin_fecha": 50,
+      "sin_fecha": 51,
       "columnas": [
         {
           "id": "6abf8803fe414e0c5165cd5f",
@@ -17,21 +17,21 @@
           "vivas": 47,
           "vencidas": 27,
           "sin_fecha": 4,
-          "quietas": 0,
-          "dias_mas_quieta": 13
+          "quietas": 5,
+          "dias_mas_quieta": 14
         },
         {
           "id": "6a56b478664c827ac8488359",
           "nombre": "Ana ( empresas, soporte empresas y cotizaciones )",
-          "vivas": 44,
+          "vivas": 45,
           "vencidas": 0,
-          "sin_fecha": 35,
+          "sin_fecha": 36,
           "quietas": 2,
           "dias_mas_quieta": 15
         },
         {
           "id": "6782af374826adc1ed4808e9",
-          "nombre": "Alejandro García (operaciones e ingenieras – antes Karen)",
+          "nombre": "Jacobo Cardona",
           "vivas": 16,
           "vencidas": 1,
           "sin_fecha": 2,
@@ -53,7 +53,7 @@
           "vivas": 15,
           "vencidas": 4,
           "sin_fecha": 4,
-          "quietas": 4,
+          "quietas": 5,
           "dias_mas_quieta": 28
         },
         {
@@ -101,7 +101,7 @@
       "nombre": "Cencosud 2026",
       "url": "https://trello.com/b/oqP8z4jK/cencosud-2026",
       "vivas": 59,
-      "vencidas": 8,
+      "vencidas": 7,
       "sin_fecha": 3,
       "columnas": [
         {
@@ -144,7 +144,7 @@
           "id": "6accd8e4b63fb6a3db48b8c6",
           "nombre": "📌 RUTINAS – Reporte diario y acta del miércoles",
           "vivas": 3,
-          "vencidas": 1,
+          "vencidas": 0,
           "sin_fecha": 1,
           "quietas": 0,
           "dias_mas_quieta": 6
@@ -188,7 +188,7 @@
   ],
   "vencidas": [
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "💰 Ventas (con cotización y FV)",
       "nombre": "ANA: PLAN DE TRABAJO, DIAGNOSTICOS Y HALLAZGOS 20/10/2026 (ING - VALERIA PROGRAMADA PARA ELSABADO 24/10/2026) PENDIENTE PARA DEL PAGO.",
@@ -196,7 +196,7 @@
       "url": "https://trello.com/c/5rDxfCw7"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "💰 Ventas (con cotización y FV)",
       "nombre": "curso 12 personas, lunes 26 a las 3 con valeria - karen lo cerro",
@@ -204,7 +204,7 @@
       "url": "https://trello.com/c/gXqq87UA"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mensuales todos",
       "nombre": "🚨 URGENTE: Recepción contratos firmados y documentos de oficina - Gestión Humana",
@@ -212,7 +212,7 @@
       "url": "https://trello.com/c/lYvwG8tw"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Tomás ( línea , seo y redes )",
       "nombre": "🗓️ Tarjetas pendientes de Tomás (3–13 nov) – las HORAS están en la AGENDA ÚNICA de tu tarjeta de funciones",
@@ -220,7 +220,7 @@
       "url": "https://trello.com/c/ZyPzbJlN"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "💰 Ventas (con cotización y FV)",
       "nombre": "🎯 TOMÁS – semana 2 al 7 nov – meta 92 certificados",
@@ -228,7 +228,7 @@
       "url": "https://trello.com/c/HQFt5aLZ"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "Corregir cruce Cencosud/Mall Plaza en SIIGO y auditar/reclasificar Gastos No Deducibles (Sebastián)",
@@ -236,31 +236,31 @@
       "url": "https://trello.com/c/qXjEkG31"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "📊 Actualizar FACTURAS POR COBRAR con la cartera de Siigo – 11 nov",
-      "dias": 12,
+      "dias": 13,
       "url": "https://trello.com/c/IQJkUpI5"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🔁 Cruzar en Siigo saldos a favor contra facturas abiertas – 11 nov",
-      "dias": 12,
+      "dias": 13,
       "url": "https://trello.com/c/XJhDIFkT"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🛒 CENCOSUD – facturar cuando llegue la OC (no se cobra)",
-      "dias": 12,
+      "dias": 13,
       "url": "https://trello.com/c/pv0GJv2X"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "📨 Lo que necesita Ángela para cerrar octubre – fechas en cada punto",
@@ -268,7 +268,7 @@
       "url": "https://trello.com/c/owwvVcxB"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🏬 MALL PLAZA – OC/HES de marzo y julio–octubre, expediente de cartera y facturación",
@@ -276,7 +276,15 @@
       "url": "https://trello.com/c/1gHM3Ei1"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
+      "tablero_id": "gvFNfzLH",
+      "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
+      "nombre": "🧾 FACTURACIÓN – falta por facturar de octubre (OC) + jul–sep sin factura ($2.459.000) – vie 13 nov",
+      "dias": 12,
+      "url": "https://trello.com/c/pYYd8vvL"
+    },
+    {
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "📋 Lista cruzada de Consumidor Final ($3.775.248) – Forms + caja + facturación → a Sebastián y Ángela – jue 12 nov (Acta 001)",
@@ -284,7 +292,7 @@
       "url": "https://trello.com/c/YLKzN59f"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "🧮 Relación de retenciones de octubre por cliente, factura y valor → a Ángela y Sebastián – jue 12 nov (Acta 001)",
@@ -292,7 +300,7 @@
       "url": "https://trello.com/c/mNcyMtAt"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🧾 CIERRE DE OCTUBRE 2026 – todo lo pendiente en una sola tarjeta – vie 13 nov",
@@ -300,15 +308,15 @@
       "url": "https://trello.com/c/kcgHhLAD"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
-      "nombre": "🧾 FACTURACIÓN – falta por facturar de octubre (OC) + jul–sep sin factura ($2.459.000) – vie 13 nov",
+      "nombre": "🔗 DEPURACIÓN DE CARTERA EN SIIGO ($47 M + saldos a favor y consignaciones) – vie 13 nov",
       "dias": 11,
-      "url": "https://trello.com/c/pYYd8vvL"
+      "url": "https://trello.com/c/YxxDPRhO"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "⚖️ SEGURIDAD SOCIAL – EPS, ARL, Confa y cobros jurídicos – vie 13 nov",
@@ -316,7 +324,7 @@
       "url": "https://trello.com/c/3JXHyZSx"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "💸 Pagar TODO lo adeudado al Laboratorio Silvio Alfonso Marín en una sola transferencia – vie 13 nov (Acta 001)",
@@ -324,7 +332,7 @@
       "url": "https://trello.com/c/WhjCtiDE"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🚨 URGENTE HOY – Laboratorio Silvio: buscar nota crédito de la FVE2677, revisar el RP-1-872 y soportes de 2 abonos",
@@ -332,15 +340,7 @@
       "url": "https://trello.com/c/rUUMTE4S"
     },
     {
-      "tablero": "Tablero oficina 2 ",
-      "tablero_id": "gvFNfzLH",
-      "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
-      "nombre": "🔗 DEPURACIÓN DE CARTERA EN SIIGO ($47 M + saldos a favor y consignaciones) – vie 13 nov",
-      "dias": 10,
-      "url": "https://trello.com/c/YxxDPRhO"
-    },
-    {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "💵 Entrega de efectivo a Mónica TODOS LOS VIERNES",
@@ -348,7 +348,7 @@
       "url": "https://trello.com/c/eect4xRh"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "💵 Efectivo de las ingenieras sin consignar (tarjeta única) – pestaña EFECTIVO = CAJA CONTABLE",
@@ -356,7 +356,7 @@
       "url": "https://trello.com/c/vahxT7Sh"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🚪 Cierre de la salida de Karen – viernes 13 nov",
@@ -364,7 +364,7 @@
       "url": "https://trello.com/c/FRplGs3K"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Tomás ( línea , seo y redes )",
       "nombre": "🎓 Crear un curso NUEVO en la plataforma (el de octubre quedó sin hacer)",
@@ -372,7 +372,7 @@
       "url": "https://trello.com/c/Kw9mHGqj"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "📤 Reportes de Siigo enero–octubre 2026 con cruces adelantados (gastos personales, retenciones, Consumidor Final) para Ángela – mar 17 nov (Acta 001)",
@@ -380,7 +380,7 @@
       "url": "https://trello.com/c/R2nPjhTL"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "🚨 URGENTE – Afiliar a Alejandro García a la ARL antes de que empiece (mar 17 nov)",
@@ -388,7 +388,7 @@
       "url": "https://trello.com/c/5Thewn0d"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "🚨 URGENTE – Borrar la carpeta OFICINA de la cuenta de actas y vaciar la papelera",
@@ -396,7 +396,7 @@
       "url": "https://trello.com/c/wXUvmEWH"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "🚨 URGENTE – Borrar la carpeta vieja de Tomás en SParra914",
@@ -404,7 +404,7 @@
       "url": "https://trello.com/c/ZQMYXLYM"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "🚨 URGENTE – Borrar los archivos de OFICINA de la cuenta comercial.bpmsas",
@@ -412,7 +412,7 @@
       "url": "https://trello.com/c/cC1sYHN6"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "🚨 URGENTE – Borrar los archivos de OFICINA de la cuenta virtual.bpmsas",
@@ -420,7 +420,7 @@
       "url": "https://trello.com/c/0Iu22DGz"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "🚨 URGENTE – Borrar los archivos de OFICINA de la cuenta facturasbpmconsulting8",
@@ -428,7 +428,7 @@
       "url": "https://trello.com/c/DvfjAAxI"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Tomás ( línea , seo y redes )",
       "nombre": "📞 Agendar: HOTEL HILTON GARDEN INN respondió (12 nov)",
@@ -436,7 +436,7 @@
       "url": "https://trello.com/c/XcKzsrsK"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "💸 Reembolsar a Mónica el pago de honorarios que le hizo a Laura Bedoya",
@@ -444,7 +444,7 @@
       "url": "https://trello.com/c/RwF7b3kV"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🧾 Retención en la fuente sept–oct: correcciones que pidió Ángela – mar 17 nov, 3:25–4:10",
@@ -452,7 +452,7 @@
       "url": "https://trello.com/c/hP5H8KHZ"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🧾 Facturar YA el excedente/comisión de BPM en los trámites tercerizados (INVIMA / terceros) para cuadrar CC-20261 ($603.653) – mié 18 nov (Acta 001)",
@@ -460,7 +460,7 @@
       "url": "https://trello.com/c/z5LL55Bt"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "👤 Consumidor Final ($3.775.248): reclasificar en Siigo a cada cliente real – mar 17 nov (Acta 001: fecha movida del 13 por Mónica)",
@@ -468,7 +468,7 @@
       "url": "https://trello.com/c/xXYNFC6h"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "💸 Pagar la deuda de honorarios contables a Ángela – mié 18 nov (Acta 001)",
@@ -476,7 +476,7 @@
       "url": "https://trello.com/c/dCXgfro3"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🔎 Siigo: plazo de Cencosud a 45 días + ver en Portal Pymes quién envió el giro del 24/09 (NO cambiar el tercero todavía)",
@@ -484,7 +484,7 @@
       "url": "https://trello.com/c/qsYxN7so"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "💊 Giros INVIMA: soportes de CC-20261 y CC-2710 – mié 18 nov",
@@ -492,7 +492,7 @@
       "url": "https://trello.com/c/OCdn1fJm"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🧮 Retenciones de octubre: reclasificar a la cuenta 1355 con su certificado – mié 18 nov (Acta 001: fecha movida del 13 por Mónica)",
@@ -500,7 +500,7 @@
       "url": "https://trello.com/c/RionvHLr"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "📆 Revisión enero–octubre 2026: lista de errores mes por mes para Ángela – 18 nov",
@@ -508,7 +508,7 @@
       "url": "https://trello.com/c/yc6BPI11"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "🔁 Reunión semanal con Ángela – cada JUEVES hasta cuadrar al 100 % y cerrar el año (Acta 001)",
@@ -516,7 +516,7 @@
       "url": "https://trello.com/c/Z9ElZzTs"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🔎 Consignaciones 2026: confirmar soportes y hacer RC con detalle de las 17 con cliente probable – vie 20 nov (Acta 001)",
@@ -524,7 +524,7 @@
       "url": "https://trello.com/c/n97UDqPA"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🏦 Separar las 11 consignaciones 2026 sin identificar ($1.559.700) y pasar la lista a Mónica para radicar al banco – vie 20 nov (Acta 001)",
@@ -532,7 +532,7 @@
       "url": "https://trello.com/c/LlaADihr"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "🏦 Bancolombia 2025: identificar y cruzar 16 recibos ($7.318.938) + lista de no identificados para el banco – vie 20 nov (Acta 001)",
@@ -540,7 +540,7 @@
       "url": "https://trello.com/c/y5V7Qvby"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "🏦 Radicar cartas a los bancos por las consignaciones no identificadas 2025 y 2026 – vie 20 nov (Acta 001)",
@@ -548,7 +548,7 @@
       "url": "https://trello.com/c/MvQCfR2S"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Tomás ( línea , seo y redes )",
       "nombre": "🖥️ Tomás: diapositivas del curso de ESPACIO PÚBLICO (semana 17–20 nov)",
@@ -556,7 +556,7 @@
       "url": "https://trello.com/c/K84bIh56"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Sebas (Admin metas , contabilidad , Cumpliento en general )",
       "nombre": "📨 Correo de actas: Capacitación en Hoyuelos (17 nov)",
@@ -564,7 +564,7 @@
       "url": "https://trello.com/c/sJeYOaw8"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "📨 Correo de actas: Capacitación Jumbo Santa Ana (17 nov)",
@@ -572,7 +572,7 @@
       "url": "https://trello.com/c/ly2BLgZs"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "📨 Correo de actas: reclamo de pago de una ingeniera (18 nov)",
@@ -580,7 +580,7 @@
       "url": "https://trello.com/c/KKxH93nZ"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "Mónica",
       "nombre": "📨 Correo de actas: PDF para dividir y renombrar (18 nov)",
@@ -588,15 +588,15 @@
       "url": "https://trello.com/c/2d7DnPRK"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
-      "columna": "Alejandro García (operaciones e ingenieras – antes Karen)",
+      "columna": "Jacobo Cardona",
       "nombre": "📨 Correo de actas: Entregables curso sede 19 nov (20 nov)",
       "dias": 2,
       "url": "https://trello.com/c/nLPYihKU"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "🎯 Meta semanal (evidencia: LO QUE CONSIGO, GESTIONES o enlace de Drive)",
       "nombre": "🎯 ANA – semana 16 al 22 nov – meta 17 independientes (festivo)",
@@ -604,7 +604,7 @@
       "url": "https://trello.com/c/UMNsbfYr"
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "tablero_id": "gvFNfzLH",
       "columna": "🎯 Meta semanal (evidencia: LO QUE CONSIGO, GESTIONES o enlace de Drive)",
       "nombre": "🎯 TOMÁS – semana 16 al 22 nov – meta 130 certificados (festivo)",
@@ -631,6 +631,14 @@
       "tablero": "Cencosud 2026",
       "tablero_id": "oqP8z4jK",
       "columna": "Pendientes seguimiento invima",
+      "nombre": "[BEBIDAS] Vino espumoso semiseco rosé J. KIEFFER · Recurso de reposición radicado 11/11 (rad. 20261359693) – en estudio INVIMA",
+      "dias": 1,
+      "url": "https://trello.com/c/Erd22pu8"
+    },
+    {
+      "tablero": "Cencosud 2026",
+      "tablero_id": "oqP8z4jK",
+      "columna": "Pendientes seguimiento invima",
       "nombre": "[ALIMENTOS] Registro sanitario Barilla F1 (Importados) · En estudio",
       "dias": 1,
       "url": "https://trello.com/c/KDSahePo"
@@ -639,7 +647,7 @@
       "tablero": "Cencosud 2026",
       "tablero_id": "oqP8z4jK",
       "columna": "Pendientes seguimiento invima",
-      "nombre": "[ALIMENTOS] NICO JAMONES – registro InvimÁgil, sistematización y modificaciones · En estudio",
+      "nombre": "🚨 URGENTE – [ALIMENTOS] NICO JAMONES – registro InvimÁgil, sistematización y modificaciones · En estudio · Diferencia sistematización ID 91757 (RSA-0036303-2025): ajustar en InvimÁgil antes del 03 dic",
       "dias": 1,
       "url": "https://trello.com/c/vejnv8Su"
     },
@@ -654,37 +662,21 @@
     {
       "tablero": "Cencosud 2026",
       "tablero_id": "oqP8z4jK",
-      "columna": "📌 RUTINAS – Reporte diario y acta del miércoles",
-      "nombre": "🗓️ Reporte diario + Excel (lunes a viernes, antes de 6:00 p.m.)",
-      "dias": 0,
-      "url": "https://trello.com/c/NPnlrm1o"
-    },
-    {
-      "tablero": "Cencosud 2026",
-      "tablero_id": "oqP8z4jK",
       "columna": "Pendientes documentos proveedor",
       "nombre": "[BEBIDAS] Registro sanitario nuevo GLASS PREMIUM WINE (Importados) · En proceso",
       "dias": 0,
       "url": "https://trello.com/c/GHqNjUiK"
-    },
-    {
-      "tablero": "Cencosud 2026",
-      "tablero_id": "oqP8z4jK",
-      "columna": "Pendientes seguimiento invima",
-      "nombre": "[BEBIDAS] Vino espumoso semiseco rosé J. KIEFFER · Recurso de reposición radicado 11/11 (rad. 20261359693) – en estudio INVIMA",
-      "dias": 0,
-      "url": "https://trello.com/c/Erd22pu8"
     }
   ],
   "columnas_paradas": [
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "columna": "Mensuales todos",
       "tarjetas": 5,
       "dias": 30
     },
     {
-      "tablero": "Tablero oficina 2 ",
+      "tablero": "Tablero oficina 2",
       "columna": "💰 Ventas (con cotización y FV)",
       "tarjetas": 6,
       "dias": 28
@@ -692,13 +684,13 @@
   ],
   "resumen": {
     "tableros": 2,
-    "vivas": 211,
-    "vencidas": 61,
-    "sin_fecha": 53,
+    "vivas": 212,
+    "vencidas": 60,
+    "sin_fecha": 54,
     "columnas_paradas": 2,
     "excluidas": 74
   },
   "tiempos_ms": {
-    "total": 932
+    "total": 866
   }
 }
