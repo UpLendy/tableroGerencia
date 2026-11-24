@@ -1,3 +1,4 @@
+import { noEsEmpresa } from './no-son-empresa.mjs';
 /* ---------------------------------------------------------------------------
  * congelado.mjs — el registro de los meses ya cerrados.
  *
@@ -253,9 +254,32 @@ export function aplicarCerrados(corte, reg) {
     if (Array.isArray(c.por_empresa) && Array.isArray(corte.empresas)) {
       const porCodigo = new Map(corte.empresas.map((e) => [String(e.codigo ?? e.id), e]));
       const congeladas = new Set();
+      /* Lo que se deja fuera se cuenta y se escribe en el mes. Si se callara,
+         el reparto sumaria menos que el canal sin que nadie pudiera explicar
+         por que, y el validador que lo vigila tendria que relajarse. Asi el
+         validador sigue siendo estricto: suma + excluidas = canal. */
+      const fuera = { certificaciones: 0, codigos: [] };
       for (const x of c.por_empresa) {
         const clave = String(x.codigo);
         congeladas.add(clave);
+        /* Salvo lo que no es una empresa. Octubre se congeló antes de que
+           existieran las exclusiones, así que su detalle todavía trae la
+           cuenta de super administrador y una empresa de pruebas; sin esto
+           vuelven a aparecer cada noche y el tablero le pide a BPM que
+           corrija el documento de registros que no son clientes.
+
+           No se toca el archivo congelado ni las cifras del mes: cert,
+           personas y empresas_activas siguen siendo las que se informaron al
+           cerrar. Lo único que cambia es que la LISTA deja de resucitarlos.
+           Que la lista sume dos menos que el agregado es la misma clase de
+           diferencia que ya hay entre las 1.848 del mes y las 1.071 del canal
+           empresa, y se explica igual. */
+        if (noEsEmpresa(clave)) {
+          congeladas.delete(clave);
+          fuera.certificaciones += Number(x.certificados) || 0;
+          fuera.codigos.push(clave);
+          continue;
+        }
         let e = porCodigo.get(clave);
         if (!e) {
           e = { codigo: x.codigo, nombre: x.nombre, meses: {} };
@@ -270,6 +294,7 @@ export function aplicarCerrados(corte, reg) {
         if (congeladas.has(String(e.codigo ?? e.id))) continue;
         if (Number((e.meses || {})[m.id] || 0) > 0) e.meses[m.id] = 0;
       }
+      if (fuera.codigos.length) m.no_son_empresa = fuera;
     }
   }
 

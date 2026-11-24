@@ -25,21 +25,13 @@ export const UNIFICAR = {
  *  No se detectan por el nombre. Hoy funcionaría buscar "admin", y el día que
  *  entre una empresa que se llame "Administradora algo" la borraríamos sin
  *  que nadie se entere. */
-const NO_SON_EMPRESA = new Map([
-  ['bpmsas', 'bolsa de usuarios independientes que en algún momento quedaron ' +
-             'bajo esa empresa; son más de 10.000 registros y no se pueden mover'],
-  ['c777a6', 'cuenta de super administrador, con una certificación suelta de ' +
-             'octubre de 2026 y un documento de 15 dígitos'],
-  ['4w32sa', 'empresa de pruebas, confirmado por UpLendy el 20 de noviembre de ' +
-             '2026. Una certificación de octubre y un documento de diez dígitos, ' +
-             'que es una cédula y no un NIT'],
-]);
 const DUENO = {};
 for (const [jefe, g] of Object.entries(UNIFICAR)) for (const c of g.codigos) DUENO[c] = jefe;
 
 import { armarTramites, armarAlimentia } from './mapeo-extra.mjs';
 import { generarAlertas } from './alertas.mjs';
 import { aplicarCerrados } from './congelado.mjs';
+import { NO_SON_EMPRESA } from './no-son-empresa.mjs';
 
 const REGLA = 'virtual-metrics-v1';
 const MESLARGO = ['enero','febrero','marzo','abril','mayo','junio','julio',

@@ -111,8 +111,15 @@ for (const a of al.filter((x) => x.severidad === 'critica')) {
   for (const m of corte.meses.filter((x) => x.cerrado)) {
     const suma = (corte.empresas || [])
       .reduce((a, e) => a + Number((e.meses || {})[m.id] || 0), 0);
-    af(suma === m.canal.emp,
-       m.id + ': la cartera suma ' + suma + ' y el canal dice ' + m.canal.emp);
+    /* Mas lo que se dejo fuera por no ser una empresa. Octubre se congelo
+       antes de que existieran las exclusiones, asi que su detalle todavia
+       trae la cuenta de super administrador y una empresa de pruebas: no se
+       resucitan, pero sus certificaciones siguen dentro del canal congelado,
+       que es una cifra ya informada y no se toca. La igualdad se mantiene
+       declarando la diferencia en vez de ignorandola. */
+    const fuera = Number((m.no_son_empresa || {}).certificaciones || 0);
+    af(suma + fuera === m.canal.emp,
+       m.id + ': la cartera suma ' + suma + ' + ' + fuera + ' excluidas y el canal dice ' + m.canal.emp);
   }
 
   const cerrado = Object.keys(registro.meses || {})[0];
@@ -131,7 +138,8 @@ for (const a of al.filter((x) => x.severidad === 'critica')) {
         .reduce((a, e) => a + Number((e.meses || {})[cerrado] || 0), 0);
       af(mp.cert === r.cert, 'el total del mes sale del registro, no de la plataforma');
       af(mp.canal.emp === r.canal.emp, 'el canal tambien');
-      af(suma === r.canal.emp, 'y la cartera se reescribio para cuadrar con el');
+      const fueraP = Number((mp.no_son_empresa || {}).certificaciones || 0);
+      af(suma + fueraP === r.canal.emp, 'y la cartera se reescribio para cuadrar con el');
     }
   } else {
     af(false, 'no hay ningun mes congelado con el que cruzar');
