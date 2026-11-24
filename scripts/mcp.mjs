@@ -81,8 +81,15 @@ export function responder(cuerpo, cabeceras = {}, ctx = {}) {
   if (!origenValido) {
     return { estado: 403, cuerpo: rpcError(null, ERR.peticion, 'Origen no permitido') };
   }
+  /* 403 y no 401, que es lo que teniamos. El 401 significa «no te has
+     autenticado, negociemos como», y en el mundo de MCP eso es una
+     invitacion a buscar un servidor de OAuth: el conector de Claude sondeo
+     este servidor, recibio el 401 y marco «requiere inicio de sesion», con
+     lo que dejo de mandar la cabecera y nada funcionaba. El 403 dice «se
+     quien eres y no pasas», que es exactamente lo que queremos decir con
+     una clave de API fija: aqui no hay nada que negociar. */
   if (!autorizado) {
-    return { estado: 401, cuerpo: rpcError(null, ERR.peticion, 'Falta el token del tablero o no es válido') };
+    return { estado: 403, cuerpo: rpcError(null, ERR.peticion, 'Falta el token del tablero o no es válido') };
   }
   if (!cuerpo || typeof cuerpo !== 'object' || cuerpo.jsonrpc !== '2.0' || typeof cuerpo.method !== 'string') {
     return { estado: 400, cuerpo: rpcError(cuerpo && cuerpo.id, ERR.peticion, 'La petición no es JSON-RPC 2.0') };

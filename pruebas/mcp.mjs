@@ -39,15 +39,19 @@ const pet = (method, params = {}, v = VERSION) =>
 const cabs = (method, extra = {}) =>
   ({ 'MCP-Protocol-Version': VERSION, 'Mcp-Method': method, ...extra });
 
+/* El codigo importa: un 401 le dice a un cliente de MCP «autenticate por
+   OAuth», y el conector de Claude reaccionaba marcando el servidor como de
+   inicio de sesion y dejando de mandar la cabecera. El 403 no invita a
+   negociar nada. */
 console.log('\n-- sin token no se contesta nada --');
 {
   const r = responder(pet('server/discover'), cabs('server/discover'), ctx({ autorizado: false }));
-  iguales(r.estado, 401, 'un discover sin token: 401');
+  iguales(r.estado, 403, 'un discover sin token: 403, no 401');
   cierto(!r.cuerpo.result, 'y no se le devuelve ningún resultado');
   const l = responder(pet('tools/list'), cabs('tools/list'), ctx({ autorizado: false }));
-  iguales(l.estado, 401, 'tampoco se le dice qué herramientas hay');
+  iguales(l.estado, 403, 'tampoco se le dice qué herramientas hay');
   const c = responder(pet('tools/call', { name: 'corte' }), cabs('tools/call', { 'Mcp-Name': 'corte' }), ctx({ autorizado: false }));
-  iguales(c.estado, 401, 'ni se le ejecuta ninguna');
+  iguales(c.estado, 403, 'ni se le ejecuta ninguna');
   cierto(!c.ejecutar, 'y sobre todo: no se llega a ejecutar nada');
 }
 
@@ -131,7 +135,7 @@ console.log('\n-- el dialecto anterior, que es el que habla el conector --');
   /* Y lo que no se relaja: sin token no se contesta en ningún dialecto. */
   const sin = responder({ jsonrpc: '2.0', id: 1, method: 'initialize', params: {} },
     viejas, ctx({ autorizado: false }));
-  iguales(sin.estado, 401, 'el dialecto anterior no es una puerta sin llave');
+  iguales(sin.estado, 403, 'el dialecto anterior no es una puerta sin llave');
 }
 
 console.log('\n-- el saludo, que ya no es initialize --');

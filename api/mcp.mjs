@@ -191,29 +191,24 @@ export default async function handler(req, res) {
       error: { code: ERR.parse, message: 'El cuerpo no es JSON' } });
   }
 
-  /* Qué llega de verdad. Un cliente que habla una revisión anterior manda
-     otras cabeceras y otro método, y desde fuera eso se ve igual que un
-     servidor caído: «no se pudo conectar». Esto lo deja escrito en los
-     registros. Nunca el token: solo si venía y cuánto medía. */
-  const h = req.headers || {};
-  console.log('[mcp] entra', JSON.stringify({
-    metodo: cuerpo && cuerpo.method,
-    version_cabecera: h['mcp-protocol-version'] || null,
-    version_cuerpo: (cuerpo && cuerpo.params && cuerpo.params._meta
-      && cuerpo.params._meta['io.modelcontextprotocol/protocolVersion']) || null,
-    mcp_method: h['mcp-method'] || null,
-    mcp_name: h['mcp-name'] || null,
-    sesion: h['mcp-session-id'] || null,
-    accept: h.accept || null,
-    agente: h['user-agent'] || null,
-    origen: h.origin || null,
-    trae_token: Boolean(h.authorization || h['x-tablero-token']),
-    /* Solo las longitudes. Con esto se distingue «no llega» de «llega mal
-       copiado» de «no coincide», que son tres arreglos distintos, y no se
-       escribe ni un caracter del token en ningun registro. */
-    largo_recibido: (tokenDe(req) || '').length,
-    largo_esperado: String(process.env.MCP_TOKEN || '').length,
-  }));
+  /* Durante la puesta en marcha esto escribia una linea por peticion, que
+     fue lo que permitio ver que el conector hablaba la revision anterior.
+     Ya conectado, una linea por peticion es ruido: se guarda solo para lo
+     que sale mal, que es cuando hace falta. Nunca el token: solo si venia y
+     las longitudes, que es lo que distingue «no llega» de «mal copiado». */
+  const registrar = (estado, error) => {
+    const h = req.headers || {};
+    console.log('[mcp] rechazo', estado, JSON.stringify({
+      motivo: error && error.message,
+      metodo: cuerpo && cuerpo.method,
+      version_cabecera: h['mcp-protocol-version'] || null,
+      mcp_method: h['mcp-method'] || null,
+      trae_token: Boolean(h.authorization || h['x-tablero-token']),
+      largo_recibido: (tokenDe(req) || '').length,
+      largo_esperado: String(process.env.MCP_TOKEN || '').length,
+      agente: h['user-agent'] || null,
+    }));
+  };
 
   const d = responder(cuerpo, req.headers || {}, {
     herramientas: HERRAMIENTAS,
@@ -222,7 +217,7 @@ export default async function handler(req, res) {
   });
 
   if (!d.ejecutar) {
-    if (d.estado >= 400) console.log('[mcp] sale', d.estado, JSON.stringify(d.cuerpo && d.cuerpo.error));
+    if (d.estado >= 400) registrar(d.estado, d.cuerpo && d.cuerpo.error);
     if (d.cuerpo === null) return res.status(d.estado).end();
     return res.status(d.estado).json(d.cuerpo);
   }
