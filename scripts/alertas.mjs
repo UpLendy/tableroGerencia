@@ -528,6 +528,35 @@ export function alertasDeConciliacion(conc, umbrales = {}) {
    haría que se desconfiara de todo, que es el error contrario. */
 export function alertasDeFrescura(cartera, conciliacion, ahora = Date.now()) {
   const a = [];
+
+  /* Un segundo fallo, distinto del anterior y que el anterior no ve: que la
+     cartera corra y el corte no. Entonces el cruce es reciente pero esta
+     hecho contra una lista de empresas vieja, y las dos fechas se ven igual
+     de frescas porque las dos son la del extractor. Asi es como Waytic y la
+     cuenta de super administrador siguieron saliendo en los datos por
+     corregir durante dias despues de haberlas excluido. */
+  const cu = conciliacion && conciliacion.corte_usado;
+  if (cu && cu.generado_en && conciliacion.generado_en) {
+    const atraso = (Date.parse(conciliacion.generado_en) - Date.parse(cu.generado_en)) / 36e5;
+    if (Number.isFinite(atraso) && atraso >= UMBRALES.datoViejoHoras) {
+      const d = Math.floor(atraso / 24);
+      a.push({
+        id: `corte-rezagado-${cu.corte || 'sin-fecha'}`,
+        severidad: atraso >= UMBRALES.datoMuyViejoHoras ? 'critica' : 'atencion',
+        para: 'gerencia',
+        titulo: `El cruce se hizo contra una lista de empresas de hace ${d >= 1 ? `${nf(d)} día${d === 1 ? '' : 's'}` : `${nf(Math.floor(atraso))} horas`}`,
+        detalle:
+          `La lectura de Siigo sí corrió, pero la del corte no: el cruce de ${conciliacion.periodo || 'el mes'} ` +
+          `está hecho contra las empresas del ${cu.corte}. Las que se hayan dado de alta, renombrado o ` +
+          `excluido desde entonces salen mal en el cruce, en la lista de datos por corregir y en el saldo. ` +
+          `Lo que viene de Siigo —lo que hay por cobrar— no está afectado.`,
+        cifra: Math.round(atraso),
+        seccion: 'cruce',
+        accion: 'Volver a generar el corte; es ese proceso el que no está corriendo, no el de la cartera.',
+      });
+    }
+  }
+
   const fuentes = [
     ['la cartera', cartera, 'cobrar'],
     ['el cruce contra lo facturado', conciliacion, 'cruce'],

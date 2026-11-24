@@ -212,6 +212,13 @@ try {
   conc.generado_en = new Date().toISOString();
   conc.facturas_del_periodo = delMes.length;
   conc.fuente = 'api.siigo.com · facturas de venta, cruzadas contra el corte';
+  /* Contra QUE corte. Sin esto, un cruce hecho con una lista de empresas de
+     hace cuatro dias es indistinguible de uno hecho con la de hoy: las dos
+     cifras se ven igual de frescas porque las dos llevan la fecha en que
+     corrio el extractor. Es lo que dejo a Waytic y a la cuenta de super
+     administrador en la lista de datos por corregir despues de haberlas
+     excluido: el codigo ya las sacaba, el corte del que se leyeron no. */
+  conc.corte_usado = { corte: corte.corte || null, generado_en: corte.generado_en || null };
   conc.nota_periodo =
     'Se cruza el último mes cerrado, no el mes en curso: la facturación va ' +
     'detrás de la certificación y un mes a medias daría un descuadre falso.';

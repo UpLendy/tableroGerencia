@@ -278,6 +278,43 @@ console.log('\n-- el dato viejo --');
 
   /* Y va delante de las demás de su severidad: dice que las cifras con las
      que están hechas esas otras pueden no ser de hoy. */
+  /* El otro fallo, y es el que se me escapo al escribirlo: que la cartera
+     corra y el corte no. Entonces el dato de Siigo esta fresco y la alerta
+     de arriba calla, pero el cruce esta hecho contra una lista de empresas
+     vieja. La primera version comprobaba esto DESPUES de la salida temprana
+     por dato fresco, de modo que no se habria disparado nunca en el unico
+     caso para el que existe. */
+  console.log('\n-- el corte rezagado, con la cartera al dia --');
+  {
+    const recien = new Date(ahora - 1 * 36e5).toISOString();
+    const viejo = (h) => new Date(ahora - h * 36e5).toISOString();
+    const fresca = { corte: '2026-11-24', generado_en: recien };
+
+    const sinRezago = alertasDeFrescura(fresca,
+      { corte_usado: { corte: '2026-11-24', generado_en: viejo(3) }, generado_en: recien, periodo: '2026-10' }, ahora);
+    iguales(sinRezago.length, 0, 'corte de hace dos horas mas que la cartera: nada que decir');
+
+    const conRezago = alertasDeFrescura(fresca,
+      { corte_usado: { corte: '2026-11-19', generado_en: viejo(50) }, generado_en: recien, periodo: '2026-10' }, ahora);
+    iguales(conRezago.length, 1, 'cartera fresca pero corte rezagado: SÍ avisa');
+    cierto(/lista de empresas de hace/.test(conRezago[0].titulo), 'y dice que lo viejo es la lista de empresas');
+    cierto(/no está afectado/.test(conRezago[0].detalle),
+      'aclarando que lo que viene de Siigo no está afectado');
+    cierto(/no el de la cartera/.test(conRezago[0].accion),
+      'y señala al proceso que no corre, que es el del corte');
+    iguales(conRezago[0].seccion, 'cruce', 'enlaza al cruce, que es lo que se degrada');
+
+    const grave = alertasDeFrescura(fresca,
+      { corte_usado: { corte: '2026-11-18', generado_en: viejo(96) }, generado_en: recien, periodo: '2026-10' }, ahora);
+    iguales(grave[0].severidad, 'critica', 'con cuatro días de rezago, crítica');
+
+    iguales(alertasDeFrescura(fresca, { generado_en: recien }, ahora).length, 0,
+      'una conciliación vieja que no declara su corte no produce una alerta inventada');
+    iguales(alertasDeFrescura(fresca,
+      { corte_usado: { corte: 'x', generado_en: 'cuando sea' }, generado_en: recien }, ahora).length, 0,
+      'ni una fecha que no se entiende');
+  }
+
   const conOtras = { alertas: [
     { severidad: 'critica', titulo: 'otra crítica anterior' },
     { severidad: 'atencion', titulo: 'una de atención' },
