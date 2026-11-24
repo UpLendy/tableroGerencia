@@ -28,6 +28,15 @@ export const UNIFICAR = {
 const DUENO = {};
 for (const [jefe, g] of Object.entries(UNIFICAR)) for (const c of g.codigos) DUENO[c] = jefe;
 
+/* La plataforma mete «(Disabled)» DENTRO del nombre cuando un registro está
+   deshabilitado, y además una vez por cada palabra: «ARCOS (Disabled)
+   DORADOS (Disabled)». Es un estado suyo, no parte del nombre del cliente, y
+   en una pantalla de gerencia parece que algo está roto. Se limpia al
+   mostrarlo. Si algún día importa saber que un cliente está deshabilitado,
+   eso es un campo, no un trozo de texto pegado al nombre. */
+export const limpiarNombre = (n) =>
+  String(n ?? '').replace(/\s*\(Disabled\)/gi, '').replace(/\s{2,}/g, ' ').trim();
+
 import { armarTramites, armarAlimentia } from './mapeo-extra.mjs';
 import { generarAlertas } from './alertas.mjs';
 import { aplicarCerrados } from './congelado.mjs';
@@ -92,7 +101,7 @@ export function armarEmpresas(certPorMes) {
       if (!acc.has(jefe)) {
         acc.set(jefe, {
           codigo: jefe,
-          nombre: (UNIFICAR[jefe] && UNIFICAR[jefe].nombre) || row.nombre,
+          nombre: (UNIFICAR[jefe] && UNIFICAR[jefe].nombre) || limpiarNombre(row.nombre),
           ...(UNIFICAR[jefe] ? { codigos: UNIFICAR[jefe].codigos, unificada: true } : {}),
           meses: {},
           /* Los documentos vistos para esta empresa. Es un conjunto porque una
@@ -355,11 +364,36 @@ export function armarCorte(m, narrativa = {}, fallaron = {}, extras = {}) {
   const concentracion = (mayor / totalEmp) * 100;
 
   const v = m.vencimientos.datos;
+  /* Los vencimientos venían crudos de la plataforma, y allí Arcos Dorados son
+     dos códigos distintos: la lista lo partía en dos clientes —178 y 56 del
+     mismo— y encima lo dejaba por debajo de donde le toca en el top. La lista
+     de empresas ya los unifica; esto no pasaba por ahí.
+
+     Se agrupa ANTES de recortar a diez. Al revés, una empresa cuyos dos
+     trozos quedaran fuera del top por separado seguiría fuera después de
+     sumarlos, que es justo el caso que esto viene a arreglar. */
+  const vencPorEmpresa = (() => {
+    const acc = new Map();
+    for (const x of v.por_empresa || []) {
+      const cod = String(x.codigo ?? '');
+      if (NO_SON_EMPRESA.has(cod)) continue;
+      const jefe = DUENO[cod] || cod;
+      const y = acc.get(jefe) || {
+        codigo: jefe,
+        nombre: (UNIFICAR[jefe] && UNIFICAR[jefe].nombre) || limpiarNombre(x.nombre),
+        vencen: 0,
+      };
+      y.vencen += Number(x.vencen) || 0;
+      acc.set(jefe, y);
+    }
+    return [...acc.values()].sort((a, b) => b.vencen - a.vencen).slice(0, 10);
+  })();
+
   const venc = {
     corte: v.corte, ventana_dias: v.ventana_dias,
     total: v.total, emp: v.con_empresa, par: v.particulares,
     por_semana: v.por_semana,
-    por_empresa: (v.por_empresa || []).slice(0, 10),
+    por_empresa: vencPorEmpresa,
   };
 
   const calidad = armarCalidad(m['calidad-dato']);

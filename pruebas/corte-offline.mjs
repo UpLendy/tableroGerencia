@@ -145,6 +145,40 @@ for (const a of al.filter((x) => x.severidad === 'critica')) {
     af(false, 'no hay ningun mes congelado con el que cruzar');
   }
 
+
+  /* ------------------------------------------------- vencimientos unificados
+     Los vencimientos venian crudos de la plataforma: Arcos Dorados son dos
+     codigos alli y la lista lo partia en dos clientes, uno llamado «ARCOS
+     (Disabled) DORADOS (Disabled)». Lo encontre usando el MCP como lo usaria
+     la Direccion, no leyendo el codigo. */
+  console.log('\n  -- los vencimientos van por cliente, no por codigo --');
+  {
+    const pe = corte.venc?.por_empresa || [];
+    af(pe.length > 0, 'hay vencimientos por empresa');
+    const codigos = pe.map((e) => String(e.codigo));
+    af(new Set(codigos).size === codigos.length, 'ningun cliente aparece dos veces');
+    af(!pe.some((e) => /\(Disabled\)/i.test(e.nombre)),
+       'ningun nombre arrastra el «(Disabled)» de la plataforma');
+    af(!/\(Disabled\)/i.test(JSON.stringify(corte)),
+       'ni queda en ninguna otra parte del corte');
+    af(pe.every((e, i, a) => i === 0 || a[i - 1].vencen >= e.vencen),
+       'y la lista sigue ordenada de mas a menos despues de agrupar');
+
+    /* Lo importante: que agrupe ANTES de recortar a diez. Si no, una empresa
+       cuyos dos trozos queden fuera del top por separado seguiria fuera
+       despues de sumarlos, que es justo el caso que esto arregla. */
+    const crudo = muestras.vencimientos?.datos?.por_empresa || [];
+    const arcos = crudo.filter((x) => /arcos/i.test(x.nombre));
+    if (arcos.length > 1) {
+      const suma = arcos.reduce((a, x) => a + Number(x.vencen || 0), 0);
+      const fila = pe.find((e) => /arcos/i.test(e.nombre));
+      af(Boolean(fila) && fila.vencen === suma,
+         'Arcos sale una sola vez y con la suma de sus dos codigos (' + suma + ')');
+    } else {
+      console.log('  (en estas muestras Arcos no viene partido; la union no se puede comprobar aqui)');
+    }
+  }
+
   if (fallos) { console.log('\n  ' + fallos + ' fallo(s)\n'); process.exitCode = 1; }
 }
 
