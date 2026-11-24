@@ -232,6 +232,59 @@ console.log('\n-- el cruce: a quién llega --');
     'sin cruce no adjunta ni inventa alertas');
 }
 
+console.log('\n-- lo vencido no se diluye con la facturación nueva --');
+{
+  /* El 20 de noviembre la alerta decía «$28,5 M, el 36,5 % de la cartera». El
+     24, con la misma deuda intacta, decía 24,4 % y se había callado: le habían
+     facturado $37 M nuevos a Mall Plaza y el denominador crecio. La deuda no
+     mejoro en un peso; el tablero dejo de hablar de ella. De ahi la segunda
+     vara, que mide contra lo que BPM factura en un mes y no contra la cartera. */
+  const mes = (v) => ({ facturado: v, cobrado: v, saldo: 0, facturas: 100 });
+  const seisMeses = {
+    '2026-05': mes(80e6), '2026-06': mes(80e6), '2026-07': mes(80e6),
+    '2026-08': mes(80e6), '2026-09': mes(80e6), '2026-10': mes(80e6),
+    '2026-11': mes(5e6),   // el mes en curso, a medias: no debe contar
+  };
+  const conDeuda = (total) => ({
+    ...cartera({ vencidoPct: 28.6e6 / total * 100, concPct: 10, total }),
+    facturado_por_mes: seisMeses,
+  });
+
+  const antes = alertasDeCartera(conDeuda(78e6)).filter((a) => /más de 90 días/.test(a.titulo));
+  iguales(antes.length, 1, 'con $78 M de cartera, los $28,6 M vencidos avisan');
+
+  const despues = alertasDeCartera(conDeuda(117e6)).filter((a) => /más de 90 días/.test(a.titulo));
+  iguales(despues.length, 1, 'y con $117 M de cartera y la MISMA deuda, siguen avisando');
+  cierto(/mes típico/.test(despues[0].detalle), 'diciendo a cuánto equivale en meses de facturación');
+  cierto(/solo baja si se cobra/.test(despues[0].detalle),
+    'y avisando de que esa cifra no baja porque se facture más');
+
+  /* La mediana, no el promedio: un mes del doble no debe mover la vara. */
+  const conMesRaro = {
+    ...conDeuda(117e6),
+    facturado_por_mes: { ...seisMeses, '2026-05': mes(400e6) },
+  };
+  const raro = alertasDeCartera(conMesRaro).filter((a) => /más de 90 días/.test(a.titulo));
+  iguales(raro.length, 1, 'un mes atípico de $400 M no silencia la alerta');
+  cierto(/\$80\./.test(raro[0].detalle), 'porque el mes típico sigue siendo la mediana, $80 M');
+
+  /* Y que no avise cuando de verdad no hay por qué. */
+  const sano = {
+    ...cartera({ vencidoPct: 5, concPct: 10, total: 117e6 }),
+    facturado_por_mes: seisMeses,
+  };
+  iguales(alertasDeCartera(sano).filter((a) => /más de 90 días/.test(a.titulo)).length, 0,
+    'poca deuda vieja sobre mucha facturación: callado');
+
+  /* Sin el bloque de facturación se comporta igual que antes. */
+  const viejo = cartera({ vencidoPct: 10, concPct: 10 });
+  iguales(alertasDeCartera(viejo).filter((a) => /más de 90 días/.test(a.titulo)).length, 0,
+    'un corte sin facturado_por_mes vuelve a la regla de siempre');
+  const viejoAlto = cartera({ vencidoPct: UMBRALES.carteraVencida + 1, concPct: 5 });
+  iguales(alertasDeCartera(viejoAlto).filter((a) => /más de 90 días/.test(a.titulo)).length, 1,
+    'y esa regla sigue funcionando sola');
+}
+
 console.log('\n-- el dato viejo --');
 {
   /* El 20 de noviembre la lectura de Siigo no corrió y el tablero no dijo

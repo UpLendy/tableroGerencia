@@ -33,6 +33,13 @@ export const UMBRALES = {
   ritmoCaida: 10,                 // % de caída del ritmo diario
   carteraVencida: 25,             // % del total por cobrar con más de 90 días
   carteraVencidaGrave: 40,
+  /* El porcentaje de la cartera se diluye solo: el 24 de noviembre los mismos
+     $28,6 M vencidos pasaron del 36,5 % al 24,4 % porque se le facturaron $37 M
+     nuevos a Mall Plaza, y la alerta se callo sin que la deuda mejorara en un
+     peso. Hace falta una vara que no dependa de cuanto se facture despues: lo
+     vencido medido contra lo que BPM factura en un mes tipico. */
+  carteraVencidaMes: 25,          // % de la facturación de un mes típico
+  carteraVencidaMesGrave: 50,
   carteraConcentracion: 30,       // % de lo que se debe, en un solo cliente
   carteraConcentracionGrave: 45,
   certSinFacturar: 30,            // certificaciones del mes cerrado sin factura
@@ -398,7 +405,31 @@ export function alertasDeCartera(cartera, umbrales = {}) {
   /* ------------------------------------------------- lo que lleva vencido */
   const vencido = Number((cartera.por_antiguedad || {})['mas de 90']) || 0;
   const share = vencido / total * 100;
-  if (vencido > 0 && share >= U.carteraVencida) {
+
+  /* Un mes tipico de facturacion: la mediana de los ultimos seis completos.
+     Mediana y no promedio porque hay meses sueltos del doble que el resto
+     —mayo de 2026 fueron $140 M— y uno solo bastaria para mover la vara. Se
+     deja fuera el mes en curso, que va a medias y siempre sale corto. */
+  const porMes = cartera.facturado_por_mes || null;
+  const mesTipico = (() => {
+    if (!porMes) return null;
+    const meses = Object.keys(porMes).sort();
+    const completos = meses.slice(0, -1).slice(-6)
+      .map((m) => Number(porMes[m] && porMes[m].facturado))
+      .filter((x) => Number.isFinite(x) && x > 0)
+      .sort((a, b) => a - b);
+    if (!completos.length) return null;
+    const i = Math.floor(completos.length / 2);
+    return completos.length % 2 ? completos[i] : (completos[i - 1] + completos[i]) / 2;
+  })();
+  const vsMes = mesTipico ? vencido / mesTipico * 100 : null;
+
+  /* Dos varas independientes: basta que salte una. La del porcentaje de la
+     cartera avisa cuando lo vencido pesa dentro de lo que hay por cobrar; la
+     del mes tipico avisa aunque le facturen de mas a otro cliente manana. */
+  const porShare = share >= U.carteraVencida;
+  const porMesTipico = vsMes !== null && vsMes >= U.carteraVencidaMes;
+  if (vencido > 0 && (porShare || porMesTipico)) {
     /* Quién más debe de los vencidos, para que la alerta diga por dónde
        empezar. El saldo es el total de ese cliente, no solo su parte
        vencida: el desglose por tramo es de toda la cartera, no por tercero. */
@@ -407,10 +438,18 @@ export function alertasDeCartera(cartera, umbrales = {}) {
       .sort((a, b) => Number(b.saldo) - Number(a.saldo))[0];
     A.push({
       id: `cartera-vencida-${periodo}`,
-      severidad: share >= U.carteraVencidaGrave ? 'critica' : 'atencion',
+      severidad: (share >= U.carteraVencidaGrave ||
+                  (vsMes !== null && vsMes >= U.carteraVencidaMesGrave)) ? 'critica' : 'atencion',
       para: 'gerencia',
       titulo: `${cop(vencido)} llevan más de 90 días sin cobrarse`,
+      /* Se dicen las dos cifras siempre. Que el porcentaje de la cartera baje
+         no significa que se haya cobrado nada: puede ser que se haya facturado
+         mas, y quien lee tiene que poder distinguir una cosa de la otra. */
       detalle: `Es el ${pc(share)} de los ${cop(total)} que hay por cobrar` +
+        (vsMes !== null
+          ? `, y equivale al ${pc(vsMes)} de lo que BPM factura en un mes típico (${cop(mesTipico)}). ` +
+            `Ese segundo dato no baja porque se facture más: solo baja si se cobra`
+          : '') +
         (moroso ? `. El mayor es ${nombreDe(moroso)}, con ${cop(moroso.saldo)} ` +
                   `y hasta ${nf(moroso.mas_vieja_dias)} días de atraso.` : '.'),
       cifra: Number(share.toFixed(1)),
