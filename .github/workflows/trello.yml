@@ -1,0 +1,75 @@
+name: Trello
+
+# A las 7:47 a. m. hora de Bogotá (12:47 UTC), después del corte y de la
+# cartera. Los tres empujan al mismo repositorio, así que van separados en
+# el tiempo y además comparten el grupo de concurrencia: si dos coinciden,
+# el segundo espera en vez de caerse por conflicto.
+#
+# Una vez al día basta. Las tarjetas se mueven durante la jornada, pero lo
+# que el tablero informa —qué lleva una semana vencido, qué columna no se
+# toca hace un mes— no cambia de una hora a otra. Leerlo más seguido daría
+# más ruido y ningún dato nuevo.
+on:
+  schedule:
+    - cron: "47 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publica-datos
+  cancel-in-progress: false
+
+jobs:
+  trello:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4.1.0
+        with:
+          node-version: "22"
+
+      - name: Probar
+        run: npm run probar
+
+      - name: Leer Trello
+        env:
+          TRELLO_CLAVE: ${{ secrets.TRELLO_CLAVE }}
+          TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}
+          TRELLO_TABLEROS: ${{ secrets.TRELLO_TABLEROS }}
+        run: node scripts/extraer-trello.mjs
+
+      - name: Publicar si cambió
+        run: |
+          if git diff --quiet -- data/trello.json \
+             && [ -z "$(git ls-files --others --exclude-standard -- data/trello.json)" ]; then
+            echo "Trello no cambió. No se publica nada."
+            exit 0
+          fi
+          git config user.name  "corte-automatico"
+          git config user.email "corte-automatico@users.noreply.github.com"
+
+          # Mismo criterio que corte.yml y cartera.yml: nada de rebase. El
+          # archivo se regenera entero, no hay dos versiones que fusionar, y
+          # rebasar un commit que toca este mismo archivo solo da conflicto.
+          cp data/trello.json /tmp/trello.json
+
+          for i in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/trello.json data/trello.json
+            if git diff --quiet -- data/trello.json; then
+              echo "Nada cambió respecto a lo publicado. No se publica."
+              exit 0
+            fi
+            git add data/trello.json
+            git commit -m "Trello $(date -u +%Y-%m-%d)"
+            git push && exit 0
+            echo "El remoto se movió; se reintenta sobre lo nuevo."
+            sleep 5
+          done
+          echo "No se pudo publicar después de tres intentos"; exit 1
