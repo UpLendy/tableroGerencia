@@ -8,7 +8,7 @@
     "corte": "node scripts/extraer-corte.mjs",
     "dump": "node scripts/extraer-corte.mjs --dump",
     "validar": "node scripts/validar-corte.mjs",
-    "probar": "node pruebas/congelado.mjs && node pruebas/conciliacion.mjs && node pruebas/corte-offline.mjs && node pruebas/alertas-cartera.mjs && node pruebas/nit.mjs && node pruebas/chat-ficha.mjs && node pruebas/pantalla-nombres.mjs && node pruebas/memoria-llamadas.mjs && node pruebas/trello.mjs",
+    "probar": "node pruebas/congelado.mjs && node pruebas/conciliacion.mjs && node pruebas/corte-offline.mjs && node pruebas/alertas-cartera.mjs && node pruebas/nit.mjs && node pruebas/chat-ficha.mjs && node pruebas/pantalla-nombres.mjs && node pruebas/memoria-llamadas.mjs && node pruebas/trello.mjs && node pruebas/mcp.mjs",
     "corte-vercel": "node scripts/traer-de-vercel.mjs"
   }
 }
