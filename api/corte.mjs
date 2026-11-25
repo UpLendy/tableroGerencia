@@ -12,8 +12,8 @@ import { traerTodasLasFuentes } from '../scripts/llamadas.mjs';
 import { armarCorte } from '../scripts/mapeo.mjs';
 import { despojarParaEquipo } from '../scripts/vista.mjs';
 import { rolDe, veTodo } from '../scripts/sesion.mjs';
-import { leerCartera, leerConciliacion, leerTrello } from '../scripts/datos.mjs';
-import { adjuntarCartera, adjuntarTrello } from '../scripts/alertas.mjs';
+import { leerCartera, leerConciliacion, leerTrello, leerCencosud } from '../scripts/datos.mjs';
+import { adjuntarCartera, adjuntarTrello, adjuntarCencosud } from '../scripts/alertas.mjs';
 
 export const config = { maxDuration: 120 };
 
@@ -54,9 +54,12 @@ export default async function handler(req, res) {
     /* La cartera no se recalcula en vivo: la deja su propio proceso y aquí
        se adjunta tal cual, para que el corte en vivo y el publicado tengan
        la misma forma y el tablero no tenga que distinguirlos. */
-    const [cartera, conciliacion, trello] = await Promise.all([leerCartera(), leerConciliacion(), leerTrello()]);
+    const [cartera, conciliacion, trello, cencosud] = await Promise.all([
+      leerCartera(), leerConciliacion(), leerTrello(), leerCencosud(),
+    ]);
     adjuntarCartera(corte, cartera, conciliacion);
     adjuntarTrello(corte, trello);
+    adjuntarCencosud(corte, cencosud);
     corte.origen = 'vivo';
     corte.tiempos_ms = { ...tiempos, total: Date.now() - t0 };
 

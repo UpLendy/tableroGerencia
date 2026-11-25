@@ -724,6 +724,81 @@ export function adjuntarTrello(corte, trello) {
   return corte;
 }
 
+/**
+ * Las alertas de la plataforma de Cencosud.
+ *
+ * Deliberadamente pocas. Es una plataforma de una sola empresa y de volumen
+ * conocido, y lo que hay que vigilar no es el volumen —sube y baja con los
+ * grupos que abra Cencosud— sino dos cosas que significan que algo se rompió:
+ * que el dato esté viejo, y que la permanencia se caiga de golpe.
+ *
+ * Mónica ya tiene veintidós alertas y pidió podarlas, así que esta fuente no
+ * añade una por cada mes flojo.
+ */
+export function alertasDeCencosud(c) {
+  if (!c || !c.por_mes) return [];
+  const salida = [];
+  const meses = (c.total && c.total.meses) || Object.keys(c.por_mes).sort();
+  if (!meses.length) return [];
+
+  /* Dato viejo. Lo produce un proceso diario; si lleva más de dos días sin
+     correr, las cifras que se están mostrando no son de esta semana. */
+  if (c.generado_en) {
+    const horas = (Date.now() - new Date(c.generado_en).getTime()) / 36e5;
+    if (horas >= UMBRALES.datoMuyViejoHoras) {
+      salida.push({
+        severidad: 'atencion',
+        titulo: 'Las certificaciones de Cencosud están viejas',
+        detalle: `El último cálculo es de hace ${Math.round(horas)} horas. ` +
+          'Las cifras de esta sección no son de hoy.',
+        ir: 'cencosud',
+      });
+    }
+  }
+
+  /* La permanencia, solo sobre lo que tiene umbral. Se compara el último mes
+     cerrado contra la mediana de los anteriores: un mes en curso va a medias
+     y no se compara contra uno cerrado. */
+  const cerrados = meses.slice(0, -1);
+  const ult = cerrados[cerrados.length - 1];
+  if (ult) {
+    const tasa = (m) => {
+      const x = c.por_mes[m];
+      return x && x.permanencia_medida ? x.cumplen_permanencia / x.permanencia_medida : null;
+    };
+    const previas = cerrados.slice(0, -1).slice(-6).map(tasa).filter((t) => t !== null).sort((a, b) => a - b);
+    const actual = tasa(ult);
+    if (actual !== null && previas.length >= 3) {
+      const i = Math.floor(previas.length / 2);
+      const tipica = previas.length % 2 ? previas[i] : (previas[i - 1] + previas[i]) / 2;
+      if (tipica > 0 && actual < tipica - 0.15) {
+        salida.push({
+          severidad: 'atencion',
+          titulo: 'En Cencosud cayó la permanencia',
+          detalle: `En ${ult} cumplió los 360 minutos el ${(100 * actual).toFixed(0)} % ` +
+            `de las certificaciones medidas, cuando lo habitual es el ${(100 * tipica).toFixed(0)} %. ` +
+            'Son las que en el informe de Cencosud saldrían como «revisar permanencia».',
+          ir: 'cencosud',
+        });
+      }
+    }
+  }
+
+  return salida;
+}
+
+export function adjuntarCencosud(corte, cencosud) {
+  if (!corte || !cencosud) return corte;
+  corte.cencosud = cencosud;
+  const nuevas = alertasDeCencosud(cencosud);
+  if (nuevas.length) {
+    const orden = { critica: 0, atencion: 1, aviso: 2 };
+    corte.alertas = [...(Array.isArray(corte.alertas) ? corte.alertas : []), ...nuevas]
+      .sort((a, b) => orden[a.severidad] - orden[b.severidad]);
+  }
+  return corte;
+}
+
 export function adjuntarCartera(corte, cartera, conciliacion) {
   if (!corte) return corte;
   if (cartera) corte.cartera = cartera;

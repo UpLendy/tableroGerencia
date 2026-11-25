@@ -48,3 +48,13 @@ export async function leerTrello() {
   try { return await leerDato('trello.json'); }
   catch { return null; }
 }
+
+/**
+ * Las certificaciones de la plataforma de Cencosud, si están publicadas.
+ * Mismo criterio que la cartera: las deja su propio proceso diario y que no
+ * haya corrido no es motivo para dejar al tablero sin pintar.
+ */
+export async function leerCencosud() {
+  try { return await leerDato('cencosud.json'); }
+  catch { return null; }
+}

@@ -10,7 +10,7 @@
    Y la primera de todas: que sin token no se conteste nada. El tablero lleva
    meses separando lo que ve Dirección de lo que ve el Equipo; un MCP abierto
    seria la puerta de atrás a todo eso. */
-import { responder, resultado, tokenValido, dialecto, VERSION, VERSION_ANTERIOR, ERR, SERVIDOR } from '../scripts/mcp.mjs';
+import { responder, resultado, tokenValido, dialecto, VERSION, VERSION_ANTERIOR, ERR, SERVIDOR, SERVIDOR_ANONIMO, INSTRUCCIONES } from '../scripts/mcp.mjs';
 import { secciones, HERRAMIENTAS } from '../api/mcp.mjs';
 import { fichaDelCorte } from '../api/chat.mjs';
 import { adjuntarCartera, adjuntarTrello } from '../scripts/alertas.mjs';
@@ -45,11 +45,25 @@ const cabs = (method, extra = {}) =>
    negociar nada. */
 console.log('\n-- sin token no se contesta nada --');
 {
+  /* El saludo SÍ se contesta sin token, y a proposito: cuando alguien pega
+     la URL, la aplicacion sondea el servidor antes de pedirle la credencial.
+     Si ese sondeo se rechaza, la pantalla dice «no se pudo verificar el
+     servidor» y quien esta conectando —que no es quien lo construyo— cree
+     que algo esta roto. Le paso a la Gerente General de BPM. */
   const r = responder(pet('server/discover'), cabs('server/discover'), ctx({ autorizado: false }));
-  iguales(r.estado, 403, 'un discover sin token: 403, no 401');
-  cierto(!r.cuerpo.result, 'y no se le devuelve ningún resultado');
+  iguales(r.estado, 200, 'el saludo se contesta sin token, para que el sondeo no falle');
+  cierto(!r.cuerpo.result.instructions, 'pero sin las instrucciones, que describen el negocio');
+  iguales(r.cuerpo.result._meta['io.modelcontextprotocol/serverInfo'], SERVIDOR_ANONIMO,
+    'y sin decir de quién es: solo que existe y habla MCP');
+  cierto(!JSON.stringify(r.cuerpo).toLowerCase().includes('bpm'),
+    'en todo el saludo anónimo no aparece el nombre de la empresa');
+  cierto(r.cuerpo.result.capabilities.tools, 'declara que tiene herramientas, que es lo que el sondeo busca');
+
+  const conToken = responder(pet('server/discover'), cabs('server/discover'), ctx());
+  iguales(conToken.cuerpo.result.instructions, INSTRUCCIONES, 'con token sí van las instrucciones');
+  iguales(conToken.cuerpo.result._meta['io.modelcontextprotocol/serverInfo'], SERVIDOR, 'y quién es');
   const l = responder(pet('tools/list'), cabs('tools/list'), ctx({ autorizado: false }));
-  iguales(l.estado, 403, 'tampoco se le dice qué herramientas hay');
+  iguales(l.estado, 403, 'pero NO se le dice qué herramientas hay');
   const c = responder(pet('tools/call', { name: 'corte' }), cabs('tools/call', { 'Mcp-Name': 'corte' }), ctx({ autorizado: false }));
   iguales(c.estado, 403, 'ni se le ejecuta ninguna');
   cierto(!c.ejecutar, 'y sobre todo: no se llega a ejecutar nada');
@@ -133,9 +147,14 @@ console.log('\n-- el dialecto anterior, que es el que habla el conector --');
   iguales(r.result.content, [{ type: 'text', text: 'texto' }], 'pero sí el contenido igual');
 
   /* Y lo que no se relaja: sin token no se contesta en ningún dialecto. */
-  const sin = responder({ jsonrpc: '2.0', id: 1, method: 'initialize', params: {} },
+  const sinIni = responder({ jsonrpc: '2.0', id: 1, method: 'initialize', params: {} },
     viejas, ctx({ autorizado: false }));
-  iguales(sin.estado, 403, 'el dialecto anterior no es una puerta sin llave');
+  iguales(sinIni.estado, 200, 'el initialize sin token también se contesta, igual que el discover');
+  cierto(!sinIni.cuerpo.result.instructions, 'sin instrucciones');
+  iguales(sinIni.cuerpo.result.serverInfo, SERVIDOR_ANONIMO, 'y sin decir de quién es');
+  const sinL = responder({ jsonrpc: '2.0', id: 2, method: 'tools/list', params: {} },
+    viejas, ctx({ autorizado: false }));
+  iguales(sinL.estado, 403, 'pero el dialecto anterior no es una puerta sin llave para los datos');
 }
 
 console.log('\n-- el saludo, que ya no es initialize --');

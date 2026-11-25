@@ -1,0 +1,75 @@
+name: Cencosud
+
+# A las 8:22 a. m. hora de Bogotá (13:22 UTC), después del corte, la cartera
+# y Trello. Los cuatro empujan al mismo repositorio, así que van separados en
+# el tiempo y comparten el grupo de concurrencia: si dos coinciden, el
+# segundo espera en vez de caerse por conflicto.
+#
+# Una vez al día basta. La gente se certifica a lo largo de la jornada, pero
+# lo que el tablero informa es un mes entero; leerlo cada hora daría las
+# mismas cifras y cuarenta segundos de lecturas de Firestore por nada.
+on:
+  schedule:
+    - cron: "22 13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publica-datos
+  cancel-in-progress: false
+
+jobs:
+  cencosud:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4.1.0
+        with:
+          node-version: "22"
+
+      - name: Probar
+        run: npm run probar
+
+      # La cuenta de servicio debe tener el rol Visualizador de Datastore y
+      # nada más. Que esta clave solo pueda leer lo garantizan los permisos
+      # de Google, no el código de este repositorio.
+      - name: Leer la plataforma de Cencosud
+        env:
+          CENCOSUD_CUENTA: ${{ secrets.CENCOSUD_CUENTA }}
+        run: node scripts/extraer-cencosud.mjs
+
+      - name: Publicar si cambió
+        run: |
+          if git diff --quiet -- data/cencosud.json \
+             && [ -z "$(git ls-files --others --exclude-standard -- data/cencosud.json)" ]; then
+            echo "Cencosud no cambió. No se publica nada."
+            exit 0
+          fi
+          git config user.name  "corte-automatico"
+          git config user.email "corte-automatico@users.noreply.github.com"
+
+          # Mismo criterio que los otros tres: nada de rebase. El archivo se
+          # regenera entero, no hay dos versiones que fusionar, y rebasar un
+          # commit que toca este mismo archivo solo da conflicto.
+          cp data/cencosud.json /tmp/cencosud.json
+
+          for i in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/cencosud.json data/cencosud.json
+            if git diff --quiet -- data/cencosud.json; then
+              echo "Nada cambió respecto a lo publicado. No se publica."
+              exit 0
+            fi
+            git add data/cencosud.json
+            git commit -m "Cencosud $(date -u +%Y-%m-%d)"
+            git push && exit 0
+            echo "El remoto se movió; se reintenta sobre lo nuevo."
+            sleep 5
+          done
+          echo "No se pudo publicar después de tres intentos"; exit 1

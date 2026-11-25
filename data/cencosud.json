@@ -1,0 +1,558 @@
+{
+  "regla": "cencosud-firestore-v2",
+  "por_mes": {
+    "2026-04": {
+      "certificaciones": 553,
+      "personas": 550,
+      "cumplen_permanencia": 531,
+      "permanencia_medida": 553,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 499,
+          "personas": 496,
+          "cumplen_permanencia": 477,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 54,
+          "personas": 54,
+          "cumplen_permanencia": 54,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2026-05": {
+      "certificaciones": 429,
+      "personas": 426,
+      "cumplen_permanencia": 409,
+      "permanencia_medida": 429,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 363,
+          "personas": 362,
+          "cumplen_permanencia": 343,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 66,
+          "personas": 66,
+          "cumplen_permanencia": 66,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2025-10": {
+      "certificaciones": 281,
+      "personas": 274,
+      "cumplen_permanencia": 270,
+      "permanencia_medida": 281,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 252,
+          "personas": 247,
+          "cumplen_permanencia": 241,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 29,
+          "personas": 29,
+          "cumplen_permanencia": 29,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2025-07": {
+      "certificaciones": 227,
+      "personas": 227,
+      "cumplen_permanencia": 214,
+      "permanencia_medida": 227,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 216,
+          "personas": 216,
+          "cumplen_permanencia": 203,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 11,
+          "personas": 11,
+          "cumplen_permanencia": 11,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2025-08": {
+      "certificaciones": 222,
+      "personas": 213,
+      "cumplen_permanencia": 210,
+      "permanencia_medida": 222,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 187,
+          "personas": 178,
+          "cumplen_permanencia": 176,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 35,
+          "personas": 35,
+          "cumplen_permanencia": 34,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2026-03": {
+      "certificaciones": 639,
+      "personas": 638,
+      "cumplen_permanencia": 620,
+      "permanencia_medida": 639,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 586,
+          "personas": 585,
+          "cumplen_permanencia": 567,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 53,
+          "personas": 53,
+          "cumplen_permanencia": 53,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2026-02": {
+      "certificaciones": 855,
+      "personas": 833,
+      "cumplen_permanencia": 826,
+      "permanencia_medida": 855,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 807,
+          "personas": 786,
+          "cumplen_permanencia": 778,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 48,
+          "personas": 48,
+          "cumplen_permanencia": 48,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2026-08": {
+      "certificaciones": 369,
+      "personas": 367,
+      "cumplen_permanencia": 347,
+      "permanencia_medida": 369,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 335,
+          "personas": 334,
+          "cumplen_permanencia": 313,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 34,
+          "personas": 34,
+          "cumplen_permanencia": 34,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2026-09": {
+      "certificaciones": 269,
+      "personas": 269,
+      "cumplen_permanencia": 253,
+      "permanencia_medida": 269,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 249,
+          "personas": 249,
+          "cumplen_permanencia": 233,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 20,
+          "personas": 20,
+          "cumplen_permanencia": 20,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2025-06": {
+      "certificaciones": 270,
+      "personas": 257,
+      "cumplen_permanencia": 216,
+      "permanencia_medida": 270,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 231,
+          "personas": 218,
+          "cumplen_permanencia": 177,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 39,
+          "personas": 39,
+          "cumplen_permanencia": 39,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2026-06": {
+      "certificaciones": 1086,
+      "personas": 1039,
+      "cumplen_permanencia": 332,
+      "permanencia_medida": 348,
+      "permanencia_sin_umbral": 738,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "07e4d94b-14d2-4e6a-8b83-f3b18d5f7740",
+          "nombre": "PROGRAMA DE MANEJO Y COMERCIALIZACIÓN DE MEDICAMENTOS OTC",
+          "certificaciones": 738,
+          "personas": 738,
+          "cumplen_permanencia": null,
+          "umbral_permanencia_seg": null
+        },
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 303,
+          "personas": 301,
+          "cumplen_permanencia": 288,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 45,
+          "personas": 45,
+          "cumplen_permanencia": 44,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2026-11": {
+      "certificaciones": 149,
+      "personas": 148,
+      "cumplen_permanencia": 130,
+      "permanencia_medida": 149,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 135,
+          "personas": 134,
+          "cumplen_permanencia": 117,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 14,
+          "personas": 14,
+          "cumplen_permanencia": 13,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2026-01": {
+      "certificaciones": 290,
+      "personas": 290,
+      "cumplen_permanencia": 278,
+      "permanencia_medida": 290,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 247,
+          "personas": 247,
+          "cumplen_permanencia": 235,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 43,
+          "personas": 43,
+          "cumplen_permanencia": 43,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2026-10": {
+      "certificaciones": 231,
+      "personas": 227,
+      "cumplen_permanencia": 211,
+      "permanencia_medida": 231,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 193,
+          "personas": 192,
+          "cumplen_permanencia": 173,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 38,
+          "personas": 38,
+          "cumplen_permanencia": 38,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2025-12": {
+      "certificaciones": 43,
+      "personas": 43,
+      "cumplen_permanencia": 43,
+      "permanencia_medida": 43,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 41,
+          "personas": 41,
+          "cumplen_permanencia": 41,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 2,
+          "personas": 2,
+          "cumplen_permanencia": 2,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2026-07": {
+      "certificaciones": 409,
+      "personas": 401,
+      "cumplen_permanencia": 353,
+      "permanencia_medida": 384,
+      "permanencia_sin_umbral": 25,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 359,
+          "personas": 357,
+          "cumplen_permanencia": 328,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 25,
+          "personas": 25,
+          "cumplen_permanencia": 25,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "07e4d94b-14d2-4e6a-8b83-f3b18d5f7740",
+          "nombre": "PROGRAMA DE MANEJO Y COMERCIALIZACIÓN DE MEDICAMENTOS OTC",
+          "certificaciones": 25,
+          "personas": 25,
+          "cumplen_permanencia": null,
+          "umbral_permanencia_seg": null
+        }
+      ]
+    },
+    "2025-11": {
+      "certificaciones": 143,
+      "personas": 141,
+      "cumplen_permanencia": 143,
+      "permanencia_medida": 143,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 127,
+          "personas": 126,
+          "cumplen_permanencia": 127,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 16,
+          "personas": 16,
+          "cumplen_permanencia": 16,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    },
+    "2025-09": {
+      "certificaciones": 251,
+      "personas": 249,
+      "cumplen_permanencia": 235,
+      "permanencia_medida": 251,
+      "permanencia_sin_umbral": 0,
+      "empresas": [
+        "416279f7-0d75-454d-aca0-59470b7a6163"
+      ],
+      "por_programa": [
+        {
+          "id": "396c29a7-0934-40ba-b883-f1b40d5f7730",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CENCOSUD",
+          "certificaciones": 238,
+          "personas": 236,
+          "cumplen_permanencia": 222,
+          "umbral_permanencia_seg": 21600
+        },
+        {
+          "id": "02a000f5-a1d8-4d8a-a709-138c4bfb7c0e",
+          "nombre": "MANIPULACIÓN DE ALIMENTOS CÁRNICOS CENCOSUD",
+          "certificaciones": 13,
+          "personas": 13,
+          "cumplen_permanencia": 13,
+          "umbral_permanencia_seg": 21600
+        }
+      ]
+    }
+  },
+  "total": {
+    "certificaciones": 6716,
+    "personas": 4953,
+    "meses": [
+      "2025-06",
+      "2025-07",
+      "2025-08",
+      "2025-09",
+      "2025-10",
+      "2025-11",
+      "2025-12",
+      "2026-01",
+      "2026-02",
+      "2026-03",
+      "2026-04",
+      "2026-05",
+      "2026-06",
+      "2026-07",
+      "2026-08",
+      "2026-09",
+      "2026-10",
+      "2026-11"
+    ]
+  },
+  "ventana": {
+    "desde": "2024-12",
+    "hasta": "2026-11"
+  },
+  "copias_por_documento": 2,
+  "avances_totales": 12120,
+  "avances_completados": 6716,
+  "generado_en": "2026-11-25T15:54:29.433Z",
+  "proyecto": "bpm-platform-cb92e"
+}

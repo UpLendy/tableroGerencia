@@ -18,8 +18,8 @@ import { traerTodasLasFuentes } from '../scripts/llamadas.mjs';
 import { armarCorte } from '../scripts/mapeo.mjs';
 import { despojarParaEquipo } from '../scripts/vista.mjs';
 import { rolDe, veTodo } from '../scripts/sesion.mjs';
-import { leerCartera, leerConciliacion, leerTrello } from '../scripts/datos.mjs';
-import { adjuntarCartera, adjuntarTrello } from '../scripts/alertas.mjs';
+import { leerCartera, leerConciliacion, leerTrello, leerCencosud } from '../scripts/datos.mjs';
+import { adjuntarCartera, adjuntarTrello, adjuntarCencosud } from '../scripts/alertas.mjs';
 
 export const config = { maxDuration: 60 };
 
@@ -524,6 +524,64 @@ export function fichaDelCorte(c) {
     }
   }
 
+  /* La plataforma de Cencosud. Es la quinta fuente y la unica que mide una
+     sola empresa, asi que su cifra NO se suma a las de formacion: son
+     plataformas distintas y sumarlas contaria a Cencosud dos veces o lo
+     mezclaria con el resto del pais. Eso se dice explicitamente porque es el
+     error que un modelo comete solo. */
+  if (c.cencosud && c.cencosud.por_mes) {
+    const cc = c.cencosud, meses = (cc.total && cc.total.meses) || [];
+    L.push(`\n## Cencosud · su propia plataforma (calculado el ${String(cc.generado_en || '').slice(0, 10)})`);
+    L.push(
+      'Esta es una plataforma APARTE de la de formación. Solo se certifica Cencosud en ella. ' +
+        'Sus cifras NO se suman a las de formación ni a las de trámites o Alimentia: si te preguntan ' +
+        'el total de certificaciones de BPM, di las de cada plataforma por separado.',
+    );
+    if (meses.length) {
+      const ult = meses[meses.length - 1];
+      const x = cc.por_mes[ult];
+      L.push(
+        `- En ${ult}: ${nf(x.certificaciones)} certificaciones de ${nf(x.personas)} personas distintas. ` +
+          'Son dos cifras distintas y no un error: una misma persona puede completar dos programas el ' +
+          'mismo mes. El mes en curso va a medias y no se compara contra uno cerrado.',
+      );
+      if (x.permanencia_medida) {
+        L.push(
+          `- Permanencia en ${ult}: ${nf(x.cumplen_permanencia)} de ${nf(x.permanencia_medida)} medidas ` +
+            `llegan a los 360 minutos de dedicación. Las que no, en el informe de Cencosud saldrían como ` +
+            '«revisar permanencia».',
+        );
+      }
+      if (x.permanencia_sin_umbral) {
+        L.push(
+          `- OJO con la permanencia: de las ${nf(x.certificaciones)} de ${ult}, a ${nf(x.permanencia_sin_umbral)} ` +
+            'NO se les mide, porque su programa no tiene umbral acordado (el de medicamentos OTC). ' +
+            'El porcentaje de cumplimiento se lee SOBRE LAS MEDIDAS, nunca sobre el total del mes: ' +
+            'leerlo sobre el total da un incumplimiento tres veces mayor que el real.',
+        );
+      }
+      L.push(`- Programas de ${ult}: ` + x.por_programa.map((p) =>
+        `${p.nombre} ${nf(p.certificaciones)}` +
+        (p.cumplen_permanencia === null ? ' (sin umbral de permanencia)' : '')).join(' · ') + '.');
+
+      L.push(`\n### La serie por mes`);
+      L.push('mes · certificaciones · personas · cumplen permanencia / medidas');
+      for (const m of meses) {
+        const y = cc.por_mes[m];
+        L.push(`- ${m}: ${nf(y.certificaciones)} · ${nf(y.personas)} · ` +
+          (y.permanencia_medida ? `${nf(y.cumplen_permanencia)}/${nf(y.permanencia_medida)}` : 'no medida'));
+      }
+      L.push(
+        `- En toda la ventana (${cc.ventana ? `${cc.ventana.desde} a ${cc.ventana.hasta}` : 'la publicada'}): ` +
+          `${nf(cc.total.certificaciones)} certificaciones de ${nf(cc.total.personas)} personas distintas. ` +
+          'Ese número de personas NO es la suma de las personas de cada mes: quien se certificó en dos ' +
+          'meses cuenta una vez aquí y dos si se suman los meses.',
+      );
+    } else {
+      L.push('- No hay ni un mes con certificaciones en la ventana publicada.');
+    }
+  }
+
   /* Trello es el trabajo del equipo. Va aqui porque la Direccion pregunta
      por el: que lleva tarde y quien lo tiene. A Equipo no llega porque
      despojarParaEquipo borra el bloque antes de armar la ficha. */
@@ -676,9 +734,12 @@ export default async function handler(req, res) {
        quien debe ni a quien falta facturarle. Se pega antes del reparto por
        rol, de modo que despojarParaEquipo siga siendo el que decide. */
     try {
-      const [cartera, conciliacion, trello] = await Promise.all([leerCartera(), leerConciliacion(), leerTrello()]);
+      const [cartera, conciliacion, trello, cencosud] = await Promise.all([
+        leerCartera(), leerConciliacion(), leerTrello(), leerCencosud(),
+      ]);
       adjuntarCartera(completo, cartera, conciliacion);
       adjuntarTrello(completo, trello);
+      adjuntarCencosud(completo, cencosud);
     } catch (e) {
       console.error('[chat] cartera/conciliacion no disponibles:', e.message);
     }

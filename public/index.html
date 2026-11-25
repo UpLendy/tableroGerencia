@@ -295,7 +295,7 @@ tbody tr:hover{background:var(--card2)}
 /* La de cuentas por cobrar es la excepción: bajó a tres columnas justamente
    para caber en un teléfono, y el mínimo de 340 px la volvía a sacar. La de
    Trello, igual. */
-#tablaCob table,#tablaTr table{min-width:0}
+#tablaCob table,#tablaTr table,#tablaCen table{min-width:0}
 #trEtapas,#alTabla,#curTabla{overflow-x:auto;-webkit-overflow-scrolling:touch}
 [hidden]{display:none!important}
 
@@ -671,6 +671,51 @@ footer h3{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:upp
         <div class="cs" id="trVenCs"></div>
         <button class="ghost" onclick="verTablaTr(this)">Ver las tarjetas vencidas</button>
         <div class="tw" id="tablaTr" hidden style="margin-top:14px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6e · CENCOSUD ============ -->
+  <!-- Va oculta y solo aparece si el corte trae el bloque. No lleva dinero ni
+       cedulas, solo recuentos, asi que Equipo la ve igual que las demas
+       plataformas: no hay nada que despojar. -->
+  <section id="sec-cencosud" hidden>
+    <div class="shead">
+      <h2>Cencosud &middot; su propia plataforma</h2>
+      <span class="note" id="cenNota">&mdash;</span>
+    </div>
+    <p class="sub" id="cenAparte"></p>
+    <div class="grid kpis" style="margin-bottom:14px">
+      <div class="kpi">
+        <div class="kl">Certificaciones del mes</div>
+        <div class="kv" id="cenCert">&mdash;</div>
+        <div class="kd"><span id="cenCertSub"></span></div>
+      </div>
+      <div class="kpi">
+        <div class="kl">Personas distintas</div>
+        <div class="kv" id="cenPers">&mdash;</div>
+        <div class="kd"><span id="cenPersSub"></span></div>
+      </div>
+      <div class="kpi">
+        <div class="kl">Cumplen los 360 min</div>
+        <div class="kv" id="cenPerm">&mdash;</div>
+        <div class="kd"><span id="cenPermSub"></span></div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="chartcard">
+        <div class="ct">Certificaciones por mes</div>
+        <div class="cs" id="cenSerieCs"></div>
+        <svg id="svgCen" viewBox="0 0 900 260" aria-label="Certificaciones de Cencosud por mes"></svg>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="chartcard">
+        <div class="ct">Los programas</div>
+        <div class="cs" id="cenProgCs"></div>
+        <div id="cenProg"></div>
+        <button class="ghost" onclick="verTablaCen(this)">Ver mes por mes</button>
+        <div class="tw" id="tablaCen" hidden style="margin-top:14px"></div>
       </div>
     </div>
   </section>
@@ -1755,6 +1800,135 @@ function renderTrello(){
     : '<div class="al-vacio">Ninguna tarjeta va tarde.</div>';
 }
 
+/* ----------------------------------------------------- Cencosud */
+/**
+ * La plataforma de Cencosud. Tres decisiones que se ven aquí:
+ *
+ * 1. CERTIFICACIONES Y PERSONAS SON DOS TARJETAS, no una. Una persona puede
+ *    completar dos programas el mismo mes, así que los dos números difieren
+ *    sin que nada esté roto. Si solo se enseñara uno, la pregunta de Mónica
+ *    —cuántas personas se certificaron— tendría la respuesta equivocada.
+ *
+ * 2. LA PERMANENCIA SE LEE SOBRE LAS MEDIDAS Y SE DICE. El programa de
+ *    medicamentos OTC no tiene umbral acordado, así que sus certificaciones
+ *    quedan fuera del cálculo. Leer el cumplimiento sobre el total del mes
+ *    daba un 84 % donde el real es 94 %, y en junio de 2026 un 31 %.
+ *
+ * 3. ES UNA PLATAFORMA APARTE y lo dice en pantalla. Sumar estas
+ *    certificaciones a las de formación contaría a Cencosud dos veces.
+ */
+function renderCencosud(){
+  const c=CORTE.cencosud;
+  const sec=$('sec-cencosud');
+  if(!c||!c.por_mes||!(c.total&&c.total.meses&&c.total.meses.length)){ sec.hidden=true; return; }
+  sec.hidden=false;
+
+  const meses=c.total.meses;
+  const ult=meses[meses.length-1], x=c.por_mes[ult];
+
+  $('cenNota').textContent='Calculado el '+String(c.generado_en||'').slice(0,10)+
+    (c.ventana?' · '+c.ventana.desde+' a '+c.ventana.hasta:'');
+  $('cenAparte').textContent='Es una plataforma aparte de la de formación y solo se certifica Cencosud '+
+    'en ella. Estas cifras no se suman a las de las otras plataformas.';
+
+  $('cenCert').textContent=nf(x.certificaciones);
+  $('cenCertSub').textContent='en '+ult+(ult===new Date().toISOString().slice(0,7)?' · mes en curso, va a medias':'');
+
+  $('cenPers').textContent=nf(x.personas);
+  $('cenPersSub').textContent = x.personas===x.certificaciones
+    ? 'una certificación por persona este mes'
+    : 'menos que las certificaciones: hay quien completó dos programas';
+
+  if(x.permanencia_medida){
+    $('cenPerm').textContent=pc(x.cumplen_permanencia/x.permanencia_medida*100);
+    /* El mismo aviso que la primera tarjeta. Un porcentaje no parece una
+       cifra a medias como sí lo parece un recuento bajo, así que sin esto
+       un 87 % de un mes incompleto se lee como una caída y no lo es. */
+    $('cenPermSub').textContent=nf(x.cumplen_permanencia)+' de '+nf(x.permanencia_medida)+' medidas'+
+      (x.permanencia_sin_umbral? ' · '+nf(x.permanencia_sin_umbral)+' sin umbral, fuera del cálculo':'')+
+      (ult===new Date().toISOString().slice(0,7)?' · mes en curso':'');
+  }else{
+    $('cenPerm').textContent='no medida';
+    $('cenPermSub').textContent='ningún programa del mes tiene umbral acordado';
+  }
+
+  /* ------------------------------------------------ la serie por mes */
+  const sv=$('svgCen'); sv.innerHTML='';
+  const W=900,H=260,ml=46,mr=14,mt=16,mb=38;
+  const bw=Math.max(4,Math.min(26,(W-ml-mr)/meses.length*0.62));
+  const paso=(W-ml-mr)/meses.length;
+  const max=Math.max(1,...meses.map(m=>c.por_mes[m].certificaciones));
+  const g=mk(sv,'g',{});
+
+  /* Rejilla recesiva: cuatro líneas y sus números, nada más. */
+  for(let i=0;i<=4;i++){
+    const v=max*i/4, y=mt+(H-mt-mb)*(1-i/4);
+    mk(g,'line',{x1:ml,y1:y,x2:W-mr,y2:y,class:'gl'});
+    mk(g,'text',{x:ml-8,y:y+3.5,'text-anchor':'end',class:'ax'}).textContent=nf(Math.round(v));
+  }
+
+  meses.forEach((m,i)=>{
+    const y0=c.por_mes[m], v=y0.certificaciones;
+    const h=Math.max(2,(H-mt-mb)*(v/max));
+    const bx=ml+i*paso+(paso-bw)/2, by=mt+(H-mt-mb)-h;
+    const enCurso=m===new Date().toISOString().slice(0,7);
+    const bar=barV(g,bx,by,bw,h,enCurso?'var(--r2)':'var(--r3)');
+    if(enCurso) bar.setAttribute('opacity','0.55');
+    const perm=y0.permanencia_medida
+      ? nf(y0.cumplen_permanencia)+' de '+nf(y0.permanencia_medida)+' medidas llegan a 360 min'
+      : 'permanencia no medida este mes';
+    bindTip(bar,'<b>'+esc(m)+(enCurso?' (en curso)':'')+'</b>'+
+      nf(v)+' certificaciones<br>'+nf(y0.personas)+' personas distintas<br>'+perm+
+      (y0.permanencia_sin_umbral?'<br>'+nf(y0.permanencia_sin_umbral)+' sin umbral de permanencia':''),g);
+
+    /* Una etiqueta cada tres meses y el último siempre: con veinticuatro
+       barras, etiquetarlas todas las vuelve ilegibles. */
+    if(i%3===0||i===meses.length-1){
+      mk(g,'text',{x:bx+bw/2,y:H-mb+16,'text-anchor':'middle',class:'ax'}).textContent=m.slice(2);
+    }
+  });
+
+  const medidas=meses.reduce((a,m)=>a+c.por_mes[m].permanencia_medida,0);
+  const cumplen=meses.reduce((a,m)=>a+c.por_mes[m].cumplen_permanencia,0);
+  $('cenSerieCs').textContent=nf(c.total.certificaciones)+' certificaciones en la ventana, de '+
+    nf(c.total.personas)+' personas distintas. Ese número de personas no es la suma de los meses: '+
+    'quien se certificó en dos meses cuenta una vez.';
+
+  /* -------------------------------------------------- los programas */
+  const prog=x.por_programa||[];
+  $('cenProgCs').textContent='En '+ult+'. En toda la ventana cumplen los 360 minutos '+
+    nf(cumplen)+' de '+nf(medidas)+' certificaciones medidas ('+pc(medidas?cumplen/medidas*100:0)+').';
+  $('cenProg').innerHTML = prog.length
+    ? '<table><thead><tr><th>Programa</th><th class="n">Certif.</th><th class="n">Personas</th>'+
+      '<th class="n">360 min</th></tr></thead><tbody>'+
+      prog.map(p=>'<tr><td>'+esc(cortar(p.nombre,38))+'</td>'+
+        '<td class="n">'+nf(p.certificaciones)+'</td>'+
+        '<td class="n">'+nf(p.personas)+'</td>'+
+        /* null no es cero: se escribe que no se mide, en vez de un 0 que
+           leeria como que nadie cumplio. */
+        '<td class="n">'+(p.cumplen_permanencia===null
+          ? '<span class="note">no se mide</span>'
+          : nf(p.cumplen_permanencia))+'</td></tr>').join('')+
+      '</tbody></table>'
+    : '<div class="al-vacio">Ningún programa certificó este mes.</div>';
+
+  /* La tabla mes por mes, plegada. Mónica pidió poder bajar al detalle. */
+  $('tablaCen').innerHTML='<table><thead><tr><th>Mes</th><th>Certificaciones</th>'+
+    '<th>Personas</th><th>Cumplen 360 min</th><th>Sin umbral</th></tr></thead><tbody>'+
+    meses.slice().reverse().map(m=>{
+      const y=c.por_mes[m];
+      return '<tr><td>'+esc(m)+'</td><td>'+nf(y.certificaciones)+'</td><td>'+nf(y.personas)+'</td>'+
+        '<td>'+(y.permanencia_medida?nf(y.cumplen_permanencia)+' de '+nf(y.permanencia_medida):'no medida')+'</td>'+
+        '<td>'+(y.permanencia_sin_umbral?nf(y.permanencia_sin_umbral):'—')+'</td></tr>';
+    }).join('')+'</tbody></table>';
+}
+
+function verTablaCen(b){
+  const t=$('tablaCen');
+  t.hidden=!t.hidden;
+  b.textContent=t.hidden?'Ver mes por mes':'Ocultar';
+}
+
 /* ------------------------------------------------------- alertas */
 /* Cada alerta ya venía con el nombre de la sección que tiene su detalle, y la
    pantalla tiraba ese dato a la basura: la Dirección leía «45 certificaciones
@@ -1764,7 +1938,7 @@ const ANCLAS = {
   salud:'sec-salud', volumen:'sec-volumen', vencimientos:'sec-vencimientos',
   empresas:'sec-empresas', tramites:'sec-tramites', alimentia:'sec-alimentia',
   cursos:'sec-cursos', calidad:'sec-calidad', cobrar:'secCobrar', cruce:'secCruce',
-  trello:'sec-trello',
+  trello:'sec-trello', cencosud:'sec-cencosud',
 };
 /* El enlace dice qué va a encontrar, no «ver más»: desde una alerta de cartera
    lo que hay abajo son nombres de quien debe, y conviene anunciarlo. */
@@ -1773,6 +1947,7 @@ const QUE_HAY_ABAJO = {
   vencimientos:'Ver los vencimientos', tramites:'Ver la carga de cada uno',
   alimentia:'Ver las empresas', cursos:'Ver los cursos', calidad:'Ver el detalle',
   volumen:'Ver el volumen del mes', salud:'Ver el índice', trello:'Ver qué va tarde',
+  cencosud:'Ver los meses de Cencosud',
 };
 
 /** La sección de una alerta, solo si está en la página y visible para el rol. */
@@ -2441,7 +2616,7 @@ function pintar(opts){
 
   renderSalud(); renderKpis(); renderPrio(); renderVenc(); renderYoy();
   renderEmp(); renderCursos(); renderCalidad(); renderSerie(); renderRecompra();
-  renderTramites(); renderAlimentia(); renderCobrar(); renderCruce(); renderTrello();
+  renderTramites(); renderAlimentia(); renderCobrar(); renderCruce(); renderTrello(); renderCencosud();
   /* Al final a propósito: cada alerta enlaza a su sección y para saber si esa
      sección existe y es visible para este rol hay que haberla pintado ya. */
   renderAlertas();

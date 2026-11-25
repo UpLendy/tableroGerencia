@@ -20,8 +20,8 @@
  * ------------------------------------------------------------------------- */
 import { traerTodasLasFuentes } from '../scripts/llamadas.mjs';
 import { armarCorte } from '../scripts/mapeo.mjs';
-import { leerCartera, leerConciliacion, leerTrello } from '../scripts/datos.mjs';
-import { adjuntarCartera, adjuntarTrello } from '../scripts/alertas.mjs';
+import { leerCartera, leerConciliacion, leerTrello, leerCencosud } from '../scripts/datos.mjs';
+import { adjuntarCartera, adjuntarTrello, adjuntarCencosud } from '../scripts/alertas.mjs';
 import { fichaDelCorte } from './chat.mjs';
 import { responder, resultado, tokenValido, ERR } from '../scripts/mcp.mjs';
 
@@ -62,6 +62,21 @@ export const HERRAMIENTAS = {
     correr: (corte) => tomar(secciones(fichaDelCorte(corte)), [
       'Meses del corte', 'CÓMO COMPARAR', 'Índice de salud', 'Comparativo', 'Serie mensual',
     ]),
+  },
+  cencosud: {
+    name: 'cencosud',
+    title: 'La plataforma de Cencosud',
+    description:
+      'Las certificaciones de la plataforma propia de Cencosud, mes a mes: cuántas se ' +
+      'completaron, cuántas PERSONAS distintas se certificaron (no es lo mismo: una persona ' +
+      'puede completar dos programas el mismo mes) y cuántas llegan a los 360 minutos de ' +
+      'dedicación que exige el informe de Cencosud. Es una plataforma APARTE de la de ' +
+      'formación: sus cifras no se suman a las del corte del mes. Usar para cualquier ' +
+      'pregunta sobre Cencosud, manipulación de alimentos, cárnicos o medicamentos OTC.',
+    inputSchema: { type: 'object', additionalProperties: false },
+    /* «La serie por mes» va con tres almohadillas dentro de este mismo
+       bloque, asi que no es una seccion aparte y no hay que nombrarla. */
+    correr: (corte) => tomar(secciones(fichaDelCorte(corte)), ['Cencosud']),
   },
   empresas: {
     name: 'empresas',
@@ -227,9 +242,12 @@ export default async function handler(req, res) {
     const periodo = new Date().toISOString().slice(0, 7);
     const { muestras, fallaron } = await traerTodasLasFuentes(periodo);
     const corte = armarCorte(muestras, {}, fallaron);
-    const [cartera, conciliacion, trello] = await Promise.all([leerCartera(), leerConciliacion(), leerTrello()]);
+    const [cartera, conciliacion, trello, cencosud] = await Promise.all([
+      leerCartera(), leerConciliacion(), leerTrello(), leerCencosud(),
+    ]);
     adjuntarCartera(corte, cartera, conciliacion);
     adjuntarTrello(corte, trello);
+    adjuntarCencosud(corte, cencosud);
     const texto = HERRAMIENTAS[d.ejecutar.nombre].correr(corte, d.ejecutar.argumentos);
     return res.status(200).json(resultado(d.ejecutar.id, texto, false, d.antiguo === true));
   } catch (e) {

@@ -27,6 +27,9 @@ export const VERSION = '2026-07-28';
 export const VERSION_ANTERIOR = '2025-11-25';
 export const VERSIONES = [VERSION, VERSION_ANTERIOR];
 export const SERVIDOR = { name: 'tablero-gerencial-bpm', version: '1.0.0' };
+/* Lo que ve quien saluda sin credencial: que esto existe y habla MCP. Ni de
+   quien es ni para que sirve. */
+export const SERVIDOR_ANONIMO = { name: 'mcp', version: '1.0.0' };
 
 /* Lo que el modelo del otro lado lee antes de llamar a nada. */
 export const INSTRUCCIONES =
@@ -88,9 +91,6 @@ export function responder(cuerpo, cabeceras = {}, ctx = {}) {
      lo que dejo de mandar la cabecera y nada funcionaba. El 403 dice «se
      quien eres y no pasas», que es exactamente lo que queremos decir con
      una clave de API fija: aqui no hay nada que negociar. */
-  if (!autorizado) {
-    return { estado: 403, cuerpo: rpcError(null, ERR.peticion, 'Falta el token del tablero o no es válido') };
-  }
   if (!cuerpo || typeof cuerpo !== 'object' || cuerpo.jsonrpc !== '2.0' || typeof cuerpo.method !== 'string') {
     return { estado: 400, cuerpo: rpcError(cuerpo && cuerpo.id, ERR.peticion, 'La petición no es JSON-RPC 2.0') };
   }
@@ -99,6 +99,21 @@ export function responder(cuerpo, cabeceras = {}, ctx = {}) {
   const meta = metaDe(cuerpo);
   const esAviso = id === undefined;
   const moderno = dialecto(cuerpo, cabeceras) === VERSION;
+  const saludo = cuerpo.method === 'server/discover' || cuerpo.method === 'initialize';
+
+  /* El saludo se contesta SIN token, y a proposito. Cuando alguien pega la
+     URL en Claude, la aplicacion sondea el servidor antes de preguntarle por
+     la credencial: no la tiene todavia. Si ese sondeo se rechaza, la pantalla
+     dice «no se pudo verificar el servidor» y la persona que esta conectando
+     —que no es quien lo construyo— cree que algo esta roto.
+
+     Lo que se contesta sin token es deliberadamente poco: que existe, que
+     habla MCP y que tiene herramientas. NO va el nombre de la empresa, ni
+     las instrucciones, ni la lista de herramientas, que describen el negocio
+     de BPM. Para eso sigue haciendo falta la credencial. */
+  if (!autorizado && !saludo) {
+    return { estado: 403, cuerpo: rpcError(id, ERR.peticion, 'Falta el token del tablero o no es válido') };
+  }
 
   /* La versión va en dos sitios y MUST coincidir. Que coincida no es una
      formalidad: si la cabecera dice una cosa y el cuerpo otra, hay algo en
@@ -107,7 +122,7 @@ export function responder(cuerpo, cabeceras = {}, ctx = {}) {
     /* En la revision anterior no existen Mcp-Method, Mcp-Name ni la version
        dentro de _meta. Exigirlas alli seria rechazar a un cliente que esta
        hablando correctamente su propio idioma. */
-    return responderAntiguo(cuerpo, id, esAviso, herramientas);
+    return responderAntiguo(cuerpo, id, esAviso, herramientas, autorizado);
   }
   const vCab = cab(cabeceras, 'MCP-Protocol-Version');
   const vCuerpo = meta['io.modelcontextprotocol/protocolVersion'];
@@ -137,8 +152,8 @@ export function responder(cuerpo, cabeceras = {}, ctx = {}) {
       resultType: 'complete',
       supportedVersions: VERSIONES,
       capabilities: { tools: {} },
-      instructions: INSTRUCCIONES,
-      _meta: { 'io.modelcontextprotocol/serverInfo': SERVIDOR },
+      ...(autorizado ? { instructions: INSTRUCCIONES } : {}),
+      _meta: { 'io.modelcontextprotocol/serverInfo': autorizado ? SERVIDOR : SERVIDOR_ANONIMO },
       ttlMs: 3600000, cacheScope: 'public',
     } } };
   }
@@ -184,13 +199,13 @@ export function responder(cuerpo, cabeceras = {}, ctx = {}) {
    initialize en vez de server/discover, la version como campo suelto, y el
    resultado sin resultType: el cliente de entonces trata su ausencia como
    «completo», que es justo lo que queremos decir. */
-function responderAntiguo(cuerpo, id, esAviso, herramientas) {
+function responderAntiguo(cuerpo, id, esAviso, herramientas, autorizado) {
   if (cuerpo.method === 'initialize') {
     return { estado: 200, cuerpo: { jsonrpc: '2.0', id, result: {
       protocolVersion: VERSION_ANTERIOR,
       capabilities: { tools: { listChanged: false } },
-      serverInfo: SERVIDOR,
-      instructions: INSTRUCCIONES,
+      serverInfo: autorizado ? SERVIDOR : SERVIDOR_ANONIMO,
+      ...(autorizado ? { instructions: INSTRUCCIONES } : {}),
     } } };
   }
   if (cuerpo.method === 'notifications/initialized' || esAviso) {
