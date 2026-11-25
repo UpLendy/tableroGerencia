@@ -299,5 +299,33 @@ console.log('\n-- las herramientas se describen para que el modelo elija bien --
     'y la de renovación, de que una cohorte abierta no da una tasa');
 }
 
+console.log('\n-- el saludo no se puede guardar en una cache compartida --');
+
+/* Este saludo cambia segun haya token o no: sin el sale un nombre anonimo y
+   sin instrucciones. Si se declarara cacheable en publico, la primera
+   respuesta —la del sondeo que hace la aplicacion ANTES de pedir la
+   credencial— se le serviria despues al cliente que si se autentico, que
+   veria un servidor sin instrucciones y sin las herramientas nuevas. La
+   persona solo ve «no se pudieron recargar las herramientas» y nada apunta
+   a una cache. Paso de verdad al añadir la herramienta de Cencosud. */
+for (const auth of [true, false]) {
+  const res = responder(pet('server/discover'), cabs('server/discover'),
+    ctx({ autorizado: auth })).cuerpo.result;
+  cierto(res.cacheScope === 'private',
+    `el saludo ${auth ? 'con' : 'sin'} token se declara privado, no publico`);
+  cierto(res.ttlMs <= 600000,
+    `y no se guarda mas de diez minutos (dice ${res.ttlMs} ms)`);
+}
+
+/* Y la prueba de por que: las dos respuestas NO son iguales. */
+const salCon = responder(pet('server/discover'), cabs('server/discover'), ctx()).cuerpo.result;
+const salSin = responder(pet('server/discover'), cabs('server/discover'),
+  ctx({ autorizado: false })).cuerpo.result;
+cierto(JSON.stringify(salCon) !== JSON.stringify(salSin),
+  'con token y sin token NO se contesta lo mismo: por eso no puede ser publica');
+cierto(!!salCon.instructions && !salSin.instructions,
+  'las instrucciones solo van con credencial');
+
+
 console.log(fallos ? `\n${fallos} FALLAS\n` : '\nTodo en orden\n');
 process.exit(fallos ? 1 : 0);

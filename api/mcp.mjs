@@ -191,6 +191,18 @@ const tokenDe = (req) => {
 };
 
 export default async function handler(req, res) {
+  /* Ninguna respuesta de este endpoint se guarda en ninguna caché, y menos
+     en una compartida. Todas dependen del token: el saludo cambia de nombre
+     y de instrucciones según lo haya o no, y tools/list devuelve el catálogo
+     entero del negocio de BPM. Sin estas dos cabeceras, una caché en el
+     camino puede guardar la respuesta del sondeo anónimo —que es siempre la
+     primera, porque la aplicación sondea ANTES de pedir la credencial— y
+     servírsela luego a quien sí se autenticó. El síntoma no se parece a un
+     problema de caché: la persona solo ve «no se pudieron recargar las
+     herramientas». */
+  res.setHeader('Cache-Control', 'private, no-store');
+  res.setHeader('Vary', 'Authorization, X-Tablero-Token, MCP-Protocol-Version');
+
   /* Esta revisión quitó el canal de GET. Lo que llegue por ahí es un cliente
      viejo, y la norma dice que se le conteste 405. */
   if (req.method !== 'POST') {

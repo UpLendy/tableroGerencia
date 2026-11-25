@@ -154,7 +154,21 @@ export function responder(cuerpo, cabeceras = {}, ctx = {}) {
       capabilities: { tools: {} },
       ...(autorizado ? { instructions: INSTRUCCIONES } : {}),
       _meta: { 'io.modelcontextprotocol/serverInfo': autorizado ? SERVIDOR : SERVIDOR_ANONIMO },
-      ttlMs: 3600000, cacheScope: 'public',
+      /* PRIVADA, no publica, y esto no es una precaucion de mas: dos lineas
+         mas arriba esta misma respuesta cambia segun haya token o no. Sin
+         credencial sale un nombre anonimo y sin instrucciones; con ella, las
+         de verdad. Una respuesta que depende de quien pregunta NO se puede
+         declarar cacheable en publico, porque entonces cualquier cache en
+         medio guarda la version anonima —la del sondeo que hace la
+         aplicacion ANTES de pedir la credencial, que es siempre la primera
+         en llegar— y se la sirve despues al cliente que si se autentico.
+         Ese cliente recibe un servidor sin instrucciones y sin herramientas
+         nuevas, y lo unico que ve la persona es «no se pudieron recargar las
+         herramientas».
+
+         Y cinco minutos, no una hora: una hora significa que al añadir una
+         herramienta nadie la ve hasta la hora siguiente. */
+      ttlMs: 300000, cacheScope: 'private',
     } } };
   }
 
