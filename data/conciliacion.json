@@ -201,7 +201,7 @@
       "tarifa": [
         18000
       ],
-      "saldo": 432000,
+      "saldo": 0,
       "estado": "difiere",
       "sin_facturar": 0,
       "valor_sin_facturar": 0,
@@ -1573,15 +1573,15 @@
       "valor": 345000
     },
     {
-      "nit": "901465344",
-      "nombre": "DISTRIBUIDORA AGRICOLA GALLEGO RAMIREZ SAS",
-      "unidades": 1,
-      "valor": 320000
-    },
-    {
       "nit": "1192729709",
       "nombre": "Alejandra Marín Gil",
       "unidades": 11,
+      "valor": 320000
+    },
+    {
+      "nit": "901465344",
+      "nombre": "DISTRIBUIDORA AGRICOLA GALLEGO RAMIREZ SAS",
+      "unidades": 1,
       "valor": 320000
     },
     {
@@ -1663,62 +1663,14 @@
       "valor": 140000
     },
     {
-      "nit": "901147428",
-      "nombre": "ATRACCIONES MECANICAS S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
       "nit": "24329657",
       "nombre": "COMIDAS RAPIDAS EL CALI",
       "unidades": 1,
       "valor": 100000
     },
     {
-      "nit": "900631190",
-      "nombre": "ALIMENTOS Y BEBIDAS ALYCA S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "901360781",
-      "nombre": "COSTIFOOD S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1053853162",
-      "nombre": "TATIANA QUIRAMA GIRALDO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1053827372",
-      "nombre": "JUAN ALEJANDRO GONZALEZ CASTAÑO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "901938278",
-      "nombre": "GRUPO GASTRONOMICO DGM S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "24731045",
-      "nombre": "MARIA GLADIS CASTRO QUICENO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "902059437",
-      "nombre": "ROCKET LAB S.A.S.",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "25109229",
-      "nombre": "MARIA MELIDA TABORDA MURILLO",
+      "nit": "901147428",
+      "nombre": "ATRACCIONES MECANICAS S.A.S",
       "unidades": 1,
       "valor": 100000
     },
@@ -1729,14 +1681,62 @@
       "valor": 100000
     },
     {
+      "nit": "65795368",
+      "nombre": "DIANA RAMIREZ CASTRO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901938278",
+      "nombre": "GRUPO GASTRONOMICO DGM S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "902059437",
+      "nombre": "ROCKET LAB S.A.S.",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "24731045",
+      "nombre": "MARIA GLADIS CASTRO QUICENO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
       "nit": "1076668475",
       "nombre": "NICOLAS ANGULO AGUILAR",
       "unidades": 1,
       "valor": 100000
     },
     {
-      "nit": "65795368",
-      "nombre": "DIANA RAMIREZ CASTRO",
+      "nit": "25109229",
+      "nombre": "MARIA MELIDA TABORDA MURILLO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "900631190",
+      "nombre": "ALIMENTOS Y BEBIDAS ALYCA S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1053853162",
+      "nombre": "TATIANA QUIRAMA GIRALDO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901360781",
+      "nombre": "COSTIFOOD S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1053827372",
+      "nombre": "JUAN ALEJANDRO GONZALEZ CASTAÑO",
       "unidades": 1,
       "valor": 100000
     },
@@ -1813,6 +1813,12 @@
       "valor": 30000
     },
     {
+      "nit": "901517118",
+      "nombre": "PHF SAS",
+      "unidades": 1,
+      "valor": 20000
+    },
+    {
       "nit": "810006204",
       "nombre": "CORPORACION CLUB SOCIAL DRIVE IN CERRITOS",
       "unidades": 1,
@@ -1821,12 +1827,6 @@
     {
       "nit": "901455816",
       "nombre": "M&S VITAMINS SAS",
-      "unidades": 1,
-      "valor": 20000
-    },
-    {
-      "nit": "901517118",
-      "nombre": "PHF SAS",
       "unidades": 1,
       "valor": 20000
     },
@@ -1913,9 +1913,9 @@
     "2026-11"
   ],
   "periodo_siguiente": "2026-11",
-  "facturas_del_siguiente": 120,
+  "facturas_del_siguiente": 123,
   "periodo": "2026-10",
-  "generado_en": "2026-11-24T21:17:05.179Z",
+  "generado_en": "2026-11-25T20:30:25.546Z",
   "facturas_del_periodo": 225,
   "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
   "corte_usado": {

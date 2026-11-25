@@ -1,13 +1,13 @@
 {
   "regla": "conciliacion-v1",
-  "corte": "2026-11-24",
-  "total": 116336505.87,
+  "corte": "2026-11-25",
+  "total": 114963755.87,
   "terceros": 92,
   "por_antiguedad": {
-    "hasta 30": 77387116.54,
+    "hasta 30": 76865866.54,
     "31 a 60": 9569209.77,
-    "61 a 90": 1253760,
-    "mas de 90": 28126419.56,
+    "61 a 90": 677760,
+    "mas de 90": 27850919.56,
     "sin fecha": 0
   },
   "detalle": [
@@ -16,7 +16,7 @@
       "nombre": "MALL PLAZA  SERVICIOS  S A S",
       "saldo": 58126740,
       "facturas": 33,
-      "mas_vieja_dias": 525,
+      "mas_vieja_dias": 526,
       "por_antiguedad": {
         "hasta 30": 37468340,
         "31 a 60": 0,
@@ -30,7 +30,7 @@
       "nombre": "CENCOSUD COLOMBIA S.A",
       "saldo": 28546910,
       "facturas": 18,
-      "mas_vieja_dias": 41,
+      "mas_vieja_dias": 42,
       "por_antiguedad": {
         "hasta 30": 25783730,
         "31 a 60": 2763180,
@@ -44,7 +44,7 @@
       "nombre": "ARCOS DORADOS COLOMBIA S.A.S",
       "saldo": 3454500,
       "facturas": 1,
-      "mas_vieja_dias": 21,
+      "mas_vieja_dias": 22,
       "por_antiguedad": {
         "hasta 30": 3454500,
         "31 a 60": 0,
@@ -58,7 +58,7 @@
       "nombre": "INTEGRATIVA AGROPECUARIA S.A.S",
       "saldo": 2188000,
       "facturas": 3,
-      "mas_vieja_dias": 55,
+      "mas_vieja_dias": 56,
       "por_antiguedad": {
         "hasta 30": 797500,
         "31 a 60": 1390500,
@@ -72,7 +72,7 @@
       "nombre": "DISLICORES",
       "saldo": 2086000,
       "facturas": 1,
-      "mas_vieja_dias": 32,
+      "mas_vieja_dias": 33,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 2086000,
@@ -86,7 +86,7 @@
       "nombre": "VICTORIA CENTRO COMERCIAL REGIONAL- PROPIEDAD HORIZONTAL",
       "saldo": 2046681,
       "facturas": 2,
-      "mas_vieja_dias": 26,
+      "mas_vieja_dias": 27,
       "por_antiguedad": {
         "hasta 30": 2046681,
         "31 a 60": 0,
@@ -100,7 +100,7 @@
       "nombre": "CARNICOS EL HATO SAS",
       "saldo": 1485000,
       "facturas": 1,
-      "mas_vieja_dias": 47,
+      "mas_vieja_dias": 48,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 1485000,
@@ -114,7 +114,7 @@
       "nombre": "TIENDAS GUAYACAN S.A.S",
       "saldo": 1418480,
       "facturas": 9,
-      "mas_vieja_dias": 553,
+      "mas_vieja_dias": 554,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -124,25 +124,11 @@
       }
     },
     {
-      "nit": "900229503",
-      "nombre": "SERVICIOS DE ASEO, CAFETERIA, MANTENIMIENTO INSTITUCIONAL, OUTSOURCING SEASIN LIMITADA",
-      "saldo": 1283500,
-      "facturas": 4,
-      "mas_vieja_dias": 264,
-      "por_antiguedad": {
-        "hasta 30": 432000,
-        "31 a 60": 0,
-        "61 a 90": 576000,
-        "mas de 90": 275500,
-        "sin fecha": 0
-      }
-    },
-    {
       "nit": "900641156",
       "nombre": "No aplica",
       "saldo": 1159500,
       "facturas": 5,
-      "mas_vieja_dias": 418,
+      "mas_vieja_dias": 419,
       "por_antiguedad": {
         "hasta 30": 297000,
         "31 a 60": 330000,
@@ -156,7 +142,7 @@
       "nombre": "DECAMERON CINCO HERRADURAS S.A.S.",
       "saldo": 1131000,
       "facturas": 2,
-      "mas_vieja_dias": 328,
+      "mas_vieja_dias": 329,
       "por_antiguedad": {
         "hasta 30": 725000,
         "31 a 60": 0,
@@ -170,7 +156,7 @@
       "nombre": "CENTRO ASEO MANTENIMIENTO PROFESIONAL S.A.S",
       "saldo": 957000,
       "facturas": 2,
-      "mas_vieja_dias": 298,
+      "mas_vieja_dias": 299,
       "por_antiguedad": {
         "hasta 30": 643500,
         "31 a 60": 0,
@@ -184,7 +170,7 @@
       "nombre": "No aplica",
       "saldo": 927000,
       "facturas": 6,
-      "mas_vieja_dias": 55,
+      "mas_vieja_dias": 56,
       "por_antiguedad": {
         "hasta 30": 468000,
         "31 a 60": 459000,
@@ -198,7 +184,7 @@
       "nombre": "SUPER POLLOS DEL GALPON S.A.S",
       "saldo": 595000,
       "facturas": 3,
-      "mas_vieja_dias": 95,
+      "mas_vieja_dias": 96,
       "por_antiguedad": {
         "hasta 30": 476000,
         "31 a 60": 0,
@@ -212,7 +198,7 @@
       "nombre": "CAFE KUMANDAY S.A.S",
       "saldo": 595000,
       "facturas": 2,
-      "mas_vieja_dias": 199,
+      "mas_vieja_dias": 200,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 119000,
@@ -226,7 +212,7 @@
       "nombre": "VIVE CAFÉ S.A. BIC",
       "saldo": 560000,
       "facturas": 7,
-      "mas_vieja_dias": 263,
+      "mas_vieja_dias": 264,
       "por_antiguedad": {
         "hasta 30": 315000,
         "31 a 60": 0,
@@ -240,7 +226,7 @@
       "nombre": "MALTAURBANA SAS",
       "saldo": 499840,
       "facturas": 3,
-      "mas_vieja_dias": 344,
+      "mas_vieja_dias": 345,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -254,7 +240,7 @@
       "nombre": "SUZETTE SAS",
       "saldo": 435142.54,
       "facturas": 4,
-      "mas_vieja_dias": 132,
+      "mas_vieja_dias": 133,
       "por_antiguedad": {
         "hasta 30": 79332.54,
         "31 a 60": 0,
@@ -264,25 +250,11 @@
       }
     },
     {
-      "nit": "810004699",
-      "nombre": "CORPORACION INCUBADORA Y ACELERADORA DE EMPRESAS DE BASE TECNOLOGICA DE MANIZALES",
-      "saldo": 392700,
-      "facturas": 1,
-      "mas_vieja_dias": 7,
-      "por_antiguedad": {
-        "hasta 30": 392700,
-        "31 a 60": 0,
-        "61 a 90": 0,
-        "mas de 90": 0,
-        "sin fecha": 0
-      }
-    },
-    {
       "nit": "891300959",
       "nombre": "SUCROAL S.A",
       "saldo": 362500,
       "facturas": 1,
-      "mas_vieja_dias": 27,
+      "mas_vieja_dias": 28,
       "por_antiguedad": {
         "hasta 30": 362500,
         "31 a 60": 0,
@@ -296,7 +268,7 @@
       "nombre": "CAMARA DE COMERCIO DE MANIZALES POR CALDAS",
       "saldo": 357000,
       "facturas": 1,
-      "mas_vieja_dias": 20,
+      "mas_vieja_dias": 21,
       "por_antiguedad": {
         "hasta 30": 357000,
         "31 a 60": 0,
@@ -310,7 +282,7 @@
       "nombre": "SOCIEDAD PORTUARIA REGIONAL DE BARRANQUILLA S.A",
       "saldo": 348000,
       "facturas": 1,
-      "mas_vieja_dias": 49,
+      "mas_vieja_dias": 50,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 348000,
@@ -324,7 +296,7 @@
       "nombre": "No aplica",
       "saldo": 319000,
       "facturas": 1,
-      "mas_vieja_dias": 188,
+      "mas_vieja_dias": 189,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -338,7 +310,7 @@
       "nombre": "NICO JAMONES SL",
       "saldo": 318068.31,
       "facturas": 1,
-      "mas_vieja_dias": 189,
+      "mas_vieja_dias": 190,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -352,7 +324,7 @@
       "nombre": "No aplica",
       "saldo": 297000,
       "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 297000,
         "31 a 60": 0,
@@ -366,7 +338,7 @@
       "nombre": "MAAZ ALTERNATIVAS S.A.S",
       "saldo": 285000,
       "facturas": 1,
-      "mas_vieja_dias": 298,
+      "mas_vieja_dias": 299,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -380,7 +352,7 @@
       "nombre": "FASALACT SAS",
       "saldo": 264000,
       "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 264000,
         "31 a 60": 0,
@@ -394,7 +366,7 @@
       "nombre": "SOTTANO SA",
       "saldo": 254388.71,
       "facturas": 2,
-      "mas_vieja_dias": 200,
+      "mas_vieja_dias": 201,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 23249.77,
@@ -408,7 +380,7 @@
       "nombre": "PRODUCIMOS EMOCIONES E INDULGENCIAS SAS",
       "saldo": 238000,
       "facturas": 1,
-      "mas_vieja_dias": 18,
+      "mas_vieja_dias": 19,
       "por_antiguedad": {
         "hasta 30": 238000,
         "31 a 60": 0,
@@ -422,7 +394,7 @@
       "nombre": "FUNDACION OBRAS SOCIALES BETANIA",
       "saldo": 238000,
       "facturas": 1,
-      "mas_vieja_dias": 5,
+      "mas_vieja_dias": 6,
       "por_antiguedad": {
         "hasta 30": 238000,
         "31 a 60": 0,
@@ -436,7 +408,7 @@
       "nombre": "VINCIATTI S.A.S",
       "saldo": 220000,
       "facturas": 2,
-      "mas_vieja_dias": 140,
+      "mas_vieja_dias": 141,
       "por_antiguedad": {
         "hasta 30": 100000,
         "31 a 60": 0,
@@ -450,7 +422,7 @@
       "nombre": "MERCAPLAZA RAMIREZ GONZALEZ S.A.S",
       "saldo": 200000,
       "facturas": 1,
-      "mas_vieja_dias": 26,
+      "mas_vieja_dias": 27,
       "por_antiguedad": {
         "hasta 30": 200000,
         "31 a 60": 0,
@@ -464,7 +436,7 @@
       "nombre": "JORGE WILMAR PUERTA OSORIO",
       "saldo": 200000,
       "facturas": 1,
-      "mas_vieja_dias": 160,
+      "mas_vieja_dias": 161,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -478,7 +450,7 @@
       "nombre": "NOOR FOODS S.A.S.",
       "saldo": 187000,
       "facturas": 1,
-      "mas_vieja_dias": 18,
+      "mas_vieja_dias": 19,
       "por_antiguedad": {
         "hasta 30": 187000,
         "31 a 60": 0,
@@ -492,7 +464,7 @@
       "nombre": "TALENTOSGROUP SAS",
       "saldo": 180000,
       "facturas": 2,
-      "mas_vieja_dias": 293,
+      "mas_vieja_dias": 294,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -506,7 +478,7 @@
       "nombre": "E&D CAFES S.A.S.",
       "saldo": 175000,
       "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 175000,
         "31 a 60": 0,
@@ -520,9 +492,23 @@
       "nombre": "SOCIEDAD G & GIRALDO SAS",
       "saldo": 169000,
       "facturas": 1,
-      "mas_vieja_dias": 15,
+      "mas_vieja_dias": 16,
       "por_antiguedad": {
         "hasta 30": 169000,
+        "31 a 60": 0,
+        "61 a 90": 0,
+        "mas de 90": 0,
+        "sin fecha": 0
+      }
+    },
+    {
+      "nit": "901421771",
+      "nombre": "SANGUTZ GRUPO EMPRESARIAL S.A.S",
+      "saldo": 160650,
+      "facturas": 1,
+      "mas_vieja_dias": 1,
+      "por_antiguedad": {
+        "hasta 30": 160650,
         "31 a 60": 0,
         "61 a 90": 0,
         "mas de 90": 0,
@@ -534,7 +520,7 @@
       "nombre": "AXDA COLOMBIA SAS",
       "saldo": 160000,
       "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 160000,
         "31 a 60": 0,
@@ -548,7 +534,7 @@
       "nombre": "GASES INDUSTRIALES DE COLOMBIA S.A",
       "saldo": 150000,
       "facturas": 2,
-      "mas_vieja_dias": 174,
+      "mas_vieja_dias": 175,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -558,11 +544,25 @@
       }
     },
     {
+      "nit": "901984740",
+      "nombre": "MEEZA GRUPO SAS",
+      "saldo": 142800,
+      "facturas": 1,
+      "mas_vieja_dias": 1,
+      "por_antiguedad": {
+        "hasta 30": 142800,
+        "31 a 60": 0,
+        "61 a 90": 0,
+        "mas de 90": 0,
+        "sin fecha": 0
+      }
+    },
+    {
       "nit": "900659583",
       "nombre": "INVERSIONES RCP S.A.S",
       "saldo": 140000,
       "facturas": 2,
-      "mas_vieja_dias": 85,
+      "mas_vieja_dias": 86,
       "por_antiguedad": {
         "hasta 30": 98000,
         "31 a 60": 0,
@@ -576,7 +576,7 @@
       "nombre": "ANDORAL CORP S.A.S",
       "saldo": 133280,
       "facturas": 1,
-      "mas_vieja_dias": 39,
+      "mas_vieja_dias": 40,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 133280,
@@ -590,7 +590,7 @@
       "nombre": "ANDRES FELIPE LOPEZ GONZALEZ",
       "saldo": 132000,
       "facturas": 3,
-      "mas_vieja_dias": 178,
+      "mas_vieja_dias": 179,
       "por_antiguedad": {
         "hasta 30": 33000,
         "31 a 60": 49500,
@@ -604,7 +604,7 @@
       "nombre": "DISTRIBUIDORA SIR POLLO SAS",
       "saldo": 126000,
       "facturas": 1,
-      "mas_vieja_dias": 320,
+      "mas_vieja_dias": 321,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -618,21 +618,7 @@
       "nombre": "SUPER POLLO AL CARBON MALL PLAZA S.A.S",
       "saldo": 119000,
       "facturas": 1,
-      "mas_vieja_dias": 11,
-      "por_antiguedad": {
-        "hasta 30": 119000,
-        "31 a 60": 0,
-        "61 a 90": 0,
-        "mas de 90": 0,
-        "sin fecha": 0
-      }
-    },
-    {
-      "nit": "43549477",
-      "nombre": "FRANCY HELENA BURITICA ARIAS",
-      "saldo": 119000,
-      "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 12,
       "por_antiguedad": {
         "hasta 30": 119000,
         "31 a 60": 0,
@@ -646,7 +632,21 @@
       "nombre": "COMPAÑIA DE JESUS",
       "saldo": 119000,
       "facturas": 1,
-      "mas_vieja_dias": 20,
+      "mas_vieja_dias": 21,
+      "por_antiguedad": {
+        "hasta 30": 119000,
+        "31 a 60": 0,
+        "61 a 90": 0,
+        "mas de 90": 0,
+        "sin fecha": 0
+      }
+    },
+    {
+      "nit": "43549477",
+      "nombre": "FRANCY HELENA BURITICA ARIAS",
+      "saldo": 119000,
+      "facturas": 1,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 119000,
         "31 a 60": 0,
@@ -660,7 +660,7 @@
       "nombre": "PASABOCAS DORITAS S.A.S",
       "saldo": 119000,
       "facturas": 1,
-      "mas_vieja_dias": 116,
+      "mas_vieja_dias": 117,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -674,7 +674,7 @@
       "nombre": "PORCICOLA PRADERA S.A",
       "saldo": 119000,
       "facturas": 1,
-      "mas_vieja_dias": 279,
+      "mas_vieja_dias": 280,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -688,7 +688,7 @@
       "nombre": "LA FORTUNA COMERCIALIZADORA SAS",
       "saldo": 119000,
       "facturas": 1,
-      "mas_vieja_dias": 305,
+      "mas_vieja_dias": 306,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -702,7 +702,7 @@
       "nombre": "JACOBO ARANGO TABARES",
       "saldo": 100000,
       "facturas": 1,
-      "mas_vieja_dias": 33,
+      "mas_vieja_dias": 34,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 100000,
@@ -716,7 +716,7 @@
       "nombre": "HOTEL CATALUÑA PEREIRA",
       "saldo": 100000,
       "facturas": 1,
-      "mas_vieja_dias": 137,
+      "mas_vieja_dias": 138,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -730,7 +730,7 @@
       "nombre": "LA CURVA SANTAGUEDA SAS",
       "saldo": 100000,
       "facturas": 1,
-      "mas_vieja_dias": 153,
+      "mas_vieja_dias": 154,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -744,7 +744,7 @@
       "nombre": "COLOMBIA HELADOS S.A.S",
       "saldo": 93000,
       "facturas": 3,
-      "mas_vieja_dias": 178,
+      "mas_vieja_dias": 179,
       "por_antiguedad": {
         "hasta 30": 31000,
         "31 a 60": 46500,
@@ -758,7 +758,7 @@
       "nombre": "PROTEGENTE S.A.S",
       "saldo": 90000,
       "facturas": 1,
-      "mas_vieja_dias": 209,
+      "mas_vieja_dias": 210,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -772,7 +772,7 @@
       "nombre": "Inverpapas SAS",
       "saldo": 90000,
       "facturas": 1,
-      "mas_vieja_dias": 320,
+      "mas_vieja_dias": 321,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -786,7 +786,7 @@
       "nombre": "OPERADORA COLOMBIANA DE CINES SAS",
       "saldo": 80500,
       "facturas": 4,
-      "mas_vieja_dias": 18,
+      "mas_vieja_dias": 19,
       "por_antiguedad": {
         "hasta 30": 80500,
         "31 a 60": 0,
@@ -800,7 +800,7 @@
       "nombre": "ATALAYA 1 SECURITY GROUP LTDA",
       "saldo": 80000,
       "facturas": 1,
-      "mas_vieja_dias": 32,
+      "mas_vieja_dias": 33,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 80000,
@@ -814,7 +814,7 @@
       "nombre": "MONTALTO TORRES S.A.S",
       "saldo": 80000,
       "facturas": 1,
-      "mas_vieja_dias": 306,
+      "mas_vieja_dias": 307,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -828,7 +828,7 @@
       "nombre": "INDUSTRIAS BUENA VIBRA S.A.S.",
       "saldo": 79333,
       "facturas": 1,
-      "mas_vieja_dias": 1,
+      "mas_vieja_dias": 2,
       "por_antiguedad": {
         "hasta 30": 79333,
         "31 a 60": 0,
@@ -842,7 +842,7 @@
       "nombre": "PRICESMART COLOMBIA S.A.S.",
       "saldo": 78000,
       "facturas": 1,
-      "mas_vieja_dias": 15,
+      "mas_vieja_dias": 16,
       "por_antiguedad": {
         "hasta 30": 78000,
         "31 a 60": 0,
@@ -856,7 +856,7 @@
       "nombre": "ALADINO SALA DE JUEGOS S.A.S",
       "saldo": 77500,
       "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 77500,
         "31 a 60": 0,
@@ -870,7 +870,7 @@
       "nombre": "Aceitunas Cazorla SL",
       "saldo": 77046.31,
       "facturas": 1,
-      "mas_vieja_dias": 200,
+      "mas_vieja_dias": 201,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -884,7 +884,7 @@
       "nombre": "GRUPO SLAM SAS",
       "saldo": 72500,
       "facturas": 2,
-      "mas_vieja_dias": 116,
+      "mas_vieja_dias": 117,
       "por_antiguedad": {
         "hasta 30": 14500,
         "31 a 60": 0,
@@ -898,7 +898,7 @@
       "nombre": "MAESTRI ON TRACK S.A.S",
       "saldo": 70000,
       "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 70000,
         "31 a 60": 0,
@@ -912,7 +912,7 @@
       "nombre": "C.I. INVERSIONES ELCER S.A.S.",
       "saldo": 60000,
       "facturas": 1,
-      "mas_vieja_dias": 40,
+      "mas_vieja_dias": 41,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 60000,
@@ -926,7 +926,7 @@
       "nombre": "NELSON POSADA GARCIA",
       "saldo": 60000,
       "facturas": 1,
-      "mas_vieja_dias": 155,
+      "mas_vieja_dias": 156,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -940,7 +940,7 @@
       "nombre": "R & A FOOD SAS",
       "saldo": 59000,
       "facturas": 2,
-      "mas_vieja_dias": 330,
+      "mas_vieja_dias": 331,
       "por_antiguedad": {
         "hasta 30": 31000,
         "31 a 60": 0,
@@ -954,7 +954,7 @@
       "nombre": "ASEOS COLOMBIANOS ASEO COLBA SA",
       "saldo": 56000,
       "facturas": 3,
-      "mas_vieja_dias": 178,
+      "mas_vieja_dias": 179,
       "por_antiguedad": {
         "hasta 30": 28000,
         "31 a 60": 0,
@@ -968,7 +968,7 @@
       "nombre": "SERVICIOS TEMPORALES DE COLOMBIA TEMPOCOLBA SOCIEDAD POR ACCIONES SIMPLIFICADA",
       "saldo": 56000,
       "facturas": 2,
-      "mas_vieja_dias": 54,
+      "mas_vieja_dias": 55,
       "por_antiguedad": {
         "hasta 30": 28000,
         "31 a 60": 28000,
@@ -982,7 +982,7 @@
       "nombre": "MULTIGRASAS DE COLOMBIA SAS",
       "saldo": 52500,
       "facturas": 2,
-      "mas_vieja_dias": 208,
+      "mas_vieja_dias": 209,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -996,7 +996,7 @@
       "nombre": "BIOSERVICIOS S.A.S",
       "saldo": 49500,
       "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 49500,
         "31 a 60": 0,
@@ -1010,7 +1010,7 @@
       "nombre": "LEONARDO PALACIOS ARRIETA",
       "saldo": 48000,
       "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 48000,
         "31 a 60": 0,
@@ -1024,7 +1024,7 @@
       "nombre": "GISELA LOPEZ CANO",
       "saldo": 48000,
       "facturas": 1,
-      "mas_vieja_dias": 55,
+      "mas_vieja_dias": 56,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 48000,
@@ -1038,7 +1038,7 @@
       "nombre": "GALAN Y CIA S EN C AMERICAN CHEESE  CAKE",
       "saldo": 46500,
       "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 46500,
         "31 a 60": 0,
@@ -1052,7 +1052,7 @@
       "nombre": "FLORIUS S.A.S",
       "saldo": 40000,
       "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 40000,
         "31 a 60": 0,
@@ -1066,7 +1066,7 @@
       "nombre": "GRUPO MLT SINCE 2004 SAS",
       "saldo": 40000,
       "facturas": 1,
-      "mas_vieja_dias": 62,
+      "mas_vieja_dias": 63,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1080,7 +1080,7 @@
       "nombre": "FRESCOS DE COLOMBIA COLFRESH COFFEE EXPORTADORES S.A.S",
       "saldo": 39666,
       "facturas": 1,
-      "mas_vieja_dias": 101,
+      "mas_vieja_dias": 102,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1094,7 +1094,7 @@
       "nombre": "ALMACENES GENERALES DE DEPOSITOS DE CAFE S A ALMACAFE",
       "saldo": 39000,
       "facturas": 2,
-      "mas_vieja_dias": 178,
+      "mas_vieja_dias": 179,
       "por_antiguedad": {
         "hasta 30": 19500,
         "31 a 60": 0,
@@ -1108,7 +1108,7 @@
       "nombre": "YENNY TATIANA RAMIREZ TABARES",
       "saldo": 39000,
       "facturas": 1,
-      "mas_vieja_dias": 217,
+      "mas_vieja_dias": 218,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1122,7 +1122,7 @@
       "nombre": "FARMACIAS DE SIMILARES COLOMBIA SAS",
       "saldo": 35000,
       "facturas": 2,
-      "mas_vieja_dias": 208,
+      "mas_vieja_dias": 209,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1136,7 +1136,7 @@
       "nombre": "COMERCIALIZADORA SANTANDER SAS",
       "saldo": 35000,
       "facturas": 1,
-      "mas_vieja_dias": 269,
+      "mas_vieja_dias": 270,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1150,7 +1150,7 @@
       "nombre": "U T ZZZ ZOE",
       "saldo": 33000,
       "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 33000,
         "31 a 60": 0,
@@ -1164,7 +1164,7 @@
       "nombre": "ECOVIDA INTEGRAL S.A.S",
       "saldo": 30240,
       "facturas": 1,
-      "mas_vieja_dias": 160,
+      "mas_vieja_dias": 161,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1178,7 +1178,7 @@
       "nombre": "ALIMENTOS LA PORCINERIA S.A.S",
       "saldo": 30000,
       "facturas": 1,
-      "mas_vieja_dias": 147,
+      "mas_vieja_dias": 148,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1192,7 +1192,7 @@
       "nombre": "FC Y FC S.A.S.",
       "saldo": 20000,
       "facturas": 1,
-      "mas_vieja_dias": 57,
+      "mas_vieja_dias": 58,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 20000,
@@ -1206,7 +1206,7 @@
       "nombre": "ALÉGRATE RECREACIÓN S.A.S",
       "saldo": 20000,
       "facturas": 1,
-      "mas_vieja_dias": 140,
+      "mas_vieja_dias": 141,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1220,7 +1220,7 @@
       "nombre": "CARIBE THIEL S.A.S",
       "saldo": 18000,
       "facturas": 1,
-      "mas_vieja_dias": 25,
+      "mas_vieja_dias": 26,
       "por_antiguedad": {
         "hasta 30": 18000,
         "31 a 60": 0,
@@ -1234,7 +1234,7 @@
       "nombre": "COOPERATIVA DE PORCICULTORES DEL EJE CAFETERO",
       "saldo": 18000,
       "facturas": 1,
-      "mas_vieja_dias": 85,
+      "mas_vieja_dias": 86,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1248,7 +1248,7 @@
       "nombre": "APLUS COMERCIALIZADORA S.A.S",
       "saldo": 15500,
       "facturas": 1,
-      "mas_vieja_dias": 298,
+      "mas_vieja_dias": 299,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1262,7 +1262,7 @@
       "nombre": "SERVIESTIBAMOS S. A. S",
       "saldo": 15000,
       "facturas": 1,
-      "mas_vieja_dias": 298,
+      "mas_vieja_dias": 299,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1276,7 +1276,7 @@
       "nombre": "MANIMEZ S.A.S",
       "saldo": 10000,
       "facturas": 1,
-      "mas_vieja_dias": 196,
+      "mas_vieja_dias": 197,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1290,7 +1290,7 @@
       "nombre": "BARILLA G. E R. FRATELLI - SOCIETA PER AZIONI",
       "saldo": 490,
       "facturas": 1,
-      "mas_vieja_dias": 81,
+      "mas_vieja_dias": 82,
       "por_antiguedad": {
         "hasta 30": 0,
         "31 a 60": 0,
@@ -1306,128 +1306,128 @@
       "nombre": "MALL PLAZA  SERVICIOS  S A S",
       "saldo": 58126740,
       "facturas": 33,
-      "mas_vieja_dias": 525
+      "mas_vieja_dias": 526
     },
     {
       "nit": "900155107",
       "nombre": "CENCOSUD COLOMBIA S.A",
       "saldo": 28546910,
       "facturas": 18,
-      "mas_vieja_dias": 41
+      "mas_vieja_dias": 42
     },
     {
       "nit": "800244387",
       "nombre": "ARCOS DORADOS COLOMBIA S.A.S",
       "saldo": 3454500,
       "facturas": 1,
-      "mas_vieja_dias": 21
+      "mas_vieja_dias": 22
     },
     {
       "nit": "901071157",
       "nombre": "INTEGRATIVA AGROPECUARIA S.A.S",
       "saldo": 2188000,
       "facturas": 3,
-      "mas_vieja_dias": 55
+      "mas_vieja_dias": 56
     },
     {
       "nit": "890916575",
       "nombre": "DISLICORES",
       "saldo": 2086000,
       "facturas": 1,
-      "mas_vieja_dias": 32
+      "mas_vieja_dias": 33
     },
     {
       "nit": "900004111",
       "nombre": "VICTORIA CENTRO COMERCIAL REGIONAL- PROPIEDAD HORIZONTAL",
       "saldo": 2046681,
       "facturas": 2,
-      "mas_vieja_dias": 26
+      "mas_vieja_dias": 27
     },
     {
       "nit": "900533674",
       "nombre": "CARNICOS EL HATO SAS",
       "saldo": 1485000,
       "facturas": 1,
-      "mas_vieja_dias": 47
+      "mas_vieja_dias": 48
     },
     {
       "nit": "901299445",
       "nombre": "TIENDAS GUAYACAN S.A.S",
       "saldo": 1418480,
       "facturas": 9,
-      "mas_vieja_dias": 553
-    },
-    {
-      "nit": "900229503",
-      "nombre": "SERVICIOS DE ASEO, CAFETERIA, MANTENIMIENTO INSTITUCIONAL, OUTSOURCING SEASIN LIMITADA",
-      "saldo": 1283500,
-      "facturas": 4,
-      "mas_vieja_dias": 264
+      "mas_vieja_dias": 554
     },
     {
       "nit": "900641156",
       "nombre": "No aplica",
       "saldo": 1159500,
       "facturas": 5,
-      "mas_vieja_dias": 418
+      "mas_vieja_dias": 419
     },
     {
       "nit": "900149693",
       "nombre": "DECAMERON CINCO HERRADURAS S.A.S.",
       "saldo": 1131000,
       "facturas": 2,
-      "mas_vieja_dias": 328
+      "mas_vieja_dias": 329
     },
     {
       "nit": "900073254",
       "nombre": "CENTRO ASEO MANTENIMIENTO PROFESIONAL S.A.S",
       "saldo": 957000,
       "facturas": 2,
-      "mas_vieja_dias": 298
+      "mas_vieja_dias": 299
     },
     {
       "nit": "901216537",
       "nombre": "No aplica",
       "saldo": 927000,
       "facturas": 6,
-      "mas_vieja_dias": 55
+      "mas_vieja_dias": 56
     },
     {
       "nit": "900687096",
       "nombre": "SUPER POLLOS DEL GALPON S.A.S",
       "saldo": 595000,
       "facturas": 3,
-      "mas_vieja_dias": 95
+      "mas_vieja_dias": 96
     },
     {
       "nit": "901868260",
       "nombre": "CAFE KUMANDAY S.A.S",
       "saldo": 595000,
       "facturas": 2,
-      "mas_vieja_dias": 199
+      "mas_vieja_dias": 200
+    },
+    {
+      "nit": "830131726",
+      "nombre": "VIVE CAFÉ S.A. BIC",
+      "saldo": 560000,
+      "facturas": 7,
+      "mas_vieja_dias": 264
     }
   ],
-  "generado_en": "2026-11-24T21:17:05.163Z",
+  "generado_en": "2026-11-25T20:30:25.529Z",
   "ventana": {
     "desde": "2024-11-01",
-    "hasta": "2026-11-24",
+    "hasta": "2026-11-25",
     "meses": 24
   },
-  "facturas_revisadas": 3971,
+  "facturas_revisadas": 3974,
   "fuente": "api.siigo.com · facturas de venta",
   "facturado_por_mes": {
     "2026-11": {
-      "facturado": 96478373.54,
-      "saldo": 68556753.53999999,
-      "facturas": 120,
+      "facturado": 97155823.53999999,
+      "saldo": 68467503.53999999,
+      "facturas": 123,
       "por_codigo": {
         "20001": {
-          "cantidad": 164,
-          "valor": 68975073.53999999
+          "cantidad": 166,
+          "valor": 69278523.53999999
         },
         "21002": {
-          "cantidad": 586,
-          "valor": 23130300
+          "cantidad": 588,
+          "valor": 23504300
         },
         "21004": {
           "cantidad": 4,
@@ -1446,11 +1446,11 @@
           "valor": 100000
         }
       },
-      "cobrado": 27921620.000000015
+      "cobrado": 28688320
     },
     "2026-10": {
       "facturado": 76316367.97999999,
-      "saldo": 16056072.77,
+      "saldo": 15624072.77,
       "facturas": 225,
       "por_codigo": {
         "20001": {
@@ -1482,7 +1482,7 @@
           "valor": 6383160
         }
       },
-      "cobrado": 60260295.20999999
+      "cobrado": 60692295.20999999
     },
     "2026-09": {
       "facturado": 81175967,
@@ -1518,7 +1518,7 @@
     },
     "2026-08": {
       "facturado": 84085936.5,
-      "saldo": 861166,
+      "saldo": 285166,
       "facturas": 152,
       "por_codigo": {
         "20001": {
@@ -1546,7 +1546,7 @@
           "valor": 450000
         }
       },
-      "cobrado": 83224770.5
+      "cobrado": 83800770.5
     },
     "2026-07": {
       "facturado": 55572528,
@@ -1627,7 +1627,7 @@
         },
         "20001": {
           "cantidad": 6517,
-          "valor": 92589932.27
+          "valor": 92589932.27000001
         },
         "20002": {
           "cantidad": 8,
@@ -1714,7 +1714,7 @@
     },
     "2026-03": {
       "facturado": 98521449.5,
-      "saldo": 464500,
+      "saldo": 189000,
       "facturas": 157,
       "por_codigo": {
         "20001": {
@@ -1746,7 +1746,7 @@
           "valor": 2142000
         }
       },
-      "cobrado": 98056949.5
+      "cobrado": 98332449.5
     },
     "2026-02": {
       "facturado": 101205484.3,
@@ -2033,7 +2033,7 @@
       "cobrado": 57777287.33
     },
     "2025-07": {
-      "facturado": 89072357.80999999,
+      "facturado": 89072357.81,
       "saldo": 8337140,
       "facturas": 182,
       "por_codigo": {
@@ -2062,7 +2062,7 @@
           "valor": 53550
         }
       },
-      "cobrado": 80735217.80999999
+      "cobrado": 80735217.81
     },
     "2025-06": {
       "facturado": 42727411,
@@ -2213,13 +2213,13 @@
       "cobrado": 39790284
     },
     "2025-01": {
-      "facturado": 58473903.199999996,
+      "facturado": 58473903.2,
       "saldo": 0,
       "facturas": 82,
       "por_codigo": {
         "20001": {
           "cantidad": 16,
-          "valor": 40754025.199999996
+          "valor": 40754025.2
         },
         "20007": {
           "cantidad": 2,
@@ -2242,7 +2242,7 @@
           "valor": 857000
         }
       },
-      "cobrado": 58473903.199999996
+      "cobrado": 58473903.2
     },
     "2024-12": {
       "facturado": 96952197.01,
@@ -2335,6 +2335,6 @@
   },
   "nota_facturado": "Incluye todo lo que BPM factura: certificaciones, tramites INVIMA, asesorias presenciales y apto medico. No es comparable con el valor a precio de lista del tablero, que solo cuenta certificaciones.",
   "tiempos_ms": {
-    "total": 49983
+    "total": 55564
   }
 }
