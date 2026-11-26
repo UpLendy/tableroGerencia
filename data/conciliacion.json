@@ -40,7 +40,7 @@
       "nombre_siigo": "DISLICORES",
       "unidades": 149,
       "paquetes": 0,
-      "unidades_mes_siguiente": 0,
+      "unidades_mes_siguiente": 228,
       "certificado_mes_anterior": 46,
       "diferencia": -13,
       "valor_facturado": 2086000,
@@ -58,7 +58,7 @@
         "2026-08": 0,
         "2026-09": 25,
         "2026-10": 149,
-        "2026-11": 0
+        "2026-11": 228
       }
     },
     {
@@ -358,7 +358,7 @@
       "tarifa": [
         13500
       ],
-      "saldo": 595000,
+      "saldo": 0,
       "estado": "difiere",
       "sin_facturar": 1,
       "valor_sin_facturar": 13500,
@@ -1242,7 +1242,7 @@
       "tarifa": [
         14000
       ],
-      "saldo": 28000,
+      "saldo": 0,
       "estado": "cuadra",
       "sin_facturar": 0,
       "valor_sin_facturar": 0,
@@ -1555,15 +1555,15 @@
       "valor": 375000
     },
     {
-      "nit": "75079803",
-      "nombre": "NELSON ENRIQUE GONZALEZ MUÑOZ",
-      "unidades": 2,
-      "valor": 360000
-    },
-    {
       "nit": "1016054196",
       "nombre": "LAURA MURILLO HERNANDEZ",
       "unidades": 8,
+      "valor": 360000
+    },
+    {
+      "nit": "75079803",
+      "nombre": "NELSON ENRIQUE GONZALEZ MUÑOZ",
+      "unidades": 2,
       "valor": 360000
     },
     {
@@ -1573,15 +1573,15 @@
       "valor": 345000
     },
     {
-      "nit": "1192729709",
-      "nombre": "Alejandra Marín Gil",
-      "unidades": 11,
-      "valor": 320000
-    },
-    {
       "nit": "901465344",
       "nombre": "DISTRIBUIDORA AGRICOLA GALLEGO RAMIREZ SAS",
       "unidades": 1,
+      "valor": 320000
+    },
+    {
+      "nit": "1192729709",
+      "nombre": "Alejandra Marín Gil",
+      "unidades": 11,
       "valor": 320000
     },
     {
@@ -1663,56 +1663,14 @@
       "valor": 140000
     },
     {
-      "nit": "24329657",
-      "nombre": "COMIDAS RAPIDAS EL CALI",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
       "nit": "901147428",
       "nombre": "ATRACCIONES MECANICAS S.A.S",
       "unidades": 1,
       "valor": 100000
     },
     {
-      "nit": "901849901",
-      "nombre": "HOGAR CORAZÓN CUERPO Y MENTE ACTIVA S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "65795368",
-      "nombre": "DIANA RAMIREZ CASTRO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "901938278",
-      "nombre": "GRUPO GASTRONOMICO DGM S.A.S",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "902059437",
-      "nombre": "ROCKET LAB S.A.S.",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "24731045",
-      "nombre": "MARIA GLADIS CASTRO QUICENO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "1076668475",
-      "nombre": "NICOLAS ANGULO AGUILAR",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
-      "nit": "25109229",
-      "nombre": "MARIA MELIDA TABORDA MURILLO",
+      "nit": "24329657",
+      "nombre": "COMIDAS RAPIDAS EL CALI",
       "unidades": 1,
       "valor": 100000
     },
@@ -1723,20 +1681,62 @@
       "valor": 100000
     },
     {
-      "nit": "1053853162",
-      "nombre": "TATIANA QUIRAMA GIRALDO",
-      "unidades": 1,
-      "valor": 100000
-    },
-    {
       "nit": "901360781",
       "nombre": "COSTIFOOD S.A.S",
       "unidades": 1,
       "valor": 100000
     },
     {
+      "nit": "1053853162",
+      "nombre": "TATIANA QUIRAMA GIRALDO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
       "nit": "1053827372",
       "nombre": "JUAN ALEJANDRO GONZALEZ CASTAÑO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901938278",
+      "nombre": "GRUPO GASTRONOMICO DGM S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "24731045",
+      "nombre": "MARIA GLADIS CASTRO QUICENO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "902059437",
+      "nombre": "ROCKET LAB S.A.S.",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "25109229",
+      "nombre": "MARIA MELIDA TABORDA MURILLO",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "901849901",
+      "nombre": "HOGAR CORAZÓN CUERPO Y MENTE ACTIVA S.A.S",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "1076668475",
+      "nombre": "NICOLAS ANGULO AGUILAR",
+      "unidades": 1,
+      "valor": 100000
+    },
+    {
+      "nit": "65795368",
+      "nombre": "DIANA RAMIREZ CASTRO",
       "unidades": 1,
       "valor": 100000
     },
@@ -1813,12 +1813,6 @@
       "valor": 30000
     },
     {
-      "nit": "901517118",
-      "nombre": "PHF SAS",
-      "unidades": 1,
-      "valor": 20000
-    },
-    {
       "nit": "810006204",
       "nombre": "CORPORACION CLUB SOCIAL DRIVE IN CERRITOS",
       "unidades": 1,
@@ -1827,6 +1821,12 @@
     {
       "nit": "901455816",
       "nombre": "M&S VITAMINS SAS",
+      "unidades": 1,
+      "valor": 20000
+    },
+    {
+      "nit": "901517118",
+      "nombre": "PHF SAS",
       "unidades": 1,
       "valor": 20000
     },
@@ -1913,9 +1913,9 @@
     "2026-11"
   ],
   "periodo_siguiente": "2026-11",
-  "facturas_del_siguiente": 123,
+  "facturas_del_siguiente": 127,
   "periodo": "2026-10",
-  "generado_en": "2026-11-25T20:30:25.546Z",
+  "generado_en": "2026-11-26T20:14:20.729Z",
   "facturas_del_periodo": 225,
   "fuente": "api.siigo.com · facturas de venta, cruzadas contra el corte",
   "corte_usado": {
@@ -2762,42 +2762,6 @@
           }
         },
         "meses_sin_facturar": 1.1
-      },
-      {
-        "codigo": "dad4ef",
-        "nombre": "DISTRIBUIDORA DE VINOS Y LICORES S.A.S.",
-        "nit": "890916575",
-        "nit_siigo": "890916575",
-        "certificado": 208,
-        "facturado": 174,
-        "saldo": 34,
-        "por_mes": {
-          "2026-05": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-06": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-07": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 0
-          },
-          "2026-08": {
-            "certificado": 0,
-            "facturado_al_mes_siguiente": 25
-          },
-          "2026-09": {
-            "certificado": 46,
-            "facturado_al_mes_siguiente": 149
-          },
-          "2026-10": {
-            "certificado": 162,
-            "facturado_al_mes_siguiente": 0
-          }
-        },
-        "meses_sin_facturar": 1
       },
       {
         "codigo": "39a3fe",
@@ -3959,6 +3923,42 @@
         "meses_sin_facturar": -4.9
       },
       {
+        "codigo": "dad4ef",
+        "nombre": "DISTRIBUIDORA DE VINOS Y LICORES S.A.S.",
+        "nit": "890916575",
+        "nit_siigo": "890916575",
+        "certificado": 208,
+        "facturado": 402,
+        "saldo": -194,
+        "por_mes": {
+          "2026-05": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-06": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-07": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 0
+          },
+          "2026-08": {
+            "certificado": 0,
+            "facturado_al_mes_siguiente": 25
+          },
+          "2026-09": {
+            "certificado": 46,
+            "facturado_al_mes_siguiente": 149
+          },
+          "2026-10": {
+            "certificado": 162,
+            "facturado_al_mes_siguiente": 228
+          }
+        },
+        "meses_sin_facturar": -5.6
+      },
+      {
         "codigo": "3e129c",
         "nombre": "HELADERIA LAS MAS FRESAS",
         "nit": "11935481610",
@@ -4322,19 +4322,19 @@
       "umbral_menudo": 5,
       "mayores": 5,
       "saldo_mayores": 858,
-      "pct_mayores": 77,
+      "pct_mayores": 79.4,
       "menudas": 16,
       "saldo_menudas": 44
     },
     "resumen": {
       "empresas": 64,
-      "con_saldo": 34,
+      "con_saldo": 33,
       "fuera_via_consumidor_final": 2,
       "fuera_sin_nit": 9,
       "agrupadas": 2,
       "certificado": 5125,
-      "facturado": 4433,
-      "saldo": 1115
+      "facturado": 4661,
+      "saldo": 1081
     }
   }
 }
